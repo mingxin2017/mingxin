@@ -7,9 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.ServletActionContext;
 
 import com.service.IWeixinService;
-import com.weixin.pojo.SNSUserInfo;
-import com.weixin.pojo.WeixinOauth2Token;
-import com.weixin.util.OAuth2TokenUtil;
 import com.weixin.util.WeixinSignUtil;
 
 public class WeixinAction {

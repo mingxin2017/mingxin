@@ -30,12 +30,12 @@ public class WeixinServiceImpl implements com.service.IWeixinService{
             Map<String, String> requestMap = MessageUtil.parseXml(request);
             
             /* 用户同意网页授权后，能获取到code和estate*/
-    		String code = request.getParameter("code");
-    		String state = request.getParameter("state");
+    		String code = requestMap.get("code")!=null?requestMap.get("code"):"";
+    		String state = requestMap.get("state")!=null?requestMap.get("state"):"";
     		/* 用户同意网页授权后，能获取到code*/
             
     		// 用户同意授权
-    		if (!"authdeny".equals(code)) {
+    		if (!"authdeny".equals(code)&&!code.isEmpty()) {
     			// 获取网页授权access_token
     			WeixinOauth2Token weixinOauth2Token = OAuth2TokenUtil
     					.getOauth2AccessToken(WeixinSignUtil.AppID,
