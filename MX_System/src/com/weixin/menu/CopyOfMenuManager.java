@@ -16,8 +16,8 @@ import com.weixin.util.WeixinUtil;
 * 创建时间：  2015-12-1 </br>
 * 发布版本：V1.0  </br>
  */
-public class MenuManager {
-    private static Logger log = LoggerFactory.getLogger(MenuManager.class);
+public class CopyOfMenuManager {
+    private static Logger log = LoggerFactory.getLogger(CopyOfMenuManager.class);
 
     public static void createMenu() {
     	
@@ -75,14 +75,14 @@ public class MenuManager {
 
         CommonButton btn21 = new CommonButton();
         btn21.setName("校园时报");
-        btn21.setType("view");
-        btn21.setUrl("http://www.soso.com/");
+        btn21.setType("click");
+        btn21.setKey("21");
 
         CommonButton btn22 = new CommonButton();
         btn22.setName("乡村时报");
         btn22.setType("click");
         btn22.setKey("22");
-        
+
         CommonButton btn31 = new CommonButton();
         btn31.setName("校园站");
         btn31.setType("click");

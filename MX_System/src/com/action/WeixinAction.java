@@ -1,12 +1,17 @@
 package com.action;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.ServletActionContext;
 
 import com.service.IWeixinService;
+import com.weixin.pojo.SNSUserInfo;
+import com.weixin.pojo.WeixinOauth2Token;
+import com.weixin.util.OAuth2TokenUtil;
 import com.weixin.util.WeixinSignUtil;
 
 public class WeixinAction {
@@ -56,16 +61,43 @@ public class WeixinAction {
 			}
 
 		}
-		
+
 		out.close();
 		out = null;
-		
+
 		/*
+		 * // 用户同意授权后，能获取到code String code = request.getParameter("code");
+		 * String state = request.getParameter("state");
+		 * 
+		 * // 用户同意授权 if (!"authdeny".equals(code)) { // 获取网页授权access_token
+		 * WeixinOauth2Token weixinOauth2Token = OAuth2TokenUtil
+		 * .getOauth2AccessToken(WeixinSignUtil.AppID, WeixinSignUtil.AppSecret,
+		 * code); // 网页授权接口访问凭证 String accessToken =
+		 * weixinOauth2Token.getAccessToken(); // 用户标识 String openId =
+		 * weixinOauth2Token.getOpenId(); // 获取用户信息 SNSUserInfo snsUserInfo =
+		 * OAuth2TokenUtil.getSNSUserInfo( accessToken, openId);
+		 * 
+		 * // 设置要传递的参数 request.setAttribute("snsUserInfo", snsUserInfo);
+		 * request.setAttribute("state", state); }
+		 * 
+		 * // 跳转到index.jsp
+		 * request.getRequestDispatcher("index.jsp").forward(request, response);
+		 */
+
+		return null;
+	}
+
+	public String getWebAccessToken() throws ServletException, IOException {
+
+		// 将请求、响应的编码均设置为UTF-8（防止中文乱码）
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpServletResponse response = ServletActionContext.getResponse();
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+
 		// 用户同意授权后，能获取到code
 		String code = request.getParameter("code");
 		String state = request.getParameter("state");
-
-		// 用户同意授权
 		if (!"authdeny".equals(code)) {
 			// 获取网页授权access_token
 			WeixinOauth2Token weixinOauth2Token = OAuth2TokenUtil
@@ -78,26 +110,17 @@ public class WeixinAction {
 			// 获取用户信息
 			SNSUserInfo snsUserInfo = OAuth2TokenUtil.getSNSUserInfo(
 					accessToken, openId);
-
+			System.out.println(snsUserInfo.getOpenId() + ","
+					+ snsUserInfo.getNickname() + ","
+					+ snsUserInfo.getHeadImgUrl());
 			// 设置要传递的参数
 			request.setAttribute("snsUserInfo", snsUserInfo);
 			request.setAttribute("state", state);
 		}
-		
 		// 跳转到index.jsp
-        request.getRequestDispatcher("index.jsp").forward(request, response);*/
-		
+		request.getRequestDispatcher("login.jsp").forward(request, response);
+
 		return null;
 	}
 
-	
-	public String getWebAccessToken(){
-		
-		
-		
-		
-		
-		return "fail";
-	}
-	
 }

@@ -30,12 +30,15 @@ public class WeixinServiceImpl implements com.service.IWeixinService{
             Map<String, String> requestMap = MessageUtil.parseXml(request);
             
             /* 用户同意网页授权后，能获取到code和estate*/
-    		String code = requestMap.get("code")!=null?requestMap.get("code"):"";
-    		String state = requestMap.get("state")!=null?requestMap.get("state"):"";
+//    		String code = requestMap.get("code")!=null?requestMap.get("code"):"";
+//    		String state = requestMap.get("state")!=null?requestMap.get("state"):"";
     		/* 用户同意网页授权后，能获取到code*/
             
+    		
+//    		System.out.println("code-----"+code);
+    		
     		// 用户同意授权
-    		if (!"authdeny".equals(code)&&!code.isEmpty()) {
+    		/*if (!"authdeny".equals(code)) {
     			// 获取网页授权access_token
     			WeixinOauth2Token weixinOauth2Token = OAuth2TokenUtil
     					.getOauth2AccessToken(WeixinSignUtil.AppID,
@@ -47,11 +50,11 @@ public class WeixinServiceImpl implements com.service.IWeixinService{
     			// 获取用户信息
     			SNSUserInfo snsUserInfo = OAuth2TokenUtil.getSNSUserInfo(
     					accessToken, openId);
-
+    			System.out.println(snsUserInfo.getOpenId()+","+snsUserInfo.getNickname()+","+snsUserInfo.getHeadImgUrl());
     			// 设置要传递的参数
     			request.setAttribute("snsUserInfo", snsUserInfo);
     			request.setAttribute("state", state);
-    		}
+    		}*/
     		
     		
             // 发送方帐号openid
@@ -115,7 +118,7 @@ public class WeixinServiceImpl implements com.service.IWeixinService{
                 String eventType = requestMap.get("Event");
                 // 关注
                 if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
-                    respContent = "谢谢您的关注！";
+                    respContent = "终于等到你！！";
                 }
                 // 取消关注
                 else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
@@ -135,6 +138,8 @@ public class WeixinServiceImpl implements com.service.IWeixinService{
                 else if (eventType.equals(MessageUtil.EVENT_TYPE_CLICK)) {
                     // TODO 处理菜单点击事件
                 	respContent = "菜单点击事件！";
+                	System.out.println("eventKey值为"+ requestMap.get("EventKey"));
+                	//request.getRequestDispatcher("index.jsp").forward(request, response);
                 }
             }
             // 设置文本消息的内容
