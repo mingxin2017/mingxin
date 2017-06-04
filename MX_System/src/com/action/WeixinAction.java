@@ -61,29 +61,8 @@ public class WeixinAction {
 			}
 
 		}
-
 		out.close();
 		out = null;
-
-		/*
-		 * // 用户同意授权后，能获取到code String code = request.getParameter("code");
-		 * String state = request.getParameter("state");
-		 * 
-		 * // 用户同意授权 if (!"authdeny".equals(code)) { // 获取网页授权access_token
-		 * WeixinOauth2Token weixinOauth2Token = OAuth2TokenUtil
-		 * .getOauth2AccessToken(WeixinSignUtil.AppID, WeixinSignUtil.AppSecret,
-		 * code); // 网页授权接口访问凭证 String accessToken =
-		 * weixinOauth2Token.getAccessToken(); // 用户标识 String openId =
-		 * weixinOauth2Token.getOpenId(); // 获取用户信息 SNSUserInfo snsUserInfo =
-		 * OAuth2TokenUtil.getSNSUserInfo( accessToken, openId);
-		 * 
-		 * // 设置要传递的参数 request.setAttribute("snsUserInfo", snsUserInfo);
-		 * request.setAttribute("state", state); }
-		 * 
-		 * // 跳转到index.jsp
-		 * request.getRequestDispatcher("index.jsp").forward(request, response);
-		 */
-
 		return null;
 	}
 
@@ -118,9 +97,22 @@ public class WeixinAction {
 			request.setAttribute("state", state);
 		}
 		// 跳转到index.jsp
-		request.getRequestDispatcher("login.jsp").forward(request, response);
+		//request.getRequestDispatcher("login.jsp").forward(request, response);
 
-		return null;
+		return "weixinHome";
 	}
 
+	
+	//鸣心时报主页跳转方法
+	public String getCountryNews(){
+		return "countryNews";
+	}
+	
+	
+	//鸣心时报主页跳转方法
+	public String getSchoolNews(){
+			return "schoolNews";
+	}
+	
+	
 }

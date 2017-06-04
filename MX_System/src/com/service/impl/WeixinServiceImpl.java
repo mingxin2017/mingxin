@@ -29,34 +29,6 @@ public class WeixinServiceImpl implements com.service.IWeixinService{
             // 调用parseXml方法解析请求消息
             Map<String, String> requestMap = MessageUtil.parseXml(request);
             
-            /* 用户同意网页授权后，能获取到code和estate*/
-//    		String code = requestMap.get("code")!=null?requestMap.get("code"):"";
-//    		String state = requestMap.get("state")!=null?requestMap.get("state"):"";
-    		/* 用户同意网页授权后，能获取到code*/
-            
-    		
-//    		System.out.println("code-----"+code);
-    		
-    		// 用户同意授权
-    		/*if (!"authdeny".equals(code)) {
-    			// 获取网页授权access_token
-    			WeixinOauth2Token weixinOauth2Token = OAuth2TokenUtil
-    					.getOauth2AccessToken(WeixinSignUtil.AppID,
-    							WeixinSignUtil.AppSecret, code);
-    			// 网页授权接口访问凭证
-    			String accessToken = weixinOauth2Token.getAccessToken();
-    			// 用户标识
-    			String openId = weixinOauth2Token.getOpenId();
-    			// 获取用户信息
-    			SNSUserInfo snsUserInfo = OAuth2TokenUtil.getSNSUserInfo(
-    					accessToken, openId);
-    			System.out.println(snsUserInfo.getOpenId()+","+snsUserInfo.getNickname()+","+snsUserInfo.getHeadImgUrl());
-    			// 设置要传递的参数
-    			request.setAttribute("snsUserInfo", snsUserInfo);
-    			request.setAttribute("state", state);
-    		}*/
-    		
-    		
             // 发送方帐号openid
             String fromUserName = requestMap.get("FromUserName");
             //System.out.println("发送方账号："+fromUserName);
@@ -77,7 +49,16 @@ public class WeixinServiceImpl implements com.service.IWeixinService{
 
             // 文本消息
             if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {
-                respContent = "您发送的是文本消息！";
+            	String content=requestMap.get("Content");
+            	if("1".equals(content)){
+            		respContent = "请投放个人简历至mingxin2017@yahoo.com，我们将尽快与你联系，鸣心真诚期待你的加入！";
+            	}else if("2".equals(content)){
+            		respContent = "广告投放请联系18888888888，鸣心将诚挚与您合作！";
+            	}else if("3".equals(content)){
+            		respContent = "鸣心文化有限公司地址：古田县城东街道建设路8号，邮政编码352200";
+            	}else{
+            		respContent = "回复有误,感谢您对鸣心的关注！";
+            	}
                 
                 //测试获取用户详细信息
                 WeixinUserInfo wui=WeixinUtil.getUserInfo(WeixinGetTokenTimerTask.token.getAccessToken(), fromUserName);
@@ -87,6 +68,7 @@ public class WeixinServiceImpl implements com.service.IWeixinService{
                 System.out.println(wui.getOpenId());
                 System.out.println(wui.getHeadImgUrl());
                 System.out.println(wui.getProvince());
+                
             }
             // 图片消息
             else if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_IMAGE)) {
@@ -119,6 +101,10 @@ public class WeixinServiceImpl implements com.service.IWeixinService{
                 // 关注
                 if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
                     respContent = "终于等到你！！";
+                    
+                    //用户关注后，即可成为系统普通用户
+                    
+                    
                 }
                 // 取消关注
                 else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
@@ -138,8 +124,12 @@ public class WeixinServiceImpl implements com.service.IWeixinService{
                 else if (eventType.equals(MessageUtil.EVENT_TYPE_CLICK)) {
                     // TODO 处理菜单点击事件
                 	respContent = "菜单点击事件！";
+                	String eventKey=requestMap.get("EventKey");
                 	System.out.println("eventKey值为"+ requestMap.get("EventKey"));
-                	//request.getRequestDispatcher("index.jsp").forward(request, response);
+                	
+                	if(eventKey!=null&&eventKey.equals("35")){
+                		respContent="回复数字1：鸣心招聘\r\n\r\n回复数字2：鸣心广告\r\n\r\n回复数字3：联系地址";
+                	}
                 }
             }
             // 设置文本消息的内容

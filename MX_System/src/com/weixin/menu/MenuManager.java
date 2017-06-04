@@ -72,57 +72,65 @@ public class MenuManager {
         btn14.setName("亲子活动");
         btn14.setType("click");
         btn14.setKey("14");
+        
+        CommonButton btn15 = new CommonButton();
+        btn15.setName("我要报名");
+        btn15.setType("click");
+        btn15.setKey("15");
 
         CommonButton btn21 = new CommonButton();
         btn21.setName("校园时报");
         btn21.setType("view");
-        btn21.setUrl("http://www.soso.com/");
+        btn21.setUrl("http://mingxin.imwork.net/MX_System/weixin!getSchoolNews.action");
+        //btn21.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx34c7cde93a1c5c40&redirect_uri=http://mingxin.imwork.net/MX_System/weixin!getWebAccessToken.action&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect");
 
         CommonButton btn22 = new CommonButton();
         btn22.setName("乡村时报");
-        btn22.setType("click");
-        btn22.setKey("22");
+        btn22.setType("view");
+        btn22.setUrl("http://mingxin.imwork.net/MX_System/weixin!getCountryNews.action");
         
         CommonButton btn31 = new CommonButton();
-        btn31.setName("校园站");
+        btn31.setName("教育培训");
         btn31.setType("click");
         btn31.setKey("31");
 
         CommonButton btn32 = new CommonButton();
-        btn32.setName("教育培训");
+        btn32.setName("新闻投稿");
         btn32.setType("click");
         btn32.setKey("32");
 
         CommonButton btn33 = new CommonButton();
-        btn33.setName("赛事项目");
+        btn33.setName("校园记者");
         btn33.setType("click");
         btn33.setKey("33");
 
         CommonButton btn34 = new CommonButton();
-        btn34.setName("鸣心招聘");
+        btn34.setName("我的回忆");
         btn34.setType("click");
         btn34.setKey("34");
+        
+        CommonButton btn35 = new CommonButton();
+        btn35.setName("其他功能");
+        btn35.setType("click");
+        btn35.setKey("35");
         
         /**
          * 微信：  mainBtn1,mainBtn2,mainBtn3底部的三个一级菜单。
          */
         
-        ComplexButton mainBtn1 = new ComplexButton();
-        mainBtn1.setName("鸣心活动");
-        //一级下有4个子菜单
-        mainBtn1.setSub_button(new CommonButton[] { btn11, btn12, btn13, btn14 });
-
-        
         ComplexButton mainBtn2 = new ComplexButton();
-        mainBtn2.setName("鸣心时报");
-        mainBtn2.setSub_button(new CommonButton[] { btn21, btn22 });
+        mainBtn2.setName("鸣心活动");
+        //一级下有4个子菜单
+        mainBtn2.setSub_button(new CommonButton[] { btn11, btn12, btn13, btn14,btn15 });
 
-        
+        ComplexButton mainBtn1 = new ComplexButton();
+        mainBtn1.setName("鸣心时报");
+        mainBtn1.setSub_button(new CommonButton[] { btn21, btn22 });
+
         ComplexButton mainBtn3 = new ComplexButton();
-        mainBtn3.setName("鸣心站点");
-        mainBtn3.setSub_button(new CommonButton[] { btn31, btn32, btn33,btn34 });
+        mainBtn3.setName("个人中心");
+        mainBtn3.setSub_button(new CommonButton[] { btn31,btn32, btn33,btn34,btn35 });
 
-        
         /**
          * 封装整个菜单
          */
