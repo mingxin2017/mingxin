@@ -1,10 +1,14 @@
 package com.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.weixin.message.resp.Article;
+import com.weixin.message.resp.NewsMessage;
 import com.weixin.message.resp.TextMessage;
 import com.weixin.pojo.SNSUserInfo;
 import com.weixin.pojo.WeixinOauth2Token;
@@ -126,6 +130,37 @@ public class WeixinServiceImpl implements com.service.IWeixinService{
                 	respContent = "菜单点击事件！";
                 	String eventKey=requestMap.get("EventKey");
                 	System.out.println("eventKey值为"+ requestMap.get("EventKey"));
+                	if(eventKey.equals("13")){           		
+                        // 回复图文消息
+                        NewsMessage newsMessage = new NewsMessage();
+                        newsMessage.setToUserName(fromUserName);
+                        newsMessage.setFromUserName(toUserName);
+                        newsMessage.setCreateTime(new Date().getTime());
+                        newsMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_NEWS);
+                        Article article = new Article();
+                        article.setTitle("放假了去哪儿丨军事夏令营开营啦！");
+                        article.setDescription("炎热七月 2017年鸣心军事夏令营吹响集结号 让你的青春在绿色的军营里奔跑吧！");
+                        article.setPicUrl("http://mmbiz.qpic.cn/mmbiz_jpg/FepiawovpW9miaLzBlGgjtBtbMP2Af484AfWTtxIpRrLZtib7u0gHoTwocHxfFMLgibkEb5zUI28UoQ49PySBN3VGg/0?wx_fmt=jpeg");
+                        article.setUrl("http://mp.weixin.qq.com/s?__biz=MzIxMjgxNjcyNg==&mid=100000093&idx=1&sn=4029a17482fbdc054b9666464f2dc2f4&chksm=1741076420368e72f2f35266e554089ceaba4e33fe770e5e7a77c1b30aaed485bc8348f6a536#rd");
+                        Article article1 = new Article();
+                        article1.setTitle("悠度厦门岛·5天4夜游学夏令营");
+                        article1.setDescription("读万卷书、行万里路这个暑假和鸣心一起来一场夏令营。将文化浸润于人生让成长丰富于游学。夏令营课程内容围绕鹭岛文化和厦门特色风景，让寓教于乐成为一件可实现的教育目的。");
+                        article1.setPicUrl("http://mmbiz.qpic.cn/mmbiz_jpg/FepiawovpW9m7WAodIDxGnWBFn8dyrqyBFhAZn7lic3Gn6SeAsm3xQ9314RT74KcD4hbX3rWfQoibEat4BmTJNO8A/0?wx_fmt=jpeg");
+                        article1.setUrl("http://mp.weixin.qq.com/s?__biz=MzIxMjgxNjcyNg==&mid=100000093&idx=2&sn=cc75234c2a6215f8f58895131543cfcd&chksm=1741076420368e7277313ee38a4c94ff2cc82da32e838d432097a7113c838236deef48514008#rd");
+                        Article article2 = new Article();
+                        article2.setTitle("成长系列之自然户外5天营  -----  自然族群历奇记");
+                        article2.setDescription("成长系列之自然户外5天营----自然族群历奇记；\n在这里，我们将经历“挑战、探险”，懂得感悟人生，感恩陪伴成长的至亲！\n在这里，我们共同寻找内在的强大能量，回归自信、勇敢、阳光！");
+                        article2.setPicUrl("http://mmbiz.qpic.cn/mmbiz_jpg/FepiawovpW9m7WAodIDxGnWBFn8dyrqyBJ6iandOibmmyahlkNAgZCKXeScK5iclU13YVWckZjWGiba8OsJ5zbBu4pw/0?wx_fmt=jpeg");
+                        article2.setUrl("http://mp.weixin.qq.com/s?__biz=MzIxMjgxNjcyNg==&mid=100000093&idx=3&sn=3a4879ad2b0616bfd63546e8c6b7115d&chksm=1741076420368e724b93a36d44e00c35faaebfbe3b028ed774884ecea5156b4289dda5854f5b#rd");
+                        List<Article> articles = new ArrayList<Article>();
+                        articles.add(article);
+                        articles.add(article1);
+                        articles.add(article2);
+                		newsMessage.setArticles(articles);
+                		newsMessage.setArticleCount(3);
+                		respXml = MessageUtil.messageToXml(newsMessage);
+                		return respXml;
+                	}
                 	
                 	if(eventKey!=null&&eventKey.equals("35")){
                 		respContent="回复数字1：鸣心招聘\r\n\r\n回复数字2：鸣心广告\r\n\r\n回复数字3：联系地址";
