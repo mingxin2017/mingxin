@@ -14,7 +14,7 @@ import com.weixin.pojo.WeixinOauth2Token;
 import com.weixin.util.OAuth2TokenUtil;
 import com.weixin.util.WeixinSignUtil;
 
-public class WeixinAction {
+public class WeixinAction { 
 
 	private static final long serialVersionUID = -1627548805862485475L;
 
