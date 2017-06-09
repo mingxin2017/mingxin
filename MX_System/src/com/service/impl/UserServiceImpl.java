@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
 
+import com.bean.MxUsersData;
 import com.bean.PageBean;
-import com.bean.SysUsers;
 import com.dao.ISysUsersDAO;
 
 public class UserServiceImpl implements com.service.IUserService {
@@ -30,9 +30,9 @@ public class UserServiceImpl implements com.service.IUserService {
 	 * 返回值：成功返回用户对象，否则null
 	 * 创建时间：8:17:12 PM  创建者：wulm
 	 */
-	public SysUsers validLogin(String username, String password) {
+	public MxUsersData validLogin(String username, String password) {
 
-		SysUsers user = sysUsersDAO.findSysUsersByNameAndPass(username,
+		MxUsersData user = sysUsersDAO.findSysUsersByNameAndPass(username,
 				password);
 		if (user != null) {
 			return user;
@@ -42,10 +42,10 @@ public class UserServiceImpl implements com.service.IUserService {
 
 	}
 
-	public SysUsers getUserByID(Integer userId) {
+	public MxUsersData getUserByID(Integer userId) {
 		// TODO Auto-generated method stub
 		try {
-			SysUsers User = sysUsersDAO.get(userId);
+			MxUsersData User = sysUsersDAO.get(userId);
 			if (User != null) {
 				return User;
 			}
@@ -55,12 +55,12 @@ public class UserServiceImpl implements com.service.IUserService {
 		return null;
 	}
 	
-	public List<SysUsers> getAllUsers(){
-		List<SysUsers> list =sysUsersDAO.getAll();
+	public List<MxUsersData> getAllUsers(){
+		List<MxUsersData> list =sysUsersDAO.getAll();
 		return list;
 	}
 
-	public PageBean<SysUsers> queryForPage(int pageCurrent) {
+	public PageBean<MxUsersData> queryForPage(int pageCurrent) {
 		HashMap<String, String> conditionList=new HashMap<String, String>();
 		
 		HttpServletRequest request= ServletActionContext.getRequest();
@@ -81,7 +81,7 @@ public class UserServiceImpl implements com.service.IUserService {
 			conditionList.put("user_name like", " '%"+userName+"%'");
 		}
 		
-		PageBean<SysUsers> pb = sysUsersDAO.getUsersPageBean(conditionList,pageCurrent);	
+		PageBean<MxUsersData> pb = sysUsersDAO.getUsersPageBean(conditionList,pageCurrent);	
 		//System.out.println("service中pageBean:总页数"+pb.getTotalPage()+";当前页："+pb.getCurrentPage()+";总记录数:"+pb.getAllRow());
 		return pb;
 	}

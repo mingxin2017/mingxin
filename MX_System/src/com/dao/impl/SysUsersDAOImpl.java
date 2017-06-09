@@ -3,8 +3,9 @@ package com.dao.impl;
 import java.util.HashMap;
 import java.util.List;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+
+import com.bean.MxUsersData;
 import com.bean.PageBean;
-import com.bean.SysUsers;
 import com.dao.ISysUsersDAO;
 import com.publicMethos.ISqlUtil;
 
@@ -23,25 +24,25 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 	}
 
 	public void delete(Integer id) {
-		getHibernateTemplate().delete(getHibernateTemplate().get(SysUsers.class , id));
+		getHibernateTemplate().delete(getHibernateTemplate().get(MxUsersData.class , id));
 	}
 
-	public List<SysUsers> getAll() {
+	public List<MxUsersData> getAll() {
 		return getHibernateTemplate().find("from com.bean.SysUsers");
 	}
 	
-	public SysUsers get(Integer id) {
-		return getHibernateTemplate().get(SysUsers.class , id);
+	public MxUsersData get(Integer id) {
+		return getHibernateTemplate().get(MxUsersData.class , id);
 	}
 
-	public void update(SysUsers user) {
+	public void update(MxUsersData user) {
 		getHibernateTemplate().saveOrUpdate(user);
 	}
 
-	public SysUsers findSysUsersByNameAndPass(String SysUsersname,
+	public MxUsersData findSysUsersByNameAndPass(String SysUsersname,
 			String password) {
 		
-		List<SysUsers> ul = getHibernateTemplate().find("from com.bean.SysUsers au where au.userLoginName = '"+ SysUsersname+"' and au.userPwd = '"+ password+"'");
+		List<MxUsersData> ul = getHibernateTemplate().find("from com.bean.SysUsers au where au.userLoginName = '"+ SysUsersname+"' and au.userPwd = '"+ password+"'");
 
 		if (ul.size() == 1)
         {
@@ -52,16 +53,16 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 		return null;
 	}
 
-	public  PageBean<SysUsers> getUsersPageBean(HashMap<String, String> conditionList,int pageNum){
+	public  PageBean<MxUsersData> getUsersPageBean(HashMap<String, String> conditionList,int pageNum){
 		
-		return sqlUtil.queryForPage(DB_table_name,Primarykey, conditionList, SysUsers.class, pageNum);
+		return sqlUtil.queryForPage(DB_table_name,Primarykey, conditionList, MxUsersData.class, pageNum);
 		
 		
 	}
 	
 	
 	//按条件页面值查询数据...未测试
-	public List<SysUsers> getByPageT_N(int pageNum,int userType, String userName){
+	public List<MxUsersData> getByPageT_N(int pageNum,int userType, String userName){
 		
 		//几种典型的分页sql，下面例子是每页50条，198*50=9900，取第199页数据。
 		//每页显示m条，取第n页，则rownuber>m*(n-1),rownuber<m*(n-1)+m+1
@@ -77,7 +78,7 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 			sql+=" and user_type="+userType+" and user_name like '%"+userName+"%'";
 		}
 		
-		List<SysUsers> list=(List<SysUsers>) sqlUtil.queryHqlBySession(sql);
+		List<MxUsersData> list=(List<MxUsersData>) sqlUtil.queryHqlBySession(sql);
 		return list;
 	}
 	
@@ -101,6 +102,13 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 		}
 		//SQLManager sqlManager=(SQLManager)SqlUtil.getBean("sqlManager");
 		return (int)Math.ceil((double)((Integer)sqlUtil.queryHqlBySession(sql))/pageLinesNum);//通过依赖注入执行hql语句
+	}
+	
+	//添加新用户
+	public void addUser(MxUsersData userData) {
+		
+		getHibernateTemplate().save(userData);
+		
 	}
 	
 	

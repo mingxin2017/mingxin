@@ -3,28 +3,33 @@ package com.dao;
 import java.util.HashMap;
 import java.util.List;
 
+import com.bean.MxUsersData;
 import com.bean.PageBean;
-import com.bean.SysUsers;
-
 public interface ISysUsersDAO {
 
+	/**
+     * 添加用户
+     * @param
+     */ 
+	public void addUser(MxUsersData userData);
+	
 	/**
      * 获取所有用户
      * @param
      */ 
-	public List<SysUsers> getAll();
+	public List<MxUsersData> getAll();
 	
 	/**
      * 根据id查找用户
      * @param id 需要查找的用户id
      */  
-    SysUsers get(Integer id);
+	MxUsersData get(Integer id);
 
     /**
      * 修改用户
      * @param SysUsers 需要修改的用户
      */  
-    void update(SysUsers SysUsers);
+    void update(MxUsersData SysUsers);
 
     /**
      * 删除用户
@@ -38,7 +43,7 @@ public interface ISysUsersDAO {
      * @param pass 查询所需的密码
      * @return 对应的用户
      */ 
-    SysUsers findSysUsersByNameAndPass(String SysUsersname , String password);
+    MxUsersData findSysUsersByNameAndPass(String SysUsersname , String password);
 	
     /**
      * 根据条件列表、页码值查找用户
@@ -46,7 +51,7 @@ public interface ISysUsersDAO {
      * @param pageNum 页码值
      * @return 对应的PageBean对象，包含分页显示用户的所有信息
      */ 
-	PageBean<SysUsers> getUsersPageBean(HashMap<String, String> conditionList,int pageNum);
+	PageBean<MxUsersData> getUsersPageBean(HashMap<String, String> conditionList,int pageNum);
 	
 	
 	

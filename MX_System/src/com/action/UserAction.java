@@ -9,8 +9,9 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
+
+import com.bean.MxUsersData;
 import com.bean.PageBean;
-import com.bean.SysUsers;
 import com.opensymphony.xwork2.ActionSupport;
 import com.service.IUserService;
 
@@ -52,12 +53,12 @@ public class UserAction extends ActionSupport {
 		HttpServletRequest request=ServletActionContext.getRequest();
 		String username=request.getParameter("username");
 		String password=request.getParameter("password");
-		SysUsers user = userService.validLogin(username, password);
+		MxUsersData user = userService.validLogin(username, password);
 		if (user != null) {
 			this.pageCurrent=1;
 			request.getSession().setAttribute("userType", -1);
 	        request.getSession().setAttribute("userName", "");
-			PageBean<SysUsers> pageBean = userService.queryForPage(this.pageCurrent);
+			PageBean<MxUsersData> pageBean = userService.queryForPage(this.pageCurrent);
 			request.getSession().removeAttribute("userType");
 			request.getSession().removeAttribute("userName");
 			request.getSession().setAttribute("pageBean", pageBean);
@@ -86,7 +87,7 @@ public class UserAction extends ActionSupport {
 	        String userName = request.getParameter("userName")==null?"":request.getParameter("userType");
 	        request.getSession().setAttribute("userType", userType);
 	        request.getSession().setAttribute("userName", userName);
-	        PageBean<SysUsers> pageBean = userService.queryForPage(pageNum);
+	        PageBean<MxUsersData> pageBean = userService.queryForPage(pageNum);
 	        request.getSession().removeAttribute("userType");
 			request.getSession().removeAttribute("userName");
 			String jsonData = JSONObject.fromObject(pageBean).toString();
@@ -110,7 +111,7 @@ public class UserAction extends ActionSupport {
 	 */
 	public void updateUserList() {
 	    try {
-	        List<SysUsers> list = userService.getAllUsers();
+	        List<MxUsersData> list = userService.getAllUsers();
 	        PageBean buff=new PageBean();
 	        buff.setList(list);
 	        buff.setAllRow(list.size());

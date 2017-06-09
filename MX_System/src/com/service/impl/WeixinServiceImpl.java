@@ -7,6 +7,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.bean.MxUsersData;
+import com.dao.ISysUsersDAO;
 import com.weixin.message.resp.Article;
 import com.weixin.message.resp.NewsMessage;
 import com.weixin.message.resp.TextMessage;
@@ -21,6 +23,8 @@ import com.weixin.util.WeixinUtil;
 
 public class WeixinServiceImpl implements com.service.IWeixinService{
 
+	private ISysUsersDAO sysUsersDAO;//依赖注入用户dao
+	
 	public String processRequest(HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		System.out.println("微信用户发出请求");
@@ -107,8 +111,24 @@ public class WeixinServiceImpl implements com.service.IWeixinService{
                     respContent = "终于等到你！！";
                     
                     //用户关注后，即可成为系统普通用户
+                  //获取用户微信号详细信息
+                    WeixinUserInfo wui=WeixinUtil.getUserInfo(WeixinGetTokenTimerTask.token.getAccessToken(), fromUserName);
+                    System.out.println(wui.getNickname());
+                    System.out.println(wui.getSex());
+                    System.out.println(wui.getCity());
+                    System.out.println(wui.getOpenId());
+                    System.out.println(wui.getHeadImgUrl());
+                    System.out.println(wui.getProvince());
                     
+                    System.out.println("用户关注公众号，自动添加为系统普通用户");
                     
+                    MxUsersData user=new MxUsersData();
+                    user.setWeixinNikeName(wui.getNickname());
+                    user.setWeixinOpenId(wui.getOpenId());
+                    user.setWeixinHeadUrl(wui.getHeadImgUrl());
+                    
+                    sysUsersDAO.addUser(user);
+                    System.out.println("用户添加成功");
                 }
                 // 取消关注
                 else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
@@ -163,7 +183,7 @@ public class WeixinServiceImpl implements com.service.IWeixinService{
                 	}
                 	
                 	if(eventKey!=null&&eventKey.equals("35")){
-                		respContent="回复数字1：鸣心招聘\r\n\r\n回复数字2：鸣心广告\r\n\r\n回复数字3：联系地址";
+                		respContent="回复数字1：鸣心招聘\r\n\r\n回复数字2：广告业务\r\n\r\n回复数字3：联系地址\r\n\r\n回复数字4：鸣心简介\r\n\r\n回复数字5：完善个人信息";
                 	}
                 }
             }
@@ -176,6 +196,16 @@ public class WeixinServiceImpl implements com.service.IWeixinService{
         }
         return respXml;
     
+	}
+
+
+	public ISysUsersDAO getSysUsersDAO() {
+		return sysUsersDAO;
+	}
+
+
+	public void setSysUsersDAO(ISysUsersDAO sysUsersDAO) {
+		this.sysUsersDAO = sysUsersDAO;
 	}
 
 }

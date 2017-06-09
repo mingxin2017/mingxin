@@ -12,14 +12,11 @@
 		<property name="driverClassName"
 			value="com.microsoft.sqlserver.jdbc.SQLServerDriver">
 		</property>
-		<property name="url"
-			
-			value="jdbc:sqlserver://zf16518905.iok.la:43695">
+		<property name="url" value="jdbc:sqlserver://mingxin2017.iok.la:30487">
 		</property>
 		<!-- 铭心数据路连接 -->
 		<property name="username" value="sa"></property>
-		<property name="password" value="wuliming110">
-		<!-- <property name="password" value="mignxin_@2017"> -->
+		<property name="password" value="mingxin_@2017">
 		<!-- 铭心数据路连接 -->
 		</property>
 		
@@ -52,7 +49,7 @@
 		</property>
 		<property name="mappingResources">
 			<list>
-				<value>com/bean/SysUsers.hbm.xml</value></list>
+				<value>com/bean/MxUsersData.hbm.xml</value></list>
 		</property>
 		</bean>
 		
@@ -62,6 +59,7 @@
 		</bean>
 		
 		<bean id="weixinService" class="com.service.impl.WeixinServiceImpl">
+			<property name="sysUsersDAO" ref="sysUsersDAO"></property>
 		</bean>
 		
 		<!-- 声明微信token定时器任务 --> 
@@ -98,10 +96,10 @@
 		</bean>
 		
 		<bean id="userService" class="com.service.impl.UserServiceImpl">
-			<property name="sysUsersDAO" ref="SysUsersDAO"></property>
+			<property name="sysUsersDAO" ref="sysUsersDAO"></property>
 		</bean>
 	
-		<bean id="SysUsersDAO" class="com.dao.impl.SysUsersDAOImpl">
+		<bean id="sysUsersDAO" class="com.dao.impl.SysUsersDAOImpl">
 			<property name="sessionFactory">
 				<ref local="sessionFactory" />
 			</property>
