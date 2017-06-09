@@ -12,9 +12,7 @@
 		<property name="driverClassName"
 			value="com.microsoft.sqlserver.jdbc.SQLServerDriver">
 		</property>
-		<property name="url"
-			
-			value="jdbc:sqlserver://zf16518905.iok.la:43695">
+		<property name="url" value="jdbc:sqlserver://zf16518905.iok.la:43695">
 		</property>
 		<!-- 铭心数据路连接 -->
 		<property name="username" value="sa"></property>
