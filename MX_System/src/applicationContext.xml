@@ -14,10 +14,8 @@
 		</property>
 		<property name="url" value="jdbc:sqlserver://mingxin2017.iok.la:30487">
 		</property>
-		<!-- 铭心数据路连接 -->
 		<property name="username" value="sa"></property>
 		<property name="password" value="mingxin_@2017">
-		<!-- 铭心数据路连接 -->
 		</property>
 		
 		
