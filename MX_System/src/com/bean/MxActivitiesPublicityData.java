@@ -12,7 +12,6 @@ public class MxActivitiesPublicityData implements java.io.Serializable {
 
 	private Integer publicityDataId;
 	private Integer authorId;
-	private String publicityArticle;
 	private Integer commentNum;
 	private Integer praiseClickNum;
 	private Integer state;
@@ -32,13 +31,11 @@ public class MxActivitiesPublicityData implements java.io.Serializable {
 
 	/** minimal constructor */
 	public MxActivitiesPublicityData(Integer publicityDataId, Integer authorId,
-			String publicityArticle, Integer commentNum,
-			Integer praiseClickNum, Integer state, Timestamp createDate,
-			Integer actvitiesTypeId, String authorName, String coverImageUrl,
-			String articleTitle, String articleAbstract) {
+			Integer commentNum, Integer praiseClickNum, Integer state,
+			Timestamp createDate, Integer actvitiesTypeId, String authorName,
+			String coverImageUrl, String articleTitle, String articleAbstract) {
 		this.publicityDataId = publicityDataId;
 		this.authorId = authorId;
-		this.publicityArticle = publicityArticle;
 		this.commentNum = commentNum;
 		this.praiseClickNum = praiseClickNum;
 		this.state = state;
@@ -52,13 +49,12 @@ public class MxActivitiesPublicityData implements java.io.Serializable {
 
 	/** full constructor */
 	public MxActivitiesPublicityData(Integer publicityDataId, Integer authorId,
-			String publicityArticle, Integer commentNum,
-			Integer praiseClickNum, Integer state, Timestamp createDate,
-			String others, Integer actvitiesTypeId, String authorName,
-			String coverImageUrl, String articleTitle, String articleAbstract) {
+			Integer commentNum, Integer praiseClickNum, Integer state,
+			Timestamp createDate, String others, Integer actvitiesTypeId,
+			String authorName, String coverImageUrl, String articleTitle,
+			String articleAbstract) {
 		this.publicityDataId = publicityDataId;
 		this.authorId = authorId;
-		this.publicityArticle = publicityArticle;
 		this.commentNum = commentNum;
 		this.praiseClickNum = praiseClickNum;
 		this.state = state;
@@ -87,14 +83,6 @@ public class MxActivitiesPublicityData implements java.io.Serializable {
 
 	public void setAuthorId(Integer authorId) {
 		this.authorId = authorId;
-	}
-
-	public String getPublicityArticle() {
-		return this.publicityArticle;
-	}
-
-	public void setPublicityArticle(String publicityArticle) {
-		this.publicityArticle = publicityArticle;
 	}
 
 	public Integer getCommentNum() {

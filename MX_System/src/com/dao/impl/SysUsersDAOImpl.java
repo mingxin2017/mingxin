@@ -110,6 +110,19 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 		getHibernateTemplate().save(userData);
 		
 	}
+	public MxUsersData getUserByOpenId(String openId) {
+		// TODO Auto-generated method stub
+		
+		return (MxUsersData) getHibernateTemplate().find("from com.bean.MxUsersData au where au.weixinOpenId ='"+openId+"'").get(0);
+	}
+	public boolean setUserState(MxUsersData ur) {
+		// TODO Auto-generated method stub
+		String sql="update [MXDB].[dbo].[MX_users_data] set user_state="+ur.getUserState()+" where weixin_openID='"+ur.getWeixinOpenId()+"'";
+		if(sqlUtil.executeUpdate(sql)>0){
+			return true;
+		}
+		return false;
+	}
 	
 	
 

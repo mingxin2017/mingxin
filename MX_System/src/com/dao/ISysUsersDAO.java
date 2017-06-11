@@ -52,6 +52,20 @@ public interface ISysUsersDAO {
      * @return 对应的PageBean对象，包含分页显示用户的所有信息
      */ 
 	PageBean<MxUsersData> getUsersPageBean(HashMap<String, String> conditionList,int pageNum);
+
+	/**
+	 * 通过openid获取用户
+	 * @param parseInt
+	 * @return
+	 */
+	public MxUsersData getUserByOpenId(String openId);
+
+	/**
+	 * 设置用户状态
+	 * @param i
+	 * @return
+	 */
+	public boolean setUserState(MxUsersData ur);
 	
 	
 	

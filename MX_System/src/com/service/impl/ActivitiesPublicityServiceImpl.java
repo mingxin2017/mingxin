@@ -1,6 +1,8 @@
 package com.service.impl;
 
 import java.util.List;
+
+import com.bean.MxActivitiesPublicityContent;
 import com.bean.MxActivitiesPublicityData;
 import com.dao.IActivitiesPublicityDAO;
 
@@ -27,6 +29,18 @@ public class ActivitiesPublicityServiceImpl implements com.service.IActivitiesPu
 
 	public void setActivitiesPublicityDAO(IActivitiesPublicityDAO activitiesPublicityDAO) {
 		this.activitiesPublicityDAO = activitiesPublicityDAO;
+	}
+
+
+
+	/**
+	 * 根据id获取活动宣传文章内容
+	 */
+	public MxActivitiesPublicityContent getActivitiesPublicityContent(int pdID) {
+		
+		
+		// TODO Auto-generated method stub
+		return activitiesPublicityDAO.getActivitiesPublicityContent(pdID);
 	}
 
 

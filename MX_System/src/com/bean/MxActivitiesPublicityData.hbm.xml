@@ -13,9 +13,6 @@
         <property name="authorId" type="java.lang.Integer">
             <column name="authorID" not-null="true" />
         </property>
-        <property name="publicityArticle" type="java.lang.String">
-            <column name="publicity_article" not-null="true" />
-        </property>
         <property name="commentNum" type="java.lang.Integer">
             <column name="comment_num" not-null="true" />
         </property>

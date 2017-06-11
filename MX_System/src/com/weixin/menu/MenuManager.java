@@ -56,22 +56,22 @@ public class MenuManager {
         CommonButton btn11 = new CommonButton();
         btn11.setName("校友会");
         btn11.setType("view");
-        btn11.setUrl("http://mingxin.imwork.net/MX_System/activitiesPublicity!getAlumniActivitiesList.action?type=1");
+        btn11.setUrl("http://mingxin.imwork.net/MX_System/activitiesPublicity!getActivitiesPublicityList.action?type=1");
 
         CommonButton btn12 = new CommonButton();
         btn12.setName("毕业季");
         btn12.setType("view");
-        btn12.setUrl("http://mingxin.imwork.net/MX_System/activitiesPublicity!getAlumniActivitiesList.action?type=2");
+        btn12.setUrl("http://mingxin.imwork.net/MX_System/activitiesPublicity!getActivitiesPublicityList.action?type=2");
 
         CommonButton btn13 = new CommonButton();
         btn13.setName("素质拓展");
         btn13.setType("view");
-        btn13.setUrl("http://mingxin.imwork.net/MX_System/activitiesPublicity!getAlumniActivitiesList.action?type=3");
+        btn13.setUrl("http://mingxin.imwork.net/MX_System/activitiesPublicity!getActivitiesPublicityList.action?type=3");
 
         CommonButton btn14 = new CommonButton();
         btn14.setName("亲子活动");
         btn14.setType("view");
-        btn14.setUrl("http://mingxin.imwork.net/MX_System/activitiesPublicity!getAlumniActivitiesList.action?type=4");
+        btn14.setUrl("http://mingxin.imwork.net/MX_System/activitiesPublicity!getActivitiesPublicityList.action?type=4");
         
         CommonButton btn15 = new CommonButton();
         btn15.setName("我要报名");
@@ -96,8 +96,8 @@ public class MenuManager {
 
         CommonButton btn32 = new CommonButton();
         btn32.setName("新闻投稿");
-        btn32.setType("click");
-        btn32.setKey("32");
+        btn32.setType("view");
+        btn32.setUrl("http://mingxin.imwork.net/MX_System/activitiesPublicity!gotoArtEditor.action");
 
         CommonButton btn33 = new CommonButton();
         btn33.setName("校园记者");

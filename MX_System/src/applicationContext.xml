@@ -67,6 +67,9 @@
 					com/bean/MxActivitiesPublicityMaterial.hbm.xml
 				</value>
 				<value>com/bean/MxActivitiesType.hbm.xml</value>
+				<value>
+					com/bean/MxActivitiesPublicityContent.hbm.xml
+				</value>
 			</list>
 		</property>
 		</bean>

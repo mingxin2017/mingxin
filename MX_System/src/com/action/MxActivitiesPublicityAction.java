@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.struts2.ServletActionContext;
 
+import com.bean.MxActivitiesPublicityContent;
 import com.bean.MxActivitiesPublicityData;
 
 import com.service.IActivitiesPublicityService;
@@ -24,7 +25,7 @@ public class MxActivitiesPublicityAction {
 	/**
 	 * 获取校友会宣传文章列表
 	 */
-	public String getAlumniActivitiesList() {
+	public String getActivitiesPublicityList() {
 
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String activitiesType = request.getParameter("type");
@@ -47,18 +48,18 @@ public class MxActivitiesPublicityAction {
 	public String gotoActivitiesDetail(){
 		
 		HttpServletRequest request = ServletActionContext.getRequest();
-		List<MxActivitiesPublicityData> apList=(List<MxActivitiesPublicityData>) request.getSession().getAttribute("activitiesPublicityList");
-		String pdID=request.getParameter("publicityDataId");
-		if(apList!=null&&pdID!=null){
-			for(int i=0;i<apList.size();i++){
-				MxActivitiesPublicityData apd=apList.get(i);
-				if(apd.getPublicityDataId()==Integer.parseInt(pdID)){
+		int pdID=Integer.parseInt(request.getParameter("publicityDataId"));
+		MxActivitiesPublicityContent apd=activitiesPublicityService.getActivitiesPublicityContent(pdID);
+			
 					request.getSession().setAttribute("ActivitiesPublicityDetail",apd);
-				}
-			}
-		}
+				
 		return "ActivitiesPublicityDetail";
 	}
+	
+	public String gotoArtEditor(){
+		return "ArtEditor";
+	}
+	
 	
 	public IActivitiesPublicityService getActivitiesPublicityService() {
 		return activitiesPublicityService;

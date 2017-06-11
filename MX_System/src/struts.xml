@@ -15,16 +15,20 @@
 		<action name="weixin" class="weixinAction">
 		
 		
-			<result name="unregistered">/WeixinPages/AlumniActivitiesList.jsp</result>
+			<result name="unregistered2">/WeixinPages/AlumniActivitiesList.jsp</result>
 			<result name="unregistered">/WeixinPages/erweima.jsp</result>
 			<result name="gotoEditNews">/WeixinPages/editNews.jsp</result>
 			<result name="countryNews">/WeixinPages/countryNews.jsp</result>
 			<result name="schoolNews">/WeixinPages/schoolNews.jsp</result>
 		</action>
 		<action name="activitiesPublicity" class="activitiesPublicityAction">
+		
 			<result name="ActivitiesPublicityList">/WeixinPages/ActivitiesPublicityList.jsp</result>
-			
 			<result name="ActivitiesPublicityDetail">/WeixinPages/ActivitiesPublicityDetail.jsp</result>
+			
+			<result name="ArtEditor">/WeixinPages/ArtEditor.jsp</result>
+			
+			
 		</action>
 		
 	</package>
