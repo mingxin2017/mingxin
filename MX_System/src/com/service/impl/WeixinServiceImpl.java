@@ -150,7 +150,7 @@ public class WeixinServiceImpl implements com.service.IWeixinService{
                 	respContent = "菜单点击事件！";
                 	String eventKey=requestMap.get("EventKey");
                 	System.out.println("eventKey值为"+ requestMap.get("EventKey"));
-                	if(eventKey.equals("13")){           		
+                	if(eventKey.equals("15")){           		
                         // 回复图文消息
                         NewsMessage newsMessage = new NewsMessage();
                         newsMessage.setToUserName(fromUserName);

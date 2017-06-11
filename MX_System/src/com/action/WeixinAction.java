@@ -48,14 +48,22 @@ public class WeixinAction {
 		String echostr = request.getParameter("echostr");
 		// System.out.println(signature+"...............................");
 		PrintWriter out = response.getWriter();
-
+		String gotoPage=null;
 		// 请求校验
 		if (WeixinSignUtil.checkSignature(signature, timestamp, nonce)) {
 			String method = ServletActionContext.getRequest().getMethod();
 			if (method.equals("POST")) {
 				// 调用核心服务类接收处理请求
 				String respXml = weixinService.processRequest(request);
-				out.print(respXml);
+				
+				if("unregistered".equals(respXml))
+				{
+					gotoPage="unregistered";
+				}else if("gotoEditNews".equals(respXml)){
+					gotoPage="gotoEditNews";
+				}else{
+					out.print(respXml);
+				}
 			} else {
 				out.print(echostr);
 			}
@@ -63,7 +71,7 @@ public class WeixinAction {
 		}
 		out.close();
 		out = null;
-		return null;
+		return gotoPage;
 	}
 
 	public String getWebAccessToken() throws ServletException, IOException {
@@ -101,6 +109,7 @@ public class WeixinAction {
 
 		return "weixinHome";
 	}
+
 
 	
 	//鸣心时报主页跳转方法
