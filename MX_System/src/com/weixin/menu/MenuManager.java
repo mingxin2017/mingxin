@@ -56,22 +56,22 @@ public class MenuManager {
         CommonButton btn11 = new CommonButton();
         btn11.setName("校友会");
         btn11.setType("view");
-        btn11.setUrl("http://c.xiumi.us/stage/v5/2Cme3/44292392");
+        btn11.setUrl("http://mingxin.imwork.net/MX_System/activitiesPublicity!getAlumniActivitiesList.action?type=1");
 
-        CommonButton btn12 = new CommonButton();  
+        CommonButton btn12 = new CommonButton();
         btn12.setName("毕业季");
         btn12.setType("view");
-        btn12.setUrl("http://mp.weixin.qq.com/s?__biz=MzIxMjgxNjcyNg==&mid=2247483714&idx=1&sn=503d7e19b223ea34696aa1507e38d8e4&chksm=9741077ba0368e6d4e45c02bab77566798c43713a551c150fc40ee3e7bd6b26825644cefa1f4&scene=18#wechat_redirect");
+        btn12.setUrl("http://mingxin.imwork.net/MX_System/activitiesPublicity!getAlumniActivitiesList.action?type=2");
 
         CommonButton btn13 = new CommonButton();
         btn13.setName("素质拓展");
-        btn13.setType("click");
-        btn13.setKey("13");
-        
+        btn13.setType("view");
+        btn13.setUrl("http://mingxin.imwork.net/MX_System/activitiesPublicity!getAlumniActivitiesList.action?type=3");
+
         CommonButton btn14 = new CommonButton();
         btn14.setName("亲子活动");
         btn14.setType("view");
-        btn14.setUrl("http://d.xiumi.us/stage/v5/2Cme3/41054158");
+        btn14.setUrl("http://mingxin.imwork.net/MX_System/activitiesPublicity!getAlumniActivitiesList.action?type=4");
         
         CommonButton btn15 = new CommonButton();
         btn15.setName("我要报名");
@@ -83,7 +83,7 @@ public class MenuManager {
         btn21.setType("view");
         btn21.setUrl("http://mingxin.imwork.net/MX_System/weixin!getSchoolNews.action");
         //btn21.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx34c7cde93a1c5c40&redirect_uri=http://mingxin.imwork.net/MX_System/weixin!getWebAccessToken.action&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect");
-        
+
         CommonButton btn22 = new CommonButton();
         btn22.setName("乡村时报");
         btn22.setType("view");
@@ -118,14 +118,14 @@ public class MenuManager {
          * 微信：  mainBtn1,mainBtn2,mainBtn3底部的三个一级菜单。
          */
         
-        ComplexButton mainBtn1 = new ComplexButton();
-        mainBtn1.setName("鸣心活动");
-        //一级下有4个子菜单
-        mainBtn1.setSub_button(new CommonButton[] { btn11, btn12, btn13, btn14,btn15 });
-
         ComplexButton mainBtn2 = new ComplexButton();
-        mainBtn2.setName("鸣心时报");
-        mainBtn2.setSub_button(new CommonButton[] { btn21, btn22 });
+        mainBtn2.setName("鸣心活动");
+        //一级下有4个子菜单
+        mainBtn2.setSub_button(new CommonButton[] { btn11, btn12, btn13, btn14,btn15 });
+
+        ComplexButton mainBtn1 = new ComplexButton();
+        mainBtn1.setName("鸣心时报");
+        mainBtn1.setSub_button(new CommonButton[] { btn21, btn22 });
 
         ComplexButton mainBtn3 = new ComplexButton();
         mainBtn3.setName("个人中心");

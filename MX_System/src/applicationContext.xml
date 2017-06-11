@@ -47,7 +47,27 @@
 		</property>
 		<property name="mappingResources">
 			<list>
-				<value>com/bean/MxUsersData.hbm.xml</value></list>
+				<value>com/bean/MxUsersData.hbm.xml</value>
+				<value>com/bean/MxActivitiesData.hbm.xml</value>
+				<value>
+					com/bean/MxActivitiesMySpaceComment.hbm.xml
+				</value>
+				<value>com/bean/MxActivitiesMySpaceData.hbm.xml</value>
+				<value>
+					com/bean/MxActivitiesMySpaceMaterial.hbm.xml
+				</value>
+				<value>com/bean/MxActivitiesMySpaceUsers.hbm.xml</value>
+				<value>
+					com/bean/MxActivitiesPublicityComment.hbm.xml
+				</value>
+				<value>
+					com/bean/MxActivitiesPublicityData.hbm.xml
+				</value>
+				<value>
+					com/bean/MxActivitiesPublicityMaterial.hbm.xml
+				</value>
+				<value>com/bean/MxActivitiesType.hbm.xml</value>
+			</list>
 		</property>
 		</bean>
 		
@@ -86,6 +106,21 @@
             </list> 
         </property> 
     </bean> 
+    
+		<!-- 活动宣传文章Bean -->
+		<bean id="activitiesPublicityAction" class="com.action.MxActivitiesPublicityAction">
+			<property name="activitiesPublicityService" ref="activitiesPublicityService"></property>
+		</bean>
+		<bean id="activitiesPublicityService" class="com.service.impl.ActivitiesPublicityServiceImpl">
+			<property name="activitiesPublicityDAO" ref="activitiesPublicityDAO"></property>
+		</bean>
+	
+		<bean id="activitiesPublicityDAO" class="com.dao.impl.ActivitiesPublicityDAOImpl">
+			<property name="sessionFactory">
+				<ref local="sessionFactory" />
+			</property>
+		</bean>
+		<!-- 活动宣传文章Bean -->
 		
 		
 		<!-- 用户登录的Bean -->
