@@ -122,7 +122,6 @@
 		</bean>
 		<!-- 活动宣传文章Bean -->
 		
-		
 		<!-- 用户登录的Bean -->
 		<bean id="userAction" class="com.action.UserAction">
 			<property name="userService" ref="userService"></property>
