@@ -33,6 +33,7 @@ public class MxUsersData implements java.io.Serializable {
 	private String userAddr;
 	private Timestamp lastLoginTime;
 	private String others;
+	private String userRealName;
 
 	// Constructors
 
@@ -61,7 +62,7 @@ public class MxUsersData implements java.io.Serializable {
 		this.setLastLoginTime(new Timestamp(System.currentTimeMillis()));
 		this.setOthers("no set");
 		this.setUserState(0);
-		
+		this.setUserRealName("no set");
 	}
 
 	/** minimal constructor */
@@ -72,7 +73,7 @@ public class MxUsersData implements java.io.Serializable {
 			Integer userAge, Integer userSchoolId, String userEmail,
 			String userPhoneNum, Integer reporterTeamId, String userTags,
 			Integer userState, Integer userRegionId, String userAddr,
-			Timestamp lastLoginTime) {
+			Timestamp lastLoginTime, String userRealName) {
 		this.userId = userId;
 		this.userName = userName;
 		this.password = password;
@@ -95,6 +96,7 @@ public class MxUsersData implements java.io.Serializable {
 		this.userRegionId = userRegionId;
 		this.userAddr = userAddr;
 		this.lastLoginTime = lastLoginTime;
+		this.userRealName = userRealName;
 	}
 
 	/** full constructor */
@@ -105,7 +107,7 @@ public class MxUsersData implements java.io.Serializable {
 			Integer userAge, Integer userSchoolId, String userEmail,
 			String userPhoneNum, Integer reporterTeamId, String userTags,
 			Integer userState, Integer userRegionId, String userAddr,
-			Timestamp lastLoginTime, String others) {
+			Timestamp lastLoginTime, String others, String userRealName) {
 		this.userId = userId;
 		this.userName = userName;
 		this.password = password;
@@ -129,6 +131,7 @@ public class MxUsersData implements java.io.Serializable {
 		this.userAddr = userAddr;
 		this.lastLoginTime = lastLoginTime;
 		this.others = others;
+		this.userRealName = userRealName;
 	}
 
 	// Property accessors
@@ -315,6 +318,14 @@ public class MxUsersData implements java.io.Serializable {
 
 	public void setOthers(String others) {
 		this.others = others;
+	}
+
+	public String getUserRealName() {
+		return this.userRealName;
+	}
+
+	public void setUserRealName(String userRealName) {
+		this.userRealName = userRealName;
 	}
 
 }

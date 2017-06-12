@@ -19,5 +19,8 @@
         <property name="others" type="java.lang.String">
             <column name="others" />
         </property>
+        <property name="articleTitle" type="java.lang.String">
+            <column name="article_title" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

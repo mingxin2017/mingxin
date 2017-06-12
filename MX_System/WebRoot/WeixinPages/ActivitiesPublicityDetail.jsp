@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <head>
 <base href="<%=basePath%>">
-<title>鸣心-精彩回顾</title>
+<title>${sessionScope.ActivitiesPublicityDetail.articleTitle}</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">

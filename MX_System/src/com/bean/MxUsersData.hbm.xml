@@ -8,7 +8,7 @@
     <class name="com.bean.MxUsersData" table="MX_users_data" schema="dbo" catalog="MXDB">
         <id name="userId" type="java.lang.Integer">
             <column name="user_id" />
-            <generator class="native" />
+            <generator class="assigned" />
         </id>
         <property name="userName" type="java.lang.String">
             <column name="user_name" not-null="true" />
@@ -75,6 +75,9 @@
         </property>
         <property name="others" type="java.lang.String">
             <column name="others" />
+        </property>
+        <property name="userRealName" type="java.lang.String">
+            <column name="user_realName" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>

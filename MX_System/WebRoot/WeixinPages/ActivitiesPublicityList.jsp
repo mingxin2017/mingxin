@@ -13,7 +13,12 @@
 
 <head>
 <base href="<%=basePath%>">
-<title>鸣心-精彩回顾</title>
+<title>鸣心--
+<c:if test="${sessionScope.activitiesType eq '1' }">校友会</c:if>
+<c:if test="${sessionScope.activitiesType eq '2' }">毕业季</c:if>
+<c:if test="${sessionScope.activitiesType eq '3' }">素质拓展</c:if>
+<c:if test="${sessionScope.activitiesType eq '4' }">亲子活动</c:if>
+</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -60,9 +65,7 @@
 					</a>
 				</li>
 			</c:forEach>
-
 		</ul>
-
 	</div>
 </body>
 </html>

@@ -21,7 +21,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=basePath%>WeixinPages/common/js/zepto.js"></script>
 	<script type="text/javascript" src="<%=basePath%>WeixinPages/common/js/zepto.touch.js"></script>
 	<script type="text/javascript" src="<%=basePath%>WeixinPages/common/js/wangEditor-mobile.js"></script>
-	
+	<script type="text/javascript">
+	// 对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
+	var useragent = navigator.userAgent;
+	if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
+		// 这里警告框会阻塞当前页面继续加载
+		alert('已禁止本次访问：您必须在微信内访问本页面！');
+		// 以下代码是用javascript强行关闭当前页面
+		var opened = window.open('about:blank', '_self');
+		opened.opener = null;
+		opened.close();
+	}
+</script>
 	<style type="text/css">
 
 		body {
@@ -67,9 +78,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<center>
 		<div class="container" >
-			<!-- <textarea id="textarea2" style="width:100%;height:10%;"></textarea> -->
 			<textarea id="textarea1" style="width:100%;height:80%;">
-				<input type="text" style="style="font-size:30px";width:100%;height:50px;"/>
 				<h3>济南的冬天</h3>
 				<p><font color="#ff0000">对于一个在北平住惯的人，像我，冬天要是不刮风，便觉得是奇迹；济南的冬天是没有风声的。</font></p>
 				<p>对于一个刚由伦敦回来的人，像我，冬天要能看得见日光，便觉得是怪事；济南的冬天是响晴的……<img src="http://wangeditor.github.io/expressions/20.gif"></p>
