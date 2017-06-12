@@ -14,7 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width, minimal-ui">
 	<!-- iphone设备中的safari私有meta标签，它表示：允许全屏模式浏览 -->
 	<meta name="apple-mobile-web-app-capable" content="yes">
-	<link rel="stylesheet" href="<%=basePath%>WeixinPages/common/css/style.css">
+	<link rel="stylesheet" href="<%=basePath%>WeixinPages/common/css/arttEditorStyle.css">
 </head>
 <body>
 	<div style="width:100%;margin: 0 auto;">
