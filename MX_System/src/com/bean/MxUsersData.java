@@ -43,26 +43,26 @@ public class MxUsersData implements java.io.Serializable {
 		this.setUserName("no set");
 		this.setPassword("123456");
 		this.setUserTypeId(-1);
-		this.setWeixinOpenId("no set");
-		this.setWeixinNikeName("no set");
-		this.setWeixinHeadUrl("no set");
+		this.setWeixinOpenId("");
+		this.setWeixinNikeName("");
+		this.setWeixinHeadUrl("");
 		this.setSubscribeTime(new Timestamp(System.currentTimeMillis()));
-		this.setWeixinRemark("no set");
+		this.setWeixinRemark("");
 		this.setUserSex(0);
-		this.setWeixinGroupid("no set");
-		this.setWeixinTagidList("no set");
+		this.setWeixinGroupid("");
+		this.setWeixinTagidList("");
 		this.setUserAge(0);
 		this.setUserSchoolId(-1011);
-		this.setUserEmail("no set");
-		this.setUserPhoneNum("no set");
+		this.setUserEmail("");
+		this.setUserPhoneNum("");
 		this.setReporterTeamId(-1011);
-		this.setUserTags("no set");
+		this.setUserTags("");
 		this.setUserRegionId(-1011);
-		this.setUserAddr("no set");
+		this.setUserAddr("");
 		this.setLastLoginTime(new Timestamp(System.currentTimeMillis()));
-		this.setOthers("no set");
+		this.setOthers("");
 		this.setUserState(0);
-		this.setUserRealName("no set");
+		this.setUserRealName("");
 	}
 
 	/** minimal constructor */

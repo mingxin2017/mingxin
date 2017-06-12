@@ -9,6 +9,7 @@ import com.bean.MxActivitiesPublicityContent;
 import com.bean.MxActivitiesPublicityData;
 
 import com.service.IActivitiesPublicityService;
+import com.weixin.util.WeixinUtil;
 
 public class MxActivitiesPublicityAction {
 
@@ -28,6 +29,15 @@ public class MxActivitiesPublicityAction {
 	public String getActivitiesPublicityList() {
 
 		HttpServletRequest request = ServletActionContext.getRequest();
+		
+		/**
+		 * 此方法验证微信用户是否已经关注公众号
+		 * 需在struts.xml中配置noFucus和error的响应页面
+		 */
+		if(WeixinUtil.validateWeixinWebUser(request)!=null){
+			return WeixinUtil.validateWeixinWebUser(request);
+		}
+		
 		String activitiesType = request.getParameter("type");
 		List<MxActivitiesPublicityData> activitiesPublicityList = activitiesPublicityService
 				.getActivitiesPublicityByType(Integer.parseInt(activitiesType));

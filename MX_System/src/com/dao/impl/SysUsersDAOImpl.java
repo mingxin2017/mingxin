@@ -124,6 +124,16 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 		return false;
 	}
 	
+	public boolean validateWeixinUser(String openId) {
+		// TODO Auto-generated method stub
+		MxUsersData ud=(MxUsersData) getHibernateTemplate().find("from com.bean.MxUsersData au where au.weixinOpenId ='"+openId+"' and au.userState=0").get(0);
+		if(ud==null){
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
 	
 
 }

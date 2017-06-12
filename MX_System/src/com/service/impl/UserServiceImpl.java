@@ -85,4 +85,8 @@ public class UserServiceImpl implements com.service.IUserService {
 		//System.out.println("service中pageBean:总页数"+pb.getTotalPage()+";当前页："+pb.getCurrentPage()+";总记录数:"+pb.getAllRow());
 		return pb;
 	}
+	public boolean validateWeixinUser(String openId) {
+		// TODO Auto-generated method stub
+		return sysUsersDAO.validateWeixinUser(openId);
+	}
 }

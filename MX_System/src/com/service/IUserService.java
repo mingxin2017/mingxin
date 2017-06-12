@@ -14,5 +14,6 @@ public interface IUserService {
 	public void setSysUsersDAO(ISysUsersDAO userDAO);
 	MxUsersData getUserByID(Integer userId);
 	PageBean queryForPage(int pageCurrent);
+	public boolean validateWeixinUser(String openId);
 	
 }

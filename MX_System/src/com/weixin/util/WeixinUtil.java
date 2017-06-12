@@ -1,17 +1,23 @@
 package com.weixin.util;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.sf.json.JSONObject;
 
+import com.service.IUserService;
 import com.weixin.menu.Menu;
+import com.weixin.pojo.SNSUserInfo;
+import com.weixin.pojo.WeixinOauth2Token;
 import com.weixin.pojo.WeixinUserInfo;
 
 public class WeixinUtil {
 
 	private static Logger log = LoggerFactory.getLogger(WeixinUtil.class);
 	
+	private static IUserService userService;
 	// 菜单创建（POST） 限100（次/天）
     public static String menu_create_url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
     
@@ -96,4 +102,41 @@ public class WeixinUtil {
         return weixinUserInfo;
     }
    
+    
+    public static String validateWeixinWebUser(HttpServletRequest request){
+    	String code = request.getParameter("code");
+		if (!"authdeny".equals(code)) {
+			// 获取网页授权access_token
+			WeixinOauth2Token weixinOauth2Token = OAuth2TokenUtil
+					.getOauth2AccessToken(WeixinSignUtil.AppID,
+							WeixinSignUtil.AppSecret, code);
+			// 网页授权接口访问凭证
+			String accessToken = weixinOauth2Token.getAccessToken();
+			// 用户标识openid
+			String openId = weixinOauth2Token.getOpenId();
+			
+			if(userService.validateWeixinUser(openId)==false){
+				return "noFocus";
+			}else{
+				return null;
+			}
+			
+		}else{
+			return "error";
+		}
+		
+    }
+
+
+
+	public IUserService getUserService() {
+		return userService;
+	}
+
+
+
+	public void setUserService(IUserService userService) {
+		this.userService = userService;
+	}
+    
 }

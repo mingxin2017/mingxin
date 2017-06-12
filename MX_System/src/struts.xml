@@ -22,7 +22,10 @@
 			<result name="schoolNews">/WeixinPages/schoolNews.jsp</result>
 		</action>
 		<action name="activitiesPublicity" class="activitiesPublicityAction">
-		
+			
+			<result name="noFocus">/WeixinPages/focusWeixin.jsp</result>
+			<result name="error">/WeixinPages/error.jsp</result>
+			
 			<result name="ActivitiesPublicityList">/WeixinPages/ActivitiesPublicityList.jsp</result>
 			<result name="ActivitiesPublicityDetail">/WeixinPages/ActivitiesPublicityDetail.jsp</result>
 			
