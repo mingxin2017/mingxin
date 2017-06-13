@@ -34,9 +34,7 @@ public class MxActivitiesPublicityAction {
 		 * 此方法验证微信用户是否已经关注公众号
 		 * 需在struts.xml中配置noFucus和error的响应页面
 		 */
-		
-		WeixinUtil wu=new WeixinUtil();
-		String validateStr=wu.validateWeixinWebUser(request);
+		String validateStr=WeixinUtil.validateWeixinWebUser(request);
 		if(validateStr!=null){
 			return validateStr;
 		}

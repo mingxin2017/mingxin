@@ -103,7 +103,7 @@ public class WeixinUtil {
     }
    
     
-    public String validateWeixinWebUser(HttpServletRequest request){
+    public static String validateWeixinWebUser(HttpServletRequest request){
     	String code = request.getParameter("code");
 		if (!"authdeny".equals(code)) {
 			// »ñÈ¡ÍøÒ³ÊÚÈ¨access_token
