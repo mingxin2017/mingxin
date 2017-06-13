@@ -9,6 +9,7 @@ import com.bean.MxActivitiesPublicityContent;
 import com.bean.MxActivitiesPublicityData;
 
 import com.service.IActivitiesPublicityService;
+import com.weixin.util.WeixinSignUtil;
 import com.weixin.util.WeixinUtil;
 
 public class MxActivitiesPublicityAction {
@@ -48,6 +49,7 @@ public class MxActivitiesPublicityAction {
 					activitiesPublicityList);
 			request.getSession().setAttribute("activitiesType",
 					Integer.parseInt(activitiesType));
+			request.getSession().setAttribute("appID",WeixinSignUtil.AppID);
 		}
 		return "ActivitiesPublicityList";
 	}

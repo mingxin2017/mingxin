@@ -50,6 +50,9 @@ public class WeixinAction {
 		PrintWriter out = response.getWriter();
 		String gotoPage=null;
 		// 请求校验
+		
+		System.out.println("执行weixin.action");
+		
 		if (WeixinSignUtil.checkSignature(signature, timestamp, nonce)) {
 			String method = ServletActionContext.getRequest().getMethod();
 			if (method.equals("POST")) {
@@ -73,7 +76,8 @@ public class WeixinAction {
 		out = null;
 		return gotoPage;
 	}
-
+	
+	
 	public String getWebAccessToken() throws ServletException, IOException {
 
 		// 将请求、响应的编码均设置为UTF-8（防止中文乱码）
