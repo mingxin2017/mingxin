@@ -112,8 +112,13 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 	}
 	public MxUsersData getUserByOpenId(String openId) {
 		// TODO Auto-generated method stub
+		List<MxUsersData> mud=getHibernateTemplate().find("from com.bean.MxUsersData au where au.weixinOpenId ='"+openId+"'");
+		if(mud.size()!=0){
+			return (MxUsersData) mud.get(0);
+		}else{
+			return null;
+		}
 		
-		return (MxUsersData) getHibernateTemplate().find("from com.bean.MxUsersData au where au.weixinOpenId ='"+openId+"'").get(0);
 	}
 	public boolean setUserState(MxUsersData ur) {
 		// TODO Auto-generated method stub
@@ -126,8 +131,9 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 	
 	public boolean validateWeixinUser(String openId) {
 		// TODO Auto-generated method stub
-		MxUsersData ud=(MxUsersData) getHibernateTemplate().find("from com.bean.MxUsersData au where au.weixinOpenId ='"+openId+"' and au.userState=0").get(0);
-		if(ud==null){
+		
+		List<MxUsersData> ud= getHibernateTemplate().find("from com.bean.MxUsersData au where au.weixinOpenId ='"+openId+"' and au.userState=0");
+		if(ud.size()==0){
 			return false;
 		}else{
 			return true;
