@@ -111,6 +111,12 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 		
 	}
 	
-	
+	//根据open_id查找用户
+	public int isExistUser(String open_id) {
+		String hql = "select count(*) from com.bean.MxUsersData user where user.weixinOpenId = '" + open_id + "'";
+		Integer count = Integer.valueOf(getHibernateTemplate().find(hql).listIterator().next().toString());
+		return count.intValue();
+	}
+
 
 }
