@@ -19,7 +19,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-
+<style> 
+body{ text-align:center} 
+#center{ position:absolute; top:50%; left:50%; margin-top:-600px; margin-left:-400px;width:800px}
+.div{ margin:0 auto; width:80%;  border:1px solid #F00} 
+/* css注释：为了观察效果设置宽度 边框 高度等样式 */ 
+</style>
 <script type="text/javascript">
 	// 对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
 	var useragent = navigator.userAgent;
@@ -35,10 +40,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-  	<div>
-  		<img src="<%=basePath%>WeixinPages/common/image/0.jpg" style="max-width:100%;">
-  		<p>长按二维码关注</p>
+  	<div id="center">
+  	<div><font size="50">鸣心有你更精彩</font> </div>
+  	<div class="div">
+  	
+  		<img src="<%=basePath%>WeixinPages/common/image/0.jpg" style="width:100%;height:?">
+  		
   	</div>
-    This is my JSP page. <br>
+  	<div><font size="20">长按二维码关注</font></div>
+  	</div>
   </body>
 </html>

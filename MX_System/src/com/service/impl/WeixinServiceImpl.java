@@ -141,8 +141,10 @@ public class WeixinServiceImpl implements com.service.IWeixinService{
                 else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
                 	WeixinUserInfo wui=WeixinUtil.getUserInfo(WeixinGetTokenTimerTask.token.getAccessToken(), fromUserName);
                 	MxUsersData ur=sysUsersDAO.getUserByOpenId(wui.getOpenId());
-                	ur.setUserState(-1);
-                	sysUsersDAO.setUserState(ur);
+                	if(ur!=null){
+                		ur.setUserState(-1);
+                		sysUsersDAO.setUserState(ur);
+                	}
                     // TODO 取消订阅后用户不会再收到公众账号发送的消息，因此不需要回复,将数据库中用户状态设为-1
                 }
                 // 扫描带参数二维码
