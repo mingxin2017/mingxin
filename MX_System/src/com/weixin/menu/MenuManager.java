@@ -81,24 +81,25 @@ public class MenuManager {
         CommonButton btn21 = new CommonButton();
         btn21.setName("校园时报");
         btn21.setType("view");
-        btn21.setUrl("http://mingxin.imwork.net/MX_System/weixin!getSchoolNews.action");
+        btn21.setUrl("http://d1a7069951.iask.in/MX_System/weixin!getSchoolNews.action");
         //btn21.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx34c7cde93a1c5c40&redirect_uri=http://mingxin.imwork.net/MX_System/weixin!getWebAccessToken.action&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect");
         
         CommonButton btn22 = new CommonButton();
         btn22.setName("乡村时报");
         btn22.setType("view");
-        btn22.setUrl("http://mingxin.imwork.net/MX_System/weixin!getCountryNews.action");
+        btn22.setUrl("http://d1a7069951.iask.in/MX_System/weixin!getCountryNews.action");
         
         CommonButton btn31 = new CommonButton();
-        btn31.setName("教育培训");
-        btn31.setType("click");
-        btn31.setKey("31");
+        btn31.setName("教育培训");   
+        btn31.setType("view");   
+        btn31.setUrl("http://d1a7069951.iask.in/MX_System/weixin!getNotMyUser.action");
 
         CommonButton btn32 = new CommonButton();
         btn32.setName("新闻投稿");
-        btn32.setType("click");
-        btn32.setKey("32");
-
+        btn32.setType("view");     
+        btn32.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb235c46c4c2740a9&redirect_uri=http://d1a7069951.iask.in/MX_System/weixin!loadAddNews.action&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect");
+        ///btn32.setUrl("http://d1a7069951.iask.in/MX_System/weixin!loadAddNews.action");     
+        
         CommonButton btn33 = new CommonButton();
         btn33.setName("校园记者");
         btn33.setType("click");
