@@ -6,6 +6,13 @@ import java.util.List;
 import com.bean.MxUsersData;
 import com.bean.PageBean;
 public interface ISysUsersDAO {
+	
+	/**
+	 * 根据open_id查询用户是否关注过公众号  0否 1是
+	 * @param open_id
+	 * @return
+	 */
+	public int isExistUser(String open_id);
 
 	/**
      * 添加用户
