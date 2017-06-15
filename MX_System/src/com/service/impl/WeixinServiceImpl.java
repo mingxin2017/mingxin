@@ -74,13 +74,13 @@ public class WeixinServiceImpl implements com.service.IWeixinService{
             	}
                 
                 //测试获取用户详细信息
-                WeixinUserInfo wui=WeixinUtil.getUserInfo(WeixinGetTokenTimerTask.token.getAccessToken(), fromUserName);
-                System.out.println(wui.getNickname());
-                System.out.println(wui.getSex());
-                System.out.println(wui.getCity());
-                System.out.println(wui.getOpenId());
-                System.out.println(wui.getHeadImgUrl());
-                System.out.println(wui.getProvince());
+//                WeixinUserInfo wui=WeixinUtil.getUserInfo(WeixinGetTokenTimerTask.token.getAccessToken(), fromUserName);
+//                System.out.println(wui.getNickname());
+//                System.out.println(wui.getSex());
+//                System.out.println(wui.getCity());
+//                System.out.println(wui.getOpenId());
+//                System.out.println(wui.getHeadImgUrl());
+//                System.out.println(wui.getProvince());
                 
             }
             // 图片消息
@@ -117,7 +117,7 @@ public class WeixinServiceImpl implements com.service.IWeixinService{
                     
                     //用户关注后，即可成为系统普通用户
                   //获取用户微信号详细信息
-                    WeixinUserInfo wui=WeixinUtil.getUserInfo(WeixinGetTokenTimerTask.token.getAccessToken(), fromUserName);
+                    //WeixinUserInfo wui=WeixinUtil.getUserInfo(WeixinGetTokenTimerTask.token.getAccessToken(), fromUserName);
                     System.out.println(wui.getNickname());
                     System.out.println(wui.getSex());
                     System.out.println(wui.getCity());
@@ -144,7 +144,7 @@ public class WeixinServiceImpl implements com.service.IWeixinService{
                 }
                 // 取消关注
                 else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
-                	WeixinUserInfo wui=WeixinUtil.getUserInfo(WeixinGetTokenTimerTask.token.getAccessToken(), fromUserName);
+                	//WeixinUserInfo wui=WeixinUtil.getUserInfo(WeixinGetTokenTimerTask.token.getAccessToken(), fromUserName);
                 	MxUsersData ur=sysUsersDAO.getUserByOpenId(wui.getOpenId());
                 	if(ur!=null){
                 		ur.setUserState(-1);
