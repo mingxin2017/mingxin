@@ -33,6 +33,12 @@
 			
 			
 		</action>
-		
+		<!-- <action name="userList" class="userListAction">
+			<result name="userList">/Pages/user_List.jsp</result>
+			<result name="updateUserList">/Pages/user_List.jsp</result>
+			<result name="userAdd">/Pages/user_AddEdit.jsp</result>
+			<result name="userEdit">/Pages/user_AddEdit.jsp</result>
+			<result name="userAddSuccess">/Pages/user_List.jsp</result>
+		</action> -->
 	</package>
 </struts>
