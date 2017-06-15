@@ -139,6 +139,10 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 			return true;
 		}
 	}
+	public int isExistUser(String open_id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 	
 
