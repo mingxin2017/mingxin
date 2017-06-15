@@ -12,6 +12,7 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import com.weixin.message.req.LinkMessage;
 import com.weixin.message.resp.Article;
 import com.weixin.message.resp.ImageMessage;
 import com.weixin.message.resp.MusicMessage;
@@ -74,6 +75,8 @@ public class MessageUtil {
     public static final String RESP_MESSAGE_TYPE_MUSIC = "music";
     // 响应消息类型：图文
     public static final String RESP_MESSAGE_TYPE_NEWS = "news";
+    // 响应消息类型：链接
+    public static final String RESP_MESSAGE_TYPE_LINK = "link";
 
     /**
      * 解析微信发来的请求（XML）
@@ -201,4 +204,5 @@ public class MessageUtil {
         xstream.alias("item", new Article().getClass());
         return xstream.toXML(newsMessage);
     }
+    
 }

@@ -89,18 +89,19 @@ public class MenuManager {
         CommonButton btn22 = new CommonButton();
         btn22.setName("乡村时报");
         btn22.setType("view");
-        btn22.setUrl("http://mingxin.imwork.net/MX_System/weixin!getCountryNews.action");
+        btn22.setUrl("http://d1a7069951.iask.in/MX_System/weixin!getCountryNews.action");
         
         CommonButton btn31 = new CommonButton();
-        btn31.setName("教育培训");
-        btn31.setType("click");
-        btn31.setKey("31");
+        btn31.setName("教育培训");   
+        btn31.setType("view");   
+        btn31.setUrl("http://d1a7069951.iask.in/MX_System/weixin!getNotMyUser.action");
 
         CommonButton btn32 = new CommonButton();
         btn32.setName("新闻投稿");
-        btn32.setType("view");
-        btn32.setUrl("http://mingxin.imwork.net/MX_System/activitiesPublicity!gotoArtEditor.action");
-
+        btn32.setType("view");     
+        btn32.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb235c46c4c2740a9&redirect_uri=http://d1a7069951.iask.in/MX_System/weixin!loadAddNews.action&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect");
+        ///btn32.setUrl("http://d1a7069951.iask.in/MX_System/weixin!loadAddNews.action");     
+        
         CommonButton btn33 = new CommonButton();
         btn33.setName("校园记者");
         btn33.setType("click");
@@ -120,14 +121,14 @@ public class MenuManager {
          * 微信：  mainBtn1,mainBtn2,mainBtn3底部的三个一级菜单。
          */
         
-        ComplexButton mainBtn2 = new ComplexButton();
-        mainBtn2.setName("鸣心活动");
-        //一级下有4个子菜单
-        mainBtn2.setSub_button(new CommonButton[] { btn11, btn12, btn13, btn14,btn15 });
-
         ComplexButton mainBtn1 = new ComplexButton();
-        mainBtn1.setName("鸣心时报");
-        mainBtn1.setSub_button(new CommonButton[] { btn21, btn22 });
+        mainBtn1.setName("鸣心活动");
+        //一级下有4个子菜单
+        mainBtn1.setSub_button(new CommonButton[] { btn11, btn12, btn13, btn14,btn15 });
+
+        ComplexButton mainBtn2 = new ComplexButton();
+        mainBtn2.setName("鸣心时报");
+        mainBtn2.setSub_button(new CommonButton[] { btn21, btn22 });
 
         ComplexButton mainBtn3 = new ComplexButton();
         mainBtn3.setName("个人中心");

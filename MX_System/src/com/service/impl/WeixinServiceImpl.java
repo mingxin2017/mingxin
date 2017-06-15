@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.bean.MxUsersData;
 import com.dao.ISysUsersDAO;
+import com.weixin.message.req.LinkMessage;
 import com.weixin.message.resp.Article;
 import com.weixin.message.resp.NewsMessage;
 import com.weixin.message.resp.TextMessage;
@@ -26,8 +27,9 @@ public class WeixinServiceImpl implements com.service.IWeixinService{
 	private ISysUsersDAO sysUsersDAO;//依赖注入用户dao
 	
 	public String processRequest(HttpServletRequest request) {
+		System.out.println("process");
 		// TODO Auto-generated method stub
-		//System.out.println("微信用户发出请求");
+		System.out.println("微信用户发出请求");
 		// xml格式的消息数据
         String respXml = null;
         // 默认返回的文本消息内容
@@ -47,6 +49,9 @@ public class WeixinServiceImpl implements com.service.IWeixinService{
             
             // 消息类型
             String msgType = requestMap.get("MsgType");
+            
+            //获取请求用户信息
+            WeixinUserInfo wui=WeixinUtil.getUserInfo(WeixinGetTokenTimerTask.token.getAccessToken(), fromUserName);
 
             // 回复文本消息
             TextMessage textMessage = new TextMessage();
@@ -163,7 +168,46 @@ public class WeixinServiceImpl implements com.service.IWeixinService{
                 	respContent = "菜单点击事件！";
                 	String eventKey=requestMap.get("EventKey");
                 	System.out.println("eventKey值为"+ requestMap.get("EventKey"));
-                	if(eventKey.equals("15")){           		
+                	
+                	//新闻投稿
+                	if(eventKey.equals("32")){ 
+                		//检验用户是否关注公众号
+                        //测试获取用户详细信息
+                        System.out.println(wui.getNickname());
+                        System.out.println(wui.getSex());
+                        System.out.println(wui.getCity());
+                        System.out.println(wui.getOpenId());
+                        System.out.println(wui.getHeadImgUrl());
+                        System.out.println(wui.getProvince());
+                        //校验用户
+                        int isExistUser = sysUsersDAO.isExistUser(wui.getOpenId());
+                        if(isExistUser == 0){
+                        	//限制未关注返回图文  后期改成二维码图文
+                            NewsMessage newsMessage = new NewsMessage();
+                            newsMessage.setToUserName(fromUserName);
+                            newsMessage.setFromUserName(toUserName);
+                            newsMessage.setCreateTime(new Date().getTime());
+                            newsMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_NEWS);
+                            Article article = new Article();
+                            article.setTitle("放假了去哪儿丨军事夏令营开营啦！");
+                            article.setDescription("炎热七月 2017年鸣心军事夏令营吹响集结号 让你的青春在绿色的军营里奔跑吧！");
+                            article.setPicUrl("http://mmbiz.qpic.cn/mmbiz_jpg/FepiawovpW9miaLzBlGgjtBtbMP2Af484AfWTtxIpRrLZtib7u0gHoTwocHxfFMLgibkEb5zUI28UoQ49PySBN3VGg/0?wx_fmt=jpeg");
+                            article.setUrl("http://mp.weixin.qq.com/s?__biz=MzIxMjgxNjcyNg==&mid=100000093&idx=1&sn=4029a17482fbdc054b9666464f2dc2f4&chksm=1741076420368e72f2f35266e554089ceaba4e33fe770e5e7a77c1b30aaed485bc8348f6a536#rd");
+                            List<Article> articles = new ArrayList<Article>();
+                            articles.add(article);
+                    		newsMessage.setArticles(articles);
+                    		newsMessage.setArticleCount(1);
+                    		respXml = MessageUtil.messageToXml(newsMessage);
+                    		return respXml;
+                        }else{
+                        	System.out.println(isExistUser);
+                        	
+                        }
+                        //校验通过跳转到新闻填报界面
+                        //校验失败提示关注公众号后再进行操作
+                	}
+                	//素质拓展
+                	if(eventKey.equals("13")){           		
                         // 回复图文消息
                         NewsMessage newsMessage = new NewsMessage();
                         newsMessage.setToUserName(fromUserName);
