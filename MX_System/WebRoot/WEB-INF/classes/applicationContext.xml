@@ -100,6 +100,12 @@
 			<property name="sqlUtil" ref="SqlUtil"></property>
 		</bean>
 		
+		<!-- 小记者业务类bean -->
+		<bean id="mxReporterBusinessAction" class="com.action.MxReporterBusinessAction">
+			<property name="weixinNewsService" ref="weixinNewsService"></property>
+		</bean>
+		<!-- 小记者业务类bean -->
+		
 		<!-- 声明微信token定时器任务 --> 
     <bean id="weixinGetTokenTimerTask" class="com.weixin.task.WeixinGetTokenTimerTask">
     </bean>
@@ -126,6 +132,7 @@
             </list> 
         </property> 
     </bean> 
+ 
     
 		<!-- 活动宣传文章Bean -->
 		<bean id="activitiesPublicityAction" class="com.action.MxActivitiesPublicityAction">

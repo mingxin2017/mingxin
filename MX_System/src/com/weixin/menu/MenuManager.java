@@ -104,10 +104,10 @@ public class MenuManager {
         
         CommonButton btn33 = new CommonButton();
         btn33.setName("校园记者");
-        btn33.setType("click");
-        btn33.setKey("33");
+        btn33.setType("view");
+        btn33.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb235c46c4c2740a9&redirect_uri=http://d1a7069951.iask.in/MX_System/mxReporterBusiness!loadReporterManage.action&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect");
 
-        CommonButton btn34 = new CommonButton();
+        CommonButton btn34 = new CommonButton(); 
         btn34.setName("我的回忆");
         btn34.setType("click");
         btn34.setKey("34");

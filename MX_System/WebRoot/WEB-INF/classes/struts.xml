@@ -13,8 +13,7 @@
 		</action>
 		
 		<action name="weixin" class="weixinAction">
-		
-		
+		    
 			<result name="unregistered2">/WeixinPages/AlumniActivitiesList.jsp</result>
 			<result name="unregistered">/WeixinPages/erweima.jsp</result>
 			<result name="gotoEditNews">/WeixinPages/News/editNews.jsp</result>
@@ -32,6 +31,10 @@
 			<result name="ArtEditor">/WeixinPages/wangEditorMobile.jsp</result>
 			
 			
+		</action>
+		<!-- 小记者相关业务 -->
+		<action name="mxReporterBusiness" class="mxReporterBusinessAction">
+		    <result name="ReporterManage">/WeixinPages/Reporter/reporterManageIndex.jsp</result>
 		</action>
 		<!-- <action name="userList" class="userListAction">
 			<result name="userList">/Pages/user_List.jsp</result>
