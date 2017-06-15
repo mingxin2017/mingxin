@@ -74,6 +74,7 @@ public class WeixinServiceImpl implements com.service.IWeixinService{
             	}
                 
                 //测试获取用户详细信息
+                WeixinUserInfo wui=WeixinUtil.getUserInfo(WeixinGetTokenTimerTask.token.getAccessToken(), fromUserName);
                 System.out.println(wui.getNickname());
                 System.out.println(wui.getSex());
                 System.out.println(wui.getCity());
@@ -116,6 +117,7 @@ public class WeixinServiceImpl implements com.service.IWeixinService{
                     
                     //用户关注后，即可成为系统普通用户
                   //获取用户微信号详细信息
+                    WeixinUserInfo wui=WeixinUtil.getUserInfo(WeixinGetTokenTimerTask.token.getAccessToken(), fromUserName);
                     System.out.println(wui.getNickname());
                     System.out.println(wui.getSex());
                     System.out.println(wui.getCity());
@@ -129,13 +131,26 @@ public class WeixinServiceImpl implements com.service.IWeixinService{
                     user.setWeixinNikeName(wui.getNickname());
                     user.setWeixinOpenId(wui.getOpenId());
                     user.setWeixinHeadUrl(wui.getHeadImgUrl());
+                    MxUsersData ur=sysUsersDAO.getUserByOpenId(wui.getOpenId());
+                    if(ur==null){
+                    	sysUsersDAO.addUser(user);
+                        System.out.println("微信关注，用户添加成功");
+                    }else if(ur.getUserState()==-1){
+                    	ur.setUserState(0);
+                    	sysUsersDAO.setUserState(ur);
+                    }
                     
-                    sysUsersDAO.addUser(user);
-                    System.out.println("用户添加成功");
+                    
                 }
                 // 取消关注
                 else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
-                    // TODO 取消订阅后用户不会再收到公众账号发送的消息，因此不需要回复
+                	WeixinUserInfo wui=WeixinUtil.getUserInfo(WeixinGetTokenTimerTask.token.getAccessToken(), fromUserName);
+                	MxUsersData ur=sysUsersDAO.getUserByOpenId(wui.getOpenId());
+                	if(ur!=null){
+                		ur.setUserState(-1);
+                		sysUsersDAO.setUserState(ur);
+                	}
+                    // TODO 取消订阅后用户不会再收到公众账号发送的消息，因此不需要回复,将数据库中用户状态设为-1
                 }
                 // 扫描带参数二维码
                 else if (eventType.equals(MessageUtil.EVENT_TYPE_SCAN)) {

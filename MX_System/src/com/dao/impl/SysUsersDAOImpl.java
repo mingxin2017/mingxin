@@ -110,13 +110,36 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 		getHibernateTemplate().save(userData);
 		
 	}
-	
-	//根据open_id查找用户
-	public int isExistUser(String open_id) {
-		String hql = "select count(*) from com.bean.MxUsersData user where user.weixinOpenId = '" + open_id + "'";
-		Integer count = Integer.valueOf(getHibernateTemplate().find(hql).listIterator().next().toString());
-		return count.intValue();
+	public MxUsersData getUserByOpenId(String openId) {
+		// TODO Auto-generated method stub
+		List<MxUsersData> mud=getHibernateTemplate().find("from com.bean.MxUsersData au where au.weixinOpenId ='"+openId+"'");
+		if(mud.size()!=0){
+			return (MxUsersData) mud.get(0);
+		}else{
+			return null;
+		}
+		
 	}
-
+	public boolean setUserState(MxUsersData ur) {
+		// TODO Auto-generated method stub
+		String sql="update [MXDB].[dbo].[MX_users_data] set user_state="+ur.getUserState()+" where weixin_openID='"+ur.getWeixinOpenId()+"'";
+		if(sqlUtil.executeUpdate(sql)>0){
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean validateWeixinUser(String openId) {
+		// TODO Auto-generated method stub
+		
+		List<MxUsersData> ud= getHibernateTemplate().find("from com.bean.MxUsersData au where au.weixinOpenId ='"+openId+"' and au.userState=0");
+		if(ud.size()==0){
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
+	
 
 }

@@ -25,7 +25,7 @@ public class WeixinGetTokenTimerTask  extends TimerTask{
 		//刷新全局变量token，时间配置在applicationContext.xml中
 		token=TokenUtil.getToken(WeixinSignUtil.AppID, WeixinSignUtil.AppSecret);
 		
-		System.out.println("token:"+token.getAccessToken());
+		System.out.println("token refresh:"+token.getAccessToken());
 		System.out.println("expiresIn:"+token.getExpiresIn());
 		
 		MenuManager.createMenu();//2小时创建一次动态菜单

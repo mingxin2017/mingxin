@@ -76,5 +76,8 @@
         <property name="others" type="java.lang.String">
             <column name="others" />
         </property>
+        <property name="userRealName" type="java.lang.String">
+            <column name="user_realName" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>
