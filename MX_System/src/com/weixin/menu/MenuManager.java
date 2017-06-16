@@ -91,6 +91,14 @@ public class MenuManager {
         btn22.setType("view");
         btn22.setUrl("http://d1a7069951.iask.in/MX_System/weixin!getCountryNews.action");
         
+        
+        CommonButton btn23 = new CommonButton();
+        btn23.setName("小记者申请");
+        btn23.setType("view");
+        btn23.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb235c46c4c2740a9&redirect_uri=http://d1a7069951.iask.in/MX_System/mxReporterBusiness!loadReporterApply.action&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect");
+
+        
+        
         CommonButton btn31 = new CommonButton();
         btn31.setName("教育培训");   
         btn31.setType("view");   
@@ -128,7 +136,7 @@ public class MenuManager {
 
         ComplexButton mainBtn2 = new ComplexButton();
         mainBtn2.setName("鸣心时报");
-        mainBtn2.setSub_button(new CommonButton[] { btn21, btn22 });
+        mainBtn2.setSub_button(new CommonButton[] { btn21, btn22 , btn23 });
 
         ComplexButton mainBtn3 = new ComplexButton();
         mainBtn3.setName("个人中心");

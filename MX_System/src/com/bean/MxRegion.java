@@ -26,10 +26,9 @@ public class MxRegion implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public MxRegion(Integer regionId, String regionName,
-			Integer regionParentId, String regionZipCode,
-			String regionDescribe, Date createDate, Date updateDate) {
-		this.regionId = regionId;
+	public MxRegion(String regionName, Integer regionParentId,
+			String regionZipCode, String regionDescribe, Date createDate,
+			Date updateDate) {
 		this.regionName = regionName;
 		this.regionParentId = regionParentId;
 		this.regionZipCode = regionZipCode;
@@ -39,11 +38,9 @@ public class MxRegion implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public MxRegion(Integer regionId, String regionName,
-			Integer regionParentId, String regionZipCode,
-			String regionDescribe, Date createDate, Date updateDate,
-			String others) {
-		this.regionId = regionId;
+	public MxRegion(String regionName, Integer regionParentId,
+			String regionZipCode, String regionDescribe, Date createDate,
+			Date updateDate, String others) {
 		this.regionName = regionName;
 		this.regionParentId = regionParentId;
 		this.regionZipCode = regionZipCode;

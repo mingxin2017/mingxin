@@ -34,6 +34,7 @@
 		</action>
 		<!-- 小记者相关业务 -->
 		<action name="mxReporterBusiness" class="mxReporterBusinessAction">
+			<result name="ReporterApply">/WeixinPages/Reporter/reporterApplyIndex.jsp</result>
 		    <result name="ReporterManage">/WeixinPages/Reporter/reporterManageIndex.jsp</result>
 		</action>
 		<!-- <action name="userList" class="userListAction">

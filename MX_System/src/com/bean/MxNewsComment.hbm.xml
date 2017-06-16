@@ -8,7 +8,7 @@
     <class name="com.bean.MxNewsComment" table="MX_news_comment" schema="dbo" catalog="MXDB">
         <id name="commentId" type="integer">
             <column name="Comment_id" />
-            <generator class="nature" />
+            <generator class="native" />
         </id>
         <property name="newsId" type="integer">
             <column name="news_id" not-null="true" />

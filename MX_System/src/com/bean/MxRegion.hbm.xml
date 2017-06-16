@@ -8,7 +8,7 @@
     <class name="com.bean.MxRegion" table="MX_region" schema="dbo" catalog="MXDB">
         <id name="regionId" type="integer">
             <column name="region_id" />
-            <generator class="assigned" />
+            <generator class="native" />
         </id>
         <property name="regionName" type="string">
             <column name="region_name" not-null="true" />

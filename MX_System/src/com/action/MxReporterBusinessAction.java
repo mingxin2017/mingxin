@@ -31,7 +31,10 @@ public class MxReporterBusinessAction {
 			IReporterBusinessService reporterBusinessService) {
 		this.reporterBusinessService = reporterBusinessService;
 	}
-
+	//获取小记者申请页面
+	public String loadReporterApply(){
+		return "ReporterApply";
+	}
 	//获取小记者管理页面
 	public String loadReporterManage(){
 		System.out.println("manage action");

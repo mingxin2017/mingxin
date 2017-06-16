@@ -25,10 +25,8 @@ public class MxSchools implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public MxSchools(Integer schoolId, String schoolName,
-			Integer schoolRegionId, String schoolAddress, Date createDate,
-			Date updateDate) {
-		this.schoolId = schoolId;
+	public MxSchools(String schoolName, Integer schoolRegionId,
+			String schoolAddress, Date createDate, Date updateDate) {
 		this.schoolName = schoolName;
 		this.schoolRegionId = schoolRegionId;
 		this.schoolAddress = schoolAddress;
@@ -37,10 +35,9 @@ public class MxSchools implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public MxSchools(Integer schoolId, String schoolName,
-			Integer schoolRegionId, String schoolAddress, Date createDate,
-			Date updateDate, String others) {
-		this.schoolId = schoolId;
+	public MxSchools(String schoolName, Integer schoolRegionId,
+			String schoolAddress, Date createDate, Date updateDate,
+			String others) {
 		this.schoolName = schoolName;
 		this.schoolRegionId = schoolRegionId;
 		this.schoolAddress = schoolAddress;
