@@ -103,6 +103,16 @@
 		<!-- 小记者业务类bean -->
 		<bean id="mxReporterBusinessAction" class="com.action.MxReporterBusinessAction">
 			<property name="weixinNewsService" ref="weixinNewsService"></property>
+		    <property name="reporterBusinessService" ref="reporterBusinessService"></property>
+		</bean>
+		<bean id="reporterBusinessService" class="com.service.impl.ReporterBusinessServiceImpl">
+			<property name="reporterBusinessDAO" ref="reporterBusinessDAO"></property>
+		</bean>
+		<bean id="reporterBusinessDAO" class="com.dao.impl.ReporterBusinessDAOImpl">
+			<property name="sessionFactory">
+				<ref local="sessionFactory" />
+			</property>
+			<property name="sqlUtil" ref="SqlUtil"></property>
 		</bean>
 		<!-- 小记者业务类bean -->
 		
