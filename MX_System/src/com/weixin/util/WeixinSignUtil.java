@@ -14,11 +14,9 @@ import java.util.Arrays;
 public class WeixinSignUtil {
     
     // 与接口配置信息中的Token要一致
-    private static String token = "freamwechat";
-    
-    
-    public final static String AppID = "wxb235c46c4c2740a9";
-    public final static String AppSecret = "bbd63f207a5dd01e7d253174be7d5e0e";
+    private static String token = "weixin_mingxin";
+    public final static String AppID = "wx34c7cde93a1c5c40";
+    public final static String AppSecret = "97a28450aed0e10b0299ff88ae482bac";
     
     
     

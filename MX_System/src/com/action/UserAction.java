@@ -24,7 +24,7 @@ public class UserAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 
 	private IUserService userService;     //该对象采用 Spring 依赖注入
-	
+		
 	//Spring依赖注入的对象必须有get、set方法。方法命名规则：get+变量名。为了便于记忆，变量名第一个字母可以大写。
     public void setUserService(IUserService userLoginService)    
     {

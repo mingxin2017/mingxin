@@ -18,7 +18,6 @@
 		<property name="password" value="mingxin_@2017">
 		</property>
 		
-		
 	</bean>
 	
 	<!-- session意为 轻量级的类，创建了数据库访问的类实现 -->

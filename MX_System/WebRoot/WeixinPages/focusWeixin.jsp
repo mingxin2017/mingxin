@@ -44,7 +44,7 @@ body{ text-align:center}
   	<div><font size="50">鸣心有你更精彩</font> </div>
   	<div class="div">
   	
-  		<img src="<%=basePath%>WeixinPages/common/image/0.jpg" style="width:100%;height:?">
+  		<img src="<%=basePath%>WeixinPages/common/image/focusWeixin.jpg" style="width:100%;height:?">
   		
   	</div>
   	<div><font size="20">长按二维码关注</font></div>
