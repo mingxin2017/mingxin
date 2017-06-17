@@ -8,7 +8,7 @@
     <class name="com.bean.MxNewsMaterial" table="MX_news_material" schema="dbo" catalog="MXDB">
         <id name="newsMaterialId" type="integer">
             <column name="news_materialID" />
-            <generator class="nature" />
+            <generator class="native" />
         </id>
         <property name="materialType" type="integer">
             <column name="material_type" not-null="true" />
