@@ -74,6 +74,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<script src="<%=basePath%>WeixinPages/common/js/mui.min.js"></script>
 		<script>
+		    var code = "${code}";
+		    var state = "${state}";
 			mui.init({
 				swipeBack: true //启用右滑关闭功能
 			});
