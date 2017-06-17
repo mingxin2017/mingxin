@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.bean.MxNewsData;
+import com.bean.MxUsersData;
 import com.dao.IWeixinNewsDAO;
 import com.weixin.pojo.WeixinUserInfo;
 import com.weixin.task.WeixinGetTokenTimerTask;
@@ -29,9 +30,11 @@ public class WeixinNewsServiceImpl implements com.service.IWeixinNewsService{
 
 	//添加新闻
 	public void addNews(MxNewsData newsData) {
-        System.out.println("service");
-        System.out.println(newsData.toString());
 		weixinNewsDAO.addNews(newsData);
+	}
+    //根据openid获取用户
+	public MxUsersData getUser(String open_id) {
+		return weixinNewsDAO.getUser(open_id);
 	}
 
 

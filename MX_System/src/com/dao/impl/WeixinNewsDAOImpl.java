@@ -3,6 +3,7 @@ package com.dao.impl;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.bean.MxNewsData;
+import com.bean.MxUsersData;
 import com.dao.IWeixinNewsDAO;
 import com.publicMethos.ISqlUtil;
 
@@ -21,19 +22,18 @@ public class WeixinNewsDAOImpl extends HibernateDaoSupport implements IWeixinNew
 	}
 	//添加新闻
 	public void addNews(MxNewsData newsData) {
-		System.out.println("dao");
 		try{
 			getHibernateTemplate().save(newsData);
 		}catch(Exception e){
 			e.getMessage();
 			e.printStackTrace();
-			System.out.println(e.getMessage());
-			//System.out.println(e.printStackTrace());
 		}
-
-
 	}
-
+    //根据openid查询用户id
+	public MxUsersData getUser(String open_id){
+		return (MxUsersData) getHibernateTemplate().find("from com.bean.MxUsersData au where au.weixinOpenId ='"+open_id+"'").get(0);	
+	}
+	
 
 
 }

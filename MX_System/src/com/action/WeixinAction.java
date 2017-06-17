@@ -159,30 +159,7 @@ public class WeixinAction {
 			System.out.println(state);
 			request.setAttribute("code", code);
 			request.setAttribute("state", state);
-//			request.setAttribute("snsUserInfo", getUserInfo(code).getNickname());//通过code获取用户信息
-			
-			//通过code获取用户信息
-			if (!"authdeny".equals(code)) {
-//				// 获取网页授权access_token
-//				WeixinOauth2Token weixinOauth2Token = OAuth2TokenUtil
-//						.getOauth2AccessToken(WeixinSignUtil.AppID,
-//								WeixinSignUtil.AppSecret, code);
-//				// 网页授权接口访问凭证
-//				String accessToken = weixinOauth2Token.getAccessToken();
-//				// 用户标识
-//				String openId = weixinOauth2Token.getOpenId();
-//				// 获取用户信息
-//				SNSUserInfo snsUserInfo = OAuth2TokenUtil.getSNSUserInfo(
-//						accessToken, openId);
-//				System.out.println(snsUserInfo.getOpenId() + ","
-//						+ snsUserInfo.getNickname() + ","
-//						+ snsUserInfo.getHeadImgUrl());
-//				// 设置要传递的参数
-//				request.setAttribute("snsUserInfo", snsUserInfo);
-			}
-			
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -195,13 +172,13 @@ public class WeixinAction {
 		//获取参数
 		HttpServletRequest request = ServletActionContext.getRequest();
 		request.setCharacterEncoding("UTF-8");
-		String newsHeadline = request.getParameter("title");
+		String newsHeadline = request.getParameter("headline");
+		String newsLeadText = request.getParameter("leadText");
+		String writer_name = request.getParameter("writer_name");
 		String newsMainContent = request.getParameter("content");
 		String code = request.getParameter("code");
 		String state = request.getParameter("state");
-		System.out.println(newsHeadline+","+newsMainContent+","+code+","+state);
-		//通过code获取用户信息
-		//System.out.println(getUserInfo(code).getNickname()+","+getUserInfo(code).getOpenId());
+		System.out.println(newsHeadline+","+newsLeadText+","+writer_name+","+newsMainContent+","+code+","+state);
 		
 		SNSUserInfo snsUserInfo = new SNSUserInfo();
 		//通过code获取用户信息
@@ -226,19 +203,19 @@ public class WeixinAction {
 		System.out.println("action");
 		MxNewsData newsData = new MxNewsData();
 		newsData.setNewsHeadline(newsHeadline);
+		newsData.setNewsLeadText(newsLeadText);
+		newsData.setWriterName(writer_name);
 		newsData.setNewsMainContent(newsMainContent);
-		//newsData.setNewsWriterId(snsUserInfo.getOpenId());
-		newsData.setWriterName(snsUserInfo.getNickname());
+		//根据openid和用户状态为有效获取userid
+		newsData.setNewsWriterId(weixinNewsService.getUser(snsUserInfo.getOpenId()).getUserId());
 		System.out.println(newsData.toString());
 		weixinNewsService.addNews(newsData);
 		System.out.println("end");
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("status", newsHeadline);
+		map.put("status", "success");
 		ResultUtil.toJson(ServletActionContext.getResponse(), map);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println(e.getMessage());
 		}
 		return null;
 	}
@@ -249,27 +226,4 @@ public class WeixinAction {
 		return "resultPage";
 	}
 	
-	//通过code获取用户信息封装
-	SNSUserInfo getUserInfo(String code){
-		SNSUserInfo snsUserInfo = new SNSUserInfo();
-		//通过code获取用户信息
-		if (!"authdeny".equals(code)) {
-			// 获取网页授权access_token
-			WeixinOauth2Token weixinOauth2Token = OAuth2TokenUtil
-					.getOauth2AccessToken(WeixinSignUtil.AppID,
-							WeixinSignUtil.AppSecret, code);
-			// 网页授权接口访问凭证
-			String accessToken = weixinOauth2Token.getAccessToken();
-			// 用户标识
-			String openId = weixinOauth2Token.getOpenId();
-			// 获取用户信息
-			snsUserInfo = OAuth2TokenUtil.getSNSUserInfo(
-					accessToken, openId);
-			System.out.println(snsUserInfo.getOpenId() + ","
-					+ snsUserInfo.getNickname() + ","
-					+ snsUserInfo.getHeadImgUrl());
-		}
-		
-		return snsUserInfo;
-	}
 }

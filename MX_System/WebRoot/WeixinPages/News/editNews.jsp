@@ -53,14 +53,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</style>
 </head>
 <body>
-	<div class="title">
-		<b>wangEditor-mobile</b> 
-		——适用于手机的编辑器
+	<div class="maintitle" style="text-align:center;">
+		<b>新闻编辑</b> 
 	</div>
 	<center>
-		<div class="publish-article-title">
-			<div class="title-tips">标题</div>
-			<input type="text" id="title" class="w100" placeholder="文章标题">
+		<div style="text-align:left;">
+			标题：<input type="text" id="headline" class="w100" placeholder="标题"> <br>
+			引言：<input type="text" id="leadText" class="w100" placeholder="引言"> <br>
+			笔名：<input type="text" id="writer_name" class="w100" placeholder="笔名">
 		</div>
 		<div class="container">
 			<textarea id="content" style="width:100%;height:100%;">
@@ -116,12 +116,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var state = "${state}";
 		//提交事件
 		function onCommit(){
-			  var title = $("#title").val();
-			  var content = $("#content").val();//jQuery("#content").val().trim();
-			  console.log(title);
-			  console.log(content);
+			  var headline = $("#headline").val();
+			  var leadText = $("#leadText").val();
+			  var writer_name = $("#writer_name").val();
+			  var content = $("#content").val();
 			  var data = { 
-						title:title,
+						headline:headline,
+						leadText:leadText,
+						writer_name:writer_name,
 						content:content,
 						code:code,
 						state:state
