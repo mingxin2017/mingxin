@@ -1,8 +1,12 @@
 package com.dao.impl;
 
+import java.util.List;
+
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import com.bean.MxNewsContent;
 import com.bean.MxNewsData;
+import com.bean.MxNewsType;
 import com.bean.MxUsersData;
 import com.dao.IWeixinNewsDAO;
 import com.publicMethos.ISqlUtil;
@@ -21,9 +25,13 @@ public class WeixinNewsDAOImpl extends HibernateDaoSupport implements IWeixinNew
 		this.sqlUtil = sqlUtil;
 	}
 	//添加新闻
-	public void addNews(MxNewsData newsData) {
+	public void addNews(MxNewsData newsData,MxNewsContent newsContent) {
 		try{
-			getHibernateTemplate().save(newsData);
+			//添加主表
+			Integer news_id = (Integer) getHibernateTemplate().save(newsData);
+			//添加从表
+			newsContent.setNewsId(news_id);
+			getHibernateTemplate().save(newsContent);
 		}catch(Exception e){
 			e.getMessage();
 			e.printStackTrace();
@@ -33,7 +41,19 @@ public class WeixinNewsDAOImpl extends HibernateDaoSupport implements IWeixinNew
 	public MxUsersData getUser(String open_id){
 		return (MxUsersData) getHibernateTemplate().find("from com.bean.MxUsersData au where au.weixinOpenId ='"+open_id+"'").get(0);	
 	}
-	
+	//添加新闻内容
+	public void addNewsContent(MxNewsContent newsContent) {
+		try{
+			getHibernateTemplate().save(newsContent);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	//查询新闻类型列表
+	@SuppressWarnings("unchecked")
+	public List<MxNewsType> getNewsType() {
+		return getHibernateTemplate().find("from com.bean.MxNewsType");
+	}
 
 
 }

@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="com.weixin.pojo.SNSUserInfo,java.lang.*"%>
 <%
 String path = request.getContextPath();
@@ -60,7 +61,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div style="text-align:left;">
 			标题：<input type="text" id="headline" class="w100" placeholder="标题"> <br>
 			引言：<input type="text" id="leadText" class="w100" placeholder="引言"> <br>
-			笔名：<input type="text" id="writer_name" class="w100" placeholder="笔名">
+			笔名：<input type="text" id="writer_name" class="w100" placeholder="笔名"><br>
+			类型：<select id="newsTypeId" class="select" style="width:70px;">
+					<c:forEach items="${msNewsType}" var="c" varStatus="st">
+					    <option value="${c.newsTypeId}">${c.typeName}</option>
+					</c:forEach>
+   				</select>
+   				<select id="newsTypeId111" class="select" style="width:70px;">
+					<c:forEach items="${msNewsType}" var="c" varStatus="st">
+					    <option value="${c.newsTypeId}">${c.typeName}</option>
+					</c:forEach>
+   				</select>
 		</div>
 		<div class="container">
 			<textarea id="content" style="width:100%;height:100%;">
@@ -114,17 +125,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		//接收参数
 		var code = "${code}";
 		var state = "${state}";
+		var msNewsType = "${msNewsType[0].typeName}";
 		//提交事件
 		function onCommit(){
 			  var headline = $("#headline").val();
 			  var leadText = $("#leadText").val();
 			  var writer_name = $("#writer_name").val();
 			  var content = $("#content").val();
+			  var newsTypeId = $("#newsTypeId").val();
 			  var data = { 
 						headline:headline,
 						leadText:leadText,
 						writer_name:writer_name,
 						content:content,
+						newsTypeId:newsTypeId,
 						code:code,
 						state:state
 			  };

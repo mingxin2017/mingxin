@@ -16,7 +16,6 @@ public class MxNewsData implements java.io.Serializable {
 	private String writerName;
 	private String newsHeadline;
 	private String newsLeadText;
-	private String newsMainContent;
 	private Integer commentNum;
 	private Integer praiseClickNum;
 	private Date createDate;
@@ -36,7 +35,6 @@ public class MxNewsData implements java.io.Serializable {
 		this.setWriterName("no set");
 		this.setNewsHeadline("no set");
 		this.setNewsLeadText("no set");
-		this.setNewsMainContent("no set");
 		this.setCommentNum(-1);
 		this.setPraiseClickNum(-1);
 		this.setCreateDate(new Timestamp(System.currentTimeMillis()));
@@ -53,7 +51,7 @@ public class MxNewsData implements java.io.Serializable {
 		return "MxNewsData [newsId=" + newsId + ", newsWriterId="
 				+ newsWriterId + ", writerName=" + writerName
 				+ ", newsHeadline=" + newsHeadline + ", newsLeadText="
-				+ newsLeadText + ", newsMainContent=" + newsMainContent
+				+ newsLeadText 
 				+ ", commentNum=" + commentNum + ", praiseClickNum="
 				+ praiseClickNum + ", createDate=" + createDate
 				+ ", updateDate=" + updateDate + ", others=" + others
@@ -72,7 +70,6 @@ public class MxNewsData implements java.io.Serializable {
 		this.writerName = writerName;
 		this.newsHeadline = newsHeadline;
 		this.newsLeadText = newsLeadText;
-		this.newsMainContent = newsMainContent;
 		this.commentNum = commentNum;
 		this.praiseClickNum = praiseClickNum;
 		this.createDate = createDate;
@@ -94,7 +91,6 @@ public class MxNewsData implements java.io.Serializable {
 		this.writerName = writerName;
 		this.newsHeadline = newsHeadline;
 		this.newsLeadText = newsLeadText;
-		this.newsMainContent = newsMainContent;
 		this.commentNum = commentNum;
 		this.praiseClickNum = praiseClickNum;
 		this.createDate = createDate;
@@ -148,13 +144,6 @@ public class MxNewsData implements java.io.Serializable {
 		this.newsLeadText = newsLeadText;
 	}
 
-	public String getNewsMainContent() {
-		return this.newsMainContent;
-	}
-
-	public void setNewsMainContent(String newsMainContent) {
-		this.newsMainContent = newsMainContent;
-	}
 
 	public Integer getCommentNum() {
 		return this.commentNum;

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -11,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.ServletActionContext;
 
+import com.bean.MxNewsContent;
 import com.bean.MxNewsData;
+import com.bean.MxNewsType;
 import com.service.IWeixinNewsService;
 import com.service.IWeixinService;
 import com.weixin.pojo.SNSUserInfo;
@@ -159,6 +162,9 @@ public class WeixinAction {
 			System.out.println(state);
 			request.setAttribute("code", code);
 			request.setAttribute("state", state);
+			//获取新闻类型列表
+			List<MxNewsType> msNewsType = weixinNewsService.getNewsType();
+			request.setAttribute("msNewsType", msNewsType);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -176,6 +182,7 @@ public class WeixinAction {
 		String newsLeadText = request.getParameter("leadText");
 		String writer_name = request.getParameter("writer_name");
 		String newsMainContent = request.getParameter("content");
+		String newsTypeId = request.getParameter("newsTypeId");
 		String code = request.getParameter("code");
 		String state = request.getParameter("state");
 		System.out.println(newsHeadline+","+newsLeadText+","+writer_name+","+newsMainContent+","+code+","+state);
@@ -199,17 +206,25 @@ public class WeixinAction {
 					+ snsUserInfo.getHeadImgUrl());
 		}
 		try {
-		//添加新闻
+		//添加新闻 
 		System.out.println("action");
 		MxNewsData newsData = new MxNewsData();
 		newsData.setNewsHeadline(newsHeadline);
 		newsData.setNewsLeadText(newsLeadText);
 		newsData.setWriterName(writer_name);
-		newsData.setNewsMainContent(newsMainContent);
+		newsData.setNewsTypeId(new Integer(newsTypeId));
 		//根据openid和用户状态为有效获取userid
 		newsData.setNewsWriterId(weixinNewsService.getUser(snsUserInfo.getOpenId()).getUserId());
 		System.out.println(newsData.toString());
-		weixinNewsService.addNews(newsData);
+		//添加新闻内容从表
+		MxNewsContent newsContent = new MxNewsContent();
+		newsContent.setNewsHeadline(newsHeadline);
+		newsContent.setNewsLeadText(newsLeadText);
+		newsContent.setNewsMainContent(newsMainContent);
+		weixinNewsService.addNews(newsData,newsContent);
+		
+		
+
 		System.out.println("end");
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("status", "success");
