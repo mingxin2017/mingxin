@@ -61,7 +61,7 @@
 						<div class="mui-media-body" style="color:black" >
 							${item.articleTitle}
 							<p class="mui-ellipsis" style="color:#87CEFA" >${item.articleAbstract}</p>
-						</div> 
+						</div>
 					</a>
 				</li>
 			</c:forEach>
