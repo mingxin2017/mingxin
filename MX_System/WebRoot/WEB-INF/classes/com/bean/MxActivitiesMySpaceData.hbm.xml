@@ -6,32 +6,32 @@
 -->
 <hibernate-mapping>
     <class name="com.bean.MxActivitiesMySpaceData" table="MX_activities_mySpace_data" schema="dbo" catalog="MXDB">
-        <id name="myspaceId" type="java.lang.Integer">
+        <id name="myspaceId" type="integer">
             <column name="myspace_id" />
-            <generator class="assigned" />
+            <generator class="native" />
         </id>
-        <property name="activitiesId" type="java.lang.Integer">
+        <property name="activitiesId" type="integer">
             <column name="activities_id" not-null="true" />
         </property>
-        <property name="describe" type="java.lang.String">
+        <property name="describe" type="string">
             <column name="describe" not-null="true" />
         </property>
-        <property name="createDate" type="java.sql.Timestamp">
+        <property name="createDate" type="timestamp">
             <column name="create_date" length="23" not-null="true" />
         </property>
-        <property name="updateDate" type="java.sql.Timestamp">
+        <property name="updateDate" type="timestamp">
             <column name="Update_date" length="23" not-null="true" />
         </property>
-        <property name="others" type="java.lang.String">
+        <property name="others" type="string">
             <column name="others" />
         </property>
-        <property name="upperLimit" type="java.lang.Integer">
+        <property name="upperLimit" type="integer">
             <column name="upperLimit" not-null="true" />
         </property>
-        <property name="lowerLimit" type="java.lang.Integer">
+        <property name="lowerLimit" type="integer">
             <column name="lowerLimit" not-null="true" />
         </property>
-        <property name="state" type="java.lang.Integer">
+        <property name="state" type="integer">
             <column name="state" not-null="true" />
         </property>
     </class>

@@ -117,8 +117,8 @@ public class MenuManager {
 
         CommonButton btn34 = new CommonButton(); 
         btn34.setName("活动空间");
-        btn34.setType("click");
-        btn34.setKey("34");
+        btn34.setType("view");
+        btn34.setUrl("http://mingxin.imwork.net/MX_System/activitiesMySpace!gotoActivitiesMySpaceMain.action");
         
         CommonButton btn35 = new CommonButton();
         btn35.setName("其他功能");

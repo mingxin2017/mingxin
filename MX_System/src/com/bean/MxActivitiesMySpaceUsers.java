@@ -1,6 +1,6 @@
 package com.bean;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * MxActivitiesMySpaceUsers entity. @author MyEclipse Persistence Tools
@@ -12,8 +12,8 @@ public class MxActivitiesMySpaceUsers implements java.io.Serializable {
 
 	private Integer myspaceId;
 	private Integer userId;
-	private Timestamp createDate;
-	private Timestamp updateDate;
+	private Date createDate;
+	private Date updateDate;
 	private String others;
 
 	// Constructors
@@ -23,18 +23,16 @@ public class MxActivitiesMySpaceUsers implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public MxActivitiesMySpaceUsers(Integer myspaceId, Integer userId,
-			Timestamp createDate, Timestamp updateDate) {
-		this.myspaceId = myspaceId;
+	public MxActivitiesMySpaceUsers(Integer userId, Date createDate,
+			Date updateDate) {
 		this.userId = userId;
 		this.createDate = createDate;
 		this.updateDate = updateDate;
 	}
 
 	/** full constructor */
-	public MxActivitiesMySpaceUsers(Integer myspaceId, Integer userId,
-			Timestamp createDate, Timestamp updateDate, String others) {
-		this.myspaceId = myspaceId;
+	public MxActivitiesMySpaceUsers(Integer userId, Date createDate,
+			Date updateDate, String others) {
 		this.userId = userId;
 		this.createDate = createDate;
 		this.updateDate = updateDate;
@@ -59,19 +57,19 @@ public class MxActivitiesMySpaceUsers implements java.io.Serializable {
 		this.userId = userId;
 	}
 
-	public Timestamp getCreateDate() {
+	public Date getCreateDate() {
 		return this.createDate;
 	}
 
-	public void setCreateDate(Timestamp createDate) {
+	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 
-	public Timestamp getUpdateDate() {
+	public Date getUpdateDate() {
 		return this.updateDate;
 	}
 
-	public void setUpdateDate(Timestamp updateDate) {
+	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
 

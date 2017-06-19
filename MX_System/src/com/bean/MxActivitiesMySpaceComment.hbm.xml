@@ -6,29 +6,29 @@
 -->
 <hibernate-mapping>
     <class name="com.bean.MxActivitiesMySpaceComment" table="MX_activities_mySpace_comment" schema="dbo" catalog="MXDB">
-        <id name="commentId" type="java.lang.Integer">
+        <id name="commentId" type="integer">
             <column name="comment_id" />
-            <generator class="assigned" />
+            <generator class="native" />
         </id>
-        <property name="myspaceId" type="java.lang.Integer">
+        <property name="myspaceId" type="integer">
             <column name="myspace_id" not-null="true" />
         </property>
-        <property name="submitUserId" type="java.lang.Integer">
+        <property name="submitUserId" type="integer">
             <column name="submit_userID" not-null="true" />
         </property>
-        <property name="state" type="java.lang.Integer">
+        <property name="state" type="integer">
             <column name="state" not-null="true" />
         </property>
-        <property name="commentTxt" type="java.lang.String">
+        <property name="commentTxt" type="string">
             <column name="Comment_txt" not-null="true" />
         </property>
-        <property name="praiseClickNum" type="java.lang.Integer">
+        <property name="praiseClickNum" type="integer">
             <column name="praise_clickNum" not-null="true" />
         </property>
-        <property name="createDate" type="java.sql.Timestamp">
+        <property name="createDate" type="timestamp">
             <column name="create_date" length="23" not-null="true" />
         </property>
-        <property name="others" type="java.lang.String">
+        <property name="others" type="string">
             <column name="others" />
         </property>
     </class>

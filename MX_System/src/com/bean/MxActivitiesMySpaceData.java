@@ -1,6 +1,6 @@
 package com.bean;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * MxActivitiesMySpaceData entity. @author MyEclipse Persistence Tools
@@ -13,8 +13,8 @@ public class MxActivitiesMySpaceData implements java.io.Serializable {
 	private Integer myspaceId;
 	private Integer activitiesId;
 	private String describe;
-	private Timestamp createDate;
-	private Timestamp updateDate;
+	private Date createDate;
+	private Date updateDate;
 	private String others;
 	private Integer upperLimit;
 	private Integer lowerLimit;
@@ -27,10 +27,9 @@ public class MxActivitiesMySpaceData implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public MxActivitiesMySpaceData(Integer myspaceId, Integer activitiesId,
-			String describe, Timestamp createDate, Timestamp updateDate,
-			Integer upperLimit, Integer lowerLimit, Integer state) {
-		this.myspaceId = myspaceId;
+	public MxActivitiesMySpaceData(Integer activitiesId, String describe,
+			Date createDate, Date updateDate, Integer upperLimit,
+			Integer lowerLimit, Integer state) {
 		this.activitiesId = activitiesId;
 		this.describe = describe;
 		this.createDate = createDate;
@@ -41,10 +40,9 @@ public class MxActivitiesMySpaceData implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public MxActivitiesMySpaceData(Integer myspaceId, Integer activitiesId,
-			String describe, Timestamp createDate, Timestamp updateDate,
-			String others, Integer upperLimit, Integer lowerLimit, Integer state) {
-		this.myspaceId = myspaceId;
+	public MxActivitiesMySpaceData(Integer activitiesId, String describe,
+			Date createDate, Date updateDate, String others,
+			Integer upperLimit, Integer lowerLimit, Integer state) {
 		this.activitiesId = activitiesId;
 		this.describe = describe;
 		this.createDate = createDate;
@@ -81,19 +79,19 @@ public class MxActivitiesMySpaceData implements java.io.Serializable {
 		this.describe = describe;
 	}
 
-	public Timestamp getCreateDate() {
+	public Date getCreateDate() {
 		return this.createDate;
 	}
 
-	public void setCreateDate(Timestamp createDate) {
+	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 
-	public Timestamp getUpdateDate() {
+	public Date getUpdateDate() {
 		return this.updateDate;
 	}
 
-	public void setUpdateDate(Timestamp updateDate) {
+	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
 	}
 
