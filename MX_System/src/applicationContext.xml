@@ -162,6 +162,12 @@
 		</bean>
 		<!-- 活动宣传文章Bean -->
 		
+		<!-- 活动空间Bean -->
+		<bean id="activitiesMySpaceAction" class="com.action.MxActivitiesMySpaceAction">
+			
+		</bean>
+		<!-- 活动空间Bean -->
+		
 		<!-- 用户登录的Bean -->
 		<bean id="userAction" class="com.action.UserAction">
 			<property name="userService" ref="userService"></property>

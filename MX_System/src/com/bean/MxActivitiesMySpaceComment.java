@@ -1,6 +1,6 @@
 package com.bean;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * MxActivitiesMySpaceComment entity. @author MyEclipse Persistence Tools
@@ -16,7 +16,7 @@ public class MxActivitiesMySpaceComment implements java.io.Serializable {
 	private Integer state;
 	private String commentTxt;
 	private Integer praiseClickNum;
-	private Timestamp createDate;
+	private Date createDate;
 	private String others;
 
 	// Constructors
@@ -26,10 +26,9 @@ public class MxActivitiesMySpaceComment implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public MxActivitiesMySpaceComment(Integer commentId, Integer myspaceId,
-			Integer submitUserId, Integer state, String commentTxt,
-			Integer praiseClickNum, Timestamp createDate) {
-		this.commentId = commentId;
+	public MxActivitiesMySpaceComment(Integer myspaceId, Integer submitUserId,
+			Integer state, String commentTxt, Integer praiseClickNum,
+			Date createDate) {
 		this.myspaceId = myspaceId;
 		this.submitUserId = submitUserId;
 		this.state = state;
@@ -39,10 +38,9 @@ public class MxActivitiesMySpaceComment implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public MxActivitiesMySpaceComment(Integer commentId, Integer myspaceId,
-			Integer submitUserId, Integer state, String commentTxt,
-			Integer praiseClickNum, Timestamp createDate, String others) {
-		this.commentId = commentId;
+	public MxActivitiesMySpaceComment(Integer myspaceId, Integer submitUserId,
+			Integer state, String commentTxt, Integer praiseClickNum,
+			Date createDate, String others) {
 		this.myspaceId = myspaceId;
 		this.submitUserId = submitUserId;
 		this.state = state;
@@ -102,11 +100,11 @@ public class MxActivitiesMySpaceComment implements java.io.Serializable {
 		this.praiseClickNum = praiseClickNum;
 	}
 
-	public Timestamp getCreateDate() {
+	public Date getCreateDate() {
 		return this.createDate;
 	}
 
-	public void setCreateDate(Timestamp createDate) {
+	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 

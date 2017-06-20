@@ -6,20 +6,20 @@
 -->
 <hibernate-mapping>
     <class name="com.bean.MxActivitiesMySpaceUsers" table="MX_activities_mySpace_users" schema="dbo" catalog="MXDB">
-        <id name="myspaceId" type="java.lang.Integer">
+        <id name="myspaceId" type="integer">
             <column name="myspace_id" />
-            <generator class="assigned" />
+            <generator class="native" />
         </id>
-        <property name="userId" type="java.lang.Integer">
+        <property name="userId" type="integer">
             <column name="user_id" not-null="true" />
         </property>
-        <property name="createDate" type="java.sql.Timestamp">
+        <property name="createDate" type="timestamp">
             <column name="create_date" length="23" not-null="true" />
         </property>
-        <property name="updateDate" type="java.sql.Timestamp">
+        <property name="updateDate" type="timestamp">
             <column name="update_date" length="23" not-null="true" />
         </property>
-        <property name="others" type="java.lang.String">
+        <property name="others" type="string">
             <column name="others" />
         </property>
     </class>

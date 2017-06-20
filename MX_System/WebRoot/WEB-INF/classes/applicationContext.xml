@@ -46,6 +46,8 @@
 		</property>
 		<property name="mappingResources">
 			<list>
+			    <value>com/bean/MxNewsType.hbm.xml</value>
+				<value>com/bean/MxNewsContent.hbm.xml</value>
 				<value>com/bean/MxNewsData.hbm.xml</value>
 				<value>com/bean/MxUsersData.hbm.xml</value>
 				<value>com/bean/MxActivitiesData.hbm.xml</value>
@@ -157,6 +159,12 @@
 			</property>
 		</bean>
 		<!-- 活动宣传文章Bean -->
+		
+		<!-- 活动空间Bean -->
+		<bean id="activitiesMySpaceAction" class="com.action.MxActivitiesMySpaceAction">
+			
+		</bean>
+		<!-- 活动空间Bean -->
 		
 		<!-- 用户登录的Bean -->
 		<bean id="userAction" class="com.action.UserAction">

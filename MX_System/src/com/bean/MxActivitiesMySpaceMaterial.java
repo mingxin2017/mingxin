@@ -1,6 +1,6 @@
 package com.bean;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * MxActivitiesMySpaceMaterial entity. @author MyEclipse Persistence Tools
@@ -16,7 +16,7 @@ public class MxActivitiesMySpaceMaterial implements java.io.Serializable {
 	private Integer materialType;
 	private String loadUrl;
 	private String describe;
-	private Timestamp createDate;
+	private Date createDate;
 	private String others;
 
 	// Constructors
@@ -26,10 +26,9 @@ public class MxActivitiesMySpaceMaterial implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public MxActivitiesMySpaceMaterial(Integer materialId,
-			Integer activitiesId, Integer myspaceId, Integer materialType,
-			String loadUrl, String describe, Timestamp createDate) {
-		this.materialId = materialId;
+	public MxActivitiesMySpaceMaterial(Integer activitiesId, Integer myspaceId,
+			Integer materialType, String loadUrl, String describe,
+			Date createDate) {
 		this.activitiesId = activitiesId;
 		this.myspaceId = myspaceId;
 		this.materialType = materialType;
@@ -39,10 +38,9 @@ public class MxActivitiesMySpaceMaterial implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public MxActivitiesMySpaceMaterial(Integer materialId,
-			Integer activitiesId, Integer myspaceId, Integer materialType,
-			String loadUrl, String describe, Timestamp createDate, String others) {
-		this.materialId = materialId;
+	public MxActivitiesMySpaceMaterial(Integer activitiesId, Integer myspaceId,
+			Integer materialType, String loadUrl, String describe,
+			Date createDate, String others) {
 		this.activitiesId = activitiesId;
 		this.myspaceId = myspaceId;
 		this.materialType = materialType;
@@ -102,11 +100,11 @@ public class MxActivitiesMySpaceMaterial implements java.io.Serializable {
 		this.describe = describe;
 	}
 
-	public Timestamp getCreateDate() {
+	public Date getCreateDate() {
 		return this.createDate;
 	}
 
-	public void setCreateDate(Timestamp createDate) {
+	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 

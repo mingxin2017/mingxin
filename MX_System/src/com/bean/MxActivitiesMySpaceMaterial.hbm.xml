@@ -6,29 +6,29 @@
 -->
 <hibernate-mapping>
     <class name="com.bean.MxActivitiesMySpaceMaterial" table="MX_activities_mySpace_material" schema="dbo" catalog="MXDB">
-        <id name="materialId" type="java.lang.Integer">
+        <id name="materialId" type="integer">
             <column name="material_id" />
-            <generator class="assigned" />
+            <generator class="native" />
         </id>
-        <property name="activitiesId" type="java.lang.Integer">
+        <property name="activitiesId" type="integer">
             <column name="activities_id" not-null="true" />
         </property>
-        <property name="myspaceId" type="java.lang.Integer">
+        <property name="myspaceId" type="integer">
             <column name="myspace_id" not-null="true" />
         </property>
-        <property name="materialType" type="java.lang.Integer">
+        <property name="materialType" type="integer">
             <column name="material_type" not-null="true" />
         </property>
-        <property name="loadUrl" type="java.lang.String">
+        <property name="loadUrl" type="string">
             <column name="load_url" not-null="true" />
         </property>
-        <property name="describe" type="java.lang.String">
+        <property name="describe" type="string">
             <column name="describe" not-null="true" />
         </property>
-        <property name="createDate" type="java.sql.Timestamp">
+        <property name="createDate" type="timestamp">
             <column name="create_date" length="23" not-null="true" />
         </property>
-        <property name="others" type="java.lang.String">
+        <property name="others" type="string">
             <column name="others" />
         </property>
     </class>
