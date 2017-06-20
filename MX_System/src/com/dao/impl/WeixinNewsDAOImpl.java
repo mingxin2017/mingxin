@@ -7,6 +7,8 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import com.bean.MxNewsContent;
 import com.bean.MxNewsData;
 import com.bean.MxNewsType;
+import com.bean.MxRegion;
+import com.bean.MxSchools;
 import com.bean.MxUsersData;
 import com.dao.IWeixinNewsDAO;
 import com.publicMethos.ISqlUtil;
@@ -41,19 +43,22 @@ public class WeixinNewsDAOImpl extends HibernateDaoSupport implements IWeixinNew
 	public MxUsersData getUser(String open_id){
 		return (MxUsersData) getHibernateTemplate().find("from com.bean.MxUsersData au where au.weixinOpenId ='"+open_id+"'").get(0);	
 	}
-	//添加新闻内容
-	public void addNewsContent(MxNewsContent newsContent) {
-		try{
-			getHibernateTemplate().save(newsContent);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-	}
 	//查询新闻类型列表
 	@SuppressWarnings("unchecked")
 	public List<MxNewsType> getNewsType() {
 		return getHibernateTemplate().find("from com.bean.MxNewsType");
 	}
+	//查询学校返回
+	@SuppressWarnings("unchecked")
+	public List<MxSchools> getSchools() {
+		return getHibernateTemplate().find("from com.bean.MxSchools");
+	}
+	//查询乡村返回
+	@SuppressWarnings("unchecked")
+	public List<MxRegion> getRegion() {
+		return getHibernateTemplate().find("from com.bean.MxRegion");
+	}
+	
 
 
 }

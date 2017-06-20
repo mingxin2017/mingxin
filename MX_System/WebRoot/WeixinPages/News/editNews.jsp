@@ -62,15 +62,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			标题：<input type="text" id="headline" class="w100" placeholder="标题"> <br>
 			引言：<input type="text" id="leadText" class="w100" placeholder="引言"> <br>
 			笔名：<input type="text" id="writer_name" class="w100" placeholder="笔名"><br>
-			类型：<select id="newsTypeId" class="select" style="width:70px;">
+			类型：<select id="newsTypeId" class="select" style="width:70px;" onchange="updateChildTypeContent();">
 					<c:forEach items="${msNewsType}" var="c" varStatus="st">
 					    <option value="${c.newsTypeId}">${c.typeName}</option>
 					</c:forEach>
    				</select>
-   				<select id="newsTypeId111" class="select" style="width:70px;">
-					<c:forEach items="${msNewsType}" var="c" varStatus="st">
-					    <option value="${c.newsTypeId}">${c.typeName}</option>
-					</c:forEach>
+   				<select id="subId" class="select" style="width:70px;">
    				</select>
 		</div>
 		<div class="container">
@@ -125,7 +122,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		//接收参数
 		var code = "${code}";
 		var state = "${state}";
-		var msNewsType = "${msNewsType[0].typeName}";
+		//类型改变事件
+		function updateChildTypeContent(){
+			var selectedValue = $('#newsTypeId').val();
+			//第一步：移除所有下级选择框
+		    var typeTr = $("#subId");
+		    typeTr.empty();
+		    //第二步：如果选项值不为空 ,添加下一级选择框的值
+		    if(selectedValue != null && "" != selectedValue){
+		        var requestUrl = "http://d1a7069951.iask.in/MX_System/weixin!loadKeyValue.action";//这里是拿数据的地址
+		        $.ajax({
+		            async : false,
+		            type : "post",
+		            url : requestUrl,
+		            dataType : "json",
+		            data : {
+		                newsTypeId:selectedValue// 传进去的值
+		            },
+		            success : function(data) {
+		                for(var obj in data){ 
+		                	var List = data[obj]; 
+							for(var i in List){ //第二层循环取list中的对象 
+								var tr = "";                     
+			                    tr = tr + "<option value='" + List[i].key + "'>" + List[i].value + "</option>";
+			                    $('#subId').append(tr);
+							} 
+		                } 
+		            }
+		        });
+		       }
+		}
 		//提交事件
 		function onCommit(){
 			  var headline = $("#headline").val();
@@ -133,12 +159,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  var writer_name = $("#writer_name").val();
 			  var content = $("#content").val();
 			  var newsTypeId = $("#newsTypeId").val();
+			  var subId = $("#subId").val();
 			  var data = { 
 						headline:headline,
 						leadText:leadText,
 						writer_name:writer_name,
 						content:content,
 						newsTypeId:newsTypeId,
+						subId:subId,
 						code:code,
 						state:state
 			  };

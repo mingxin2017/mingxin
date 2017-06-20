@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import com.bean.MxNewsContent;
 import com.bean.MxNewsData;
 import com.bean.MxNewsType;
+import com.bean.MxRegion;
+import com.bean.MxSchools;
 import com.bean.MxUsersData;
 
 /**
@@ -22,13 +24,18 @@ public interface IWeixinNewsService {
 	//根据openid获取用户
 	MxUsersData getUser(String open_id);
 	/**
-	 * 添加新闻内容
-	 * @param newsContent
-	 */
-	void addNewsContent(MxNewsContent newsContent);
-	/**
 	 * 查询新闻类型列表
 	 * @return
 	 */
 	List<MxNewsType> getNewsType();
+	/**
+	 * 查询学校列表
+	 * @return
+	 */
+	List<MxSchools> getSchools();
+	/**
+	 * 查询乡村列表
+	 * @return
+	 */
+	List<MxRegion> getRegion();
 }

@@ -20,6 +20,14 @@ public class MxSchools implements java.io.Serializable {
 
 	// Constructors
 
+	@Override
+	public String toString() {
+		return "MxSchools [schoolId=" + schoolId + ", schoolName=" + schoolName
+				+ ", schoolRegionId=" + schoolRegionId + ", schoolAddress="
+				+ schoolAddress + ", createDate=" + createDate
+				+ ", updateDate=" + updateDate + ", others=" + others + "]";
+	}
+
 	/** default constructor */
 	public MxSchools() {
 	}

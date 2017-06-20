@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import com.bean.MxNewsContent;
 import com.bean.MxNewsData;
 import com.bean.MxNewsType;
+import com.bean.MxRegion;
+import com.bean.MxSchools;
 import com.bean.MxUsersData;
 import com.dao.IWeixinNewsDAO;
 import com.weixin.pojo.WeixinUserInfo;
@@ -39,13 +41,17 @@ public class WeixinNewsServiceImpl implements com.service.IWeixinNewsService{
 	public MxUsersData getUser(String open_id) {
 		return weixinNewsDAO.getUser(open_id);
 	}
-    //添加新闻内容
-	public void addNewsContent(MxNewsContent newsContent) {
-		weixinNewsDAO.addNewsContent(newsContent);
-	}
     //查询新闻类型列表
 	public List<MxNewsType> getNewsType() {
 		return weixinNewsDAO.getNewsType();
+	}
+    //查询学校
+	public List<MxSchools> getSchools() {
+		return weixinNewsDAO.getSchools();
+	}
+    //查询乡村
+	public List<MxRegion> getRegion() {
+		return weixinNewsDAO.getRegion();
 	}
 
 

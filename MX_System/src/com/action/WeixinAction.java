@@ -3,6 +3,7 @@ package com.action;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,12 +16,15 @@ import org.apache.struts2.ServletActionContext;
 import com.bean.MxNewsContent;
 import com.bean.MxNewsData;
 import com.bean.MxNewsType;
+import com.bean.MxRegion;
+import com.bean.MxSchools;
 import com.service.IWeixinNewsService;
 import com.service.IWeixinService;
 import com.weixin.pojo.SNSUserInfo;
 import com.weixin.pojo.WeixinOauth2Token;
 import com.weixin.pojo.WeixinUserInfo;
 import com.weixin.task.WeixinGetTokenTimerTask;
+import com.weixin.util.MxKeyValue;
 import com.weixin.util.MessageUtil;
 import com.weixin.util.OAuth2TokenUtil;
 import com.weixin.util.ResultUtil;
@@ -172,6 +176,50 @@ public class WeixinAction {
 		return "gotoEditNews";
 	}
 	
+	//级联学校和乡村参数返回
+	public String loadKeyValue(){
+		System.out.println("loadKeyValue");
+		HttpServletRequest request = ServletActionContext.getRequest();
+		try {
+			request.setCharacterEncoding("UTF-8");
+			//获取newsTypeId
+			String newsTypeId = request.getParameter("newsTypeId");
+			//封装成对象
+			List<MxKeyValue> list = new ArrayList<MxKeyValue>();
+			if(newsTypeId.equals("4")){
+				List<MxSchools> schools = weixinNewsService.getSchools();
+				for(MxSchools sch:schools){
+					System.out.println(sch.toString());
+					MxKeyValue mod = new MxKeyValue();
+					mod.setKey(sch.getSchoolId());
+					mod.setValue(sch.getSchoolName());
+					list.add(mod);
+				}
+			}
+			if(newsTypeId.equals("5")){
+				List<MxRegion> regions = weixinNewsService.getRegion();
+				for(MxRegion reg:regions){
+					System.out.println(reg.toString());
+					MxKeyValue mod = new MxKeyValue();
+					mod.setKey(reg.getRegionId());
+					mod.setValue(reg.getRegionName());
+					list.add(mod);
+				}
+			}
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("data", list);
+			try {
+				ResultUtil.toJson(ServletActionContext.getResponse(), map);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	//添加新闻
 	public String addNews() throws UnsupportedEncodingException{
 		//获取用户信息
@@ -183,6 +231,7 @@ public class WeixinAction {
 		String writer_name = request.getParameter("writer_name");
 		String newsMainContent = request.getParameter("content");
 		String newsTypeId = request.getParameter("newsTypeId");
+		String subId = request.getParameter("subId");
 		String code = request.getParameter("code");
 		String state = request.getParameter("state");
 		System.out.println(newsHeadline+","+newsLeadText+","+writer_name+","+newsMainContent+","+code+","+state);
@@ -213,6 +262,11 @@ public class WeixinAction {
 		newsData.setNewsLeadText(newsLeadText);
 		newsData.setWriterName(writer_name);
 		newsData.setNewsTypeId(new Integer(newsTypeId));
+		if(newsTypeId.equals("4")){
+			newsData.setSchoolId(new Integer(subId));
+		}else if(newsTypeId.equals("5")){
+			newsData.setRegionId(new Integer(subId));
+		}
 		//根据openid和用户状态为有效获取userid
 		newsData.setNewsWriterId(weixinNewsService.getUser(snsUserInfo.getOpenId()).getUserId());
 		System.out.println(newsData.toString());
