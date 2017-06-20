@@ -6,8 +6,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
 
+import com.bean.MxUsersReporterSignUp;
 import com.service.IReporterBusinessService;
 import com.service.IWeixinNewsService;
+import com.weixin.pojo.SNSUserInfo;
+import com.weixin.pojo.WeixinOauth2Token;
+import com.weixin.util.OAuth2TokenUtil;
+import com.weixin.util.WeixinSignUtil;
 
 /**
  * 小记者相关业务处理
@@ -48,9 +53,10 @@ public class MxReporterBusinessAction {
 				String code = request.getParameter("code");
 				String state = request.getParameter("state");
 				// 设置要传递的参数
-				System.out.println(code+","+state);
 				request.setAttribute("code", code);
 				request.setAttribute("state", state);
+				//小记者团队查询返回
+				request.setAttribute("MxUsersReporterTeam", reporterBusinessService.getReporterTeams());
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
@@ -60,6 +66,49 @@ public class MxReporterBusinessAction {
 	public String loadReporterManage(){
 		System.out.println("manage action");
 		return "ReporterManage";
+	}
+	
+	//小记者申请
+	public String reporterApply(){
+		HttpServletRequest request = ServletActionContext.getRequest();
+		try {
+			request.setCharacterEncoding("UTF-8");
+			//获取code
+			String code = request.getParameter("code");
+			String state = request.getParameter("state");
+			String teamId = request.getParameter("teamId");
+			System.out.println(teamId);
+			//获取用户信息
+			SNSUserInfo snsUserInfo = new SNSUserInfo();
+			//通过code获取用户信息
+			if (!"authdeny".equals(code)) {
+				// 获取网页授权access_token
+				WeixinOauth2Token weixinOauth2Token = OAuth2TokenUtil
+						.getOauth2AccessToken(WeixinSignUtil.AppID,
+								WeixinSignUtil.AppSecret, code);
+				// 网页授权接口访问凭证
+				String accessToken = weixinOauth2Token.getAccessToken();
+				// 用户标识
+				String openId = weixinOauth2Token.getOpenId();
+				// 获取用户信息
+				snsUserInfo = OAuth2TokenUtil.getSNSUserInfo(
+						accessToken, openId);
+				System.out.println(snsUserInfo.getOpenId() + ","
+						+ snsUserInfo.getNickname() + ","
+						+ snsUserInfo.getHeadImgUrl());
+			}
+			
+			MxUsersReporterSignUp mxUsersReporterSignUp = new MxUsersReporterSignUp();
+			mxUsersReporterSignUp.setUserId(weixinNewsService.getUser(snsUserInfo.getOpenId()).getUserId());
+			mxUsersReporterSignUp.setReporterTeamId(new Integer(teamId));
+			reporterBusinessService.reporterApply(mxUsersReporterSignUp);
+			
+			
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 	
 	

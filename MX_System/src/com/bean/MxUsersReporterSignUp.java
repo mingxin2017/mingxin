@@ -1,5 +1,6 @@
 package com.bean;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -22,6 +23,12 @@ public class MxUsersReporterSignUp implements java.io.Serializable {
 
 	/** default constructor */
 	public MxUsersReporterSignUp() {
+		this.setUserId(-1);
+		this.setReporterTeamId(-1);
+		this.setSubmitDate(new Timestamp(System.currentTimeMillis()));
+		this.setAuditDate(new Timestamp(0));
+		this.setState(0);
+		this.setOthers("no set");
 	}
 
 	/** minimal constructor */

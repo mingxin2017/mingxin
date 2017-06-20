@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="com.weixin.pojo.SNSUserInfo,java.lang.*"%>
 <%String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";%>
@@ -30,90 +31,55 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </script> -->	
 </head>
 <body>
-		<header class="mui-bar mui-bar-nav">
-			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title">input（输入框）</h1>
-		</header>
-		<div class="mui-content">
-			<div class="mui-content-padded" style="margin: 5px;">
-				<h5>默认搜索框：</h5>
-				<div class="mui-input-row mui-search">
-					<input type="search" class="mui-input-clear" placeholder="">
-				</div>
-				<h5 class="mui-plus-visible">语音输入搜索框：</h5>
-				<div class="mui-input-row mui-search mui-plus-visible">
-					<input id="search" type="search" class="mui-input-speech mui-input-clear" placeholder="带语音输入的搜索框">
-				</div>
-				<h5>密码框：</h5>
-				<div class="mui-input-row mui-password">
-					<input type="password" class="mui-input-password">
-				</div>
-				<form class="mui-input-group">
-					<div class="mui-input-row">
-						<label>Input</label>
-						<input type="text" placeholder="普通输入框">
-					</div>
-					<div class="mui-input-row">
-						<label>Input</label>
-						<input type="text" class="mui-input-clear" placeholder="带清除按钮的输入框">
-					</div>
+    <div style="text-align:left;"> 
+		<select id="teamId" class="select" style="width:150px;">
+			<c:forEach items="${MxUsersReporterTeam}" var="c" varStatus="st">
+			   <option value="${c.teamId}">${c.teamName}</option>
+			</c:forEach>
+		</select>
+	</div>
+	<div>
+		 <button type="button" id="save" onClick="onCommit();" style="width:80px;">提交</button>
+	</div>
+	<script src="<%=basePath%>WeixinPages/common/richtext/js/jquery-1.11.2.js"></script>
+	<script type="text/javascript">
+		//接收参数
+		var code = "${code}";
+		var state = "${state}";
+		//提交事件
+		function onCommit(){
+			  var teamId = $("#teamId").val();
+			  var data = { 
+						teamId:teamId,
+						code:code,
+						state:state
+			  };
+			  //请求添加数据
+				$.ajax({
+					type : "POST",
+					url : 'http://d1a7069951.iask.in/MX_System/mxReporterBusiness!reporterApply.action',
+					data : data,
+					success : function(data) {
+						if (data.success) {
+							console.log("success");
+							//resultPage("success");
+	/* 						$.messager.show({
+								msg : data.message,
+								title : '提示'
+							}); */
+						} else {
+							console.log(type);
+						/* 	parent.$.messager.alert("错误", data.message, "error", function() {
+								return false;
+							}); */
+						}
+					},
+					error : function(e) {
+						/* parent.$.messager.alert("提示", "操作失败，请联系管理员."); */
+					}
+				});
+		}
+	</script>	
 
-					<div class="mui-input-row mui-plus-visible">
-						<label>Input</label>
-						<input type="text" class="mui-input-speech mui-input-clear" placeholder="语音输入">
-					</div>
-					<div class="mui-button-row">
-						<button type="button" class="mui-btn mui-btn-primary" onclick="">确认</button>&nbsp;&nbsp;
-						<button type="button" class="mui-btn mui-btn-danger" onclick="">取消</button>
-					</div>
-				</form>
-				<div class="mui-input-row" style="margin: 10px 5px;">
-					<textarea id="textarea" rows="5" placeholder="多行文本框"></textarea>
-				</div>
-			</div>
-		</div>
-		<script src="<%=basePath%>WeixinPages/common/js/mui.min.js"></script>
-		<script>
-		    var code = "${code}";
-		    var state = "${state}";
-			mui.init({
-				swipeBack: true //启用右滑关闭功能
-			});
-			 //语音识别完成事件
-			document.getElementById("search").addEventListener('recognized', function(e) {
-				console.log(e.detail.value);
-			});
-
-			var nativeWebview, imm, InputMethodManager;
-			var initNativeObjects = function() {
-				if (mui.os.android) {
-					var main = plus.android.runtimeMainActivity();
-					var Context = plus.android.importClass("android.content.Context");
-					InputMethodManager = plus.android.importClass("android.view.inputmethod.InputMethodManager");
-					imm = main.getSystemService(Context.INPUT_METHOD_SERVICE);
-				} else {
-					nativeWebview = plus.webview.currentWebview().nativeInstanceObject();
-				}
-			};
-			var showSoftInput = function() {
-				if (mui.os.android) {
-					imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
-				} else {
-					nativeWebview.plusCallMethod({
-						"setKeyboardDisplayRequiresUserAction": false
-					});
-				}
-				setTimeout(function() {
-					var inputElem = document.querySelector('input');
-					inputElem.focus();
-					inputElem.parentNode.classList.add('mui-active'); //第一个是search，加上激活样式
-				}, 200);
-			};
-			mui.plusReady(function() {
-				initNativeObjects();
-				showSoftInput();
-			});
-
-		</script>
 </body>
 

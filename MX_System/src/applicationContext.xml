@@ -46,6 +46,9 @@
 		</property>
 		<property name="mappingResources">
 			<list>
+				<value>com/bean/MxUsersReporterScore.hbm.xml</value>
+				<value>com/bean/MxUsersReporterSignUp.hbm.xml</value>
+				<value>com/bean/MxUsersReporterTeam.hbm.xml</value>
 				<value>com/bean/MxRegion.hbm.xml</value>
 				<value>com/bean/MxSchools.hbm.xml</value>
 			    <value>com/bean/MxNewsType.hbm.xml</value>
