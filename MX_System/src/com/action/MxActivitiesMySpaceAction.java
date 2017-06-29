@@ -4,7 +4,7 @@ import com.service.IActivitiesPublicityService;
 
 public class MxActivitiesMySpaceAction {
 
-	private IActivitiesPublicityService activitiesPublicityService;
+	
 
 	/**
 	 * 　　*活动空间action中的默认处理方法 　　
@@ -15,7 +15,7 @@ public class MxActivitiesMySpaceAction {
 	}
 
 	/**
-	 * 获取活动空间页面主框架
+	 * 跳转到活动空间页面主框架
 	 */
 	public String gotoActivitiesMySpaceMain() {
 
@@ -23,7 +23,7 @@ public class MxActivitiesMySpaceAction {
 	}
 	
 	/**
-	 * 获取活动空间讨论内容列表
+	 * 获取活动空间评论内容列表
 	 */
 	public String getActivitiesMySpaceCommentList() {
 
@@ -31,7 +31,7 @@ public class MxActivitiesMySpaceAction {
 	}
 
 	/**
-	 * 获取活动空间讨论内容列表
+	 * 获取活动空间素材列表
 	 */
 	public String getActivitiesMySpaceMaterialList() {
 
@@ -39,7 +39,7 @@ public class MxActivitiesMySpaceAction {
 	}
 	
 	/**
-	 * 获取活动空间讨论内容列表
+	 * 获取活动空间用户
 	 */
 	public String getActivitiesMySpaceUsersList() {
 
@@ -47,9 +47,9 @@ public class MxActivitiesMySpaceAction {
 	}
 	
 	/**
-	 * 获取活动空间讨论内容列表
+	 * 获取活动空间我的内容列表
 	 */
-	public String getActivitiesMySpaceManage() {
+	public String getActivitiesMySpaceMine() {
 
 		return "activitiesMySpaceManage";
 	}
