@@ -1,5 +1,4 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="com.weixin.pojo.SNSUserInfo,java.lang.*"%>
 <%String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";%>
@@ -113,12 +112,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				-webkit-transition: opacity 300ms ease, -webkit-transform 300ms ease;
 				transition: opacity 300ms ease, transform 300ms ease;
 			}
-/* 			.mui-page {
+			.mui-page {
 				display: none;
-			} */
-/* 	 		.mui-pages .mui-page {
+			}
+			.mui-pages .mui-page {
 				display: block;
-			}  */
+			}
 			.mui-page .mui-table-view:first-child {
 				margin-top: 15px;
 			}
@@ -182,17 +181,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    margin-top: 0px;
 			}
 			/*问题反馈在setting页面单独的css==end*/
-
+			
 		</style>
-
-
 		<link rel="stylesheet" type="text/css" href="<%=basePath%>WeixinPages/common/css/feedback.css" />
 </head>
 <body>
-<!-- 		<header class="mui-bar mui-bar-nav">
+		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">底部选项卡-div模式</h1>
-		</header> -->
+		</header>
 		<nav class="mui-bar mui-bar-tab">
 			<a class="mui-tab-item mui-active" href="#tabbar">
 				<span class="mui-icon mui-icon-home"></span>
@@ -207,7 +204,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<span class="mui-tab-label">团队</span>
 			</a>
 			<a class="mui-tab-item" href="#tabbar-with-map">
-				<span class="mui-icon mui-icon-starhalf"></span>
+				<span class="mui-icon mui-icon-star"></span>
 				<span class="mui-tab-label">积分</span>
 			</a>
 		</nav>
@@ -222,23 +219,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div> 
 					<!--页面主结构结束-->
 			
-			        <div id="setting" class="mui-page">	
-						<div class="mui-card" style="padding:0;height:100px;">				
+			        <div id="setting" class="mui-page">
+					<div class="mui-scroll">
 						<ul class="mui-table-view mui-table-view-chevron">
-							<li class="mui-table-view-cell mui-media"> 
-									<img class="mui-media-object mui-pull-left head-img" id="head-img" src="${weixin_userInfo.headImgUrl}">
+							<li class="mui-table-view-cell mui-media">
+								<a class="mui-navigate-right" href="#account">
+									<img class="mui-media-object mui-pull-left head-img" id="head-img" src="">
 									<div class="mui-media-body">
-										${weixin_userInfo.nickname} <p style="display:inline;">笔名:[oo]</p> 
-										<p class='mui-ellipsis'>账号:[account]</p>
+										Hello MUI
+										<p class='mui-ellipsis'>账号:hellomui</p>
 									</div>
+								</a>
 							</li>
-						</ul> 
-						</div>
+						</ul>
 						
- 						<div class="mui-card">
+						<div class="mui-card">
 							<div class="mui-card-content">
 								<div class="mui-card-content-inner">
-									${MxUsersReporterTeam.teamName} 积分：${MxUsersReporterScore.score}  排名：[10]
+									小记者1队   积分：500  排名：10
 								</div>
 							</div>
 						</div>
@@ -247,75 +245,47 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div class="mui-card-header">新闻信息：</div>
 							<div class="mui-card-content">
 								<div class="mui-card-content-inner">
-									${MxUsersReporterScore.newsNum} 
+									100条   
 								</div>
 							</div>
-							<div class="mui-card-footer"> 评论数：${MxUsersReporterScore.commentNum} 点赞数：${MxUsersReporterScore.praiseClickNum}</div>
-						</div> 
+							<div class="mui-card-footer"> 评论数：200     点赞数：1000</div>
+						</div>
 
 
+					</div>
 				   </div>
-
+				
 				
 			</div>
 			<div id="tabbar-with-chat" class="mui-control-content">
 				<div class="title" style="text-align:center;"><h4>我的新闻</h4></div>
 				
-				<div class="mui-card">
-					<div class="mui-card-header">新闻概要：</div>
-					<div class="mui-card-content">
-						<div class="mui-card-content-inner">
-							${MxUsersReporterScore.newsNum}条  ${MxUsersReporterScore.commentNum}评论 ${MxUsersReporterScore.praiseClickNum}点赞 
-						</div>
-					</div>
-					<div class="mui-card-footer">最近更新[100]条</div>
-				</div>
-				
-					<div class="mui-card" style="padding:0px;">
-						<ul class="mui-table-view" style="margin:0;padding:0px;">
-							<li class="mui-table-view-cell mui-collapse">
-								<a class="mui-navigate-right" href="#">最新</a>
-								<div class="mui-collapse-content1">
-									<ul class="mui-table-view mui-table-view-chevron1">
-										<c:forEach items="${MxNewsData}" var="c" varStatus="st">
-											<li class="mui-table-view-cell"><a href="http://d1a7069951.iask.in/MX_System/mxReporterBusiness!getNewsPage.action?newsId=${c.newsId}" class="mui-navigate-right">${c.newsHeadline}</a></li>
-										</c:forEach>								
-									</ul>
-								</div>
-							</li>
-							<li class="mui-table-view-cell mui-collapse">
-								<a class="mui-navigate-right" href="#">历史</a>
-								<div class="mui-collapse-content1">
-									<ul class="mui-table-view mui-table-view-chevron1">
-										<c:forEach items="${MxNewsData}" var="c" varStatus="st">
-											<li class="mui-table-view-cell"><a href="http://d1a7069951.iask.in/MX_System/mxReporterBusiness!getNewsPage.action?newsId=${c.newsId}" class="mui-navigate-right">${c.newsHeadline}</a></li>
-										</c:forEach>	
-									</ul>
-								</div>
-							</li>
-						</ul>
-					</div>
-		
-
-									
+				<ul class="mui-table-view mui-table-view-chevron">
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 1</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 2</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 3</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 4</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 5</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 6</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 7</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 8</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 9</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 10</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 11</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 12</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 13</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 14</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 15</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 16</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 17</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 18</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 19</a></li>
+					<li class="mui-table-view-cell"><a href="" class="mui-navigate-right">Item 20</a></li>
+				</ul>
 				
 			</div>
 			<div id="tabbar-with-contact" class="mui-control-content">
 				<div class="title" style="text-align:center;"><h4>我的团队</h4></div>
-				
-				<div class="mui-card">
-					<div class="mui-card-header">团队信息：</div>
-					<div class="mui-card-content">
-						<div class="mui-card-content-inner">
-						            公告：本团活动即将开始。
-						    <br>
-							100人  副队长  积分排名10
-						</div>
-					</div>
-					<div class="mui-card-footer">最近加入10人</div>
-				</div>
-				
-				<div class="mui-card">
 				<ul class="mui-table-view mui-table-view-striped mui-table-view-condensed">
 				<li class="mui-table-view-cell">
 					<div class="mui-slider-cell">
@@ -409,11 +379,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</li>
 			</ul>
 			</div>
-			</div>
-			
 			<div id="tabbar-with-map" class="mui-control-content">
 				<div class="title" style="text-align:center;"><h4>我的积分</h4></div>
-						<div class="mui-card">
+						<div class="mui-card" style="margin:20px;">
 							<div class="mui-card-header">积分详情：</div>
 							<div class="mui-card-content">
 								<div class="mui-card-content-inner">
@@ -429,47 +397,58 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		
 		
-	
-		
-		
-		
+		<div id="account" class="mui-page">
+<!-- 			<div class="mui-navbar-inner mui-bar mui-bar-nav">
+				<button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+					<span class="mui-icon mui-icon-left-nav"></span>设置
+				</button>
+				<h1 class="mui-center mui-title">账号与安全</h1>
+			</div> -->
+			<div class="mui-page-content">
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<ul class="mui-table-view">
+							<li class="mui-table-view-cell">
+								<a id="head" class="mui-navigate-right">头像
+								<span class="mui-pull-right head">
+									<img class="head-img mui-action-preview" id="head-img1" src=""/>
+								</span>
+							</a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a>姓名<span class="mui-pull-right">Hbuilder</span></a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a>HBuilder账号<span class="mui-pull-right">hbuilder@dcloud.io</span></a>
+							</li>
+						</ul>
+						<ul class="mui-table-view">
+							<li class="mui-table-view-cell">
+								<a>QQ号<span class="mui-pull-right">88888888</span></a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a>手机号<span class="mui-pull-right">18601234567</span></a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a>邮箱地址<span class="mui-pull-right">hbuilder@dcloud.io</span></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
 	</body>
 	<script src="<%=basePath%>WeixinPages/common/js/mui.min.js"></script>
 	<script src="<%=basePath%>WeixinPages/common/js/mui.view.js"></script>
 	<script src="<%=basePath%>WeixinPages/common/js/feedback.js"></script>
 	<script>
 		mui.init({
-			//swipeBack:true //启用右滑关闭功能
+			swipeBack:true //启用右滑关闭功能
 		});
 		//初始化单页view
- 		var viewApi = mui('#app').view({
+		var viewApi = mui('#app').view({
 			defaultPage: '#setting'
-		}); 
-	
-		var view = viewApi.view;
-		(function($) {
-			//处理view的后退与webview后退
-			var oldBack = $.back;
-			$.back = function() {
-				if (viewApi.canBack()) { //如果view可以后退，则执行view的后退
-					viewApi.back();
-				} else { //执行webview后退
-					oldBack();
-				}
-			};
-			//监听页面切换事件方案1,通过view元素监听所有页面切换事件，目前提供pageBeforeShow|pageShow|pageBeforeBack|pageBack四种事件(before事件为动画开始前触发)
-			//第一个参数为事件名称，第二个参数为事件回调，其中e.detail.page为当前页面的html对象
-			view.addEventListener('pageBeforeShow', function(e) {
-				//				console.log(e.detail.page.id + ' beforeShow');
-			});
-			view.addEventListener('pageShow', function(e) {
-				//				console.log(e.detail.page.id + ' show');
-			});
-			view.addEventListener('pageBeforeBack', function(e) {
-				//				console.log(e.detail.page.id + ' beforeBack');
-			});
-			view.addEventListener('pageBack', function(e) {
-				//				console.log(e.detail.page.id + ' back');
-			});
-		})(mui);
+		});
+		//初始化单页的区域滚动
+		mui('.mui-scroll-wrapper').scroll();
 	</script>

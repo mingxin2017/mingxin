@@ -31,23 +31,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </script> -->	
 </head>
 <body>
-		<div class="mui-card">
-			<div class="mui-card-header">团队选择：</div>
-			<div class="mui-card-content">
-				<div class="mui-card-content-inner">
-						<select id="teamId" class="mui-btn mui-btn-block">
-							<c:forEach items="${MxUsersReporterTeam}" var="c" varStatus="st">
-							   <option value="${c.teamId}">${c.teamName}</option>
-							</c:forEach>
-						</select>				
-				</div>
-			</div>
-		</div>
-		
-		<div class="mui-card" style="height:55px;">
-			<button type="button" class="mui-btn mui-btn-block" id="save" onClick="onCommit();">提交</button>
-		</div>
-
+    <div style="text-align:left;"> 
+		<select id="teamId" class="select" style="width:150px;">
+			<c:forEach items="${MxUsersReporterTeam}" var="c" varStatus="st">
+			   <option value="${c.teamId}">${c.teamName}</option>
+			</c:forEach>
+		</select>
+	</div>
+	<div>
+		 <button type="button" id="save" onClick="onCommit();" style="width:80px;">提交</button>
+	</div>
 	<script src="<%=basePath%>WeixinPages/common/richtext/js/jquery-1.11.2.js"></script>
 	<script type="text/javascript">
 		//接收参数
@@ -68,7 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					data : data,
 					success : function(data) {
 						if (data.success) {
-							alert("success");
+							console.log("success");
 							//resultPage("success");
 	/* 						$.messager.show({
 								msg : data.message,

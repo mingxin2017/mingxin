@@ -65,6 +65,47 @@ public class MxReporterBusinessAction {
 	//获取小记者管理页面
 	public String loadReporterManage(){
 		System.out.println("manage action");
+		//获取code和state传回前端
+		HttpServletRequest request = ServletActionContext.getRequest();
+			try {
+				request.setCharacterEncoding("UTF-8");
+				//获取code
+				String code = request.getParameter("code");
+				String state = request.getParameter("state");
+				// 设置要传递的参数
+				request.setAttribute("code", code);
+				request.setAttribute("state", state);
+				//code查询用户返回
+				SNSUserInfo snsUserInfo = new SNSUserInfo();
+				//通过code获取用户信息
+				if (!"authdeny".equals(code)) {
+					// 获取网页授权access_token
+					WeixinOauth2Token weixinOauth2Token = OAuth2TokenUtil
+							.getOauth2AccessToken(WeixinSignUtil.AppID,
+									WeixinSignUtil.AppSecret, code);
+					// 网页授权接口访问凭证
+					String accessToken = weixinOauth2Token.getAccessToken();
+					// 用户标识
+					String openId = weixinOauth2Token.getOpenId();
+					// 获取用户信息
+					snsUserInfo = OAuth2TokenUtil.getSNSUserInfo(
+							accessToken, openId);
+					System.out.println(snsUserInfo.getOpenId() + ","
+							+ snsUserInfo.getNickname() + ","
+							+ snsUserInfo.getHeadImgUrl());
+				}
+				request.setAttribute("weixin_userInfo", snsUserInfo);
+				//小记者团队查询返回
+				Integer userId = weixinNewsService.getUser(snsUserInfo.getOpenId()).getUserId();
+				request.setAttribute("userId", userId);
+				request.setAttribute("MxUsersReporterTeam", reporterBusinessService.getTeamByUserId(userId));
+				//分数查询返回
+				request.setAttribute("MxUsersReporterScore", reporterBusinessService.getScoreByUserId(userId));
+			    //新闻查询返回
+				request.setAttribute("MxNewsData", reporterBusinessService.getNewsDataByUserId(userId));
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
 		return "ReporterManage";
 	}
 	
@@ -111,5 +152,19 @@ public class MxReporterBusinessAction {
 		return null;
 	}
 	
-	
+	//新闻页面获取
+	public String getNewsPage(){
+		HttpServletRequest request = ServletActionContext.getRequest();
+		try {
+			request.setCharacterEncoding("UTF-8");
+			//校验用户
+			//获取newsId
+			String newsId = request.getParameter("newsId");
+			//根据新闻id获取新闻
+			request.setAttribute("MxNewsData", reporterBusinessService.getNewsDataByNewsId(new Integer(newsId)));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}	
+		return "NewsPage";
+	}
 }

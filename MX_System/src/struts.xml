@@ -47,6 +47,7 @@
 		<action name="mxReporterBusiness" class="mxReporterBusinessAction">
 			<result name="ReporterApply">/WeixinPages/Reporter/reporterApplyIndex.jsp</result>
 		    <result name="ReporterManage">/WeixinPages/Reporter/reporterManageIndex.jsp</result>
+			<result name="NewsPage">/WeixinPages/News/newsPage.jsp</result>
 		</action>
 		<!-- <action name="userList" class="userListAction">
 			<result name="userList">/Pages/user_List.jsp</result>
