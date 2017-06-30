@@ -16,10 +16,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+	
 
+<script type="text/javascript">
+window.onload=function (){
+
+    var userName='xiaoming';
+
+    alert(userName);
+    var obj=window.parent.document.getElementById('myspaceMainHeader').outerHeight(); 
+    alert(obj);
+
+}
+
+</script>
+  <script type="text/javascript" src="<%=basePath%>WeixinPages/common/js/jquery-1.11.2.js"></script>
   </head>
   
   <body>

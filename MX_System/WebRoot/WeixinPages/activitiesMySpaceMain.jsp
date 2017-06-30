@@ -48,19 +48,20 @@ function exitPage(){
 </head>
 
 <body>
-	<header class="mui-bar mui-bar-nav"> 
-		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+<div class="mui-content">
+	<header class="mui-bar mui-bar-nav" id="myspaceMainHeader"> 
+		<a class="mui-btn mui-btn-blue mui-btn-link mui-pull-left">退出空间</a>
 		<h1 id="title" class="mui-title">讨论区</h1>
-		<button class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" onclick="exitPage();">退出</button>
+		<button class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" onclick="exitPage();"></button>
 	</header>
 	<nav class="mui-bar mui-bar-tab"> 
 		<a  class="mui-tab-item mui-active" href= "JavaScript:void(0);" onclick="showIframe(1,this);" > 
-			<span class="mui-icon mui-icon-chat"></span> 
+			<span class="mui-icon mui-icon-chat"><span class="mui-badge">8</span></span> 
 			<span class="mui-tab-label">讨论区</span>
 		</a> 
 		<a  class="mui-tab-item"  href= "JavaScript:void(0);" onclick="showIframe(2,this);" > 
 			<span class="mui-icon mui-icon-image">
-			<span class="mui-badge">9</span></span> 
+			<span class="mui-badge">3</span></span> 
 			<span class="mui-tab-label">图片</span> 
 		</a> 
 		<a  class="mui-tab-item" href= "JavaScript:void(0);" onclick="showIframe(3,this);" > 
@@ -74,9 +75,9 @@ function exitPage(){
 	</nav>
 	<div id="iframeContent" class="mui-content">
 		<iframe style="width:100%;height:82%;" id="mainContent" name="mainContent"
-			style="width:100%;height:30px;" src="activitiesMySpace!getActivitiesMySpaceCommentList.action" />
+			 src="activitiesMySpace!getActivitiesMySpaceCommentList.action" />
 	</div>
-	
+</div>
 </body>
 </html>
 

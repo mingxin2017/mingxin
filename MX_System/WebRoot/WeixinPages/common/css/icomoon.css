@@ -1,0 +1,56 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon2.eot?o2d3zf');
+  src:  url('fonts/icomoon2.eot?o2d3zf#iefix') format('embedded-opentype'),
+    url('fonts/icomoon2.ttf?o2d3zf') format('truetype'),
+    url('fonts/icomoon2.woff?o2d3zf') format('woff'),
+    url('fonts/icomoon2.svg?o2d3zf#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-image:before {
+  content: "\e900";
+}
+.icon-video:before {
+  content: "\e901";
+}
+.icon-camera:before {
+  content: "\e902";
+}
+.icon-microphone:before {
+  content: "\e903";
+}
+.icon-image-outline:before {
+  content: "\e904";
+}
+.icon-edit:before {
+  content: "\e905";
+}
+.icon-thumbs-up:before {
+  content: "\e906";
+}
+.icon-thumbs-down:before {
+  content: "\e907";
+}
+.icon-notes-outline:before {
+  content: "\e908";
+}
+.icon-microphone-outline:before {
+  content: "\e909";
+}
