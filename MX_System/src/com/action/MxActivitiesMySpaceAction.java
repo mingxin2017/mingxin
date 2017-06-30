@@ -1,7 +1,5 @@
 package com.action;
 
-import com.service.IActivitiesPublicityService;
-
 public class MxActivitiesMySpaceAction {
 
 	
@@ -51,7 +49,7 @@ public class MxActivitiesMySpaceAction {
 	 */
 	public String getActivitiesMySpaceMine() {
 
-		return "activitiesMySpaceManage";
+		return "activitiesMySpaceMine";
 	}
 
 }
