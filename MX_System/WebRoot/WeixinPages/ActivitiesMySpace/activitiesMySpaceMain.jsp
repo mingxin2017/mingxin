@@ -18,6 +18,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 <script type="text/javascript">
 
+
+
 function showIframe(pageTag,obj){
 	//alert(1010);
 	var current = document.querySelector(".mui-bar-tab>.mui-tab-item.mui-active");
@@ -45,7 +47,7 @@ function showIframe(pageTag,obj){
 		operateButton.innerHTML="刷新";
 		url='activitiesMySpace!getActivitiesMySpaceUsersList.action';
 	}else if(pageTag==4){
-		operateButton.innerHTML="个人信息";
+		operateButton.innerHTML="";
 		url='activitiesMySpace!getActivitiesMySpaceMine.action';
 	}else{return;}
 	document.getElementById('mainContent').src=url;
@@ -60,6 +62,17 @@ function operate(){
 function quitPage(){
      wx.closeWindow();
 }
+
+window.onload=function(){
+    //设置iframe自适应屏幕高度
+    var header = document.getElementById("myspaceMainHeader");
+    var headerHeight=header.offsetHeight;
+    var footer=document.getElementById("footerTab");
+    var footerHeiht=footer.offsetHeight;
+	var h = document.body.offsetHeight; //获取网页可见区域高度
+	var iframe=document.getElementById("mainContent");
+	iframe.height=(h-footerHeiht-headerHeight);
+}
 </script>
 </head>
 
@@ -70,7 +83,7 @@ function quitPage(){
 		<h1 id="title" class="mui-title">讨论区</h1>
 		<button id="operate" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" onclick="operate();">发表讨论</button>
 	</header>
-	<nav class="mui-bar mui-bar-tab"> 
+	<nav class="mui-bar mui-bar-tab" id="footerTab"> 
 		<a  class="mui-tab-item mui-active" href= "JavaScript:void(0);" onclick="showIframe(1,this);" > 
 			<span class="mui-icon mui-icon-chat"><span class="mui-badge">8</span></span> 
 			<span class="mui-tab-label">讨论区</span>
@@ -90,10 +103,11 @@ function quitPage(){
 		</a> 
 	</nav>
 	<div id="iframeContent" class="mui-content" >
-		<iframe style="width:100%;height:425px;" id="mainContent" name="mainContent"
+		<iframe style="width:100%" id="mainContent" name="mainContent"
 			 src="activitiesMySpace!getActivitiesMySpaceCommentList.action" />
 	</div>
 </body>
+
 </html>
 
 

@@ -23,10 +23,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body>
-
+	<%for(int i=0;i<100;i++){ %>
 	<div class="mui-card">
 		<div class="mui-card-header mui-card-media" >
-			<img src="http://wx.qlogo.cn/mmopen/gITwFOywPbkCx8BxwYc41oAGjuBeFianAbtHl8URmaCMTe9lib6EicNuHSibGJzSfT6Y88Nos1poHITnB7vUs7foHphNpibcgFEja/0" />
+			<img data-lazyload="http://wx.qlogo.cn/mmopen/gITwFOywPbkCx8BxwYc41oAGjuBeFianAbtHl8URmaCMTe9lib6EicNuHSibGJzSfT6Y88Nos1poHITnB7vUs7foHphNpibcgFEja/0" />
 			<div class="mui-media-body">
 				小M
 				<p>发表于 2016-06-30 15:30<span class="mui-badge mui-badge-danger">新</span></p>
@@ -34,97 +34,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<div class="mui-card-content">
 			<div class="mui-card-content-inner">
-				包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）</div>
+				活动非常有趣，下次还要再来！</div>
 		</div>
 		<div class="mui-card-footer">
 			<a class="mui-card-link "></a> <a class="mui-card-link"> <span
 				class="mui-icon icomoon icon-thumbs-up"></span>3</a>
 		</div>
 	</div>
-	<div class="mui-card">
-		<div class="mui-card-header mui-card-media">
-			<img src="http://wx.qlogo.cn/mmopen/gITwFOywPbkCx8BxwYc41oAGjuBeFianAbtHl8URmaCMTe9lib6EicNuHSibGJzSfT6Y88Nos1poHITnB7vUs7foHphNpibcgFEja/0" />
-			<div class="mui-media-body">
-				小M
-				<p>发表于 2016-06-30 15:30<span class="mui-badge mui-badge-danger">新</span></p>
-			</div>
-		</div>
-		<div class="mui-card-content">
-			<div class="mui-card-content-inner">
-				包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）</div>
-		</div>
-		<div class="mui-card-footer">
-			<a class="mui-card-link "></a> <a class="mui-card-link"> <span
-				class="mui-icon icomoon icon-thumbs-up"></span>3</a>
-		</div>
-	</div>
-	<div class="mui-card">
-		<div class="mui-card-header mui-card-media">
-			<img src="http://wx.qlogo.cn/mmopen/gITwFOywPbkCx8BxwYc41oAGjuBeFianAbtHl8URmaCMTe9lib6EicNuHSibGJzSfT6Y88Nos1poHITnB7vUs7foHphNpibcgFEja/0" />
-			<div class="mui-media-body">
-				小M
-				<p>发表于 2016-06-30 15:30</p>
-			</div>
-		</div>
-		<div class="mui-card-content">
-			<div class="mui-card-content-inner">
-				包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）</div>
-		</div>
-		<div class="mui-card-footer">
-			<a class="mui-card-link "></a> <a class="mui-card-link"> <span
-				 scolling="yes" class="mui-icon icomoon icon-thumbs-up"></span>3</a>
-		</div>
-	</div>
-	<div class="mui-card">
-		<div class="mui-card-header mui-card-media">
-			<img src="http://wx.qlogo.cn/mmopen/gITwFOywPbkCx8BxwYc41oAGjuBeFianAbtHl8URmaCMTe9lib6EicNuHSibGJzSfT6Y88Nos1poHITnB7vUs7foHphNpibcgFEja/0" />
-			<div class="mui-media-body">
-				小M
-				<p>发表于 2016-06-30 15:30</p>
-			</div>
-		</div>
-		<div class="mui-card-content">
-			<div class="mui-card-content-inner">
-				包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）</div>
-		</div>
-		<div class="mui-card-footer">
-			<a class="mui-card-link "></a> <a class="mui-card-link"> <span
-				 scolling="yes" class="mui-icon icomoon icon-thumbs-up"></span>64</a>
-		</div>
-	</div>
-	<div class="mui-card">
-		<div class="mui-card-header mui-card-media">
-			<img src="http://wx.qlogo.cn/mmopen/gITwFOywPbkCx8BxwYc41oAGjuBeFianAbtHl8URmaCMTe9lib6EicNuHSibGJzSfT6Y88Nos1poHITnB7vUs7foHphNpibcgFEja/0" />
-			<div class="mui-media-body">
-				小M
-				<p>发表于 2016-06-30 15:30</p>
-			</div>
-		</div>
-		<div class="mui-card-content">
-			<div class="mui-card-content-inner">
-				包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）</div>
-		</div>
-		<div class="mui-card-footer">
-			<a class="mui-card-link "></a> <a class="mui-card-link"> <span
-				 scolling="yes" class="mui-icon icomoon icon-thumbs-up"></span>45</a>
-		</div>
-	</div>
-	<div class="mui-card">
-		<div class="mui-card-header mui-card-media">
-			<img src="http://wx.qlogo.cn/mmopen/gITwFOywPbkCx8BxwYc41oAGjuBeFianAbtHl8URmaCMTe9lib6EicNuHSibGJzSfT6Y88Nos1poHITnB7vUs7foHphNpibcgFEja/0" />
-			<div class="mui-media-body">
-				小M
-				<p>发表于 2016-06-30 15:30</p>
-			</div>
-		</div>
-		<div class="mui-card-content">
-			<div class="mui-card-content-inner">
-				包含页眉页脚的卡片，页眉常用来显示面板标题，页脚用来显示额外信息或支持的操作（比如点赞、评论等）</div>
-		</div>
-		<div class="mui-card-footer">
-			<a class="mui-card-link "></a> <a class="mui-card-link"> <span
-				 scolling="yes" class="mui-icon icomoon icon-thumbs-up"></span>5</a>
-		</div>
-	</div>
+	<%} %>
 </body>
+	<script src="<%=basePath%>WeixinPages/common/js/mui.min.js"></script>
+	<script src="<%=basePath%>WeixinPages/common/js/mui.lazyload.js"></script>
+	<script src="<%=basePath%>WeixinPages/common/js/mui.lazyload.img.js"></script>
+<script>
+	mui.init();
+	(function($) {
+		$(document).imageLazyload({
+			placeholder: '/MX_System/WeixinPages/common/images/60x60.gif'
+		});
+	})(mui);
+</script>
 </html>
