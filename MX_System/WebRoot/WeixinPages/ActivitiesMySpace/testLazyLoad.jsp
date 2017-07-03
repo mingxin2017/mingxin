@@ -48,28 +48,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<%for(int i=1;i<=32;i++){ %>
 				<li class="mui-table-view-cell mui-media">
 					<a class="mui-navigate-right">
-						<img class="mui-media-object mui-pull-left" data-lazyload="/MX_System/WeixinPages/uploadImg/myspaceImg/100/o8iGuv66gILabgoSL3Ibz8euYiZk/<%=i %>.jpg">
+						<img class="mui-media-object mui-pull-left" data-lazyload="/MX_System/WeixinPages/common/uploadImg/myspaceImg/100/o8iGuv66gILabgoSL3Ibz8euYiZk/<%=i %>.jpg">
 					</a>
 				</li>
 				<%} %>
 				<%for(int i=1;i<=32;i++){ %>
 				<li class="mui-table-view-cell mui-media">
 					<a class="mui-navigate-right">
-						<img class="mui-media-object mui-pull-left" data-lazyload="/MX_System/WeixinPages/uploadImg/myspaceImg/100/o8iGuv66gILabgoSL3Ibz8euYiZk/<%=i %>.jpg">
+						<img class="mui-media-object mui-pull-left" data-lazyload="/MX_System/WeixinPages/common/uploadImg/myspaceImg/100/o8iGuv66gILabgoSL3Ibz8euYiZk/<%=i %>.jpg">
 					</a>
 				</li>
 				<%} %>
 				<%for(int i=1;i<=32;i++){ %>
 				<li class="mui-table-view-cell mui-media">
 					<a class="mui-navigate-right">
-						<img class="mui-media-object mui-pull-left" data-lazyload="/MX_System/WeixinPages/uploadImg/myspaceImg/100/o8iGuv66gILabgoSL3Ibz8euYiZk/<%=i %>.jpg">
+						<img class="mui-media-object mui-pull-left" data-lazyload="/MX_System/WeixinPages/common/uploadImg/myspaceImg/100/o8iGuv66gILabgoSL3Ibz8euYiZk/<%=i %>.jpg">
 					</a>
 				</li>
 				<%} %>
 				<%for(int i=1;i<=32;i++){ %>
 				<li class="mui-table-view-cell mui-media">
 					<a class="mui-navigate-right">
-						<img class="mui-media-object mui-pull-left" data-lazyload="/MX_System/WeixinPages/uploadImg/myspaceImg/100/o8iGuv66gILabgoSL3Ibz8euYiZk/<%=i %>.jpg">
+						<img class="mui-media-object mui-pull-left" data-lazyload="/MX_System/WeixinPages/common/uploadImg/myspaceImg/100/o8iGuv66gILabgoSL3Ibz8euYiZk/<%=i %>.jpg">
 					</a>
 				</li>
 				<%} %>
