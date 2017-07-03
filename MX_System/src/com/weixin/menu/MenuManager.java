@@ -95,7 +95,7 @@ public class MenuManager {
         CommonButton btn23 = new CommonButton();
         btn23.setName("小记者申请");
         btn23.setType("view");
-        btn23.setUrl((baseUrl.replace("APPID",WeixinSignUtil.AppID)).replace("GOTOURL", "http://mingxin.imwork.net/MX_System/mxReporterBusiness!loadReporterApply.action"));
+        btn23.setUrl((baseUrl.replace("APPID",WeixinSignUtil.AppID)).replace("GOTOURL", WeixinSignUtil.serverUrl+"mxReporterBusiness!loadReporterApply.action"));
         //setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb235c46c4c2740a9&redirect_uri=http://d1a7069951.iask.in/MX_System/mxReporterBusiness!loadReporterApply.action&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect");
 
         
@@ -108,14 +108,14 @@ public class MenuManager {
         CommonButton btn32 = new CommonButton();
         btn32.setName("新闻投稿");
         btn32.setType("view");     
-        btn32.setUrl((baseUrl.replace("APPID",WeixinSignUtil.AppID)).replace("GOTOURL", "http://mingxin.imwork.net/MX_System/weixin!loadAddNews.action"));
+        btn32.setUrl((baseUrl.replace("APPID",WeixinSignUtil.AppID)).replace("GOTOURL", WeixinSignUtil.serverUrl+"weixin!loadAddNews.action"));
         //btn32.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb235c46c4c2740a9&redirect_uri=http://d1a7069951.iask.in/MX_System/weixin!loadAddNews.action&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect");
         ///btn32.setUrl("http://d1a7069951.iask.in/MX_System/weixin!loadAddNews.action");     
         
         CommonButton btn33 = new CommonButton();
         btn33.setName("校园记者");
         btn33.setType("view");
-        btn33.setUrl((baseUrl.replace("APPID",WeixinSignUtil.AppID)).replace("GOTOURL", "http://mingxin.imwork.net/MX_System/mxReporterBusiness!loadReporterManage.action"));
+        btn33.setUrl((baseUrl.replace("APPID",WeixinSignUtil.AppID)).replace("GOTOURL", WeixinSignUtil.serverUrl+"mxReporterBusiness!loadReporterManage.action"));
         //setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb235c46c4c2740a9&redirect_uri=http://d1a7069951.iask.in/MX_System/mxReporterBusiness!loadReporterManage.action&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect");
 
         CommonButton btn34 = new CommonButton(); 

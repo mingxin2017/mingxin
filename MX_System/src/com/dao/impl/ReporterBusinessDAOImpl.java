@@ -47,6 +47,9 @@ public class ReporterBusinessDAOImpl extends HibernateDaoSupport implements IRep
 	//用户id获取分数信息
 	public MxUsersReporterScore getScoreByUserId(Integer userId) {
 		String sql="select s.* from [MXDB].[dbo].[MX_users_reporter_score] s where s.user_id ='"+userId+"'";
+		if(sqlUtil.queryHqlListBySession(sql,new MxUsersReporterScore()).size()==0){
+			return null;
+		}
 		return sqlUtil.queryHqlListBySession(sql,new MxUsersReporterScore()).get(0);
 	}
 	//用用户id获取新闻

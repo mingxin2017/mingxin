@@ -95,8 +95,12 @@ public class MxReporterBusinessAction {
 							+ snsUserInfo.getHeadImgUrl());
 				}
 				request.setAttribute("weixin_userInfo", snsUserInfo);
-				//小记者团队查询返回
+				//是否已关注用户
 				Integer userId = weixinNewsService.getUser(snsUserInfo.getOpenId()).getUserId();
+				System.out.println("-----------a-----------");
+				System.out.println(userId.equals(""));
+				System.out.println("-----------b-----------");
+				//小记者团队查询返回
 				request.setAttribute("userId", userId);
 				request.setAttribute("MxUsersReporterTeam", reporterBusinessService.getTeamByUserId(userId));
 				//分数查询返回

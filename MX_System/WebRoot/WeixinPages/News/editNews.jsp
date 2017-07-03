@@ -130,7 +130,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    typeTr.empty();
 		    //第二步：如果选项值不为空 ,添加下一级选择框的值
 		    if(selectedValue != null && "" != selectedValue){
-		        var requestUrl = "http://d1a7069951.iask.in/MX_System/weixin!loadKeyValue.action";//这里是拿数据的地址
+		        var requestUrl = "weixin!loadKeyValue.action";//这里是拿数据的地址
 		        $.ajax({
 		            async : false,
 		            type : "post",
