@@ -679,13 +679,13 @@ p img {
 <script src="<%=basePath%>WeixinPages/common/js/mui.lazyload.img.js"></script>
 <script>
 	mui.init();
+	mui.previewImage();
 	(function($) {
 		
 		$(document).imageLazyload({
 			placeholder: '/MX_System/WeixinPages/common/images/60x60.gif'
 		});
 	})(mui);
-	mui.previewImage();
 	</script>
 
 </html>
