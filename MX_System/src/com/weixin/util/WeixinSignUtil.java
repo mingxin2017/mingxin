@@ -14,12 +14,13 @@ import java.util.Arrays;
 public class WeixinSignUtil {
     
     // 与接口配置信息中的Token要一致
-	public static String serverUrl="http://mingxin.imwork.net/MX_System/";
-    private static String token = "weixin_mingxin";
+	//private static String serverUrl="http://mingxin.imwork.net/MX_System/";
+	public final static String serverUrl="http://mingxin.imwork.net/MX_System/";    private static String token = "weixin_mingxin";
     public final static String AppID = "wx34c7cde93a1c5c40";
     public final static String AppSecret = "97a28450aed0e10b0299ff88ae482bac";
     
 /*  private static String serverUrl="http://d1a7069951.iask.in/MX_System/";
+	/*public final static String serverUrl="http://d1a7069951.iask.in/MX_System/";
     private static String token = "freamwechat";
     public final static String AppID = "wxb235c46c4c2740a9";
     public final static String AppSecret = "bbd63f207a5dd01e7d253174be7d5e0e";*/
