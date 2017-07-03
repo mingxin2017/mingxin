@@ -39,7 +39,7 @@
 			<result name="activitiesMySpaceCommentList">/WeixinPages/ActivitiesMySpace/activitiesMySpaceCommentList.jsp</result>
 			<result name="activitiesMySpaceMaterialList">/WeixinPages/ActivitiesMySpace/activitiesMySpaceMaterialList.jsp</result>
 			<result name="activitiesMySpaceUsersList">/WeixinPages/ActivitiesMySpace/activitiesMySpaceUsersList.jsp</result>
-			<result name="activitiesMySpaceMine">/WeixinPages/ActivitiesMySpace/testImagePreview.jsp</result>
+			<result name="activitiesMySpaceMine">/WeixinPages/ActivitiesMySpace/activitiesMySpaceMine.jsp</result>
 		</action>
 		
 		

@@ -59,61 +59,61 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
 									<div class="mui-slider-item mui-slider-item-duplicate">
 										
-											<img src="/MX_System/WeixinPages/uploadImg/myspaceImg/100/o8iGuv66gILabgoSL3Ibz8euYiZk/8.jpg">
+											<img src="/MX_System/WeixinPages/common/uploadImg/myspaceImg/100/o8iGuv66gILabgoSL3Ibz8euYiZk/8.jpg">
 										
 									</div>
 									<!-- 第一张 -->
 									<div class="mui-slider-item">
 										
-											<img src="/MX_System/WeixinPages/uploadImg/myspaceImg/100/o8iGuv66gILabgoSL3Ibz8euYiZk/1.jpg">
+											<img src="/MX_System/WeixinPages/common/uploadImg/myspaceImg/100/o8iGuv66gILabgoSL3Ibz8euYiZk/1.jpg">
 										
 									</div>
 									<!-- 第二张 -->
 									<div class="mui-slider-item">
 										
-											<img src="/MX_System/WeixinPages/uploadImg/myspaceImg/100/o8iGuv66gILabgoSL3Ibz8euYiZk/2.jpg">
+											<img src="/MX_System/WeixinPages/common/uploadImg/myspaceImg/100/o8iGuv66gILabgoSL3Ibz8euYiZk/2.jpg">
 										
 									</div>
 									<!-- 第三张 -->
 									<div class="mui-slider-item">
 										
-											<img src="/MX_System/WeixinPages/uploadImg/myspaceImg/100/o8iGuv66gILabgoSL3Ibz8euYiZk/3.jpg">
+											<img src="/MX_System/WeixinPages/common/uploadImg/myspaceImg/100/o8iGuv66gILabgoSL3Ibz8euYiZk/3.jpg">
 										
 									</div>
 									<!-- 第四张 -->
 									<div class="mui-slider-item">
 										
-											<img src="/MX_System/WeixinPages/uploadImg/myspaceImg/100/o8iGuv66gILabgoSL3Ibz8euYiZk/4.jpg">
+											<img src="/MX_System/WeixinPages/common/uploadImg/myspaceImg/100/o8iGuv66gILabgoSL3Ibz8euYiZk/4.jpg">
 										
 									</div>
 									<!-- 第5张 -->
 									<div class="mui-slider-item">
 										
-											<img src="/MX_System/WeixinPages/uploadImg/myspaceImg/100/o8iGuv66gILabgoSL3Ibz8euYiZk/5.jpg">
+											<img src="/MX_System/WeixinPages/common/uploadImg/myspaceImg/100/o8iGuv66gILabgoSL3Ibz8euYiZk/5.jpg">
 										
 									</div>
 									<!-- 第6张 -->
 									<div class="mui-slider-item">
 										
-											<img src="/MX_System/WeixinPages/uploadImg/myspaceImg/100/o8iGuv66gILabgoSL3Ibz8euYiZk/6.jpg">
+											<img src="/MX_System/WeixinPages/common/uploadImg/myspaceImg/100/o8iGuv66gILabgoSL3Ibz8euYiZk/6.jpg">
 										
 									</div>
 									<!-- 第7张 -->
 									<div class="mui-slider-item">
 										
-											<img src="/MX_System/WeixinPages/uploadImg/myspaceImg/100/o8iGuv66gILabgoSL3Ibz8euYiZk/7.jpg">
+											<img src="/MX_System/WeixinPages/common/uploadImg/myspaceImg/100/o8iGuv66gILabgoSL3Ibz8euYiZk/7.jpg">
 										
 									</div>
 									<!-- 第8张 -->
 									<div class="mui-slider-item">
 										
-											<img src="/MX_System/WeixinPages/uploadImg/myspaceImg/100/o8iGuv66gILabgoSL3Ibz8euYiZk/8.jpg">
+											<img src="/MX_System/WeixinPages/common/uploadImg/myspaceImg/100/o8iGuv66gILabgoSL3Ibz8euYiZk/8.jpg">
 										
 									</div>
 									<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
 									<div class="mui-slider-item mui-slider-item-duplicate">
 										
-											<img src="/MX_System/WeixinPages/uploadImg/myspaceImg/100/o8iGuv66gILabgoSL3Ibz8euYiZk/1.jpg">
+											<img src="/MX_System/WeixinPages/common/uploadImg/myspaceImg/100/o8iGuv66gILabgoSL3Ibz8euYiZk/1.jpg">
 										
 									</div>
 								</div>
