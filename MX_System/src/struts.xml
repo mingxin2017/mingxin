@@ -27,19 +27,19 @@
 			<result name="noFocus">/WeixinPages/focusWeixin.jsp</result>
 			<result name="error">/WeixinPages/error.jsp</result>
 			
-			<result name="ActivitiesPublicityList">/WeixinPages/activitiesPublicityList.jsp</result>
-			<result name="ActivitiesPublicityDetail">/WeixinPages/activitiesPublicityDetail.jsp</result>
+			<result name="ActivitiesPublicityList">/WeixinPages/ActibitiesPublicity/activitiesPublicityList.jsp</result>
+			<result name="ActivitiesPublicityDetail">/WeixinPages/ActibitiesPublicity/activitiesPublicityDetail.jsp</result>
 			
 			<result name="ArtEditor">/WeixinPages/wangEditorMobile.jsp</result>
 		</action>
 		
 		<!-- 活动空间 -->
 		<action name="activitiesMySpace" class="activitiesMySpaceAction">
-			<result name="activitiesMySpaceMain">/WeixinPages/activitiesMySpaceMain.jsp</result>
-			<result name="activitiesMySpaceCommentList">/WeixinPages/activitiesMySpaceCommentList.jsp</result>
-			<result name="activitiesMySpaceMaterialList">/WeixinPages/activitiesMySpaceMaterialList.jsp</result>
-			<result name="activitiesMySpaceUsersList">/WeixinPages/activitiesMySpaceUsersList.jsp</result>
-			<result name="activitiesMySpaceManage">/WeixinPages/activitiesMySpaceManage.jsp</result>
+			<result name="activitiesMySpaceMain">/WeixinPages/ActivitiesMySpace/activitiesMySpaceMain.jsp</result>
+			<result name="activitiesMySpaceCommentList">/WeixinPages/ActivitiesMySpace/activitiesMySpaceCommentList.jsp</result>
+			<result name="activitiesMySpaceMaterialList">/WeixinPages/ActivitiesMySpace/activitiesMySpaceMaterialList.jsp</result>
+			<result name="activitiesMySpaceUsersList">/WeixinPages/ActivitiesMySpace/activitiesMySpaceUsersList.jsp</result>
+			<result name="activitiesMySpaceManage">/WeixinPages/ActivitiesMySpace/activitiesMySpaceManage.jsp</result>
 		</action>
 		
 		
@@ -49,12 +49,6 @@
 		    <result name="ReporterManage">/WeixinPages/Reporter/reporterManageIndex.jsp</result>
 			<result name="NewsPage">/WeixinPages/News/newsPage.jsp</result>
 		</action>
-		<!-- <action name="userList" class="userListAction">
-			<result name="userList">/Pages/user_List.jsp</result>
-			<result name="updateUserList">/Pages/user_List.jsp</result>
-			<result name="userAdd">/Pages/user_AddEdit.jsp</result>
-			<result name="userEdit">/Pages/user_AddEdit.jsp</result>
-			<result name="userAddSuccess">/Pages/user_List.jsp</result>
-		</action> -->
+		
 	</package>
 </struts>
