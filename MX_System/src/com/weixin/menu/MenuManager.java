@@ -58,22 +58,22 @@ public class MenuManager {
         CommonButton btn11 = new CommonButton();
         btn11.setName("校友会");
         btn11.setType("view");
-        btn11.setUrl((baseUrl.replace("APPID",WeixinSignUtil.AppID)).replace("GOTOURL", "http://mingxin.imwork.net/MX_System/activitiesPublicity!getActivitiesPublicityList.action?type=1"));
+        btn11.setUrl((baseUrl.replace("APPID",WeixinSignUtil.AppID)).replace("GOTOURL",WeixinSignUtil.serverUrl+ "activitiesPublicity!getActivitiesPublicityList.action?type=1"));
 
         CommonButton btn12 = new CommonButton();
         btn12.setName("毕业季");
         btn12.setType("view");
-        btn12.setUrl((baseUrl.replace("APPID",WeixinSignUtil.AppID)).replace("GOTOURL", "http://mingxin.imwork.net/MX_System/activitiesPublicity!getActivitiesPublicityList.action?type=2"));
+        btn12.setUrl((baseUrl.replace("APPID",WeixinSignUtil.AppID)).replace("GOTOURL", WeixinSignUtil.serverUrl+"activitiesPublicity!getActivitiesPublicityList.action?type=2"));
 
         CommonButton btn13 = new CommonButton();
         btn13.setName("素质拓展");
         btn13.setType("view");
-        btn13.setUrl((baseUrl.replace("APPID",WeixinSignUtil.AppID)).replace("GOTOURL", "http://mingxin.imwork.net/MX_System/activitiesPublicity!getActivitiesPublicityList.action?type=3"));
+        btn13.setUrl((baseUrl.replace("APPID",WeixinSignUtil.AppID)).replace("GOTOURL", WeixinSignUtil.serverUrl+"activitiesPublicity!getActivitiesPublicityList.action?type=3"));
 
         CommonButton btn14 = new CommonButton();
         btn14.setName("亲子活动");
         btn14.setType("view");
-        btn14.setUrl((baseUrl.replace("APPID",WeixinSignUtil.AppID)).replace("GOTOURL", "http://mingxin.imwork.net/MX_System/activitiesPublicity!getActivitiesPublicityList.action?type=4"));
+        btn14.setUrl((baseUrl.replace("APPID",WeixinSignUtil.AppID)).replace("GOTOURL", WeixinSignUtil.serverUrl+"activitiesPublicity!getActivitiesPublicityList.action?type=4"));
         
         CommonButton btn15 = new CommonButton();
         btn15.setName("我要报名");

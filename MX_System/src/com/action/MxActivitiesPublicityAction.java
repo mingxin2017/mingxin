@@ -50,6 +50,7 @@ public class MxActivitiesPublicityAction {
 			request.getSession().setAttribute("activitiesType",
 					Integer.parseInt(activitiesType));
 			request.getSession().setAttribute("appID",WeixinSignUtil.AppID);
+			request.getSession().setAttribute("serverUrl",WeixinSignUtil.serverUrl);
 		}
 		return "ActivitiesPublicityList";
 	}

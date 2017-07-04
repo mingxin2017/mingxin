@@ -12,7 +12,6 @@
 <html>
 
 <head>
-<base href="<%=basePath%>">
 <title>鸣心--
 <c:if test="${sessionScope.activitiesType eq '1' }">校友会</c:if>
 <c:if test="${sessionScope.activitiesType eq '2' }">毕业季</c:if>
@@ -52,11 +51,11 @@
 		<ul class="mui-table-view">
 			<c:if
 				test="${sessionScope.activitiesPublicityList==null || fn:length(sessionScope.activitiesPublicityList) == 0}">
-				<li>暂无数据</li>
+				<li>没有数据</li>
 			</c:if>
 			<c:forEach items="${sessionScope.activitiesPublicityList}" var="item">
 				<li class="mui-table-view-cell mui-media">
-					<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=${sessionScope.appID}&redirect_uri=http://mingxin.imwork.net/MX_System/activitiesPublicity!gotoActivitiesDetail.action?publicityDataId=${item.publicityDataId}&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">
+					<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=${sessionScope.appID}&redirect_uri=${sessionScope.serverUrl}activitiesPublicity!gotoActivitiesDetail.action?publicityDataId=${item.publicityDataId}&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">
 						<img class="mui-media-object mui-pull-left"  src="${item.coverImageUrl}">
 						<div class="mui-media-body" style="color:black" >
 							${item.articleTitle}

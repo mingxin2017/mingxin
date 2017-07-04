@@ -27,10 +27,8 @@
 			<result name="noFocus">/WeixinPages/focusWeixin.jsp</result>
 			<result name="error">/WeixinPages/error.jsp</result>
 			
-			<result name="ActivitiesPublicityList">/WeixinPages/ActibitiesPublicity/activitiesPublicityList.jsp</result>
-			<result name="ActivitiesPublicityDetail">/WeixinPages/ActibitiesPublicity/activitiesPublicityDetail.jsp</result>
-			
-			<result name="ArtEditor">/WeixinPages/wangEditorMobile.jsp</result>
+			<result name="ActivitiesPublicityList">/WeixinPages/ActivitiesPublicity/ActivitiesPublicityList.jsp</result>
+			<result name="ActivitiesPublicityDetail">/WeixinPages/ActivitiesPublicity/ActivitiesPublicityDetail.jsp</result>
 		</action>
 		
 		<!-- 活动空间 -->
