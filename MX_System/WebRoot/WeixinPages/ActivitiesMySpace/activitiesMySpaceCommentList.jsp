@@ -26,7 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<%for(int i=0;i<100;i++){ %>
 	<div class="mui-card">
 		<div class="mui-card-header mui-card-media" >
-			<img data-lazyload="http://wx.qlogo.cn/mmopen/gITwFOywPbkCx8BxwYc41oAGjuBeFianAbtHl8URmaCMTe9lib6EicNuHSibGJzSfT6Y88Nos1poHITnB7vUs7foHphNpibcgFEja/0" />
+			<img data-lazyload="http://wx.qlogo.cn/mmopen/gITwFOywPbkCx8BxwYc41oAGjuBeFianAbtHl8URmaCMTe9lib6EicNuHSibGJzSfT6Y88Nos1poHITnB7vUs7foHphNpibcgFEja/0?version=" + Math.random() * 1000 />
 			<div class="mui-media-body">
 				小M
 				<p>发表于 2016-06-30 15:30<span class="mui-badge mui-badge-danger">新</span></p>
@@ -49,9 +49,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script>
 	mui.init();
 	(function($) {
+		
 		$(document).imageLazyload({
 			placeholder: '/MX_System/WeixinPages/common/images/60x60.gif'
 		});
+		lazyLoadApi.refresh(true);
 	})(mui);
 </script>
 </html>
