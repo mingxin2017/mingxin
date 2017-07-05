@@ -83,13 +83,6 @@ function operate(){
 								var txt = $('#subTxt').val();//获取输入的值
 								var myspaceId=$('#myspaceId').val();
 								var userId=$('#userId').val();//用户id
-								//var txtEncode=encodeURI(txt); //对文本框内容进行编码
-								//txtEncode=encodeURI(txtEncode); //对文本框内容进行编码
-			  					//var url="activitiesMySpace!DoSaveActivitiesMySpaceComment.action?myspaceId="+myspaceId+"&myspaceComment="+txtEncode;
-			        			//window.location.href=url;
-								//var dd=dialog().showModal();
-								//this.content(txt);
-								//return false;
 								doSaveMyspaceComment(userId,myspaceId,txt);
 							},
 							autofocus : true
@@ -123,9 +116,11 @@ function operate(){
 		    cache:false,
 		    success: function(data){
 		    	if(data.done=='0'){
-		    		var dd = dialog('发送成功').show();
 		    		document.getElementById('mainContent').src='activitiesMySpace!getActivitiesMySpaceCommentList.action';
-		    		dd.close().remove();
+		    		var dd = dialog('发送成功').show();
+		    		setTimeout(function () {
+		    			dd.close().remove();
+		    		}, 2000);
 		    	}else{
 		    		var dd = dialog('发送失败');
 		    	}
