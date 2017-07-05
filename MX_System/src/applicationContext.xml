@@ -56,27 +56,15 @@
 				<value>com/bean/MxNewsData.hbm.xml</value>
 				<value>com/bean/MxUsersData.hbm.xml</value>
 				<value>com/bean/MxActivitiesData.hbm.xml</value>
-				<value>
-					com/bean/MxActivitiesMySpaceComment.hbm.xml
-				</value>
+				<value>com/bean/MxActivitiesMySpaceComment.hbm.xml</value>
 				<value>com/bean/MxActivitiesMySpaceData.hbm.xml</value>
-				<value>
-					com/bean/MxActivitiesMySpaceMaterial.hbm.xml
-				</value>
+				<value>com/bean/MxActivitiesMySpaceMaterial.hbm.xml</value>
 				<value>com/bean/MxActivitiesMySpaceUsers.hbm.xml</value>
-				<value>
-					com/bean/MxActivitiesPublicityComment.hbm.xml
-				</value>
-				<value>
-					com/bean/MxActivitiesPublicityData.hbm.xml
-				</value>
-				<value>
-					com/bean/MxActivitiesPublicityMaterial.hbm.xml
-				</value>
+				<value>com/bean/MxActivitiesPublicityComment.hbm.xml</value>
+				<value>com/bean/MxActivitiesPublicityData.hbm.xml</value>
+				<value>com/bean/MxActivitiesPublicityMaterial.hbm.xml</value>
 				<value>com/bean/MxActivitiesType.hbm.xml</value>
-				<value>
-					com/bean/MxActivitiesPublicityContent.hbm.xml
-				</value>
+				<value>com/bean/MxActivitiesPublicityContent.hbm.xml</value>
 			</list>
 		</property>
 		</bean>
@@ -167,7 +155,15 @@
 		
 		<!-- 活动空间Bean -->
 		<bean id="activitiesMySpaceAction" class="com.action.MxActivitiesMySpaceAction">
-			
+			<property name="activitiesMySpaceService" ref="activitiesMySpaceService"></property>
+		</bean>
+		<bean id="activitiesMySpaceService" class="com.service.impl.ActivitiesMySpaceServiceImpl">
+			<property name="activitiesMySpaceDAO" ref="activitiesMySpaceDAO"></property>
+		</bean>
+		<bean id="activitiesMySpaceDAO" class="com.dao.impl.ActivitiesMySpaceDAOImpl">
+			<property name="sessionFactory">
+				<ref local="sessionFactory" />
+			</property>
 		</bean>
 		<!-- 活动空间Bean -->
 		

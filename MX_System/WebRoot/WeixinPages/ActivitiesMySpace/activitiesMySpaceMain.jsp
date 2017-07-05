@@ -71,7 +71,7 @@ function operate(){
 	var operate=document.getElementById('operate').innerHTML;
 	//alert(operate);
 	if(operate=="发言"){
-		alert(operate);
+		//alert(operate);
 		var d = dialog({
 			fixed: true,
 			title:'输入内容',
@@ -82,13 +82,15 @@ function operate(){
 							callback : function() {
 								var txt = $('#subTxt').val();//获取输入的值
 								var myspaceId=$('#myspaceId').val();
-								var txtEncode=encodeURI(txt); //对文本框内容进行编码
+								var userId=$('#userId').val();//用户id
+								//var txtEncode=encodeURI(txt); //对文本框内容进行编码
+								//txtEncode=encodeURI(txtEncode); //对文本框内容进行编码
 			  					//var url="activitiesMySpace!DoSaveActivitiesMySpaceComment.action?myspaceId="+myspaceId+"&myspaceComment="+txtEncode;
 			        			//window.location.href=url;
 								//var dd=dialog().showModal();
 								//this.content(txt);
 								//return false;
-								doSaveMyspaceComment(myspaceId,txtEncode);
+								doSaveMyspaceComment(userId,myspaceId,txt);
 							},
 							autofocus : true
 						}, {
@@ -111,19 +113,25 @@ function operate(){
 		wx.closeWindow();
 	}
 	
-	function doSaveMyspaceComment(myspaceId,txtEncode){
+	function doSaveMyspaceComment(userId,myspaceId,txt){
 		$.ajax({
 		    type: "POST",
 		    url: "activitiesMySpace!DoSaveActivitiesMySpaceComment.action", //orderModifyStatus
-		    data: {"myspaceId":myspaceId,"txtEncode":txtEncode},
+		    data: {"userId":userId,"myspaceId":myspaceId,"txt":txt},
 		    dataType:"json",
 		    async:false,
 		    cache:false,
 		    success: function(data){
-		    	
+		    	if(data.done=='0'){
+		    		var dd = dialog('发送成功').show();
+		    		document.getElementById('mainContent').src='activitiesMySpace!getActivitiesMySpaceCommentList.action';
+		    		dd.close().remove();
+		    	}else{
+		    		var dd = dialog('发送失败');
+		    	}
 			},
 			error: function(json){
-				alert("提交数据异常，请刷新后重试...");
+				var ddd = dialog('提交数据异常，请刷新后重试...');
 			}
 	    });
 	}
@@ -159,6 +167,7 @@ function operate(){
 	</nav>
 	<div id="iframeContent" class="mui-content" >
 		<input id="myspaceId" name="myspaceId" type="hidden" value="123"/>
+		<input id="userId" name="userId" type="hidden" value="321"/>
 		<iframe style="width:100%"  id="mainContent" name="mainContent"
 			 src="activitiesMySpace!getActivitiesMySpaceCommentList.action" />
 	</div>

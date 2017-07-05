@@ -1,6 +1,8 @@
 package com.action;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,9 +13,21 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
+import com.bean.MxActivitiesMySpaceComment;
+import com.service.IActivitiesMySpaceService;
+
 public class MxActivitiesMySpaceAction {
 
-	
+	private IActivitiesMySpaceService activitiesMySpaceService;
+
+	public IActivitiesMySpaceService getActivitiesMySpaceService() {
+		return activitiesMySpaceService;
+	}
+
+	public void setActivitiesMySpaceService(
+			IActivitiesMySpaceService activitiesMySpaceService) {
+		this.activitiesMySpaceService = activitiesMySpaceService;
+	}
 
 	/**
 	 * 　　*活动空间action中的默认处理方法 　　
@@ -66,38 +80,46 @@ public class MxActivitiesMySpaceAction {
 	/**
 	 * 保存活动空间讨论内容
 	 * @return
-	 * @throws UnsupportedEncodingException 
+	 * @throws IOException 
 	 */
-	public String DoSaveActivitiesMySpaceComment() throws UnsupportedEncodingException{
+	public void DoSaveActivitiesMySpaceComment() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();//请求request对象
 		request.setCharacterEncoding("UTF-8");
 		HttpServletResponse response = ServletActionContext.getResponse(); //response对象返回数据给前台
 		response.setContentType("application/json; charset=utf-8");
 		
+		int userId=Integer
+				.parseInt(request.getParameter("userId") == null ? "-100"
+						: request.getParameter("userId"));
+		
 		int myspaceId = Integer
 				.parseInt(request.getParameter("myspaceId") == null ? "-100"
 						: request.getParameter("myspaceId"));
 		
-		String myspaceComment=new String(request.getParameter("txtEncode").getBytes("ISO-8859-1"), "UTF-8"); //中文解码
+		String myspaceComment=request.getParameter("txt").toString(); //中文解码
 		
+		MxActivitiesMySpaceComment activitiesMySpaceComment=new MxActivitiesMySpaceComment();
 		
+		activitiesMySpaceComment.setSubmitUserId(userId);
+		activitiesMySpaceComment.setMyspaceId(myspaceId);
+		activitiesMySpaceComment.setCommentTxt(myspaceComment);
+		activitiesMySpaceComment.setState(0);
+		activitiesMySpaceComment.setPraiseClickNum(0);
+		activitiesMySpaceComment.setCreateDate(new Timestamp(System.currentTimeMillis()));
+		
+		boolean flag=activitiesMySpaceService.saveActivitiesMySpaceComment(activitiesMySpaceComment);
 		
 		Map<String, String> map = new HashMap<String, String>();
-		/*if(imgName==null){
-			map.put("done", "-1");
-			map.put("imgSrc", showPath+"nofound.jpg");
-			map.put("msg", "图片上传失败了!");
+		if(flag){
+			map.put("done", "0");//保存成功
 		}else{
-			map.put("done", "0");
-			map.put("imgSrc", showPath+imgName);//显示图片的完整相对路径
-			map.put("msg", "图片上传成功!");
-			System.out.println("用户上传图片至："+showPath+imgName);
-		}*/
+			map.put("done", "-1");//保存失败
+		}
 		
         JSONObject jsonObject = JSONObject.fromObject(map);
-       // response.getWriter().write(jsonObject.toString()); 
+        response.getWriter().write(jsonObject.toString()); 
 		
-		return "";
+		//return "";
 	}
 
 }
