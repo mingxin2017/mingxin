@@ -28,5 +28,8 @@
         <property name="others" type="string">
             <column name="others" />
         </property>
+        <property name="remainUploadNum" type="integer">
+            <column name="remain_upload_num" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

@@ -17,6 +17,7 @@ public class MxActivitiesMySpaceUsers implements java.io.Serializable {
 	private Date updateDate;
 	private Integer state;
 	private String others;
+	private Integer remainUploadNum;
 
 	// Constructors
 
@@ -26,23 +27,27 @@ public class MxActivitiesMySpaceUsers implements java.io.Serializable {
 
 	/** minimal constructor */
 	public MxActivitiesMySpaceUsers(Integer userId, Integer relateUserId,
-			Date createDate, Date updateDate, Integer state) {
+			Date createDate, Date updateDate, Integer state,
+			Integer remainUploadNum) {
 		this.userId = userId;
 		this.relateUserId = relateUserId;
 		this.createDate = createDate;
 		this.updateDate = updateDate;
 		this.state = state;
+		this.remainUploadNum = remainUploadNum;
 	}
 
 	/** full constructor */
 	public MxActivitiesMySpaceUsers(Integer userId, Integer relateUserId,
-			Date createDate, Date updateDate, Integer state, String others) {
+			Date createDate, Date updateDate, Integer state, String others,
+			Integer remainUploadNum) {
 		this.userId = userId;
 		this.relateUserId = relateUserId;
 		this.createDate = createDate;
 		this.updateDate = updateDate;
 		this.state = state;
 		this.others = others;
+		this.remainUploadNum = remainUploadNum;
 	}
 
 	// Property accessors
@@ -101,6 +106,14 @@ public class MxActivitiesMySpaceUsers implements java.io.Serializable {
 
 	public void setOthers(String others) {
 		this.others = others;
+	}
+
+	public Integer getRemainUploadNum() {
+		return this.remainUploadNum;
+	}
+
+	public void setRemainUploadNum(Integer remainUploadNum) {
+		this.remainUploadNum = remainUploadNum;
 	}
 
 }

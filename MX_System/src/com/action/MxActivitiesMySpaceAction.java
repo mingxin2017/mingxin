@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,6 +16,7 @@ import org.apache.struts2.ServletActionContext;
 
 import com.bean.MxActivitiesMySpaceComment;
 import com.service.IActivitiesMySpaceService;
+import com.util.ImageMethod;
 
 public class MxActivitiesMySpaceAction {
 
@@ -120,6 +122,46 @@ public class MxActivitiesMySpaceAction {
         response.getWriter().write(jsonObject.toString()); 
 		
 		//return "";
+	}
+	
+	
+	/**
+	 * 压缩并上传图片方法
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	public void UploadImage() throws IOException, ServletException {
+		
+		HttpServletRequest request = ServletActionContext.getRequest();//请求request对象
+		request.setCharacterEncoding("UTF-8");
+		HttpServletResponse response = ServletActionContext.getResponse();//response对象返回数据给前台
+		response.setContentType("application/json; charset=utf-8");
+		String userId=request.getParameter("userId").toString();//获取用户id
+		String myspaceId=request.getParameter("myspaceId").toString();//获取活动空间id
+		String base64Img=request.getParameter("img").toString();
+		base64Img=base64Img.replace("data:image/jpeg;base64,", "");//去除base64中无用的文件头
+		String savePath="/WeixinPages/common/uploadImg/myspaceImg/"+myspaceId+"/"+userId+"/";//保存图片的绝对路径
+		String realSavePath=request.getSession().getServletContext().getRealPath(savePath);
+		String imgName=ImageMethod.Base64SaveAsImage(base64Img, realSavePath);//保存图片到系统应用文件夹中
+		
+		
+		Map<String, String> map = new HashMap<String, String>();
+		String showPath=request.getContextPath() +savePath;
+		//System.out.println(showPath+imgName);
+		if(imgName==null){
+			map.put("done", "-1");
+			map.put("imgSrc", "/");
+			map.put("msg", "图片上传失败了!");
+		}else{
+			map.put("done", "0");
+			map.put("imgSrc", showPath+imgName);//显示图片的完整相对路径
+			map.put("msg", "图片上传成功!");
+			System.out.println("用户上传图片至："+showPath+imgName);
+		}
+		
+        JSONObject jsonObject = JSONObject.fromObject(map);
+        response.getWriter().write(jsonObject.toString()); 
+
 	}
 
 }

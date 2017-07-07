@@ -14,6 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet"
 	href="<%=basePath%>WeixinPages/common/css/mui.min.css">
 	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script src="<%=basePath%>WeixinPages/common/imgDeal/dist/lrz.bundle.js?v=09bcc24"></script>
 	<script type="text/javascript" src="<%=basePath%>WeixinPages/common/js/jquery-1.11.2.js"></script>
 	<script type="text/javascript" src="<%=basePath%>WeixinPages/common/js/dialog.js"></script>
 	
@@ -27,13 +28,13 @@ $(document).ready(function() {
 	var h = document.body.offsetHeight; //获取网页可见区域高度
 	var iframe=document.getElementById("mainContent");
 	iframe.height=(h-footerHeiht-headerHeight);
-	
 	//wx.hideAllNonBaseMenuItems();//隐藏右上角微信所有非基础按钮
 });
 
 
 function showIframe(pageTag,obj){
 	//alert(1010);
+	var dl=dialog('加载中...').showModal();
 	var current = document.querySelector(".mui-bar-tab>.mui-tab-item.mui-active");
 	if (obj !== current) {
 		current.classList.remove('mui-active');
@@ -56,25 +57,23 @@ function showIframe(pageTag,obj){
 		operateButton.innerHTML="上传照片";
 		url='activitiesMySpace!getActivitiesMySpaceMaterialList.action';
 	}else if(pageTag==3){
-		operateButton.innerHTML="刷新";
+		operateButton.innerHTML="";
 		url='activitiesMySpace!getActivitiesMySpaceUsersList.action';
 	}else if(pageTag==4){
 		operateButton.innerHTML="";
 		url='activitiesMySpace!getActivitiesMySpaceMine.action';
 	}else{return;}
 	document.getElementById('mainContent').src=url;
-	
+	$("#mainContent").load(function(){//iframe加载完成后关闭加载框
+        dl.close().remove();
+    });  
 }
 
 function operate(){
-	
 	var operate=document.getElementById('operate').innerHTML;
-	//alert(operate);
 	if(operate=="发言"){
-		//alert(operate);
 		var d = dialog({
 			fixed: true,
-			title:'输入内容',
 			content: '<textarea autofocus id="subTxt" rows="3" cols="25" placeholder="发言内容">',
 			
 			button : [ {
@@ -92,7 +91,8 @@ function operate(){
 
 					}).showModal();
 		} else if (operate == "上传照片") {
-			alert(operate);
+			$("#imgFile").click();//模拟上传控件点击
+			//alert(operate);
 		} else if (operate == "刷新") {
 			alert(operate);
 		} else {
@@ -102,10 +102,12 @@ function operate(){
 
 	}
 
+	//退出个人空间
 	function quitPage() {
 		wx.closeWindow();
 	}
 	
+	//保存空间评论
 	function doSaveMyspaceComment(userId,myspaceId,txt){
 		$.ajax({
 		    type: "POST",
@@ -131,15 +133,59 @@ function operate(){
 	    });
 	}
 	
+	//上传图片控件内容变化事件
+	 $('input[name=imgFile]').on('change', function(){
+	 		alert("ddddd");
+        	var d=dialog().showModal();//初始化上传中
+        	var myspaceId=$('#myspaceId').val();
+			var userId=$('#userId').val();//用户id
+             lrz(this.files[0], {width: 1080})
+                .then(function (rst) {
+                    $.ajax({
+                        url: 'activitiesMySpace!UploadImage.action',
+                        type: 'post',
+                        data: {"img": rst.base64,"userId":userId,"myspaceId":myspaceId},
+                        dataType: 'json',
+                        timeout: 200000,
+                        success: function (response) {
+                            if (response.done == '0') {
+                            	d.close().remove();
+                            	//document.getElementById('articleContent').innerHTML += "<div style=\'text-align:center;\'><img style=\'width:80%;\' src=\'"+response.imgSrc+"\'/></div><br/><br/><br/>";
+                            	return true;
+                            } else {
+                                return alert(response.msg);
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+
+                            if (textStatus == 'timeout') {
+                                a_info_alert('请求超时');
+                                return false;
+                            }
+                            alert(jqXHR.responseText);
+                        }
+                    });
+
+                })
+                .catch(function (err) {
+
+                })
+                .always(function () {
+
+                });
+        }); 
 </script>
 </head>
 
 <body>
 
 	<header class="mui-bar mui-bar-nav" id="myspaceMainHeader"> 
-		<a class="mui-btn mui-btn-blue mui-btn-link mui-pull-left" onclick="quitPage();">退出空间</a>
+		<a class="mui-btn mui-btn-blue mui-btn-link mui-pull-left" onclick="quitPage();">退出</a>
 		<h1 id="title" class="mui-title">讨论区</h1>
-		<button id="operate" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" onclick="operate();">发言</button>
+		<div style="height:0px;overflow:hidden">
+		   <input type="file" accept="image/*" id="imgFile" name="imgFile" multiple/>
+		</div>
+		<div id="operate" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" onclick="operate();">发言</div>
 	</header>
 	<nav class="mui-bar mui-bar-tab" id="footerTab"> 
 		<a  class="mui-tab-item mui-active" href= "JavaScript:void(0);" onclick="showIframe(1,this);" > 
@@ -161,8 +207,8 @@ function operate(){
 		</a> 
 	</nav>
 	<div id="iframeContent" class="mui-content" >
-		<input id="myspaceId" name="myspaceId" type="hidden" value="123"/>
-		<input id="userId" name="userId" type="hidden" value="321"/>
+		<input id="myspaceId" name="myspaceId" type="hidden" value="100"/>
+		<input id="userId" name="userId" type="hidden" value="o8iGuv66gILabgoSL3Ibz8euYiZk"/>
 		<iframe style="width:100%"  id="mainContent" name="mainContent"
 			 src="activitiesMySpace!getActivitiesMySpaceCommentList.action" />
 	</div>
