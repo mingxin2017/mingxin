@@ -91,8 +91,26 @@ function operate(){
 
 					}).showModal();
 		} else if (operate == "上传照片") {
-			$("#imgFile").click();//模拟上传控件点击
-			//alert(operate);
+			//return $("#imgFile").click();//模拟上传控件点击
+			alert("lll");
+			var d = dialog({
+				fixed: true,
+				content: '<textarea autofocus id="subTxt" rows="3" cols="25" placeholder="发言内容">',
+				
+				button : [ {
+								value : '发送',
+								callback : function() {
+									var txt = $('#subTxt').val();//获取输入的值
+									var myspaceId=$('#myspaceId').val();
+									var userId=$('#userId').val();//用户id
+									doSaveMyspaceComment(userId,myspaceId,txt);
+								},
+								autofocus : true
+							}, {
+								value : '取消'
+							} ]
+
+						}).showModal();
 		} else if (operate == "刷新") {
 			alert(operate);
 		} else {
@@ -134,7 +152,7 @@ function operate(){
 	}
 	
 	//上传图片控件内容变化事件
-	 $('input[name=imgFile]').on('change', function(){
+	 $("#imgFile").change(function(){
 	 		alert("ddddd");
         	var d=dialog().showModal();//初始化上传中
         	var myspaceId=$('#myspaceId').val();
@@ -173,7 +191,7 @@ function operate(){
                 .always(function () {
 
                 });
-        }); 
+        });
 </script>
 </head>
 
@@ -182,9 +200,6 @@ function operate(){
 	<header class="mui-bar mui-bar-nav" id="myspaceMainHeader"> 
 		<a class="mui-btn mui-btn-blue mui-btn-link mui-pull-left" onclick="quitPage();">退出</a>
 		<h1 id="title" class="mui-title">讨论区</h1>
-		<div style="height:0px;overflow:hidden">
-		   <input type="file" accept="image/*" id="imgFile" name="imgFile" multiple/>
-		</div>
 		<div id="operate" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" onclick="operate();">发言</div>
 	</header>
 	<nav class="mui-bar mui-bar-tab" id="footerTab"> 
