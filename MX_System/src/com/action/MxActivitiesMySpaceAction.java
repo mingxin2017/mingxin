@@ -147,7 +147,7 @@ public class MxActivitiesMySpaceAction {
 		
 		Map<String, String> map = new HashMap<String, String>();
 		String showPath=request.getContextPath() +savePath;
-		//System.out.println(showPath+imgName);
+		
 		if(imgName==null){
 			map.put("done", "-1");
 			map.put("imgSrc", "/");

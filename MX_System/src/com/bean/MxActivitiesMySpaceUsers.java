@@ -18,6 +18,8 @@ public class MxActivitiesMySpaceUsers implements java.io.Serializable {
 	private Integer state;
 	private String others;
 	private Integer remainUploadNum;
+	private Date imgUpdateDate;
+	private Date commentUpdateDate;
 
 	// Constructors
 
@@ -28,19 +30,21 @@ public class MxActivitiesMySpaceUsers implements java.io.Serializable {
 	/** minimal constructor */
 	public MxActivitiesMySpaceUsers(Integer userId, Integer relateUserId,
 			Date createDate, Date updateDate, Integer state,
-			Integer remainUploadNum) {
+			Integer remainUploadNum, Date imgUpdateDate, Date commentUpdateDate) {
 		this.userId = userId;
 		this.relateUserId = relateUserId;
 		this.createDate = createDate;
 		this.updateDate = updateDate;
 		this.state = state;
 		this.remainUploadNum = remainUploadNum;
+		this.imgUpdateDate = imgUpdateDate;
+		this.commentUpdateDate = commentUpdateDate;
 	}
 
 	/** full constructor */
 	public MxActivitiesMySpaceUsers(Integer userId, Integer relateUserId,
 			Date createDate, Date updateDate, Integer state, String others,
-			Integer remainUploadNum) {
+			Integer remainUploadNum, Date imgUpdateDate, Date commentUpdateDate) {
 		this.userId = userId;
 		this.relateUserId = relateUserId;
 		this.createDate = createDate;
@@ -48,6 +52,8 @@ public class MxActivitiesMySpaceUsers implements java.io.Serializable {
 		this.state = state;
 		this.others = others;
 		this.remainUploadNum = remainUploadNum;
+		this.imgUpdateDate = imgUpdateDate;
+		this.commentUpdateDate = commentUpdateDate;
 	}
 
 	// Property accessors
@@ -114,6 +120,22 @@ public class MxActivitiesMySpaceUsers implements java.io.Serializable {
 
 	public void setRemainUploadNum(Integer remainUploadNum) {
 		this.remainUploadNum = remainUploadNum;
+	}
+
+	public Date getImgUpdateDate() {
+		return this.imgUpdateDate;
+	}
+
+	public void setImgUpdateDate(Date imgUpdateDate) {
+		this.imgUpdateDate = imgUpdateDate;
+	}
+
+	public Date getCommentUpdateDate() {
+		return this.commentUpdateDate;
+	}
+
+	public void setCommentUpdateDate(Date commentUpdateDate) {
+		this.commentUpdateDate = commentUpdateDate;
 	}
 
 }

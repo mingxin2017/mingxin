@@ -14,10 +14,53 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet"
 	href="<%=basePath%>WeixinPages/common/css/mui.min.css">
 	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
-	<script src="<%=basePath%>WeixinPages/common/imgDeal/dist/lrz.bundle.js?v=09bcc24"></script>
+	<script src="<%=basePath%>WeixinPages/common/imgDeal/dist/lrz.bundle.js?v=09bcc27"></script>
 	<script type="text/javascript" src="<%=basePath%>WeixinPages/common/js/jquery-1.11.2.js"></script>
 	<script type="text/javascript" src="<%=basePath%>WeixinPages/common/js/dialog.js"></script>
 	
+	
+<style type="text/css">
+.rich{
+	width:80px;
+    border:1px solid #0997F7;
+    overflow: auto;
+}
+.rich:empty:before{
+    content:attr(placeholder);
+    font-size: 16px;
+    color: #999;
+}
+.rich:focus:before{
+    content:none;
+}
+.footer-btn {
+  text-align: center;
+  padding-top: 1px;
+}
+.footer-btn .upload-img {
+  height: 8%;
+  min-height:25px;
+  display: inline-block;
+  vertical-align: bottom;
+  width: 25px;
+  margin-right: 10px;
+  background-size: 100%;
+}
+.input-file-css{
+	position:absolute;
+	left:0;
+	opacity:0;
+	width:100%;
+}
+
+.SubBtn{
+	width:100%;
+	height:10%;
+	min-height:30px;
+	text-align:center; /*水平居中*/
+	
+}
+</style>
 <script type="text/javascript">
 $(document).ready(function() {
     //设置iframe自适应屏幕高度
@@ -92,22 +135,24 @@ function operate(){
 					}).showModal();
 		} else if (operate == "上传照片") {
 			//return $("#imgFile").click();//模拟上传控件点击
-			alert("lll");
+			//alert("lll");
 			var d = dialog({
 				fixed: true,
-				content: '<textarea autofocus id="subTxt" rows="3" cols="25" placeholder="发言内容">',
+				content: '<div id="showImage" class="rich">预览</div><div class="footer-btn " ><span ><i class="mui-icon mui-icon-image"></i>选图</span><input onchange="showImage(this);" class="input-file-css" type="file" capture="camera" accept="image/*" name="imgFile" id="imgFile"></div>',
 				
 				button : [ {
-								value : '发送',
+							value : '取消'
+							},{
+								value : '上传',
 								callback : function() {
-									var txt = $('#subTxt').val();//获取输入的值
+									//alert("11111");
+									var imgFile = document.getElementById('imgFile').files[0];//获取选择的文件
+									//alert(imgFile);
 									var myspaceId=$('#myspaceId').val();
 									var userId=$('#userId').val();//用户id
-									doSaveMyspaceComment(userId,myspaceId,txt);
+									doUploadImage(userId,myspaceId,imgFile);
 								},
 								autofocus : true
-							}, {
-								value : '取消'
 							} ]
 
 						}).showModal();
@@ -120,6 +165,71 @@ function operate(){
 
 	}
 
+	//上传图片显示缩略图
+	function showImage(obj){
+		//alert(obj.files[0]);
+		var file=obj.files[0];
+		var img = new Image();
+		img.width=80;
+		var url = img.src = URL.createObjectURL(file);
+		var $img = $(img);
+        img.onload = function() {
+            URL.revokeObjectURL(url);
+            $('#showImage').empty().append($img);
+        }
+	}
+
+
+	//上传图片事件
+	function doUploadImage(userId,myspaceId,imgFile){
+		var d=dialog({content:'上传中...'}).showModal();//加载中弹出框
+		//alert(1111);
+         lrz(imgFile, {width: 1080})
+            .then(function (rst) {
+            	//alert(222);
+                $.ajax({
+                    url: 'activitiesMySpace!UploadImage.action',
+                    type: 'post',
+                    data: {img: rst.base64,userId:userId,myspaceId:myspaceId},
+                    dataType: 'json',
+                    timeout: 200000,
+                    success: function (response) {
+                        if (response.done == '0') {
+                        	d.content(response.msg);
+                        	setTimeout(function () {
+        		    			d.close().remove();
+        		    		}, 1500);
+                        	
+                        	document.getElementById('articleContent').innerHTML += "<div style=\'text-align:center;\'><img style=\'width:80%;\' src=\'"+response.imgSrc+"\'/></div><br/><br/><br/>";
+                        	
+                            return true;
+                        } else {
+                        	d.close().remove();
+                            return alert(response.msg);
+                        }
+                    },
+
+                    error: function (jqXHR, textStatus, errorThrown) {
+
+                        if (textStatus == 'timeout') {
+                            a_info_alert('请求超时');
+
+                            return false;
+                        }
+
+                        alert(jqXHR.responseText);
+                    }
+                });
+
+            })
+            .catch(function (err) {
+
+            })
+            .always(function () {
+
+            });
+	}
+	
 	//退出个人空间
 	function quitPage() {
 		wx.closeWindow();
@@ -151,47 +261,6 @@ function operate(){
 	    });
 	}
 	
-	//上传图片控件内容变化事件
-	 $("#imgFile").change(function(){
-	 		alert("ddddd");
-        	var d=dialog().showModal();//初始化上传中
-        	var myspaceId=$('#myspaceId').val();
-			var userId=$('#userId').val();//用户id
-             lrz(this.files[0], {width: 1080})
-                .then(function (rst) {
-                    $.ajax({
-                        url: 'activitiesMySpace!UploadImage.action',
-                        type: 'post',
-                        data: {"img": rst.base64,"userId":userId,"myspaceId":myspaceId},
-                        dataType: 'json',
-                        timeout: 200000,
-                        success: function (response) {
-                            if (response.done == '0') {
-                            	d.close().remove();
-                            	//document.getElementById('articleContent').innerHTML += "<div style=\'text-align:center;\'><img style=\'width:80%;\' src=\'"+response.imgSrc+"\'/></div><br/><br/><br/>";
-                            	return true;
-                            } else {
-                                return alert(response.msg);
-                            }
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-
-                            if (textStatus == 'timeout') {
-                                a_info_alert('请求超时');
-                                return false;
-                            }
-                            alert(jqXHR.responseText);
-                        }
-                    });
-
-                })
-                .catch(function (err) {
-
-                })
-                .always(function () {
-
-                });
-        });
 </script>
 </head>
 

@@ -31,5 +31,11 @@
         <property name="remainUploadNum" type="integer">
             <column name="remain_upload_num" not-null="true" />
         </property>
+        <property name="imgUpdateDate" type="timestamp">
+            <column name="img_update_date" length="23" not-null="true" />
+        </property>
+        <property name="commentUpdateDate" type="timestamp">
+            <column name="comment_update_date" length="23" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>
