@@ -10,10 +10,11 @@ public interface IUserService {
 
 	public List<MxUsersData> getAllUsers();
 	MxUsersData validLogin(String username , String password);
-	public ISysUsersDAO getSysUsersDAO();
+	
 	public void setSysUsersDAO(ISysUsersDAO userDAO);
 	MxUsersData getUserByID(Integer userId);
 	PageBean queryForPage(int pageCurrent);
 	public boolean validateWeixinUser(String openId);
+	public MxUsersData getUserByOpenId(String openId);
 	
 }

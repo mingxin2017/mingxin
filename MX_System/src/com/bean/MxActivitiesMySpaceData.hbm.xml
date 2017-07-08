@@ -34,5 +34,11 @@
         <property name="state" type="integer">
             <column name="state" not-null="true" />
         </property>
+        <property name="coverImageUrl" type="string">
+            <column name="cover_image_url" not-null="true" />
+        </property>
+        <property name="myspaceName" type="string">
+            <column name="myspace_name" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

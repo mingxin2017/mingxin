@@ -89,4 +89,9 @@ public class UserServiceImpl implements com.service.IUserService {
 		// TODO Auto-generated method stub
 		return sysUsersDAO.validateWeixinUser(openId);
 	}
+	public MxUsersData getUserByOpenId(String openId) {
+		// TODO Auto-generated method stub
+		return sysUsersDAO.getUserByOpenId(openId);
+	}
+	
 }

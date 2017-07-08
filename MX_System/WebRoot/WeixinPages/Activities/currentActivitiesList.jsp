@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>活动空间列表</title>
+    <title>当前报名中的活动</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -39,25 +39,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-	<div class="mui-content " >
-
-		<ul class="mui-table-view">
-			<c:if
-				test="${userMySpaceDataList==null || fn:length(userMySpaceDataList) == 0}">
-				<li>暂无数据</li>
-			</c:if>
-			<c:forEach items="${userMySpaceDataList}" var="item">
-				<li  class="mui-table-view-cell mui-media">
-					<a href="activitiesMySpace!gotoActivitiesMySpaceMain.action?myspaceId=${item.myspaceId}">
-						<img  class="mui-media-object mui-pull-left"  src="${item.coverImageUrl}">
-						<div class="mui-media-body" style="color:black" >
-							${item.myspaceName}
-							<p class="mui-ellipsis" style="color:#87CEFA" >${item.describe}</p>
-						</div>
-					</a>
-				</li>
-			</c:forEach>
-		</ul>
-	</div>
+	当前报名中的活动
 </body>
 </html>

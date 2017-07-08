@@ -33,12 +33,17 @@
 		
 		<!-- 活动空间 -->
 		<action name="activitiesMySpace" class="activitiesMySpaceAction">
+			<result name="noFocus">/WeixinPages/focusWeixin.jsp</result>
+			
+			<result name="currentActivitiesList">/WeixinPages/Activities/currentActivitiesList.jsp</result>
+		
+			<result name="activitiesMySpaceList">/WeixinPages/ActivitiesMySpace/activitiesMySpaceAllList.jsp</result>
 			<result name="activitiesMySpaceMain">/WeixinPages/ActivitiesMySpace/activitiesMySpaceMain.jsp</result>
 			<result name="activitiesMySpaceCommentList">/WeixinPages/ActivitiesMySpace/activitiesMySpaceCommentList.jsp</result>
 			<result name="activitiesMySpaceMaterialList">/WeixinPages/ActivitiesMySpace/activitiesMySpaceMaterialList.jsp</result>
 			<result name="activitiesMySpaceUsersList">/WeixinPages/ActivitiesMySpace/activitiesMySpaceUsersList.jsp</result>
-			<!-- <result name="activitiesMySpaceMine">/WeixinPages/ActivitiesMySpace/activitiesMySpaceMine.jsp</result> -->
-			<result name="activitiesMySpaceMine">/WeixinPages/ActivitiesMySpace/testImgUpload.jsp</result>
+			<result name="activitiesMySpaceMine">/WeixinPages/ActivitiesMySpace/activitiesMySpaceMine.jsp</result>
+			<!-- <result name="activitiesMySpaceMine">/WeixinPages/ActivitiesMySpace/testImgUpload.jsp</result> -->
 		</action>
 		
 		

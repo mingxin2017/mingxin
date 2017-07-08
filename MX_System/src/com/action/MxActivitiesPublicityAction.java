@@ -9,6 +9,7 @@ import com.bean.MxActivitiesPublicityContent;
 import com.bean.MxActivitiesPublicityData;
 
 import com.service.IActivitiesPublicityService;
+import com.weixin.pojo.SNSUserInfo;
 import com.weixin.util.WeixinSignUtil;
 import com.weixin.util.WeixinUtil;
 
@@ -35,9 +36,11 @@ public class MxActivitiesPublicityAction {
 		 * 此方法验证微信用户是否已经关注公众号
 		 * 需在struts.xml中配置noFucus和error的响应页面
 		 */
-		String validateStr=WeixinUtil.validateWeixinWebUser(request);
-		if(validateStr!=null){
-			return validateStr;
+		
+		
+		SNSUserInfo snsUserInfo=WeixinUtil.validateWeixinWebUser(request);
+		if(snsUserInfo==null){
+			return "noFocus";
 		}
 		
 		String activitiesType = request.getParameter("type");

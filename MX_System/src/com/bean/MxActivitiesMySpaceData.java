@@ -19,6 +19,8 @@ public class MxActivitiesMySpaceData implements java.io.Serializable {
 	private Integer upperLimit;
 	private Integer lowerLimit;
 	private Integer state;
+	private String coverImageUrl;
+	private String myspaceName;
 
 	// Constructors
 
@@ -29,7 +31,8 @@ public class MxActivitiesMySpaceData implements java.io.Serializable {
 	/** minimal constructor */
 	public MxActivitiesMySpaceData(Integer activitiesId, String describe,
 			Date createDate, Date updateDate, Integer upperLimit,
-			Integer lowerLimit, Integer state) {
+			Integer lowerLimit, Integer state, String coverImageUrl,
+			String myspaceName) {
 		this.activitiesId = activitiesId;
 		this.describe = describe;
 		this.createDate = createDate;
@@ -37,12 +40,15 @@ public class MxActivitiesMySpaceData implements java.io.Serializable {
 		this.upperLimit = upperLimit;
 		this.lowerLimit = lowerLimit;
 		this.state = state;
+		this.coverImageUrl = coverImageUrl;
+		this.myspaceName = myspaceName;
 	}
 
 	/** full constructor */
 	public MxActivitiesMySpaceData(Integer activitiesId, String describe,
 			Date createDate, Date updateDate, String others,
-			Integer upperLimit, Integer lowerLimit, Integer state) {
+			Integer upperLimit, Integer lowerLimit, Integer state,
+			String coverImageUrl, String myspaceName) {
 		this.activitiesId = activitiesId;
 		this.describe = describe;
 		this.createDate = createDate;
@@ -51,6 +57,8 @@ public class MxActivitiesMySpaceData implements java.io.Serializable {
 		this.upperLimit = upperLimit;
 		this.lowerLimit = lowerLimit;
 		this.state = state;
+		this.coverImageUrl = coverImageUrl;
+		this.myspaceName = myspaceName;
 	}
 
 	// Property accessors
@@ -125,6 +133,22 @@ public class MxActivitiesMySpaceData implements java.io.Serializable {
 
 	public void setState(Integer state) {
 		this.state = state;
+	}
+
+	public String getCoverImageUrl() {
+		return this.coverImageUrl;
+	}
+
+	public void setCoverImageUrl(String coverImageUrl) {
+		this.coverImageUrl = coverImageUrl;
+	}
+
+	public String getMyspaceName() {
+		return this.myspaceName;
+	}
+
+	public void setMyspaceName(String myspaceName) {
+		this.myspaceName = myspaceName;
 	}
 
 }

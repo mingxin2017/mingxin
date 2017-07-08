@@ -156,6 +156,7 @@
 		<!-- 活动空间Bean -->
 		<bean id="activitiesMySpaceAction" class="com.action.MxActivitiesMySpaceAction">
 			<property name="activitiesMySpaceService" ref="activitiesMySpaceService"></property>
+			<property name="userService" ref="userService"></property>
 		</bean>
 		<bean id="activitiesMySpaceService" class="com.service.impl.ActivitiesMySpaceServiceImpl">
 			<property name="activitiesMySpaceDAO" ref="activitiesMySpaceDAO"></property>

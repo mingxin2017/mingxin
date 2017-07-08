@@ -103,7 +103,7 @@ public class WeixinUtil {
     }
    
     
-    public static String validateWeixinWebUser(HttpServletRequest request){
+    public static SNSUserInfo validateWeixinWebUser(HttpServletRequest request){
     	String code = request.getParameter("code");
 		if (!"authdeny".equals(code)) {
 			// 获取网页授权access_token
@@ -115,14 +115,16 @@ public class WeixinUtil {
 			// 用户标识openid
 			String openId = weixinOauth2Token.getOpenId();
 			
+			SNSUserInfo snsUserInfo = OAuth2TokenUtil.getSNSUserInfo(
+					accessToken, openId);
 			if(userService.validateWeixinUser(openId)==false){
-				return "noFocus";
-			}else{
 				return null;
+			}else{
+				return snsUserInfo;
 			}
 			
 		}else{
-			return "error";
+			return null;
 		}
 		
     }
