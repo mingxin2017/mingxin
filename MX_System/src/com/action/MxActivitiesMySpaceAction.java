@@ -19,6 +19,7 @@ import com.bean.MxActivitiesMySpaceComment;
 import com.bean.MxActivitiesMySpaceData;
 import com.bean.MxActivitiesMySpaceUsers;
 import com.bean.MxUsersData;
+import com.bean.sysBean.ActivitiesUserMySpaceComment;
 import com.service.IActivitiesMySpaceService;
 import com.service.IUserService;
 import com.util.ImageMethod;
@@ -69,6 +70,17 @@ public class MxActivitiesMySpaceAction {
 
 	public void setMyspaceId(int myspaceId) {
 		this.myspaceId = myspaceId;
+	}
+
+	private List<ActivitiesUserMySpaceComment> userMySpaceCommentList;
+	
+	public List<ActivitiesUserMySpaceComment> getUserMySpaceCommentList() {
+		return userMySpaceCommentList;
+	}
+
+	public void setUserMySpaceCommentList(
+			List<ActivitiesUserMySpaceComment> userMySpaceCommentList) {
+		this.userMySpaceCommentList = userMySpaceCommentList;
 	}
 
 	/**
@@ -128,7 +140,9 @@ public class MxActivitiesMySpaceAction {
 	 * 获取活动空间评论内容列表
 	 */
 	public String getActivitiesMySpaceCommentList() {
-
+		if(userMySpaceCommentList==null||userMySpaceCommentList.size()==0){
+			userMySpaceCommentList=activitiesMySpaceService.getUserMySpaceCommontList(myspaceId);
+		}
 		return "activitiesMySpaceCommentList";
 	}
 

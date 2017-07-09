@@ -6,10 +6,13 @@
 -->
 <hibernate-mapping>
     <class name="com.bean.MxActivitiesMySpaceUsers" table="MX_activities_mySpace_users" schema="dbo" catalog="MXDB">
-        <id name="myspaceId" type="integer">
-            <column name="myspace_id" />
+        <id name="id" type="integer">
+            <column name="id" />
             <generator class="native" />
         </id>
+        <property name="myspaceId" type="integer">
+            <column name="myspace_id" not-null="true" />
+        </property>
         <property name="userId" type="integer">
             <column name="user_id" not-null="true" />
         </property>

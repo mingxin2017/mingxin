@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -20,28 +22,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- 自定义图标字体 -->
 <link rel="stylesheet"
 	href="<%=basePath%>WeixinPages/common/css/icomoon.css">
+<script type="text/javascript">
+	// 对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
+	var useragent = navigator.userAgent;
+	if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
+		// 这里警告框会阻塞当前页面继续加载
+		alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
+		// 以下代码是用javascript强行关闭当前页面
+		var opened = window.open('about:blank', '_self');
+		opened.opener = null;
+		opened.close();
+	}
+</script>
 </head>
 
 <body>
-	<%for(int i=0;i<100;i++){ %>
+	<c:forEach items="${userMySpaceCommentList}" var="item">
 	<div class="mui-card">
 		<div class="mui-card-header mui-card-media" >
-			<img data-lazyload="http://wx.qlogo.cn/mmopen/gITwFOywPbkCx8BxwYc41oAGjuBeFianAbtHl8URmaCMTe9lib6EicNuHSibGJzSfT6Y88Nos1poHITnB7vUs7foHphNpibcgFEja/0?version=" + Math.random() * 1000 />
+			<img data-lazyload="http://wx.qlogo.cn/mmopen/gITwFOywPbkCx8BxwYc41oAGjuBeFianAbtHl8URmaCMTe9lib6EicNuHSibGJzSfT6Y88Nos1poHITnB7vUs7foHphNpibcgFEja/0" />
 			<div class="mui-media-body">
-				小M
-				<p>发表于 2016-06-30 15:30<span class="mui-badge mui-badge-danger">新</span></p>
+				${item.userData.weixinNikeName}
+				<p>发表于${item.activitiesMySpaceComment.createDate}<span class="mui-badge mui-badge-danger">新</span></p>
 			</div>
 		</div>
 		<div class="mui-card-content">
 			<div class="mui-card-content-inner">
-				活动非常有趣，下次还要再来！</div>
+				${item.activitiesMySpaceComment.commentTxt}
+			</div>
 		</div>
 		<div class="mui-card-footer">
 			<a class="mui-card-link "></a> <a class="mui-card-link"> <span
-				class="mui-icon icomoon icon-thumbs-up"></span>3</a>
+				class="mui-icon icomoon icon-thumbs-up"></span>${item.activitiesMySpaceComment.praiseClickNum}</a>
 		</div>
 	</div>
-	<%} %>
+	</c:forEach>
 </body>
 	<script src="<%=basePath%>WeixinPages/common/js/mui.min.js"></script>
 	<script src="<%=basePath%>WeixinPages/common/js/mui.lazyload.js"></script>
