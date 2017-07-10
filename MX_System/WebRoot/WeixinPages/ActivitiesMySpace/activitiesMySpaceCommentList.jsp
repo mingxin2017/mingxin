@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -40,20 +41,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<c:forEach items="${userMySpaceCommentList}" var="item">
 	<div class="mui-card">
 		<div class="mui-card-header mui-card-media" >
-			<img data-lazyload="http://wx.qlogo.cn/mmopen/gITwFOywPbkCx8BxwYc41oAGjuBeFianAbtHl8URmaCMTe9lib6EicNuHSibGJzSfT6Y88Nos1poHITnB7vUs7foHphNpibcgFEja/0" />
+			<img data-lazyload="${item.mxUsersData.weixinHeadUrl}" />
 			<div class="mui-media-body">
-				${item.userData.weixinNikeName}
-				<p>发表于${item.activitiesMySpaceComment.createDate}<span class="mui-badge mui-badge-danger">新</span></p>
+				${item.mxUsersData.weixinNikeName}
+				<p>发表于<fmt:formatDate value="${item.createDate}" pattern="yyyy-MM-dd　HH:mm"/><span class="mui-badge mui-badge-danger">新</span></p>
 			</div>
 		</div>
 		<div class="mui-card-content">
 			<div class="mui-card-content-inner">
-				${item.activitiesMySpaceComment.commentTxt}
+				${item.commentTxt}
 			</div>
 		</div>
 		<div class="mui-card-footer">
 			<a class="mui-card-link "></a> <a class="mui-card-link"> <span
-				class="mui-icon icomoon icon-thumbs-up"></span>${item.activitiesMySpaceComment.praiseClickNum}</a>
+				class="mui-icon icomoon icon-thumbs-up"></span>${item.praiseClickNum}</a>
 		</div>
 	</div>
 	</c:forEach>

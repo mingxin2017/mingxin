@@ -11,8 +11,8 @@ public class MxActivitiesMySpaceComment implements java.io.Serializable {
 	// Fields
 
 	private Integer commentId;
+	private MxUsersData mxUsersData;
 	private Integer myspaceId;
-	private Integer submitUserId;
 	private Integer state;
 	private String commentTxt;
 	private Integer praiseClickNum;
@@ -26,11 +26,11 @@ public class MxActivitiesMySpaceComment implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public MxActivitiesMySpaceComment(Integer myspaceId, Integer submitUserId,
-			Integer state, String commentTxt, Integer praiseClickNum,
-			Date createDate) {
+	public MxActivitiesMySpaceComment(MxUsersData mxUsersData,
+			Integer myspaceId, Integer state, String commentTxt,
+			Integer praiseClickNum, Date createDate) {
+		this.mxUsersData = mxUsersData;
 		this.myspaceId = myspaceId;
-		this.submitUserId = submitUserId;
 		this.state = state;
 		this.commentTxt = commentTxt;
 		this.praiseClickNum = praiseClickNum;
@@ -38,11 +38,11 @@ public class MxActivitiesMySpaceComment implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public MxActivitiesMySpaceComment(Integer myspaceId, Integer submitUserId,
-			Integer state, String commentTxt, Integer praiseClickNum,
-			Date createDate, String others) {
+	public MxActivitiesMySpaceComment(MxUsersData mxUsersData,
+			Integer myspaceId, Integer state, String commentTxt,
+			Integer praiseClickNum, Date createDate, String others) {
+		this.mxUsersData = mxUsersData;
 		this.myspaceId = myspaceId;
-		this.submitUserId = submitUserId;
 		this.state = state;
 		this.commentTxt = commentTxt;
 		this.praiseClickNum = praiseClickNum;
@@ -60,20 +60,20 @@ public class MxActivitiesMySpaceComment implements java.io.Serializable {
 		this.commentId = commentId;
 	}
 
+	public MxUsersData getMxUsersData() {
+		return this.mxUsersData;
+	}
+
+	public void setMxUsersData(MxUsersData mxUsersData) {
+		this.mxUsersData = mxUsersData;
+	}
+
 	public Integer getMyspaceId() {
 		return this.myspaceId;
 	}
 
 	public void setMyspaceId(Integer myspaceId) {
 		this.myspaceId = myspaceId;
-	}
-
-	public Integer getSubmitUserId() {
-		return this.submitUserId;
-	}
-
-	public void setSubmitUserId(Integer submitUserId) {
-		this.submitUserId = submitUserId;
 	}
 
 	public Integer getState() {

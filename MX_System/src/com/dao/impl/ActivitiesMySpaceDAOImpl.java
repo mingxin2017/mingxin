@@ -8,10 +8,10 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.bean.MxActivitiesMySpaceComment;
 import com.bean.MxActivitiesMySpaceData;
+import com.bean.MxActivitiesMySpaceMaterial;
 import com.bean.MxActivitiesMySpaceUsers;
-import com.bean.MxActivitiesPublicityData;
 import com.bean.MxUsersData;
-import com.bean.sysBean.ActivitiesUserMySpaceComment;
+import com.bean.sysBean.ActivitiesUserMySpaceMaterial;
 import com.dao.IActivitiesMySpaceDAO;
 
 public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IActivitiesMySpaceDAO{
@@ -58,20 +58,30 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 		return (MxActivitiesMySpaceUsers) getHibernateTemplate().find("from com.bean.MxActivitiesMySpaceUsers au where au.myspaceId = "+ myspaceId+"and au.userId="+userId).get(0);
 	}
 
-	public List<ActivitiesUserMySpaceComment> getUserMySpaceCommontList(
+	public List<MxActivitiesMySpaceComment> getUserMySpaceCommontList(
 			int myspaceId) {
 		// TODO Auto-generated method stub
-		List<ActivitiesUserMySpaceComment> reutnList=new ArrayList();
-		List<MxActivitiesMySpaceComment> myspaceCommentList=getHibernateTemplate().find("from com.bean.MxActivitiesMySpaceComment au where au.myspaceId = "+ myspaceId);
-		for(int i=0;i<myspaceCommentList.size();i++){
-			ActivitiesUserMySpaceComment buff=new ActivitiesUserMySpaceComment();
-			MxActivitiesMySpaceComment commentBuff=myspaceCommentList.get(i);
-			MxUsersData userBuff=(MxUsersData) getHibernateTemplate().find("from com.bean.MxUsersData au where au.userId = "+ commentBuff.getSubmitUserId()).get(0);
-			buff.setActivitiesMySpaceComment(commentBuff);
-			buff.setUserData(userBuff);
-			reutnList.add(buff);
+		//List<ActivitiesUserMySpaceComment> reutnList=new ArrayList();
+		List<MxActivitiesMySpaceComment> myspaceCommentList=getHibernateTemplate().find("from com.bean.MxActivitiesMySpaceComment au order by au.createDate desc where au.myspaceId = "+ myspaceId);
+		
+		return myspaceCommentList;
+	}
+
+	public List<ActivitiesUserMySpaceMaterial> getUserMySpaceMaterialList(
+			int myspaceId) {
+		// TODO Auto-generated method stub
+		List<ActivitiesUserMySpaceMaterial> returnBuff=new ArrayList();
+		List<MxActivitiesMySpaceUsers> spaceUsers=getHibernateTemplate().find("from com.bean.MxActivitiesMySpaceUsers au where au.myspaceId = "+ myspaceId);
+		for(int i=0;i<spaceUsers.size();i++){
+			ActivitiesUserMySpaceMaterial itemBuff=new ActivitiesUserMySpaceMaterial();
+			List<MxActivitiesMySpaceMaterial> materialsBuff=getHibernateTemplate().find("from com.bean.MxActivitiesMySpaceMaterial au order by au.createDate desc where au.submitUserId = "+ spaceUsers.get(i).getUserId());
+			MxUsersData user=(MxUsersData) getHibernateTemplate().find("from com.bean.MxUsersData au where au.userId = "+ spaceUsers.get(i).getUserId()).get(0);
+			itemBuff.setUserData(user);
+			itemBuff.setUserMySpaceMaterialList(materialsBuff);
+			returnBuff.add(itemBuff);
 		}
-		return reutnList;
+		
+		return returnBuff;
 	}
 
 

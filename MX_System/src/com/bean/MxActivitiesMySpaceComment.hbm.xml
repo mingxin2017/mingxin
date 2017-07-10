@@ -10,11 +10,11 @@
             <column name="comment_id" />
             <generator class="native" />
         </id>
+        <many-to-one name="mxUsersData" class="com.bean.MxUsersData" fetch="select" lazy="false">
+            <column name="submit_userID" not-null="true" />
+        </many-to-one>
         <property name="myspaceId" type="integer">
             <column name="myspace_id" not-null="true" />
-        </property>
-        <property name="submitUserId" type="integer">
-            <column name="submit_userID" not-null="true" />
         </property>
         <property name="state" type="integer">
             <column name="state" not-null="true" />

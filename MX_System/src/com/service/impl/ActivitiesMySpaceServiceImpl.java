@@ -5,7 +5,7 @@ import java.util.List;
 import com.bean.MxActivitiesMySpaceComment;
 import com.bean.MxActivitiesMySpaceData;
 import com.bean.MxActivitiesMySpaceUsers;
-import com.bean.sysBean.ActivitiesUserMySpaceComment;
+import com.bean.sysBean.ActivitiesUserMySpaceMaterial;
 import com.dao.IActivitiesMySpaceDAO;
 
 
@@ -48,10 +48,16 @@ public class ActivitiesMySpaceServiceImpl implements com.service.IActivitiesMySp
 				userId,myspaceId);
 	}
 
-	public List<ActivitiesUserMySpaceComment> getUserMySpaceCommontList(
+	public List<MxActivitiesMySpaceComment> getUserMySpaceCommontList(
 			int myspaceId) {
 		// TODO Auto-generated method stub
 		return activitiesMySpaceDAO.getUserMySpaceCommontList(myspaceId);
+	}
+
+	public List<ActivitiesUserMySpaceMaterial> getUserMySpaceMaterialList(
+			int myspaceId) {
+		// TODO Auto-generated method stub
+		return activitiesMySpaceDAO.getUserMySpaceMaterialList(myspaceId);
 	}
 
 	

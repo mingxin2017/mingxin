@@ -123,9 +123,9 @@ function operate(){
 							value : '发送',
 							callback : function() {
 								var txt = $('#subTxt').val();//获取输入的值
-								var myspaceId=$('#myspaceId').val();
-								var userId=$('#userId').val();//用户id
-								doSaveMyspaceComment(userId,myspaceId,txt);
+								//var myspaceId=$('#myspaceId').val();
+								//var userId=$('#userId').val();//用户id
+								doSaveMyspaceComment(${userInfo.userId},${myspaceId},txt);
 							},
 							autofocus : true
 						}, {
@@ -134,8 +134,6 @@ function operate(){
 
 					}).showModal();
 		} else if (operate == "上传照片") {
-			//return $("#imgFile").click();//模拟上传控件点击
-			//alert("lll");
 			var d = dialog({
 				fixed: true,
 				content: '<div id="showImage" class="rich">预览</div><div class="footer-btn " ><span ><i class="mui-icon mui-icon-image"></i>选图</span><input onchange="showImage(this);" class="input-file-css" type="file" capture="camera" accept="image/*" name="imgFile" id="imgFile"></div>',
@@ -291,8 +289,8 @@ function operate(){
 		</a> 
 	</nav>
 	<div id="iframeContent" class="mui-content" >
-		<input id="myspaceId" name="myspaceId" type="hidden" value="100"/>
-		<input id="userId" name="userId" type="hidden" value="o8iGuv66gILabgoSL3Ibz8euYiZk"/>
+		<input id="myspaceId" name="myspaceId" type="hidden" value="${myspaceId}"/>
+		<input id="userId" name="userId" type="hidden" value="${userInfo.userId}"/>
 		<iframe style="width:100%"  id="mainContent" name="mainContent"
 			 src="activitiesMySpace!getActivitiesMySpaceCommentList.action" />
 	</div>

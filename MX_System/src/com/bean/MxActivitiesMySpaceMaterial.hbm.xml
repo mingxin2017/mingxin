@@ -10,8 +10,8 @@
             <column name="material_id" />
             <generator class="native" />
         </id>
-        <property name="activitiesId" type="integer">
-            <column name="activities_id" not-null="true" />
+        <property name="submitUserId" type="integer">
+            <column name="submit_user_id" not-null="true" />
         </property>
         <property name="myspaceId" type="integer">
             <column name="myspace_id" not-null="true" />

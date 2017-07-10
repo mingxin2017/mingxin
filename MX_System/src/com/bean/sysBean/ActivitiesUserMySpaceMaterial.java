@@ -8,38 +8,24 @@ import com.bean.MxActivitiesMySpaceUsers;
 import com.bean.MxUsersData;
 
 /**
- * 封装了用户和用户某个空间下所有的媒体素材
+ * 封装了用户和用户某个空间下所有的媒体素材(按用户信息封装)
  */
 public class ActivitiesUserMySpaceMaterial {
-	
-	
 	private MxUsersData userData;
-	private MxActivitiesMySpaceData activitiesMySpaceData;
-	private List<MxActivitiesMySpaceMaterial> activitiesMySpaceMaterialList;
-	private MxActivitiesMySpaceUsers activitiesMySpaceUser;
+	private List<MxActivitiesMySpaceMaterial> userMySpaceMaterialList;
+	
+	
 	public MxUsersData getUserData() {
 		return userData;
 	}
 	public void setUserData(MxUsersData userData) {
 		this.userData = userData;
 	}
-	public MxActivitiesMySpaceData getActivitiesMySpaceData() {
-		return activitiesMySpaceData;
+	public List<MxActivitiesMySpaceMaterial> getUserMySpaceMaterialList() {
+		return userMySpaceMaterialList;
 	}
-	public void setActivitiesMySpaceData(MxActivitiesMySpaceData activitiesMySpaceData) {
-		this.activitiesMySpaceData = activitiesMySpaceData;
+	public void setUserMySpaceMaterialList(List<MxActivitiesMySpaceMaterial> userMySpaceMaterialList) {
+		this.userMySpaceMaterialList = userMySpaceMaterialList;
 	}
-	public List<MxActivitiesMySpaceMaterial> getActivitiesMySpaceMaterialList() {
-		return activitiesMySpaceMaterialList;
-	}
-	public void setActivitiesMySpaceMaterialList(
-			List<MxActivitiesMySpaceMaterial> activitiesMySpaceMaterialList) {
-		this.activitiesMySpaceMaterialList = activitiesMySpaceMaterialList;
-	}
-	public MxActivitiesMySpaceUsers getActivitiesMySpaceUser() {
-		return activitiesMySpaceUser;
-	}
-	public void setActivitiesMySpaceUser(MxActivitiesMySpaceUsers activitiesMySpaceUser) {
-		this.activitiesMySpaceUser = activitiesMySpaceUser;
-	}
+	
 }

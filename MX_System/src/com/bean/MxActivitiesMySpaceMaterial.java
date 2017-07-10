@@ -11,7 +11,7 @@ public class MxActivitiesMySpaceMaterial implements java.io.Serializable {
 	// Fields
 
 	private Integer materialId;
-	private Integer activitiesId;
+	private Integer submitUserId;
 	private Integer myspaceId;
 	private Integer materialType;
 	private String loadUrl;
@@ -26,10 +26,10 @@ public class MxActivitiesMySpaceMaterial implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public MxActivitiesMySpaceMaterial(Integer activitiesId, Integer myspaceId,
+	public MxActivitiesMySpaceMaterial(Integer submitUserId, Integer myspaceId,
 			Integer materialType, String loadUrl, String describe,
 			Date createDate) {
-		this.activitiesId = activitiesId;
+		this.submitUserId = submitUserId;
 		this.myspaceId = myspaceId;
 		this.materialType = materialType;
 		this.loadUrl = loadUrl;
@@ -38,10 +38,10 @@ public class MxActivitiesMySpaceMaterial implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public MxActivitiesMySpaceMaterial(Integer activitiesId, Integer myspaceId,
+	public MxActivitiesMySpaceMaterial(Integer submitUserId, Integer myspaceId,
 			Integer materialType, String loadUrl, String describe,
 			Date createDate, String others) {
-		this.activitiesId = activitiesId;
+		this.submitUserId = submitUserId;
 		this.myspaceId = myspaceId;
 		this.materialType = materialType;
 		this.loadUrl = loadUrl;
@@ -60,12 +60,12 @@ public class MxActivitiesMySpaceMaterial implements java.io.Serializable {
 		this.materialId = materialId;
 	}
 
-	public Integer getActivitiesId() {
-		return this.activitiesId;
+	public Integer getSubmitUserId() {
+		return this.submitUserId;
 	}
 
-	public void setActivitiesId(Integer activitiesId) {
-		this.activitiesId = activitiesId;
+	public void setSubmitUserId(Integer submitUserId) {
+		this.submitUserId = submitUserId;
 	}
 
 	public Integer getMyspaceId() {

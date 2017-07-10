@@ -1,7 +1,6 @@
 package com.action;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
@@ -19,14 +18,11 @@ import com.bean.MxActivitiesMySpaceComment;
 import com.bean.MxActivitiesMySpaceData;
 import com.bean.MxActivitiesMySpaceUsers;
 import com.bean.MxUsersData;
-import com.bean.sysBean.ActivitiesUserMySpaceComment;
+import com.bean.sysBean.ActivitiesUserMySpaceMaterial;
 import com.service.IActivitiesMySpaceService;
 import com.service.IUserService;
 import com.util.ImageMethod;
 import com.weixin.pojo.SNSUserInfo;
-import com.weixin.pojo.WeixinOauth2Token;
-import com.weixin.util.OAuth2TokenUtil;
-import com.weixin.util.WeixinSignUtil;
 import com.weixin.util.WeixinUtil;
 
 public class MxActivitiesMySpaceAction {
@@ -72,15 +68,26 @@ public class MxActivitiesMySpaceAction {
 		this.myspaceId = myspaceId;
 	}
 
-	private List<ActivitiesUserMySpaceComment> userMySpaceCommentList;
+	private List<MxActivitiesMySpaceComment> userMySpaceCommentList;
 	
-	public List<ActivitiesUserMySpaceComment> getUserMySpaceCommentList() {
+	public List<MxActivitiesMySpaceComment> getUserMySpaceCommentList() {
 		return userMySpaceCommentList;
 	}
 
 	public void setUserMySpaceCommentList(
-			List<ActivitiesUserMySpaceComment> userMySpaceCommentList) {
+			List<MxActivitiesMySpaceComment> userMySpaceCommentList) {
 		this.userMySpaceCommentList = userMySpaceCommentList;
+	}
+
+	private List<ActivitiesUserMySpaceMaterial> userMySpaceMaterialList;
+	
+	public List<ActivitiesUserMySpaceMaterial> getUserMySpaceMaterialList() {
+		return userMySpaceMaterialList;
+	}
+
+	public void setUserMySpaceMaterialList(
+			List<ActivitiesUserMySpaceMaterial> userMySpaceMaterialList) {
+		this.userMySpaceMaterialList = userMySpaceMaterialList;
 	}
 
 	/**
@@ -140,9 +147,9 @@ public class MxActivitiesMySpaceAction {
 	 * 获取活动空间评论内容列表
 	 */
 	public String getActivitiesMySpaceCommentList() {
-		if(userMySpaceCommentList==null||userMySpaceCommentList.size()==0){
-			userMySpaceCommentList=activitiesMySpaceService.getUserMySpaceCommontList(myspaceId);
-		}
+		//if(userMySpaceCommentList==null||userMySpaceCommentList.size()==0){
+		userMySpaceCommentList=activitiesMySpaceService.getUserMySpaceCommontList(myspaceId);
+		//}
 		return "activitiesMySpaceCommentList";
 	}
 
@@ -150,7 +157,7 @@ public class MxActivitiesMySpaceAction {
 	 * 获取活动空间素材列表
 	 */
 	public String getActivitiesMySpaceMaterialList() {
-
+		userMySpaceMaterialList=activitiesMySpaceService.getUserMySpaceMaterialList(myspaceId);
 		return "activitiesMySpaceMaterialList";
 	}
 
@@ -193,8 +200,9 @@ public class MxActivitiesMySpaceAction {
 		String myspaceComment = request.getParameter("txt").toString(); // 中文解码
 
 		MxActivitiesMySpaceComment activitiesMySpaceComment = new MxActivitiesMySpaceComment();
-
-		activitiesMySpaceComment.setSubmitUserId(userId);
+		MxUsersData user=new MxUsersData();
+		user.setUserId(userId);
+		activitiesMySpaceComment.setMxUsersData(user);
 		activitiesMySpaceComment.setMyspaceId(myspaceId);
 		activitiesMySpaceComment.setCommentTxt(myspaceComment);
 		activitiesMySpaceComment.setState(0);

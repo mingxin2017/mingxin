@@ -5,7 +5,7 @@ import java.util.List;
 import com.bean.MxActivitiesMySpaceComment;
 import com.bean.MxActivitiesMySpaceData;
 import com.bean.MxActivitiesMySpaceUsers;
-import com.bean.sysBean.ActivitiesUserMySpaceComment;
+import com.bean.sysBean.ActivitiesUserMySpaceMaterial;
 
 public interface IActivitiesMySpaceService {
 
@@ -20,7 +20,9 @@ public interface IActivitiesMySpaceService {
 	MxActivitiesMySpaceUsers getMySpaceUserByUserId_SpaceId(Integer userId,
 			int myspaceId);
 
-	List<ActivitiesUserMySpaceComment> getUserMySpaceCommontList(int myspaceId);
+	List<MxActivitiesMySpaceComment> getUserMySpaceCommontList(int myspaceId);
+
+	List<ActivitiesUserMySpaceMaterial> getUserMySpaceMaterialList(int myspaceId);
 
 
 }

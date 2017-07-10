@@ -1,4 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -174,30 +177,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	<body>
 		<div class="mui-content">
-		<%for(int i=1;i<=30;i++){ %>
+		<c:forEach items="${userMySpaceMaterialList}" var="item1">
+		
 			<div class="mui-card">
 				<div class="mui-card-header mui-card-media">
-					<img data-lazyload="/MX_System/WeixinPages/common/uploadImg/myspaceImg/100/o8iGuv66gILabgoSL3Ibz8euYiZk/<%=i %>.jpg" />
+					<img data-lazyload="/MX_System/WeixinPages/common/uploadImg/myspaceImg/100/o8iGuv66gILabgoSL3Ibz8euYiZk/5.jpg" />
 					<div class="mui-media-body">
-						小M
-						<p>更新于 2016-06-30 15:30</p>
+						${item1.userData.weixinNikeName}
+						<p>更新于<fmt:formatDate value="${item1.userMySpaceMaterialList.get(0).createDate}" pattern="yyyy-MM-dd　HH:mm"/></p>
 					</div>
 				</div>
 				<div class="mui-card-content" >
 			<ul class="mui-table-view mui-grid-view">
-		        
-			  <%for(int j=1;j<=12;j++){ %>
+		      <c:forEach items="${item1.userMySpaceMaterialList}" var="item2">
+			 
 			  <li class="mui-table-view-cell mui-media mui-col-xs-3">
 				<p>
-					<img data-lazyload="/MX_System/WeixinPages/common/uploadImg/myspaceImg/100/o8iGuv66gILabgoSL3Ibz8euYiZk/<%=j %>.jpg" data-preview-src="" data-preview-group="<%=i %>" />
+					<img data-lazyload="${item2.loadUrl}" data-preview-src="" data-preview-group="${item1.userData.userId}" />
 				</p>
 				</li>
-			  <%} %>
+				
+			  </c:forEach>
 			  </ul>
 				</div>
 			</div>
-				
-			<%} %>
+			
+			</c:forEach>
 		</div>
 	</body>
 	<script src="<%=basePath%>WeixinPages/common/js/mui.min.js "></script>
