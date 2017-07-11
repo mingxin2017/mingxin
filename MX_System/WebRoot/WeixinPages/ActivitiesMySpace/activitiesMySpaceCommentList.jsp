@@ -38,13 +38,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body>
+	
+	<c:set var="nowDate" value="<%=new Date()%>" pattern="yyyy-MM-dd"></c:set> 
 	<c:forEach items="${userMySpaceCommentList}" var="item">
 	<div class="mui-card">
 		<div class="mui-card-header mui-card-media" >
 			<img data-lazyload="${item.mxUsersData.weixinHeadUrl}" />
 			<div class="mui-media-body">
 				${item.mxUsersData.weixinNikeName}
-				<p>发表于<fmt:formatDate value="${item.createDate}" pattern="yyyy-MM-dd　HH:mm"/><span class="mui-badge mui-badge-danger">新</span></p>
+				<p>发表于<fmt:formatDate value="${item.createDate}" pattern="yyyy-MM-dd　HH:mm"/>
+					<c:set value="${item.createDate}" var="upDate" pattern="yyyy-MM-dd"></c:set> 
+					<c:if test="${nowDate.equals(upDate)}"> 
+						<span class="mui-badge mui-badge-danger">新</span>
+					</c:if>
+				</p>
 			</div>
 		</div>
 		<div class="mui-card-content">
