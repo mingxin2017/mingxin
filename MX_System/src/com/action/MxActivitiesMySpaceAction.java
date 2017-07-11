@@ -16,6 +16,7 @@ import org.apache.struts2.ServletActionContext;
 
 import com.bean.MxActivitiesMySpaceComment;
 import com.bean.MxActivitiesMySpaceData;
+import com.bean.MxActivitiesMySpaceMaterial;
 import com.bean.MxActivitiesMySpaceUsers;
 import com.bean.MxUsersData;
 import com.bean.sysBean.ActivitiesUserMySpaceMaterial;
@@ -250,18 +251,29 @@ public class MxActivitiesMySpaceAction {
 
 		Map<String, String> map = new HashMap<String, String>();
 		String showPath = request.getContextPath() + savePath;
-
-		if (imgName == null) {
+		String imgPath=showPath+imgName;
+		
+		
+		MxActivitiesMySpaceMaterial material=new MxActivitiesMySpaceMaterial();
+		material.setCreateDate(new Timestamp(System.currentTimeMillis()));
+		material.setDescribe("图片描述");
+		material.setLoadUrl(imgPath);
+		material.setMaterialType(1);//图片类型为1
+		material.setMyspaceId(Integer.parseInt(myspaceId));
+		material.setOthers("");
+		material.setSubmitUserId(Integer.parseInt(userId));
+		boolean saveToSQL=activitiesMySpaceService.saveActivitiesMySpaceMaterial(material);
+		
+		if (imgName == null||saveToSQL==false) {
 			map.put("done", "-1");
 			map.put("imgSrc", "/");
 			map.put("msg", "图片上传失败了!");
 		} else {
 			map.put("done", "0");
-			map.put("imgSrc", showPath + imgName);// 显示图片的完整相对路径
+			map.put("imgSrc", imgPath);// 显示图片的完整相对路径
 			map.put("msg", "图片上传成功!");
-			System.out.println("用户上传图片至：" + showPath + imgName);
+			System.out.println("用户上传图片至：" + imgPath);
 		}
-
 		JSONObject jsonObject = JSONObject.fromObject(map);
 		response.getWriter().write(jsonObject.toString());
 

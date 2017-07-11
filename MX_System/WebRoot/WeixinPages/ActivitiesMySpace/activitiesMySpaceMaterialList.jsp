@@ -188,7 +188,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</div>
 				<div class="mui-card-content" >
-			<ul class="mui-table-view mui-grid-view">
+			<ul class="mui-table-view mui-grid-view" id="${item1.userData.userId}">
 		      <c:forEach items="${item1.userMySpaceMaterialList}" var="item2">
 			 
 			  <li class="mui-table-view-cell mui-media mui-col-xs-3">

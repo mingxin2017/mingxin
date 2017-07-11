@@ -29,11 +29,12 @@ public class ImageMethod {
                 }  
             } 
             File file =new File(savePath);    
+            System.out.println("路径"+savePath);
           //如果文件夹不存在则创建    
           if  (!file .exists()  && !file .isDirectory())      
           {       
               System.out.println("保存图片的路径不存在，创建路径");
-              file .mkdir();//创建文件路径
+              file.mkdirs();//创建文件路径
           } else   
           {  
               System.out.println("//目录存在");  
@@ -47,6 +48,7 @@ public class ImageMethod {
             out.write(b);   //写入文件
             out.flush();  
             out.close();  
+            System.out.println("图片已上传到服务器目录");
             return imageName;  
         }   
         catch (Exception e)   

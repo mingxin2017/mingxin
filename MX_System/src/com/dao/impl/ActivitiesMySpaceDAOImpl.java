@@ -84,5 +84,17 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 		return returnBuff;
 	}
 
+	public boolean saveActivitiesMySpaceMaterial(MxActivitiesMySpaceMaterial material) {
+		// TODO Auto-generated method stub
+		try{
+			getHibernateTemplate().save(material);
+			return true;
+		}catch(Exception e){
+			System.out.println(e);
+			return false;
+		}
+		
+	}
+
 
 }

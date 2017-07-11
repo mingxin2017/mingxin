@@ -38,8 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body>
-	
-	<c:set var="nowDate" value="<%=new Date()%>" pattern="yyyy-MM-dd"></c:set> 
+	<%for(int i=0;i<5;i++){ %>
 	<c:forEach items="${userMySpaceCommentList}" var="item">
 	<div class="mui-card">
 		<div class="mui-card-header mui-card-media" >
@@ -47,10 +46,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="mui-media-body">
 				${item.mxUsersData.weixinNikeName}
 				<p>发表于<fmt:formatDate value="${item.createDate}" pattern="yyyy-MM-dd　HH:mm"/>
-					<c:set value="${item.createDate}" var="upDate" pattern="yyyy-MM-dd"></c:set> 
-					<c:if test="${nowDate.equals(upDate)}"> 
+					
 						<span class="mui-badge mui-badge-danger">新</span>
-					</c:if>
+				
 				</p>
 			</div>
 		</div>
@@ -65,6 +63,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	</c:forEach>
+	<%} %>
 </body>
 	<script src="<%=basePath%>WeixinPages/common/js/mui.min.js"></script>
 	<script src="<%=basePath%>WeixinPages/common/js/mui.lazyload.js"></script>
