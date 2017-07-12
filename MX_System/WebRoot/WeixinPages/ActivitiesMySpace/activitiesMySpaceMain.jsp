@@ -197,17 +197,8 @@ function operate(){
                         	setTimeout(function () {
         		    			d.close().remove();
         		    		}, 1500);
-                        	
-                        	//获取子页面下的元素
-                        	//var _iframe = document.getElementById('mainContent').contentWindow;
-                        	//alert(_iframe);
-							//var _ul =_iframe.document.getElementById(userId);
-							//alert(_ul.innerHTML);
-                        	//var ul1=document.getElementById('articleContent').contentWindow.document.getElementById(userId);
-                        	//alert(ul1);
-                        	//var ttt='<li class="mui-table-view-cell mui-media mui-col-xs-3"><p><img data-lazyload="'+response.imgSrc+'" data-preview-src="" data-preview-group="${userInfo.userId}" /></p></li>';
-                        	//alert(ttt)
-                        	//document.getElementById('articleContent').src= "activitiesMySpace!getActivitiesMySpaceMaterialList.action";
+                        	//刷新页面
+                        	document.getElementById('mainContent').src= "activitiesMySpace!getActivitiesMySpaceMaterialList.action";
                         	
                             return true;
                         } else {

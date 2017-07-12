@@ -91,6 +91,17 @@ public class MxActivitiesMySpaceAction {
 		this.userMySpaceMaterialList = userMySpaceMaterialList;
 	}
 
+	private List<MxActivitiesMySpaceUsers> mySpaceUsersList;
+	
+	
+	public List<MxActivitiesMySpaceUsers> getMySpaceUsersList() {
+		return mySpaceUsersList;
+	}
+
+	public void setMySpaceUsersList(List<MxActivitiesMySpaceUsers> mySpaceUsersList) {
+		this.mySpaceUsersList = mySpaceUsersList;
+	}
+
 	/**
 	 * 　　*活动空间action中的默认处理方法 　　
 	 */
@@ -166,7 +177,8 @@ public class MxActivitiesMySpaceAction {
 	 * 获取活动空间用户
 	 */
 	public String getActivitiesMySpaceUsersList() {
-
+		mySpaceUsersList=activitiesMySpaceService.getMySpaceUsersList(myspaceId);
+		System.out.println("====="+mySpaceUsersList.get(0).getMxUsersData().getWeixinHeadUrl());
 		return "activitiesMySpaceUsersList";
 	}
 

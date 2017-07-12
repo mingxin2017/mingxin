@@ -6,6 +6,7 @@ import com.bean.MxActivitiesMySpaceComment;
 import com.bean.MxActivitiesMySpaceData;
 import com.bean.MxActivitiesMySpaceMaterial;
 import com.bean.MxActivitiesMySpaceUsers;
+import com.bean.MxUsersData;
 import com.bean.sysBean.ActivitiesUserMySpaceMaterial;
 import com.dao.IActivitiesMySpaceDAO;
 
@@ -65,6 +66,11 @@ public class ActivitiesMySpaceServiceImpl implements com.service.IActivitiesMySp
 			MxActivitiesMySpaceMaterial material) {
 		// TODO Auto-generated method stub
 		return activitiesMySpaceDAO.saveActivitiesMySpaceMaterial(material);
+	}
+
+	public List<MxActivitiesMySpaceUsers> getMySpaceUsersList(int myspaceId) {
+		// TODO Auto-generated method stub
+		return activitiesMySpaceDAO.getMySpaceUsersList(myspaceId);
 	}
 
 	

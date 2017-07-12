@@ -22,80 +22,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
   <div class="mui-content">
    <ul class="mui-table-view">
-   			<%for(int i=0;i<10;i++){ %>
+   			
+   			<c:forEach items="${mySpaceUsersList}" var="item">
 				<li class="mui-table-view-cell mui-media">
 					<a href="javascript:;">
-						<img class="mui-media-object mui-pull-left" data-lazyload="http://wx.qlogo.cn/mmopen/gITwFOywPbkCx8BxwYc41oAGjuBeFianAbtHl8URmaCMTe9lib6EicNuHSibGJzSfT6Y88Nos1poHITnB7vUs7foHphNpibcgFEja/0">
+						<img class="mui-media-object mui-pull-left" data-lazyload="${item.mxUsersData.weixinHeadUrl}">
 						<div class="mui-media-body">
-							小M<span class="mui-badge mui-badge-success">组织者</span><span class="mui-badge mui-badge-primary">老班长</span>
-							<p class='mui-ellipsis'>157XXXXXXXX</p>
+							${item.mxUsersData.weixinNikeName}
+							<c:if test="${item.state== 0}">
+								<span class="mui-badge mui-badge-success">组织者</span>
+							</c:if>
+							<p class='mui-ellipsis'>${item.mxUsersData.userPhoneNum}</p>
 						</div>
 					</a>
 				</li>
-				<li class="mui-table-view-cell mui-media">
-					<a href="javascript:;">
-						<img class="mui-media-object mui-pull-left" data-lazyload="http://wx.qlogo.cn/mmopen/gITwFOywPbkCx8BxwYc41oAGjuBeFianAbtHl8URmaCMTe9lib6EicNuHSibGJzSfT6Y88Nos1poHITnB7vUs7foHphNpibcgFEja/0">
-						<div class="mui-media-body">
-							小M<span class="mui-badge mui-badge-warning">财物</span><span class="mui-badge mui-badge-danger">数学科代表</span>
-							<p class='mui-ellipsis'>157XXXXXXXX</p>
-						</div>
-					</a>
-				</li>
-				<li class="mui-table-view-cell mui-media">
-					<a href="javascript:;">
-						<img class="mui-media-object mui-pull-left" data-lazyload="http://wx.qlogo.cn/mmopen/gITwFOywPbkCx8BxwYc41oAGjuBeFianAbtHl8URmaCMTe9lib6EicNuHSibGJzSfT6Y88Nos1poHITnB7vUs7foHphNpibcgFEja/0">
-						<div class="mui-media-body">
-							小M<span class="mui-badge mui-badge-purple">小鲜肉</span>
-							<p class='mui-ellipsis'>157XXXXXXXX</p>
-						</div>
-					</a>
-				</li>
-				<li class="mui-table-view-cell mui-media">
-					<a href="javascript:;">
-						<img class="mui-media-object mui-pull-left" data-lazyload="http://wx.qlogo.cn/mmopen/gITwFOywPbkCx8BxwYc41oAGjuBeFianAbtHl8URmaCMTe9lib6EicNuHSibGJzSfT6Y88Nos1poHITnB7vUs7foHphNpibcgFEja/0">
-						<div class="mui-media-body">
-							小M<span class="mui-badge mui-badge-danger">土豪M</span>
-							<p class='mui-ellipsis'>157XXXXXXXX</p>
-						</div>
-					</a>
-				</li>
-				<li class="mui-table-view-cell mui-media">
-					<a href="javascript:;">
-						<img class="mui-media-object mui-pull-left" data-lazyload="http://wx.qlogo.cn/mmopen/gITwFOywPbkCx8BxwYc41oAGjuBeFianAbtHl8URmaCMTe9lib6EicNuHSibGJzSfT6Y88Nos1poHITnB7vUs7foHphNpibcgFEja/0">
-						<div class="mui-media-body">
-							小M<span class="mui-badge mui-badge-success">帅气</span>
-							<p class='mui-ellipsis'>157XXXXXXXX</p>
-						</div>
-					</a>
-				</li>
-				<li class="mui-table-view-cell mui-media">
-					<a href="javascript:;">
-						<img class="mui-media-object mui-pull-left" data-lazyload="http://wx.qlogo.cn/mmopen/gITwFOywPbkCx8BxwYc41oAGjuBeFianAbtHl8URmaCMTe9lib6EicNuHSibGJzSfT6Y88Nos1poHITnB7vUs7foHphNpibcgFEja/0">
-						<div class="mui-media-body">
-							小M<span class="mui-badge mui-badge-purple">会做菜</span>
-							<p class='mui-ellipsis'>157XXXXXXXX</p>
-						</div>
-					</a>
-				</li>
-				<li class="mui-table-view-cell mui-media">
-					<a href="javascript:;">
-						<img class="mui-media-object mui-pull-left" data-lazyload="http://wx.qlogo.cn/mmopen/gITwFOywPbkCx8BxwYc41oAGjuBeFianAbtHl8URmaCMTe9lib6EicNuHSibGJzSfT6Y88Nos1poHITnB7vUs7foHphNpibcgFEja/0">
-						<div class="mui-media-body">
-							小M<span class="mui-badge mui-badge-danger">宅男女神</span>
-							<p class='mui-ellipsis'>157XXXXXXXX</p>
-						</div>
-					</a>
-				</li>
-				<li class="mui-table-view-cell mui-media">
-					<a href="javascript:;">
-						<img class="mui-media-object mui-pull-left" data-lazyload="http://wx.qlogo.cn/mmopen/gITwFOywPbkCx8BxwYc41oAGjuBeFianAbtHl8URmaCMTe9lib6EicNuHSibGJzSfT6Y88Nos1poHITnB7vUs7foHphNpibcgFEja/0">
-						<div class="mui-media-body">
-							小M<span class="mui-badge mui-badge-warning">装B大神</span>
-							<p class='mui-ellipsis'>157XXXXXXXX</p>
-						</div>
-					</a>
-				</li>
-				<%} %>
+			</c:forEach>
+			
 			</ul>
 			
     </div>

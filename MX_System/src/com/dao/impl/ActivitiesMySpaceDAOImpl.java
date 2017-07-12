@@ -33,7 +33,7 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 
 	public List<MxActivitiesMySpaceUsers> getMySpaceListByUserId(Integer userId) {
 		// TODO Auto-generated method stub
-		List<MxActivitiesMySpaceUsers> userMySpaceList = getHibernateTemplate().find("from com.bean.MxActivitiesMySpaceUsers au where au.userId = "+ userId);
+		List<MxActivitiesMySpaceUsers> userMySpaceList = getHibernateTemplate().find("from com.bean.MxActivitiesMySpaceUsers au where au.mxUsersData.userId = "+ userId);
 		return userMySpaceList;
 	}
 
@@ -74,9 +74,9 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 		List<MxActivitiesMySpaceUsers> spaceUsers=getHibernateTemplate().find("from com.bean.MxActivitiesMySpaceUsers au where au.myspaceId = "+ myspaceId);
 		for(int i=0;i<spaceUsers.size();i++){
 			ActivitiesUserMySpaceMaterial itemBuff=new ActivitiesUserMySpaceMaterial();
-			List<MxActivitiesMySpaceMaterial> materialsBuff=getHibernateTemplate().find("from com.bean.MxActivitiesMySpaceMaterial au where au.submitUserId = "+ spaceUsers.get(i).getUserId()+" order by au.createDate desc ");
-			MxUsersData user=(MxUsersData) getHibernateTemplate().find("from com.bean.MxUsersData au where au.userId = "+ spaceUsers.get(i).getUserId()).get(0);
-			itemBuff.setUserData(user);
+			List<MxActivitiesMySpaceMaterial> materialsBuff=getHibernateTemplate().find("from com.bean.MxActivitiesMySpaceMaterial au where au.submitUserId = "+ spaceUsers.get(i).getMxUsersData().getUserId()+" order by au.createDate desc ");
+			//MxUsersData user=(MxUsersData) getHibernateTemplate().find("from com.bean.MxUsersData au where au.userId = "+ spaceUsers.get(i).getUserId()).get(0);
+			itemBuff.setUserData(spaceUsers.get(i).getMxUsersData());
 			itemBuff.setUserMySpaceMaterialList(materialsBuff);
 			returnBuff.add(itemBuff);
 		}
@@ -94,6 +94,11 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 			return false;
 		}
 		
+	}
+
+	public List<MxActivitiesMySpaceUsers> getMySpaceUsersList(int myspaceId) {
+		// TODO Auto-generated method stub/MX_System/src/com/bean/MxActivitiesMySpaceUsers.java
+		return getHibernateTemplate().find("from com.bean.MxActivitiesMySpaceUsers au where au.myspaceId = "+ myspaceId);
 	}
 
 
