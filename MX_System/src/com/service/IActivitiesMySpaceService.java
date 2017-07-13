@@ -8,6 +8,7 @@ import com.bean.MxActivitiesMySpaceMaterial;
 import com.bean.MxActivitiesMySpaceUsers;
 import com.bean.MxUsersData;
 import com.bean.sysBean.ActivitiesUserMySpaceMaterial;
+import com.bean.sysBean.ActivitiesUserMySpaceMine;
 
 public interface IActivitiesMySpaceService {
 
@@ -29,6 +30,9 @@ public interface IActivitiesMySpaceService {
 	boolean saveActivitiesMySpaceMaterial(MxActivitiesMySpaceMaterial material);
 
 	List<MxActivitiesMySpaceUsers> getMySpaceUsersList(int myspaceId);
+
+	ActivitiesUserMySpaceMine getMySpaceUserMine(Integer userId,
+			int myspaceId);
 
 
 }

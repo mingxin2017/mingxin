@@ -12,6 +12,7 @@ import com.bean.MxActivitiesMySpaceMaterial;
 import com.bean.MxActivitiesMySpaceUsers;
 import com.bean.MxUsersData;
 import com.bean.sysBean.ActivitiesUserMySpaceMaterial;
+import com.bean.sysBean.ActivitiesUserMySpaceMine;
 import com.dao.IActivitiesMySpaceDAO;
 
 public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IActivitiesMySpaceDAO{
@@ -99,6 +100,17 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 	public List<MxActivitiesMySpaceUsers> getMySpaceUsersList(int myspaceId) {
 		// TODO Auto-generated method stub/MX_System/src/com/bean/MxActivitiesMySpaceUsers.java
 		return getHibernateTemplate().find("from com.bean.MxActivitiesMySpaceUsers au where au.myspaceId = "+ myspaceId);
+	}
+
+	public ActivitiesUserMySpaceMine getMySpaceUserMine(Integer userId,
+			int myspaceId) {
+		// TODO Auto-generated method stub
+		ActivitiesUserMySpaceMine returnList=new ActivitiesUserMySpaceMine();
+		List<MxActivitiesMySpaceMaterial> materialsBuff=getHibernateTemplate().find("from com.bean.MxActivitiesMySpaceMaterial au where au.submitUserId = "+ userId+" and au.myspaceId="+myspaceId+" order by au.createDate desc ");
+		List<MxActivitiesMySpaceComment> myspaceCommentList=getHibernateTemplate().find("from com.bean.MxActivitiesMySpaceComment au where au.myspaceId = "+ myspaceId +" and au.mxUsersData.userId="+userId+"order by au.createDate desc");
+		returnList.setActivitiesMySpaceCommentMineList(myspaceCommentList);
+		returnList.setActivitiesMySpaceMaterialMineList(materialsBuff);
+		return returnList;
 	}
 
 

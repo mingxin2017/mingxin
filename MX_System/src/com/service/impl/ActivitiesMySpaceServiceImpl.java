@@ -8,6 +8,7 @@ import com.bean.MxActivitiesMySpaceMaterial;
 import com.bean.MxActivitiesMySpaceUsers;
 import com.bean.MxUsersData;
 import com.bean.sysBean.ActivitiesUserMySpaceMaterial;
+import com.bean.sysBean.ActivitiesUserMySpaceMine;
 import com.dao.IActivitiesMySpaceDAO;
 
 
@@ -71,6 +72,12 @@ public class ActivitiesMySpaceServiceImpl implements com.service.IActivitiesMySp
 	public List<MxActivitiesMySpaceUsers> getMySpaceUsersList(int myspaceId) {
 		// TODO Auto-generated method stub
 		return activitiesMySpaceDAO.getMySpaceUsersList(myspaceId);
+	}
+
+	public ActivitiesUserMySpaceMine getMySpaceUserMine(Integer userId,
+			int myspaceId) {
+		// TODO Auto-generated method stub
+		return  activitiesMySpaceDAO.getMySpaceUserMine(userId,myspaceId);
 	}
 
 	

@@ -1,4 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -29,7 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<img class="mui-media-object mui-pull-left" data-lazyload="${item.mxUsersData.weixinHeadUrl}">
 						<div class="mui-media-body">
 							${item.mxUsersData.weixinNikeName}
-							<c:if test="${item.state== 0}">
+							<c:if test="${item.state== -1}">
 								<span class="mui-badge mui-badge-success">组织者</span>
 							</c:if>
 							<p class='mui-ellipsis'>${item.mxUsersData.userPhoneNum}</p>

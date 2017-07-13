@@ -12,36 +12,22 @@ import com.bean.MxUsersData;
  */
 public class ActivitiesUserMySpaceMine {
 	
+	private List<MxActivitiesMySpaceMaterial> activitiesMySpaceMaterialMineList;
+	private List<MxActivitiesMySpaceComment> activitiesMySpaceCommentMineList;
 	
-	private MxUsersData userData;
-	private MxActivitiesMySpaceData activitiesMySpaceData;
-	private List<MxActivitiesMySpaceMaterial> activitiesMySpaceMaterialList;
-	private List<MxActivitiesMySpaceComment> activitiesMySpaceCommentList;
-	public MxUsersData getUserData() {
-		return userData;
+	public List<MxActivitiesMySpaceMaterial> getActivitiesMySpaceMaterialMineList() {
+		return activitiesMySpaceMaterialMineList;
 	}
-	public void setUserData(MxUsersData userData) {
-		this.userData = userData;
+	public void setActivitiesMySpaceMaterialMineList(
+			List<MxActivitiesMySpaceMaterial> activitiesMySpaceMaterialMineList) {
+		this.activitiesMySpaceMaterialMineList = activitiesMySpaceMaterialMineList;
 	}
-	public MxActivitiesMySpaceData getActivitiesMySpaceData() {
-		return activitiesMySpaceData;
+	public List<MxActivitiesMySpaceComment> getActivitiesMySpaceCommentMineList() {
+		return activitiesMySpaceCommentMineList;
 	}
-	public void setActivitiesMySpaceData(MxActivitiesMySpaceData activitiesMySpaceData) {
-		this.activitiesMySpaceData = activitiesMySpaceData;
-	}
-	public List<MxActivitiesMySpaceMaterial> getActivitiesMySpaceMaterialList() {
-		return activitiesMySpaceMaterialList;
-	}
-	public void setActivitiesMySpaceMaterialList(
-			List<MxActivitiesMySpaceMaterial> activitiesMySpaceMaterialList) {
-		this.activitiesMySpaceMaterialList = activitiesMySpaceMaterialList;
-	}
-	public List<MxActivitiesMySpaceComment> getActivitiesMySpaceCommentList() {
-		return activitiesMySpaceCommentList;
-	}
-	public void setActivitiesMySpaceCommentList(
-			List<MxActivitiesMySpaceComment> activitiesMySpaceCommentList) {
-		this.activitiesMySpaceCommentList = activitiesMySpaceCommentList;
+	public void setActivitiesMySpaceCommentMineList(
+			List<MxActivitiesMySpaceComment> activitiesMySpaceCommentMineList) {
+		this.activitiesMySpaceCommentMineList = activitiesMySpaceCommentMineList;
 	}
 	
 }

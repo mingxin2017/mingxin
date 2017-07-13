@@ -20,6 +20,7 @@ import com.bean.MxActivitiesMySpaceMaterial;
 import com.bean.MxActivitiesMySpaceUsers;
 import com.bean.MxUsersData;
 import com.bean.sysBean.ActivitiesUserMySpaceMaterial;
+import com.bean.sysBean.ActivitiesUserMySpaceMine;
 import com.service.IActivitiesMySpaceService;
 import com.service.IUserService;
 import com.util.ImageMethod;
@@ -28,80 +29,78 @@ import com.weixin.util.WeixinUtil;
 
 public class MxActivitiesMySpaceAction {
 
+	//依赖注入内容
 	private IActivitiesMySpaceService activitiesMySpaceService;
-
 	private IUserService userService;
-	
 	public IUserService getUserService() {
 		return userService;
 	}
-
 	public void setUserService(IUserService userService) {
 		this.userService = userService;
 	}
-
 	public IActivitiesMySpaceService getActivitiesMySpaceService() {
 		return activitiesMySpaceService;
 	}
-
 	public void setActivitiesMySpaceService(
 			IActivitiesMySpaceService activitiesMySpaceService) {
 		this.activitiesMySpaceService = activitiesMySpaceService;
 	}
 	
+	//当前用户id缓存
 	private  MxUsersData userInfo;//保存用户个人信息
-
 	public MxUsersData getUserInfo() {
 		return userInfo;
 	}
-
 	public void setUserInfo(MxUsersData userInfo) {
 		this.userInfo = userInfo;
 	}
 
+	//活动空间id缓存
 	private int myspaceId;
-	
 	public int getMyspaceId() {
 		return myspaceId;
 	}
-
 	public void setMyspaceId(int myspaceId) {
 		this.myspaceId = myspaceId;
 	}
 
+	//活动空间讨论缓存
 	private List<MxActivitiesMySpaceComment> userMySpaceCommentList;
-	
 	public List<MxActivitiesMySpaceComment> getUserMySpaceCommentList() {
 		return userMySpaceCommentList;
 	}
-
 	public void setUserMySpaceCommentList(
 			List<MxActivitiesMySpaceComment> userMySpaceCommentList) {
 		this.userMySpaceCommentList = userMySpaceCommentList;
 	}
 
 	private List<ActivitiesUserMySpaceMaterial> userMySpaceMaterialList;
-	
 	public List<ActivitiesUserMySpaceMaterial> getUserMySpaceMaterialList() {
 		return userMySpaceMaterialList;
 	}
-
 	public void setUserMySpaceMaterialList(
 			List<ActivitiesUserMySpaceMaterial> userMySpaceMaterialList) {
 		this.userMySpaceMaterialList = userMySpaceMaterialList;
 	}
 
+	//保存活动空间
 	private List<MxActivitiesMySpaceUsers> mySpaceUsersList;
-	
-	
 	public List<MxActivitiesMySpaceUsers> getMySpaceUsersList() {
 		return mySpaceUsersList;
 	}
-
 	public void setMySpaceUsersList(List<MxActivitiesMySpaceUsers> mySpaceUsersList) {
 		this.mySpaceUsersList = mySpaceUsersList;
 	}
-
+	
+	//保存个人空间封装类数据
+	private ActivitiesUserMySpaceMine myspaceUserMine;
+	public ActivitiesUserMySpaceMine getMyspaceUserMine() {
+		return myspaceUserMine;
+	}
+	public void setMyspaceUserMine(ActivitiesUserMySpaceMine myspaceUserMine) {
+		this.myspaceUserMine = myspaceUserMine;
+	}
+	
 	/**
 	 * 　　*活动空间action中的默认处理方法 　　
 	 */
@@ -178,7 +177,7 @@ public class MxActivitiesMySpaceAction {
 	 */
 	public String getActivitiesMySpaceUsersList() {
 		mySpaceUsersList=activitiesMySpaceService.getMySpaceUsersList(myspaceId);
-		System.out.println("====="+mySpaceUsersList.get(0).getMxUsersData().getWeixinHeadUrl());
+		
 		return "activitiesMySpaceUsersList";
 	}
 
@@ -186,15 +185,12 @@ public class MxActivitiesMySpaceAction {
 	 * 获取活动空间我的内容列表
 	 */
 	public String getActivitiesMySpaceMine() {
-
+		myspaceUserMine=activitiesMySpaceService.getMySpaceUserMine(userInfo.getUserId(),myspaceId);
 		return "activitiesMySpaceMine";
 	}
 
 	/**
 	 * 保存活动空间讨论内容
-	 * 
-	 * @return
-	 * @throws IOException
 	 */
 	public void DoSaveActivitiesMySpaceComment() throws IOException {
 		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
@@ -236,14 +232,10 @@ public class MxActivitiesMySpaceAction {
 		JSONObject jsonObject = JSONObject.fromObject(map);
 		response.getWriter().write(jsonObject.toString());
 
-		// return "";
 	}
 
 	/**
 	 * 压缩并上传图片方法
-	 * 
-	 * @throws IOException
-	 * @throws ServletException
 	 */
 	public void UploadImage() throws IOException, ServletException {
 
