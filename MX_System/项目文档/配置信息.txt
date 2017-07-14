@@ -4,7 +4,7 @@ github:https://github.com/mingxin2017/mx.git
 ÕËºÅÃÜÂë£ºmingxin2017/mingxin_@2017
 
 
-sqlserver:
+sqlserver: 
 zf16518905.iok.la:43695
 sa/mingxin_@2017
 
