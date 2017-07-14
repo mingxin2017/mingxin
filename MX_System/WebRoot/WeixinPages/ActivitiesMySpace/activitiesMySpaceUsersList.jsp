@@ -25,13 +25,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
   <div class="mui-content">
    <ul class="mui-table-view">
-   			
    			<c:forEach items="${mySpaceUsersList}" var="item">
 				<li class="mui-table-view-cell mui-media">
 					<a href="javascript:;">
 						<img class="mui-media-object mui-pull-left" data-lazyload="${item.mxUsersData.weixinHeadUrl}">
 						<div class="mui-media-body">
-							${item.mxUsersData.weixinNikeName}
+							${item.mxUsersData.userRealName}
 							<c:if test="${item.state== -1}">
 								<span class="mui-badge mui-badge-success">组织者</span>
 							</c:if>
@@ -40,9 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</a>
 				</li>
 			</c:forEach>
-			
 			</ul>
-			
     </div>
   </body>
   	<script src="<%=basePath%>WeixinPages/common/js/mui.min.js"></script>

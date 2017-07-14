@@ -3,6 +3,7 @@ package com.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
@@ -111,6 +112,30 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 		returnList.setActivitiesMySpaceCommentMineList(myspaceCommentList);
 		returnList.setActivitiesMySpaceMaterialMineList(materialsBuff);
 		return returnList;
+	}
+
+	public boolean commentClickPraise(int commentId, int userId) {
+		// TODO Auto-generated method stub
+		MxActivitiesMySpaceComment comment=(MxActivitiesMySpaceComment) getHibernateTemplate().find("from com.bean.MxActivitiesMySpaceComment au where au.commentId = "+ commentId).get(0);
+	
+		if (comment == null) {
+			return false;
+		} else {
+			String clickPraiseUserIds = comment.getPraiseUserIds();
+			String str[] = clickPraiseUserIds.split(",");
+			int array[] = new int[str.length];
+			for (int i = 0; i < str.length; i++) {
+				//array[i] = Integer.parseInt(str[i]);
+				if(Integer.parseInt(str[i])==userId){
+					return false;
+				}
+			}
+			String newBuff=clickPraiseUserIds+","+userId;
+			comment.setPraiseUserIds(newBuff);
+			getHibernateTemplate().update(comment);
+			return true;
+		}
+		
 	}
 
 

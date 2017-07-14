@@ -79,16 +79,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<ul class="mui-table-view mui-table-view-striped mui-table-view-condensed">
 		          
 		          <c:forEach items="${myspaceUserMine.activitiesMySpaceCommentMineList}" var="item">
-		          <li class="mui-table-view-cell">
-		            <div class="mui-table">
+		          <li class="mui-table-view-cell mui-media">
+		          	<div class="mui-slider-right mui-disabled">
+						<button  onclick="gotoEditArticle();" class="mui-btn mui-btn-green ">修改</button>
+						<button  onclick="DeleteArticle();" class="mui-btn mui-btn-red ">删除</button>
+					</div>
+		            <div class="mui-slider-handle">
 		                <div class="mui-table-cell mui-col-xs-10">
-		                    <h4 class="mui-ellipsis-3">${item.commentTxt}</h4>
+		                    <h8 class="mui-ellipsis-3">${item.commentTxt}</h8>
 		                    <h5>发表时间：<fmt:formatDate value="${item.createDate}" pattern="yyyy-MM-dd　HH:mm"/></h5>
 		                </div>
-		                <div class="mui-table-cell mui-col-xs-2 mui-text-right">
-		                    <span class="mui-icon icomoon icon-thumbs-up"></span>${item.praiseClickNum}</a>
-		                     
-		                </div>
+		                
 		            </div>
 		        </li>
 		        </c:forEach>

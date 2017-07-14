@@ -1,6 +1,7 @@
 package com.action;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
@@ -283,4 +284,28 @@ public class MxActivitiesMySpaceAction {
 
 	}
 
+	/*
+	 * 评论点赞
+	 */
+	public void CommentClickPraise() throws IOException{
+		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
+		request.setCharacterEncoding("UTF-8");
+		HttpServletResponse response = ServletActionContext.getResponse();// response对象返回数据给前台
+		response.setContentType("application/json; charset=utf-8");
+		int userId = Integer.parseInt(request.getParameter("userId").toString());// 获取用户id
+		int commentId = Integer.parseInt(request.getParameter("commentId").toString());// 获取活动空间id
+		
+		boolean isClicked=activitiesMySpaceService.commentClickPraise(commentId,userId);
+		Map<String, String> map = new HashMap<String, String>();
+		if (!isClicked) {
+			map.put("done", "-1");
+			map.put("msg", "不能重复点赞!");
+		} else {
+			map.put("done", "0");
+			map.put("msg", "点赞成功!");
+		}
+		JSONObject jsonObject = JSONObject.fromObject(map);
+		response.getWriter().write(jsonObject.toString());
+		
+	}
 }

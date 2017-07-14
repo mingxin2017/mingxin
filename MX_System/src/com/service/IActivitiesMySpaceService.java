@@ -34,5 +34,7 @@ public interface IActivitiesMySpaceService {
 	ActivitiesUserMySpaceMine getMySpaceUserMine(Integer userId,
 			int myspaceId);
 
+	boolean commentClickPraise(int commentId, int userId);
+
 
 }

@@ -23,6 +23,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- 自定义图标字体 -->
 <link rel="stylesheet"
 	href="<%=basePath%>WeixinPages/common/css/icomoon.css">
+<script type="text/javascript" src="<%=basePath%>WeixinPages/common/js/jquery-1.11.2.js"></script>
+<script type="text/javascript" src="<%=basePath%>WeixinPages/common/js/dialog.js"></script>
 <script type="text/javascript">
 	// 对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
 	var useragent = navigator.userAgent;
@@ -34,6 +36,53 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		opened.opener = null;
 		opened.close();
 	}
+</script>
+
+<script type="text/javascript">
+function ClickPraise(commentId,suerId){
+	//alert(commentId);
+	var num=document.getElementById(commentId).innerHTML;
+	num=num+1;
+	 $.ajax({
+         url: 'activitiesMySpace!CommentClickPraise.action',
+         type: 'post',
+         data: {commentId:commentId,userId:userId},
+         dataType: 'json',
+         timeout: 200000,
+         success: function (response) {
+             if (response.done == '0') {
+             	var d=dialog().show();
+             	d.content(response.msg);
+             	setTimeout(function () {
+		    			d.close().remove();
+		    		}, 1500);
+             	//刷新页面
+             	//document.getElementById('mainContent').src= "activitiesMySpace!getActivitiesMySpaceMaterialList.action";
+             	
+                 return true;
+             } else {
+            	 num=num-1;
+            	 var d=dialog().show();
+             	d.content(response.msg);
+             	setTimeout(function () {
+		    			d.close().remove();
+		    		}, 1500);
+                 return alert(response.msg);
+             }
+         },
+
+         error: function (jqXHR, textStatus, errorThrown) {
+
+             if (textStatus == 'timeout') {
+                 a_info_alert('请求超时');
+
+                 return false;
+             }
+
+             alert(jqXHR.responseText);
+         }
+     });
+}
 </script>
 </head>
 
@@ -58,8 +107,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div>
 		<div class="mui-card-footer">
-			<a class="mui-card-link "></a> <a class="mui-card-link"> <span
-				class="mui-icon icomoon icon-thumbs-up"></span>${item.praiseClickNum}</a>
+			<a></a><a class="mui-card-link" href="javascript:void(0);" onclick="ClickPraise(${item.commentId},${userInfo.userId});"> 
+			<span class="mui-icon icomoon icon-thumbs-up"></span><span id="${item.commentId}">${item.praiseClickNum}</span>
+			</a>
 		</div>
 	</div>
 	</c:forEach>

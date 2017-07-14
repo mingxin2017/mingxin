@@ -15,6 +15,7 @@ public class MxActivitiesMySpaceComment implements java.io.Serializable {
 	private Integer myspaceId;
 	private Integer state;
 	private String commentTxt;
+	private String praiseUserIds;
 	private Integer praiseClickNum;
 	private Date createDate;
 	private String others;
@@ -28,11 +29,12 @@ public class MxActivitiesMySpaceComment implements java.io.Serializable {
 	/** minimal constructor */
 	public MxActivitiesMySpaceComment(MxUsersData mxUsersData,
 			Integer myspaceId, Integer state, String commentTxt,
-			Integer praiseClickNum, Date createDate) {
+			String praiseUserIds, Integer praiseClickNum, Date createDate) {
 		this.mxUsersData = mxUsersData;
 		this.myspaceId = myspaceId;
 		this.state = state;
 		this.commentTxt = commentTxt;
+		this.praiseUserIds = praiseUserIds;
 		this.praiseClickNum = praiseClickNum;
 		this.createDate = createDate;
 	}
@@ -40,11 +42,13 @@ public class MxActivitiesMySpaceComment implements java.io.Serializable {
 	/** full constructor */
 	public MxActivitiesMySpaceComment(MxUsersData mxUsersData,
 			Integer myspaceId, Integer state, String commentTxt,
-			Integer praiseClickNum, Date createDate, String others) {
+			String praiseUserIds, Integer praiseClickNum, Date createDate,
+			String others) {
 		this.mxUsersData = mxUsersData;
 		this.myspaceId = myspaceId;
 		this.state = state;
 		this.commentTxt = commentTxt;
+		this.praiseUserIds = praiseUserIds;
 		this.praiseClickNum = praiseClickNum;
 		this.createDate = createDate;
 		this.others = others;
@@ -90,6 +94,14 @@ public class MxActivitiesMySpaceComment implements java.io.Serializable {
 
 	public void setCommentTxt(String commentTxt) {
 		this.commentTxt = commentTxt;
+	}
+
+	public String getPraiseUserIds() {
+		return this.praiseUserIds;
+	}
+
+	public void setPraiseUserIds(String praiseUserIds) {
+		this.praiseUserIds = praiseUserIds;
 	}
 
 	public Integer getPraiseClickNum() {
