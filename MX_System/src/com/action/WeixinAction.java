@@ -7,10 +7,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.struts2.ServletActionContext;
 
 import com.bean.MxNewsContent;
@@ -71,10 +74,14 @@ public class WeixinAction {
 		String timestamp = request.getParameter("timestamp");
 		String nonce = request.getParameter("nonce");
 
+
+		
 		// 随机字符串
 		String echostr = request.getParameter("echostr");
 		// System.out.println(signature+"...............................");
 		PrintWriter out = response.getWriter();
+		
+		System.out.println(signature+','+timestamp+','+nonce);
 		
 		//返回参数
 		String respParams= null;
@@ -153,19 +160,39 @@ public class WeixinAction {
 	}
 	
 	//新闻投稿页面
-	public String loadAddNews(){
+	public String loadEditNews(){
 		System.out.println("getadd");
 		HttpServletRequest request = ServletActionContext.getRequest();
 		try {
 			request.setCharacterEncoding("UTF-8");
 			//获取code
-			String code = request.getParameter("code");
-			String state = request.getParameter("state");
+/*			String code = request.getParameter("code");
+			String state = request.getParameter("state");*/
+			//获取调用jssdk的临时票据
+			String jsapi_ticket = WeixinGetTokenTimerTask.jsapiTicket.getTicket();
+			//时间戳、随机数
+			String noncestr = UUID.randomUUID().toString().replace("-", "").substring(0, 16);
+			String timestamp = Long.toString(System.currentTimeMillis() / 1000);
+			//String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb235c46c4c2740a9&redirect_uri=http://d1a7069951.iask.in/MX_System/weixin!loadAddNews.action&response_type=code&scope=snsapi_userinfo&state=123";
+			String url = "http://d1a7069951.iask.in/MX_System/weixin!loadAddNews.action";
+			String string1 = "jsapi_ticket="+jsapi_ticket+
+							 "&noncestr="+noncestr+
+							 "&timestamp="+timestamp+
+							 "&url="+url;
+			String signature = DigestUtils.shaHex(string1);
+			System.out.println(string1);
+			System.out.println(signature);
+/*			System.out.println(code);
+			System.out.println(state);*/
 			// 设置要传递的参数
-			System.out.println(code);
-			System.out.println(state);
-			request.setAttribute("code", code);
-			request.setAttribute("state", state);
+			request.setAttribute("signature", signature);
+			request.setAttribute("timestamp", timestamp);
+			request.setAttribute("noncestr", noncestr);
+			
+/*			request.setAttribute("code", code);
+			request.setAttribute("state", state);*/
+			request.setAttribute("server_app_id", WeixinSignUtil.AppID);
+			
 			//获取新闻类型列表
 			List<MxNewsType> msNewsType = weixinNewsService.getNewsType();
 			request.setAttribute("msNewsType", msNewsType);
@@ -221,9 +248,14 @@ public class WeixinAction {
 	}
 	
 	//添加新闻
-	public String addNews() throws UnsupportedEncodingException{
-		//获取用户信息
-		//获取参数
+	public void addNews() throws UnsupportedEncodingException{
+		System.out.println("addNews");
+		HttpServletRequest request = ServletActionContext.getRequest();
+		request.setCharacterEncoding("UTF-8");
+		String serverId = request.getParameter("serverId");
+		System.out.println(serverId);
+		/*//获取用户信息
+		//获取参数 
 		HttpServletRequest request = ServletActionContext.getRequest();
 		request.setCharacterEncoding("UTF-8");
 		String newsHeadline = request.getParameter("headline");
@@ -277,6 +309,8 @@ public class WeixinAction {
 		newsContent.setNewsMainContent(newsMainContent);
 		weixinNewsService.addNews(newsData,newsContent);
 		
+		//下载图片到本地服务器
+		
 		
 
 		System.out.println("end");
@@ -286,13 +320,18 @@ public class WeixinAction {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return null;*/
 	}
 	
 	
 	//新闻投稿页面
 	public String getResultPage(){
 		return "resultPage";
+	}
+	
+	//投稿列表页面
+	public String applyNewsList(){
+		return "applyNewsList";
 	}
 	
 }

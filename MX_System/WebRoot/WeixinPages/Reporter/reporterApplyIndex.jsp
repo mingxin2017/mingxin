@@ -12,6 +12,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		<!--标准mui.css-->
 		<link rel="stylesheet" href="<%=basePath%>WeixinPages/common/css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="<%=basePath%>WeixinPages/common/css/app.css" />
+		<link href="<%=basePath%>WeixinPages/common/css/mui.picker.css" rel="stylesheet" />
+		<link href="<%=basePath%>WeixinPages/common/css/mui.poppicker.css" rel="stylesheet" />
 		<style>
 			h5 {
 				margin: 5px 7px;
@@ -31,62 +34,120 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </script> -->	
 </head>
 <body>
-		<div class="mui-card">
-			<div class="mui-card-header">团队选择：</div>
-			<div class="mui-card-content">
-				<div class="mui-card-content-inner">
-						<select id="teamId" class="mui-btn mui-btn-block">
-							<c:forEach items="${MxUsersReporterTeam}" var="c" varStatus="st">
-							   <option value="${c.teamId}">${c.teamName}</option>
-							</c:forEach>
-						</select>				
+	
+		<header class="mui-bar mui-bar-nav">
+			<a id="submit" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right">保存</a>			
+			<h1 class="mui-title">小记者申请</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-content-padded">
+				<h5 class="mui-content-padded">团队选择</h5>
+				<div class="mui-input-row">
+					<input id='showUserPicker' type="text" class="mui-input-clear contact" placeholder="点击选择团队..." />
 				</div>
+				<code id="response"></code>
 			</div>
 		</div>
-		
-		<div class="mui-card" style="height:55px;">
-			<button type="button" class="mui-btn mui-btn-block" id="save" onClick="onCommit();">提交</button>
-		</div>
-
-	<script src="<%=basePath%>WeixinPages/common/richtext/js/jquery-1.11.2.js"></script>
-	<script type="text/javascript">
-		//接收参数
-		var code = "${code}";
-		var state = "${state}";
-		//提交事件
-		function onCommit(){
-			  var teamId = $("#teamId").val();
-			  var data = { 
-						teamId:teamId,
-						code:code,
-						state:state
-			  };
-			  //请求添加数据
-				$.ajax({
-					type : "POST",
-					url : 'http://d1a7069951.iask.in/MX_System/mxReporterBusiness!reporterApply.action',
-					data : data,
-					success : function(data) {
-						if (data.success) {
-							alert("success");
-							//resultPage("success");
-	/* 						$.messager.show({
-								msg : data.message,
-								title : '提示'
-							}); */
-						} else {
-							console.log(type);
-						/* 	parent.$.messager.alert("错误", data.message, "error", function() {
-								return false;
-							}); */
+		<script src="<%=basePath%>WeixinPages/common/js/mui.min.js"></script>
+		<script src="<%=basePath%>WeixinPages/common/js/mui.picker.js"></script>
+		<script src="<%=basePath%>WeixinPages/common/js/mui.poppicker.js"></script>
+		<script>
+			(function($, doc) {
+				$.init();
+				$.ready(function() {
+					//普通示例
+					var userPicker = new $.PopPicker();
+					userPicker.setData([{
+						value: 'ywj',
+						text: '董事长 叶文洁'
+					}, {
+						value: 'aaa',
+						text: '总经理 艾AA'
+					}, {
+						value: 'lj',
+						text: '罗辑'
+					}, {
+						value: 'ymt',
+						text: '云天明'
+					}, {
+						value: 'shq',
+						text: '史强'
+					}, {
+						value: 'zhbh',
+						text: '章北海'
+					}, {
+						value: 'zhy',
+						text: '庄颜'
+					}, {
+						value: 'gyf',
+						text: '关一帆'
+					}, {
+						value: 'zhz',
+						text: '智子'
+					}, {
+						value: 'gezh', 
+						text: '歌者'
+					}]);
+					var showUserPickerButton = doc.getElementById('showUserPicker');
+					showUserPickerButton.addEventListener('tap', function(event) {
+ 						userPicker.show(function(items) {
+ 							showUserPickerButton.value = JSON.stringify(items[0]);
+							//返回 false 可以阻止选择框的关闭
+							//return false; 
+						}); 
+					}, false);
+				});
+				/*********************************************************/
+				//ajax请求
+				var network = true; 
+				if(mui.os.plus){
+					mui.plusReady(function () {
+						if(plus.networkinfo.getCurrentType()==plus.networkinfo.CONNECTION_NONE){
+							network = false;
 						}
-					},
-					error : function(e) {
-						/* parent.$.messager.alert("提示", "操作失败，请联系管理员."); */
+					});
+				}
+				var respnoseEl = document.getElementById("response");
+				//成功响应的回调函数
+				var success = function(response) {
+					var dataType = 'json';
+					if (dataType === 'json') {
+						response = JSON.stringify(response);
+					} else if (dataType === 'xml') {
+						response = new XMLSerializer().serializeToString(response).replace(/</g, "&lt;").replace(/>/g, "&gt;");
+					}
+					respnoseEl.innerHTML = response;
+				};
+				var ajax = function() {
+					//利用RunJS的Echo Ajax功能测试
+					var url = 'mxReporterBusiness!reporterApply.action';
+					//请求方式，默认为Get；
+					var type = 'post';
+					//预期服务器范围的数据类型
+					var dataType = 'json';
+					//发送数据
+					var data = JSON.parse(doc.getElementById('showUserPicker').value);
+					respnoseEl.innerHTML = '正在请求中...';
+					if (type === 'get') {
+						if (dataType === 'json') {
+							$.getJSON(url, data, success);
+						} else {
+							$.get(url, data, success, dataType);
+						}
+					} else if (type === 'post') {
+						$.post(url, data, success, dataType);
+					}
+				};
+				//发送请求按钮的点击事件
+				document.getElementById("submit").addEventListener('tap', function() {
+					if(network){
+						ajax();
+					}else{
+						mui.toast("当前网络不给力，请稍后再试");
 					}
 				});
-		}
-	</script>	
+			})(mui, document);
+		</script>
 
 </body>
 

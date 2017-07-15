@@ -43,6 +43,8 @@ function ClickPraise(commentId,userId){
 	document.getElementById('aaa'+commentId).style.color='gray';
 	var numTip=document.getElementById('span'+commentId);
 	var num=parseInt(numTip.innerHTML);
+	//numTip.innerHTML=num+1;
+	
 	 $.ajax({
          url:'activitiesMySpace!CommentClickPraise.action',
          type: 'post',
@@ -53,8 +55,19 @@ function ClickPraise(commentId,userId){
              if (response.done == '0') {
             	 numTip.innerHTML=num+1;
             	 document.getElementById('aaa'+commentId).style.color='gray';
+             	//var d=dialog().show();
+             	//d.content(response.msg);
+             	//setTimeout(function () {
+		    	//		d.close().remove();
+		    	//	}, 1500);
+             	//刷新页面
+             	//document.getElementById('mainContent').src= "activitiesMySpace!getActivitiesMySpaceMaterialList.action";
+             	
+             	
                  return true;
              } else {
+            	 //numTip.innerHTML=num-1;
+            	 //num=num-1;
             	 var d=dialog().show();
              	d.content(response.msg);
              	setTimeout(function () {
@@ -71,7 +84,8 @@ function ClickPraise(commentId,userId){
 
                  return false;
              }
-             alert('错误！');
+
+             alert(jqXHR.responseText);
          }
      });
 }

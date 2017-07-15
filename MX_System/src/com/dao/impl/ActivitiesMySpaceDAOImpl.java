@@ -140,15 +140,5 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 		
 	}
 
-	public boolean myspaceCommentDelete(int commentId) {
-		try{
-		getHibernateTemplate().delete(getHibernateTemplate().get(MxActivitiesMySpaceComment.class , commentId));
-		getHibernateTemplate().flush();
-		return true;
-		}catch(Exception e){
-			return false;
-		}
-	}
-
 
 }

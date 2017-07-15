@@ -1,6 +1,9 @@
 package com.action;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,6 +15,7 @@ import com.service.IWeixinNewsService;
 import com.weixin.pojo.SNSUserInfo;
 import com.weixin.pojo.WeixinOauth2Token;
 import com.weixin.util.OAuth2TokenUtil;
+import com.weixin.util.ResultUtil;
 import com.weixin.util.WeixinSignUtil;
 
 /**
@@ -121,9 +125,12 @@ public class MxReporterBusinessAction {
 			//获取code
 			String code = request.getParameter("code");
 			String state = request.getParameter("state");
-			String teamId = request.getParameter("teamId");
-			System.out.println(teamId);
-			//获取用户信息
+			
+			String value = request.getParameter("value");
+			System.out.println(value);
+//			String teamId = request.getParameter("teamId");
+//			System.out.println(teamId);
+			/*//获取用户信息
 			SNSUserInfo snsUserInfo = new SNSUserInfo();
 			//通过code获取用户信息
 			if (!"authdeny".equals(code)) {
@@ -145,9 +152,15 @@ public class MxReporterBusinessAction {
 			
 			MxUsersReporterSignUp mxUsersReporterSignUp = new MxUsersReporterSignUp();
 			mxUsersReporterSignUp.setUserId(weixinNewsService.getUser(snsUserInfo.getOpenId()).getUserId());
-			mxUsersReporterSignUp.setReporterTeamId(new Integer(teamId));
-			reporterBusinessService.reporterApply(mxUsersReporterSignUp);
-			
+			mxUsersReporterSignUp.setReporterTeamId(new Integer(teamId));*/
+			//reporterBusinessService.reporterApply(mxUsersReporterSignUp);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("data", "666");
+			try {
+				ResultUtil.toJson(ServletActionContext.getResponse(), map);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();

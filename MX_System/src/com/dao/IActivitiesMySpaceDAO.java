@@ -36,6 +36,4 @@ public interface IActivitiesMySpaceDAO {
 
 	boolean commentClickPraise(int commentId, int userId);
 
-	boolean myspaceCommentDelete(int commentId);
-
 }

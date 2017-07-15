@@ -110,7 +110,7 @@ public class MenuManager {
         btn32.setType("view");     
         btn32.setUrl((baseUrl.replace("APPID",WeixinSignUtil.AppID)).replace("GOTOURL", WeixinSignUtil.serverUrl+"weixin!loadAddNews.action"));
         //btn32.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb235c46c4c2740a9&redirect_uri=http://d1a7069951.iask.in/MX_System/weixin!loadAddNews.action&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect");
-        ///btn32.setUrl("http://d1a7069951.iask.in/MX_System/weixin!loadAddNews.action");     
+        //btn32.setUrl("http://mingxin.xicp.io/MX_System/weixin!loadEditNews.action");     
         
         CommonButton btn33 = new CommonButton();
         btn33.setName("Ð£Ô°¼ÇÕß");

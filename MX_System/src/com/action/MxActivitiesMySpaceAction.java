@@ -308,26 +308,4 @@ public class MxActivitiesMySpaceAction {
 		response.getWriter().write(jsonObject.toString());
 		
 	}
-	
-	public void CommentDelete() throws IOException{
-		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
-		request.setCharacterEncoding("UTF-8");
-		HttpServletResponse response = ServletActionContext.getResponse();// response对象返回数据给前台
-		response.setContentType("application/json; charset=utf-8");
-		
-		int commentId = Integer.parseInt(request.getParameter("commentId").toString());// 获取活动空间id
-		
-		boolean isClicked=activitiesMySpaceService.myspaceCommentDelete(commentId);
-		Map<String, String> map = new HashMap<String, String>();
-		if (isClicked) {
-			map.put("done", "0");
-			map.put("msg", "已删除!");
-		} else {
-			map.put("done", "-1");
-			map.put("msg", "删除失败!");
-		}
-		JSONObject jsonObject = JSONObject.fromObject(map);
-		response.getWriter().write(jsonObject.toString());
-	}
-	
 }
