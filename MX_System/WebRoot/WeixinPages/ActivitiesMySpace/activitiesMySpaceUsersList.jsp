@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<c:if test="${item.state== -1}">
 								<span class="mui-badge mui-badge-success">组织者</span>
 							</c:if>
-							<p class='mui-ellipsis'>${item.mxUsersData.userPhoneNum}</p>
+							<p class='mui-ellipsis'>电话${item.mxUsersData.userPhoneNum}</p>
 						</div>
 					</a>
 				</li>

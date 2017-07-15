@@ -79,10 +79,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<ul class="mui-table-view mui-table-view-striped mui-table-view-condensed">
 		          
 		          <c:forEach items="${myspaceUserMine.activitiesMySpaceCommentMineList}" var="item">
-		          <li class="mui-table-view-cell mui-media">
+		          <li id="li${item.commentId}" class="mui-table-view-cell mui-media">
 		          	<div class="mui-slider-right mui-disabled">
-						<button  onclick="gotoEditArticle();" class="mui-btn mui-btn-green ">修改</button>
-						<button  onclick="DeleteArticle();" class="mui-btn mui-btn-red ">删除</button>
+						<button  onclick="DeleteComment(${item.commentId});" class="mui-btn mui-btn-red ">删除</button>
 					</div>
 		            <div class="mui-slider-handle">
 		                <div class="mui-table-cell mui-col-xs-10">

@@ -11,7 +11,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
 <base href="<%=basePath%>">
-<meta charset="utf-8">
 <title>讨论区</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
@@ -39,34 +38,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </script>
 
 <script type="text/javascript">
-function ClickPraise(commentId,suerId){
-	//alert(commentId);
-	var num=document.getElementById(commentId).innerHTML;
-	num=num+1;
+function ClickPraise(commentId,userId){
+	document.getElementById('aaa'+commentId).onclick='';
+	document.getElementById('aaa'+commentId).style.color='gray';
+	var numTip=document.getElementById('span'+commentId);
+	var num=parseInt(numTip.innerHTML);
+	//numTip.innerHTML=num+1;
+	
 	 $.ajax({
-         url: 'activitiesMySpace!CommentClickPraise.action',
+         url:'activitiesMySpace!CommentClickPraise.action',
          type: 'post',
-         data: {commentId:commentId,userId:userId},
+         data: {'commentId':commentId,'userId':userId},
          dataType: 'json',
-         timeout: 200000,
+         timeout: 2000000,
          success: function (response) {
              if (response.done == '0') {
-             	var d=dialog().show();
-             	d.content(response.msg);
-             	setTimeout(function () {
-		    			d.close().remove();
-		    		}, 1500);
+            	 numTip.innerHTML=num+1;
+            	 document.getElementById('aaa'+commentId).style.color='gray';
+             	//var d=dialog().show();
+             	//d.content(response.msg);
+             	//setTimeout(function () {
+		    	//		d.close().remove();
+		    	//	}, 1500);
              	//刷新页面
              	//document.getElementById('mainContent').src= "activitiesMySpace!getActivitiesMySpaceMaterialList.action";
              	
+             	
                  return true;
              } else {
-            	 num=num-1;
+            	 //numTip.innerHTML=num-1;
+            	 //num=num-1;
             	 var d=dialog().show();
              	d.content(response.msg);
              	setTimeout(function () {
 		    			d.close().remove();
-		    		}, 1500);
+		    		}, 1000);
                  return alert(response.msg);
              }
          },
@@ -87,7 +93,7 @@ function ClickPraise(commentId,suerId){
 </head>
 
 <body>
-	<%for(int i=0;i<5;i++){ %>
+	
 	<c:forEach items="${userMySpaceCommentList}" var="item">
 	<div class="mui-card">
 		<div class="mui-card-header mui-card-media" >
@@ -95,9 +101,7 @@ function ClickPraise(commentId,suerId){
 			<div class="mui-media-body">
 				${item.mxUsersData.weixinNikeName}
 				<p>发表于<fmt:formatDate value="${item.createDate}" pattern="yyyy-MM-dd　HH:mm"/>
-					
-						<span class="mui-badge mui-badge-danger">新</span>
-				
+					<span class="mui-badge mui-badge-danger">新</span>
 				</p>
 			</div>
 		</div>
@@ -107,13 +111,29 @@ function ClickPraise(commentId,suerId){
 			</div>
 		</div>
 		<div class="mui-card-footer">
-			<a></a><a class="mui-card-link" href="javascript:void(0);" onclick="ClickPraise(${item.commentId},${userInfo.userId});"> 
-			<span class="mui-icon icomoon icon-thumbs-up"></span><span id="${item.commentId}">${item.praiseClickNum}</span>
-			</a>
+			
+			<%boolean isClicked=false; %>
+			<c:set value="${fn:split(item.praiseUserIds, ',') }" var="userIds" />
+			<c:forEach items="${userIds}" var="clickUserId">
+				<c:if test="${clickUserId==userInfo.userId}"><%isClicked=true; %> </c:if>
+			</c:forEach>
+			
+			<a></a>
+			<%if(isClicked==false){ %>  
+       				<a id="aaa${item.commentId}" class="mui-card-link" href="javascript:void(0);" onclick="ClickPraise(${item.commentId},${userInfo.userId});"> 
+					<span class="mui-icon icomoon icon-thumbs-up"></span><span id="span${item.commentId}">${item.praiseClickNum}</span>
+					</a>      
+  				
+   			 <%}else{ %>
+     			<a id="a${item.commentId}" class="mui-card-link" href="javascript:void(0);" style="color:gray"> 
+					<span class="mui-icon icomoon icon-thumbs-up"></span><span id="span${item.commentId}">${item.praiseClickNum}</span>
+				</a>
+   			<%} %>
+			
 		</div>
 	</div>
 	</c:forEach>
-	<%} %>
+	
 </body>
 	<script src="<%=basePath%>WeixinPages/common/js/mui.min.js"></script>
 	<script src="<%=basePath%>WeixinPages/common/js/mui.lazyload.js"></script>

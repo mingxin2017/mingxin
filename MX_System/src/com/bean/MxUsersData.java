@@ -1,6 +1,8 @@
 package com.bean;
 
-import java.sql.Timestamp;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * MxUsersData entity. @author MyEclipse Persistence Tools
@@ -17,7 +19,7 @@ public class MxUsersData implements java.io.Serializable {
 	private String weixinOpenId;
 	private String weixinNikeName;
 	private String weixinHeadUrl;
-	private Timestamp subscribeTime;
+	private Date subscribeTime;
 	private String weixinRemark;
 	private Integer userSex;
 	private String weixinGroupid;
@@ -31,50 +33,29 @@ public class MxUsersData implements java.io.Serializable {
 	private Integer userState;
 	private Integer userRegionId;
 	private String userAddr;
-	private Timestamp lastLoginTime;
+	private Date lastLoginTime;
 	private String others;
 	private String userRealName;
+	private String userIdcardNum;
+	private String userQqNum;
+	private Set mxActivitiesMySpaceUserses = new HashSet(0);
+	private Set mxActivitiesMySpaceComments = new HashSet(0);
 
 	// Constructors
 
 	/** default constructor */
 	public MxUsersData() {
-		this.setUserId(0);
-		this.setUserName("no set");
-		this.setPassword("123456");
-		this.setUserTypeId(-1);
-		this.setWeixinOpenId("");
-		this.setWeixinNikeName("");
-		this.setWeixinHeadUrl("");
-		this.setSubscribeTime(new Timestamp(System.currentTimeMillis()));
-		this.setWeixinRemark("");
-		this.setUserSex(0);
-		this.setWeixinGroupid("");
-		this.setWeixinTagidList("");
-		this.setUserAge(0);
-		this.setUserSchoolId(-1011);
-		this.setUserEmail("");
-		this.setUserPhoneNum("");
-		this.setReporterTeamId(-1011);
-		this.setUserTags("");
-		this.setUserRegionId(-1011);
-		this.setUserAddr("");
-		this.setLastLoginTime(new Timestamp(System.currentTimeMillis()));
-		this.setOthers("");
-		this.setUserState(0);
-		this.setUserRealName("");
 	}
 
 	/** minimal constructor */
-	public MxUsersData(Integer userId, String userName, String password,
-			Integer userTypeId, String weixinOpenId, String weixinNikeName,
-			String weixinHeadUrl, Timestamp subscribeTime, String weixinRemark,
-			Integer userSex, String weixinGroupid, String weixinTagidList,
-			Integer userAge, Integer userSchoolId, String userEmail,
-			String userPhoneNum, Integer reporterTeamId, String userTags,
-			Integer userState, Integer userRegionId, String userAddr,
-			Timestamp lastLoginTime, String userRealName) {
-		this.userId = userId;
+	public MxUsersData(String userName, String password, Integer userTypeId,
+			String weixinOpenId, String weixinNikeName, String weixinHeadUrl,
+			Date subscribeTime, String weixinRemark, Integer userSex,
+			String weixinGroupid, String weixinTagidList, Integer userAge,
+			Integer userSchoolId, String userEmail, String userPhoneNum,
+			Integer reporterTeamId, String userTags, Integer userState,
+			Integer userRegionId, String userAddr, Date lastLoginTime,
+			String userRealName, String userIdcardNum, String userQqNum) {
 		this.userName = userName;
 		this.password = password;
 		this.userTypeId = userTypeId;
@@ -97,18 +78,21 @@ public class MxUsersData implements java.io.Serializable {
 		this.userAddr = userAddr;
 		this.lastLoginTime = lastLoginTime;
 		this.userRealName = userRealName;
+		this.userIdcardNum = userIdcardNum;
+		this.userQqNum = userQqNum;
 	}
 
 	/** full constructor */
-	public MxUsersData(Integer userId, String userName, String password,
-			Integer userTypeId, String weixinOpenId, String weixinNikeName,
-			String weixinHeadUrl, Timestamp subscribeTime, String weixinRemark,
-			Integer userSex, String weixinGroupid, String weixinTagidList,
-			Integer userAge, Integer userSchoolId, String userEmail,
-			String userPhoneNum, Integer reporterTeamId, String userTags,
-			Integer userState, Integer userRegionId, String userAddr,
-			Timestamp lastLoginTime, String others, String userRealName) {
-		this.userId = userId;
+	public MxUsersData(String userName, String password, Integer userTypeId,
+			String weixinOpenId, String weixinNikeName, String weixinHeadUrl,
+			Date subscribeTime, String weixinRemark, Integer userSex,
+			String weixinGroupid, String weixinTagidList, Integer userAge,
+			Integer userSchoolId, String userEmail, String userPhoneNum,
+			Integer reporterTeamId, String userTags, Integer userState,
+			Integer userRegionId, String userAddr, Date lastLoginTime,
+			String others, String userRealName, String userIdcardNum,
+			String userQqNum, Set mxActivitiesMySpaceUserses,
+			Set mxActivitiesMySpaceComments) {
 		this.userName = userName;
 		this.password = password;
 		this.userTypeId = userTypeId;
@@ -132,6 +116,10 @@ public class MxUsersData implements java.io.Serializable {
 		this.lastLoginTime = lastLoginTime;
 		this.others = others;
 		this.userRealName = userRealName;
+		this.userIdcardNum = userIdcardNum;
+		this.userQqNum = userQqNum;
+		this.mxActivitiesMySpaceUserses = mxActivitiesMySpaceUserses;
+		this.mxActivitiesMySpaceComments = mxActivitiesMySpaceComments;
 	}
 
 	// Property accessors
@@ -192,11 +180,11 @@ public class MxUsersData implements java.io.Serializable {
 		this.weixinHeadUrl = weixinHeadUrl;
 	}
 
-	public Timestamp getSubscribeTime() {
+	public Date getSubscribeTime() {
 		return this.subscribeTime;
 	}
 
-	public void setSubscribeTime(Timestamp subscribeTime) {
+	public void setSubscribeTime(Date subscribeTime) {
 		this.subscribeTime = subscribeTime;
 	}
 
@@ -304,11 +292,11 @@ public class MxUsersData implements java.io.Serializable {
 		this.userAddr = userAddr;
 	}
 
-	public Timestamp getLastLoginTime() {
+	public Date getLastLoginTime() {
 		return this.lastLoginTime;
 	}
 
-	public void setLastLoginTime(Timestamp lastLoginTime) {
+	public void setLastLoginTime(Date lastLoginTime) {
 		this.lastLoginTime = lastLoginTime;
 	}
 
@@ -326,6 +314,38 @@ public class MxUsersData implements java.io.Serializable {
 
 	public void setUserRealName(String userRealName) {
 		this.userRealName = userRealName;
+	}
+
+	public String getUserIdcardNum() {
+		return this.userIdcardNum;
+	}
+
+	public void setUserIdcardNum(String userIdcardNum) {
+		this.userIdcardNum = userIdcardNum;
+	}
+
+	public String getUserQqNum() {
+		return this.userQqNum;
+	}
+
+	public void setUserQqNum(String userQqNum) {
+		this.userQqNum = userQqNum;
+	}
+
+	public Set getMxActivitiesMySpaceUserses() {
+		return this.mxActivitiesMySpaceUserses;
+	}
+
+	public void setMxActivitiesMySpaceUserses(Set mxActivitiesMySpaceUserses) {
+		this.mxActivitiesMySpaceUserses = mxActivitiesMySpaceUserses;
+	}
+
+	public Set getMxActivitiesMySpaceComments() {
+		return this.mxActivitiesMySpaceComments;
+	}
+
+	public void setMxActivitiesMySpaceComments(Set mxActivitiesMySpaceComments) {
+		this.mxActivitiesMySpaceComments = mxActivitiesMySpaceComments;
 	}
 
 }

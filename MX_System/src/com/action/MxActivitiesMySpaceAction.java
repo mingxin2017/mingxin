@@ -299,7 +299,7 @@ public class MxActivitiesMySpaceAction {
 		Map<String, String> map = new HashMap<String, String>();
 		if (!isClicked) {
 			map.put("done", "-1");
-			map.put("msg", "不能重复点赞!");
+			map.put("msg", "已赞过!");
 		} else {
 			map.put("done", "0");
 			map.put("msg", "点赞成功!");

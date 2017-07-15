@@ -122,16 +122,18 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 			return false;
 		} else {
 			String clickPraiseUserIds = comment.getPraiseUserIds();
-			String str[] = clickPraiseUserIds.split(",");
-			int array[] = new int[str.length];
-			for (int i = 0; i < str.length; i++) {
-				//array[i] = Integer.parseInt(str[i]);
-				if(Integer.parseInt(str[i])==userId){
-					return false;
+			if(clickPraiseUserIds.length()>0){
+				String str[] = clickPraiseUserIds.split(",");
+				for (int i = 0; i < str.length; i++) {
+					System.out.println(str[i]+"===");
+					if(Integer.parseInt(str[i])==userId){
+						return false;
+					}
 				}
 			}
-			String newBuff=clickPraiseUserIds+","+userId;
+			String newBuff=clickPraiseUserIds+userId+",";
 			comment.setPraiseUserIds(newBuff);
+			comment.setPraiseClickNum(comment.getPraiseClickNum()+1);
 			getHibernateTemplate().update(comment);
 			return true;
 		}
