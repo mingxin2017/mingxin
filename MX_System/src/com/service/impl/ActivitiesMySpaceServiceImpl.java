@@ -85,5 +85,10 @@ public class ActivitiesMySpaceServiceImpl implements com.service.IActivitiesMySp
 		return activitiesMySpaceDAO.commentClickPraise(commentId,userId);
 	}
 
+	public boolean myspaceCommentDelete(int commentId) {
+		// TODO Auto-generated method stub
+		return activitiesMySpaceDAO.myspaceCommentDelete(commentId);
+	}
+
 	
 }

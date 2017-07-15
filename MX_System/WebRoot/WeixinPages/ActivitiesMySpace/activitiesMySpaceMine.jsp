@@ -24,6 +24,51 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- 自定义图标字体 -->
 <link rel="stylesheet"
 	href="<%=basePath%>WeixinPages/common/css/icomoon.css">
+<script type="text/javascript" src="<%=basePath%>WeixinPages/common/js/jquery-1.11.2.js"></script>
+<script type="text/javascript" src="<%=basePath%>WeixinPages/common/js/dialog.js"></script>
+<script type="text/javascript">
+function DeleteComment(commentId){
+	var d = dialog({
+        content: '确定删除？',
+        okValue: '确 定',
+        ok: function() {
+        	$.ajax({
+                 url:'activitiesMySpace!CommentDelete.action',
+                 type: 'post',
+                 data: {'commentId':commentId},
+                 dataType: 'json',
+                 timeout: 2000000,
+                 success: function (response) {
+                     if (response.done == '0') {
+                    	 numTip.innerHTML=num+1;
+                    	 document.getElementById('aaa'+commentId).style.color='gray';
+                         return true;
+                     } else {
+                    	 var d=dialog().show();
+                     	d.content(response.msg);
+                     	setTimeout(function () {
+        		    			d.close().remove();
+        		    		}, 1000);
+                         return alert(response.msg);
+                     }
+                 },
+
+                 error: function (jqXHR, textStatus, errorThrown) {
+                     if (textStatus == 'timeout') {
+                    	 alert('请求超时');
+                         return false;
+                     }
+                     alert('错误！');
+                 }
+             });
+        },
+        cancelValue: '取消',
+        cancel: function() {}
+    });
+
+    d.showModal();
+}
+</script>
 </head>
 
 <body>

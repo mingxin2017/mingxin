@@ -36,5 +36,7 @@ public interface IActivitiesMySpaceService {
 
 	boolean commentClickPraise(int commentId, int userId);
 
+	boolean myspaceCommentDelete(int commentId);
+
 
 }
