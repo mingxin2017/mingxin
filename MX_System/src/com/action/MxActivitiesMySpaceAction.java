@@ -177,9 +177,10 @@ public class MxActivitiesMySpaceAction {
 	 * 获取活动空间用户
 	 */
 	public String getActivitiesMySpaceUsersList() {
-		mySpaceUsersList=activitiesMySpaceService.getMySpaceUsersList(myspaceId);
+		//mySpaceUsersList=activitiesMySpaceService.getMySpaceUsersList(myspaceId);
 		
-		return "activitiesMySpaceUsersList";
+		//return "activitiesMySpaceUsersList";
+		return "testEducation";
 	}
 
 	/**
