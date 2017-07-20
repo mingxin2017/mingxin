@@ -15,8 +15,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 	<div class="mui-content ">
-		<input type="file" style="/* visibility: hidden */" capture="camera"
-			accept="video/*" name="" value="录视频">
+		<input type="file" style="/* visibility: hidden */"
+			accept="video/*" name="" value="录视频"><br/><br/>
+		<input type="file" style="/* visibility: hidden */" 
+			accept="audio/*" name="" value="录音">
 	</div>
 </body>
 </html>
