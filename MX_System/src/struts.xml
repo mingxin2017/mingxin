@@ -44,7 +44,8 @@
 			<result name="activitiesMySpaceUsersList">/WeixinPages/ActivitiesMySpace/activitiesMySpaceUsersList.jsp</result>
 			<result name="activitiesMySpaceMine">/WeixinPages/ActivitiesMySpace/activitiesMySpaceMine.jsp</result>
 			<!-- <result name="activitiesMySpaceMine">/WeixinPages/ActivitiesMySpace/testImgUpload.jsp</result> -->
-			<result name="testEducation">/WeixinPages/Education/testEducation.jsp</result>
+			<!-- <result name="testEducation">/WeixinPages/Education/testEducation.jsp</result> -->
+			<result name="testEducation">/WeixinPages/TestQiNiu/testQiNiu.jsp</result>
 		</action>
 		
 		
