@@ -200,8 +200,8 @@
 			<property name="sysUsersDAO" ref="SysUsersDAO"></property>
 		</bean> -->
 	
+		<!-- 上传文件Bean -->
+		 <bean id="testFileUploadAction" class="com.action.TestFileUploadAction">
+		</bean>
 		
-		
-		 
-		 
 	</beans>

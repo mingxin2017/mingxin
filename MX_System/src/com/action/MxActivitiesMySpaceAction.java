@@ -180,7 +180,7 @@ public class MxActivitiesMySpaceAction {
 		//mySpaceUsersList=activitiesMySpaceService.getMySpaceUsersList(myspaceId);
 		
 		//return "activitiesMySpaceUsersList";
-		return "testEducation";
+		return "testWebUploader";
 	}
 
 	/**
@@ -308,5 +308,9 @@ public class MxActivitiesMySpaceAction {
 		JSONObject jsonObject = JSONObject.fromObject(map);
 		response.getWriter().write(jsonObject.toString());
 		
+	}
+	
+	public void testWebUploader(){
+		System.out.println("testWebUploader");
 	}
 }

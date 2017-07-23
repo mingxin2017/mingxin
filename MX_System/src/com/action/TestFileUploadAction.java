@@ -1,32 +1,92 @@
 package com.action;
 
 import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import antlr.StringUtils;
+import net.sf.json.JSONObject;
 
-import com.util.FileUtil;
+import org.apache.commons.io.FileUtils;
+import org.apache.struts2.ServletActionContext;
 
 public class TestFileUploadAction {
-	//单文件上传后台代码
-	public void ajaxAttachUpload() {
-	        String path =  "d:\\test\\"+fileFileName;
-	        try {
-	            File file = this.getFile();
-	            FileUtil.randomAccessFile(path, file);
-	            //如果文件小与5M的话，分片参数chunk的值是null
-	            if(StringUtils.isEmpty(chunk)){
-	                outJson("0", "success", "");
-	            }else{
-	            //chunk 分片索引，下标从0开始
-	            //chunks 总分片数
-	                if (Integer.valueOf(chunk) == (Integer.valueOf(chunks) - 1)) {
-	                    outJson("0", "上传成功", "");
-	                } else {
-	                    outJson("2", "上传中" + fileFileName + " chunk:" + chunk, "");
-	                }
-	            }
-	        } catch (Exception e) {
-	            outJson("3", "上传失败", "");
-	        }
-	    }
+
+	// 属性值，单文件的情况，对应的是upload3.js中的name属性，name属性值为file，此时struts就可以获取到file的文件对象，不需要实例化，struts框架会自动注入对象值，打开调试窗口，看一下就明白了
+	private File uploadFile;
+	// 单文件上传的文件名，spring上传特性，文件名格式为name属性+FileName
+	private String uploadFileFileName;
+
+	public File getUploadFile() {
+		return uploadFile;
+	}
+
+	public void setUploadFile(File uploadFile) {
+		this.uploadFile = uploadFile;
+	}
+
+	public String getUploadFileFileName() {
+		return uploadFileFileName;
+	}
+
+	public void setUploadFileFileName(String uploadFileFileName) {
+		this.uploadFileFileName = uploadFileFileName;
+	}
+
+	// 单文件上传后台代码
+	public void ajaxAttachUpload() throws IOException {
+		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
+		request.setCharacterEncoding("UTF-8");
+		HttpServletResponse response = ServletActionContext.getResponse();// response对象返回数据给前台
+		response.setContentType("application/json; charset=utf-8");
+
+		int userId = 10010;
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");// 日期年月日
+		String ymd = sdf.format(new Date());
+
+		String showPath="/WeixinPages/common/fileupload/vedio/" + userId + "/" + ymd+ "/";
+		
+		String savePath = ServletActionContext.getServletContext().getRealPath(showPath);
+
+		File uploadDir = new File(savePath);
+		
+		Map<String, String> map = new HashMap<String, String>();
+		
+		
+		if (uploadDir.exists()) {// 目录存在说明今日已经上传过视频了
+			map.put("status", "失败，已传过");// 保存失败
+			map.put("url", "/");// 路径为空
+			
+		//} else {
+			//uploadDir.mkdirs();// 创建用户视频目录
+			// String fileExt = "";// 文件后缀
+			System.out.println(uploadFile+"---"+uploadFileFileName);
+			if (uploadFile != null && uploadFileFileName != null) {
+				String fileExt = uploadFileFileName
+						.substring(uploadFileFileName.lastIndexOf(".") + 1)
+						.trim().toLowerCase();// 获取文件后缀
+
+				String newName = ymd + "_" + userId + "." + fileExt;// 新生成的文件名
+
+				File dirFile = new File(savePath);
+
+				File destFile = new File(dirFile, newName);
+				FileUtils.copyFile(uploadFile, destFile);// 将文件复制到服务器目录下
+				
+				map.put("status", "成功");// 保存失败
+				map.put("url", "/");// 路径为空
+			}else{
+				
+			}
+
+		}
+		JSONObject jsonObject = JSONObject.fromObject(map);
+		response.getWriter().write(jsonObject.toString());
+		System.out.println("保存路径：" + savePath);
+	}
 }

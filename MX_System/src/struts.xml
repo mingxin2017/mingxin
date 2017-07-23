@@ -37,7 +37,7 @@
 			
 			<result name="currentActivitiesList">/WeixinPages/Activities/currentActivitiesList.jsp</result>
 		
-			<result name="activitiesMySpaceList">/WeixinPages/ActivitiesMySpace/activitiesMySpaceAllList.jsp</result>
+			<result name="activitiesMySpaceList">/WeixinPages/ActivitiesMySpace/activitiesMySpaceAllList.jsp</result> 
 			<result name="activitiesMySpaceMain">/WeixinPages/ActivitiesMySpace/activitiesMySpaceMain.jsp</result>
 			<result name="activitiesMySpaceCommentList">/WeixinPages/ActivitiesMySpace/activitiesMySpaceCommentList.jsp</result>
 			<result name="activitiesMySpaceMaterialList">/WeixinPages/ActivitiesMySpace/activitiesMySpaceMaterialList.jsp</result>
@@ -45,7 +45,8 @@
 			<result name="activitiesMySpaceMine">/WeixinPages/ActivitiesMySpace/activitiesMySpaceMine.jsp</result>
 			<!-- <result name="activitiesMySpaceMine">/WeixinPages/ActivitiesMySpace/testImgUpload.jsp</result> -->
 			<!-- <result name="testEducation">/WeixinPages/Education/testEducation.jsp</result> -->
-			<result name="testEducation">/WeixinPages/TestQiNiu/testQiNiu.jsp</result>
+			<!-- <result name="testEducation">/WeixinPages/TestQiNiu/testQiNiu.jsp</result> -->
+			<result name="testWebUploader">/WeixinPages/Education/testWebUploader5.jsp</result>
 		</action>
 		
 		
@@ -56,5 +57,8 @@
 			<result name="NewsPage">/WeixinPages/News/newsPage.jsp</result>
 		</action>
 		
+		<!-- 上传文件action -->
+		<action name="uploadFile" class="testFileUploadAction">
+		</action>
 	</package>
 </struts>
