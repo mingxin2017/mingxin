@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
+	<constant name = "struts.multipart.maxSize" value = "52428800" /><!-- 修改struts2默认文件上传大小限制为50M -->
 	<package name="JC_Web_System" namespace="/" extends="struts-default">
 		<action name="sysUser" class="userAction">
 			<result name="success">/Pages/index.jsp</result>
@@ -47,6 +48,7 @@
 			<!-- <result name="testEducation">/WeixinPages/Education/testEducation.jsp</result> -->
 			<!-- <result name="testEducation">/WeixinPages/TestQiNiu/testQiNiu.jsp</result> -->
 			<result name="testWebUploader">/WeixinPages/Education/testWebUploader5.jsp</result>
+			
 		</action>
 		
 		
@@ -59,6 +61,15 @@
 		
 		<!-- 上传文件action -->
 		<action name="uploadFile" class="testFileUploadAction">
+		<!-- 引用fileUpload拦截器
+      		<interceptor-ref name="fileUpload">
+
+          设置单个上传文件的大小，单位字节
+          		<param name="maximumSize">50000000</param>
+      		</interceptor-ref>
+
+      当显示声明使用某一具体拦截器时，那么默认拦截器栈中的18个拦截器就不起作用了
+ -->
 		</action>
 	</package>
 </struts>

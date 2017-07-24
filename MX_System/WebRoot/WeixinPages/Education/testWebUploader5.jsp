@@ -21,40 +21,41 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</script><script type="text/javascript" src="<%=basePath%>WeixinPages/common/fileupload/js/zh.js"></script>
 </head>
 <body>
-		<label class="control-label">选择视频</label>
-		<input id="input-43" name="uploadFile" type="file"  class="file-loading" >
-		<div id="errorBlock" class="help-block" style="word-wrap: break-word;"></div>
+		<label class="control-label">Select File</label>
+		<form enctype="multipart/form-data"  method="post">
+		<input id="myFile" name="myFile" type="file" class="file-loading" accept="audio/*"/>
+		</form>
+		<div id="errorBlock" class="help-block"></div>
 		<script>
-			$(document).on('ready',
+		$(document).on('ready',
 				function() {
-					$("#input-43").fileinput({
+			$input=$("#myFile");
+			$input.fileinput({
 						language: "zh",
 						showPreview: false,
-						//showCaption: false,
-						allowedFileExtensions: ["mp4"],
-						browseClass: "btn btn-success",
-						browseLabel: "选择",
-						browseIcon: "<i class=\"glyphicon glyphicon-facetime-video\"></i> ",
-						removeClass: "btn btn-danger",
-						removeLabel: "删除",
-						removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
-						uploadClass: "btn btn-info",
-						uploadLabel: "上传",
-						uploadIcon: "<i class=\"glyphicon glyphicon-upload\"></i> ",
+						//browseClass: "btn btn-primary",
+						showUpload: true, //是否显示上传按钮
+						//showCaption: false,//是否显示标题
+						allowedFileExtensions: ["amr","wma","mp3","awb","aac"],//主要的手机音频格式
+						//allowedFileExtensions: ["MOV","MP4","AVI","3GP","mkv"],//主要的手机视频格式RM、rmvb、3gp、mp4、avi、flv、f4v、mpg、vob、dat、wmv、asf、mkv、dv、mov、ts、webm
+						//allowedFileTypes : ['audio'],
 						elErrorContainer: "#errorBlock",
-						enctype: 'multipart/form-data',
+						//enctype: 'multipart/form-data',
 					    uploadUrl: "uploadFile!ajaxAttachUpload.action", // server upload action
-					    uploadAsync: true,
+					    uploadAsync: false,
 					    maxFileCount: 1
 						
+					}).on("filebatchselected", function(event, files) {
+					    // trigger upload method immediately after files are selected
+					    //$input.fileinput("upload");
 					});
 					//上传文件成功，回调函数 
-				    $('#input-43').on("fileuploaded", function(event, data, previewId, index) {
-				    	alert("ddd");
-				    var result = data.response; //后台返回的json
+				    //$('#input-43').on("fileuploaded", function(event, data, previewId, index) {
+				    //	alert("ddd");
+				    //var result = data.response; //后台返回的json
 				    //console.log(result.status);
 				    //console.log(result.id);
-				    alert(result.status);
+				   // alert(result.status);
 				    //$('#picid').val(result.id);//拿到后台传回来的id，给图片的id赋值序列化表单用
 				    //如果是上传多张图
 				    /*
@@ -93,7 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				        },
 				        cache:false,                    //不缓存
 				    });*/
-				    });
+				    //});
 
 				});
 		</script>
