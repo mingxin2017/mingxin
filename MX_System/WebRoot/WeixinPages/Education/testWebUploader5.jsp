@@ -17,37 +17,61 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
-	<script type="text/javascript" src="<%=basePath%>WeixinPages/common/fileupload/js/fileinput.js">
-	</script><script type="text/javascript" src="<%=basePath%>WeixinPages/common/fileupload/js/zh.js"></script>
+	<script type="text/javascript" src="<%=basePath%>WeixinPages/common/fileupload/js/fileinput.js"></script>
+	<script type="text/javascript" src="<%=basePath%>WeixinPages/common/fileupload/js/zh.js"></script>
+	<script type="text/javascript" src="<%=basePath%>WeixinPages/common/fileupload/js/theme.js"></script>
 </head>
 <body>
-		<label class="control-label">Select File</label>
-		<form enctype="multipart/form-data"  method="post">
-		<input id="myFile" name="myFile" type="file" class="file-loading" accept="audio/*"/>
-		</form>
-		<div id="errorBlock" class="help-block"></div>
+	<div style="height:210;">
+		<%--<label class="control-label">上传视频</label>
+		--%>
+		<div id="errorBlock"  style="font-size:10px;" class="help-block"></div>
+		<%--<form enctype="multipart/form-data"  method="post">
+		--%><input id="myFile" name="myFile" type="file"  accept="video/*"/>
+		
+		<div class="text-center" style="margin-top:5px;">
+		<button type="button" class="btn btn-lg btn-success btn-upload-3"><i class="glyphicon glyphicon-upload"></i>上传</button>
+		<button type="button" class="btn btn-lg btn-default btn-reset-4"><i class="glyphicon glyphicon-trash"></i>清空</button>
+		<%--</form>
+		
+	--%></div>
 		<script>
 		$(document).on('ready',
 				function() {
 			$input=$("#myFile");
 			$input.fileinput({
 						language: "zh",
-						showPreview: false,
-						//browseClass: "btn btn-primary",
-						showUpload: true, //是否显示上传按钮
+						 theme: "explorer",
+						//showPreview: false,
+						browseClass: "btn btn-block btn-primary",
+        				browseLabel: "选择视频",
+        				browseIcon: "<i class=\"glyphicon glyphicon-facetime-video\"></i> ",
+						//showUpload: true, //是否显示上传按钮
+        				showCaption: false,
+        				showRemove: false,
+        				showUpload: false,
+        				required: true,
 						//showCaption: false,//是否显示标题
-						allowedFileExtensions: ["amr","wma","mp3","awb","aac"],//主要的手机音频格式
-						//allowedFileExtensions: ["MOV","MP4","AVI","3GP","mkv"],//主要的手机视频格式RM、rmvb、3gp、mp4、avi、flv、f4v、mpg、vob、dat、wmv、asf、mkv、dv、mov、ts、webm
+						//allowedFileExtensions: ["amr","wma","mp3","awb","aac"],//主要的手机音频格式
+						allowedFileExtensions: ["MOV","MP4","AVI","3GP","mkv"],//主要的手机视频格式RM、rmvb、3gp、mp4、avi、flv、f4v、mpg、vob、dat、wmv、asf、mkv、dv、mov、ts、webm
 						//allowedFileTypes : ['audio'],
 						elErrorContainer: "#errorBlock",
 						//enctype: 'multipart/form-data',
 					    uploadUrl: "uploadFile!ajaxAttachUpload.action", // server upload action
-					    uploadAsync: false,
-					    maxFileCount: 1
+					    uploadAsync: true,
+					    maxFileCount: 1,
+					  	maxFileSize: 2048//上传文件大小限制不超过20M，单位kb
 						
 					}).on("filebatchselected", function(event, files) {
 					    // trigger upload method immediately after files are selected
 					    //$input.fileinput("upload");
+					});
+			
+					$(".btn-upload-3").on("click", function() {
+						$input.fileinput('upload');
+					});
+					$(".btn-reset-4").on("click", function() {
+						$input.fileinput('clear');
 					});
 					//上传文件成功，回调函数 
 				    //$('#input-43').on("fileuploaded", function(event, data, previewId, index) {
