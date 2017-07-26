@@ -14,8 +14,10 @@ import java.util.Arrays;
 public class WeixinSignUtil {
     
     // 与接口配置信息中的Token要一致
-	public final static String serverUrl="http://mingxin.imwork.net/MX_System/";
-    private static String token = "weixin_mingxin";
+	//public final static String serverUrl="http://mingxin.imwork.net/MX_System/";//花生内网穿透壳域名
+	//public final static String serverUrl="http://mingxin2017.ngrok.cc/MX_System/";//ngrok内网穿透域名
+	public final static String serverUrl="http://testmingxin2017.ngrok.cc/MX_System/";//ngrok内网穿透域名
+	private static String token = "weixin_mingxin";
     public final static String AppID = "wx34c7cde93a1c5c40";
     public final static String AppSecret = "97a28450aed0e10b0299ff88ae482bac";
     
