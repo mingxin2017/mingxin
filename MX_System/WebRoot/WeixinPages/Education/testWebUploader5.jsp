@@ -60,7 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    uploadUrl: "uploadFile!ajaxAttachUpload.action", // server upload action
 					    uploadAsync: true,
 					    maxFileCount: 1,
-					  	maxFileSize: 2048//上传文件大小限制不超过20M，单位kb
+					  	maxFileSize: 20480//上传文件大小限制不超过20M，单位kb
 						
 					}).on("filebatchselected", function(event, files) {
 					    // trigger upload method immediately after files are selected
@@ -72,6 +72,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					});
 					$(".btn-reset-4").on("click", function() {
 						$input.fileinput('clear');
+					});
+					$input.on("fileuploaded", function(event, data, previewId, index) {
+						alert("上传成功！");
+						//$input.fileinput('clear');
 					});
 					//上传文件成功，回调函数 
 				    //$('#input-43').on("fileuploaded", function(event, data, previewId, index) {

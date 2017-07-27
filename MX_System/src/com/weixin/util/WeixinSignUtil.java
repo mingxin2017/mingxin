@@ -17,9 +17,9 @@ public class WeixinSignUtil {
 	public final static String serverUrl="http://mingxin.imwork.net/MX_System/";
     private static String token = "weixin_mingxin";
 
-	public final static String serverUrl="http://mingxin.imwork.net/MX_System/";
+	//public final static String serverUrl="http://mingxin.imwork.net/MX_System/";
 	//public final static String serverUrl="http://mingxin2017.ngrok.cc/MX_System/";
-    private static String token = "weixin_mingxin";
+    //private static String token = "weixin_mingxin";
 
     public final static String AppID = "wx34c7cde93a1c5c40";
     public final static String AppSecret = "97a28450aed0e10b0299ff88ae482bac";
