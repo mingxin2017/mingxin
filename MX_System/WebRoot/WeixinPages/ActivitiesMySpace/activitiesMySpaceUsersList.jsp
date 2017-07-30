@@ -31,7 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<img class="mui-media-object mui-pull-left" data-lazyload="${item.mxUsersData.weixinHeadUrl}">
 						<div class="mui-media-body">
 							${item.mxUsersData.userRealName}
-							<c:if test="${item.state== -1}">
+							<c:if test="${item.mxUsersData.userTypeId== 1101}">
 								<span class="mui-badge mui-badge-success">组织者</span>
 							</c:if>
 							<p class='mui-ellipsis'>电话${item.mxUsersData.userPhoneNum}</p>

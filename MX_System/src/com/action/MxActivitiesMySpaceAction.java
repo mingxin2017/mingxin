@@ -15,8 +15,10 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 
+import com.bean.MxActivitiesData;
 import com.bean.MxActivitiesMySpaceComment;
 import com.bean.MxActivitiesMySpaceData;
+import com.bean.MxActivitiesMySpaceInviteCode;
 import com.bean.MxActivitiesMySpaceMaterial;
 import com.bean.MxActivitiesMySpaceUsers;
 import com.bean.MxUsersData;
@@ -25,7 +27,9 @@ import com.bean.sysBean.ActivitiesUserMySpaceMine;
 import com.service.IActivitiesMySpaceService;
 import com.service.IUserService;
 import com.util.ImageMethod;
+import com.util.PasswordUtil;
 import com.weixin.pojo.SNSUserInfo;
+import com.weixin.util.WeixinSignUtil;
 import com.weixin.util.WeixinUtil;
 
 public class MxActivitiesMySpaceAction {
@@ -129,15 +133,15 @@ public class MxActivitiesMySpaceAction {
 			return "noFocus";
 		}else{
 			List<MxActivitiesMySpaceUsers> userMySpaceList = activitiesMySpaceService.getMySpaceListByUserId(userInfo.getUserId());
-			if(userMySpaceList.size()==0){
+			//if(userMySpaceList.size()==0){
 				//未参加过任何活动
-				return "currentActivitiesList";//跳转到当前正在报名的活动列表
-			}else{
+				//return "currentActivitiesList";//跳转到当前正在报名的活动列表
+			//}else{
 				List<MxActivitiesMySpaceData> userMySpaceDataList=activitiesMySpaceService.getMySpaceListBySpceIds(userMySpaceList);
 				request.setAttribute("userMySpaceDataList",userMySpaceDataList);//返回对象列表给前台
 				
 				return "activitiesMySpaceList";
-			}
+			//}
 		}
 		
 		
@@ -177,10 +181,10 @@ public class MxActivitiesMySpaceAction {
 	 * 获取活动空间用户
 	 */
 	public String getActivitiesMySpaceUsersList() {
-		//mySpaceUsersList=activitiesMySpaceService.getMySpaceUsersList(myspaceId);
+		mySpaceUsersList=activitiesMySpaceService.getMySpaceUsersList(myspaceId);
 		
-		//return "activitiesMySpaceUsersList";
-		return "testWebUploader";
+		return "activitiesMySpaceUsersList";
+		//return "testWebUploader";
 	}
 
 	/**
@@ -236,7 +240,87 @@ public class MxActivitiesMySpaceAction {
 
 	}
 
-	/**
+	/*
+	 * 生成活动空间邀请链接
+	 */
+	public void DoCreateInviteCodeUrl() throws IOException{
+		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
+		request.setCharacterEncoding("UTF-8");
+		HttpServletResponse response = ServletActionContext.getResponse();// response对象返回数据给前台
+		response.setContentType("application/json; charset=utf-8");
+		String initiator_userId = request.getParameter("initiator_userId").toString();// 获取用户id
+		String myspaceId = request.getParameter("myspaceId").toString();// 获取活动空间id
+		MxActivitiesData activitiesData=activitiesMySpaceService.getActivityByMyspaceId(Integer.parseInt(myspaceId));
+		String inviteCodeStr=PasswordUtil.createPWD(6);//生成8位随机验证码
+		MxActivitiesMySpaceInviteCode inviteCode=new MxActivitiesMySpaceInviteCode(activitiesData,Integer.parseInt(myspaceId),Integer.parseInt(initiator_userId), inviteCodeStr, 0,-1,new Timestamp(System.currentTimeMillis()));
+		boolean b=activitiesMySpaceService.addActivityInviteCode(inviteCode);
+		
+		//生成的邀请链接WeixinSignUtil.serverUrl+"activitiesMySpace!validateInviteCode.action?activityId=1&myspaceId=5&inviteCode=jdfjsj"
+		
+		
+		Map<String, String> map = new HashMap<String, String>();
+		if (b==false) {
+			map.put("done", "-1");
+			map.put("inviteCodeUrl", "");
+			map.put("msg", "生成活动邀请链接失败!");
+		} else {
+
+			//String inviteUrl=WeixinSignUtil.serverUrl+"activitiesMySpace!validateInviteCode.action?activityId="
+			//			+activitiesData.getActivitiesId()+"&myspaceId="+myspaceId+"&inviteCode="+inviteCodeStr;
+			//String inviteUrl=inviteCodeStr;
+			map.put("done", "0");
+			map.put("inviteCode", inviteCodeStr);// 显示图片的完整相对路径
+			map.put("msg", "成功，该链接有效时间为24小时！");
+			System.out.println("生成活动邀请链接成功！");
+		}
+		JSONObject jsonObject = JSONObject.fromObject(map);
+		response.getWriter().write(jsonObject.toString());
+		
+	}
+	
+	/*
+	 * 验证活动申请码的有效性
+	 */
+	public void validateInviteCode() throws IOException{
+		//获取邀请码信息，判断邀请码是否存在，判断邀请码是否过期
+
+		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
+		request.setCharacterEncoding("UTF-8");
+		HttpServletResponse response = ServletActionContext.getResponse();// response对象返回数据给前台
+		response.setContentType("application/json; charset=utf-8");
+		String userId = request.getParameter("userId").toString();// 获取用户id
+		String inviteCode = request.getParameter("inviteCode").toString();// 获取活动空间验证码
+		//MxActivitiesData activitiesData=activitiesMySpaceService.getActivityByMyspaceId(Integer.parseInt(myspaceId));
+		//String inviteCodeStr=PasswordUtil.createPWD(6);//生成8位随机验证码
+		//MxActivitiesMySpaceInviteCode getInviteCode=new MxActivitiesMySpaceInviteCode(activitiesData,Integer.parseInt(myspaceId),Integer.parseInt(userId), inviteCodeStr, 0,-1);
+		boolean b=activitiesMySpaceService.validateInviteCode(inviteCode,Integer.parseInt(userId));
+		
+		//生成的邀请链接WeixinSignUtil.serverUrl+"activitiesMySpace!validateInviteCode.action?activityId=1&myspaceId=5&inviteCode=jdfjsj"
+		
+		
+		Map<String, String> map = new HashMap<String, String>();
+		if (b==false) {
+			map.put("done", "-1");
+			//map.put("inviteCodeUrl", "");
+			map.put("msg", "验证码无效!");
+		} else {
+
+			//String inviteUrl=WeixinSignUtil.serverUrl+"activitiesMySpace!validateInviteCode.action?activityId="
+			//			+activitiesData.getActivitiesId()+"&myspaceId="+myspaceId+"&inviteCode="+inviteCodeStr;
+			//String inviteUrl=inviteCodeStr;
+			map.put("done", "0");
+			//map.put("inviteCode", inviteCodeStr);// 显示图片的完整相对路径
+			map.put("msg", "已成功参加活动！");
+			System.out.println("用户成功参加活动！");
+		}
+		JSONObject jsonObject = JSONObject.fromObject(map);
+		response.getWriter().write(jsonObject.toString());
+		
+	}
+	
+	
+	
+	/*
 	 * 压缩并上传图片方法
 	 */
 	public void UploadImage() throws IOException, ServletException {

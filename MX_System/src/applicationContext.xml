@@ -51,20 +51,35 @@
 				<value>com/bean/MxUsersReporterTeam.hbm.xml</value>
 				<value>com/bean/MxRegion.hbm.xml</value>
 				<value>com/bean/MxSchools.hbm.xml</value>
-			    <value>com/bean/MxNewsType.hbm.xml</value>
+				<value>com/bean/MxNewsType.hbm.xml</value>
 				<value>com/bean/MxNewsContent.hbm.xml</value>
 				<value>com/bean/MxNewsData.hbm.xml</value>
 				<value>com/bean/MxUsersData.hbm.xml</value>
 				<value>com/bean/MxActivitiesData.hbm.xml</value>
-				<value>com/bean/MxActivitiesMySpaceComment.hbm.xml</value>
+				<value>
+					com/bean/MxActivitiesMySpaceComment.hbm.xml
+				</value>
 				<value>com/bean/MxActivitiesMySpaceData.hbm.xml</value>
-				<value>com/bean/MxActivitiesMySpaceMaterial.hbm.xml</value>
+				<value>
+					com/bean/MxActivitiesMySpaceMaterial.hbm.xml
+				</value>
 				<value>com/bean/MxActivitiesMySpaceUsers.hbm.xml</value>
-				<value>com/bean/MxActivitiesPublicityComment.hbm.xml</value>
-				<value>com/bean/MxActivitiesPublicityData.hbm.xml</value>
-				<value>com/bean/MxActivitiesPublicityMaterial.hbm.xml</value>
+				<value>
+					com/bean/MxActivitiesPublicityComment.hbm.xml
+				</value>
+				<value>
+					com/bean/MxActivitiesPublicityData.hbm.xml
+				</value>
+				<value>
+					com/bean/MxActivitiesPublicityMaterial.hbm.xml
+				</value>
 				<value>com/bean/MxActivitiesType.hbm.xml</value>
-				<value>com/bean/MxActivitiesPublicityContent.hbm.xml</value>
+				<value>
+					com/bean/MxActivitiesPublicityContent.hbm.xml
+				</value>
+				<value>
+					com/bean/MxActivitiesMySpaceInviteCode.hbm.xml
+				</value>
 			</list>
 		</property>
 		</bean>

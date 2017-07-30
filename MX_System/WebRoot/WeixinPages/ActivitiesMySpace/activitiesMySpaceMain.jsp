@@ -100,8 +100,13 @@ function showIframe(pageTag,obj){
 		operateButton.innerHTML="上传照片";
 		url='activitiesMySpace!getActivitiesMySpaceMaterialList.action';
 	}else if(pageTag==3){
-		operateButton.innerHTML="";
-		url='activitiesMySpace!getActivitiesMySpaceUsersList.action';
+		if(${userInfo.userTypeId}==1100){//活动发起人的类型为1100
+			operateButton.innerHTML="发出邀请";
+			url='activitiesMySpace!getActivitiesMySpaceUsersList.action';
+		}else{
+			operateButton.innerHTML="";
+		}
+		
 	}else if(pageTag==4){
 		operateButton.innerHTML="";
 		url='activitiesMySpace!getActivitiesMySpaceMine.action';
@@ -154,6 +159,66 @@ function operate(){
 							} ]
 
 						}).showModal();
+		} else if (operate == "发出邀请") {
+			
+			var d = dialog({
+				fixed: true,
+				title:'确定生成邀请链接？',
+				//content:'<div id="showInviteCode">此处显示邀请链接</div>',
+				button : [ {
+					value : '取消'
+					},{
+						value : '生成',
+						autofocus : true,
+						callback : function() {
+							$.ajax({
+							    type: "POST",
+							    url: "activitiesMySpace!DoCreateInviteCodeUrl.action", //生成活动邀请链接
+							    data: {"initiator_userId":${userInfo.userId},"myspaceId":${myspaceId}},
+							    dataType:"json",
+							    async:false,
+							    cache:false,
+							    success: function(data){
+							    	if(data.done=='0'){
+							    		//document.getElementById('showInviteCode').innerHTML='<input type=\"text\" value=\"'+data.inviteCodeUrl+'\"/>';
+							    		
+							    		var dd = dialog({
+							    				title:'复制以下内容，发送给参加人员',
+							    				//content:'<div>该邀请码有效期为24小时</div><input type=\"text\" value=\"'+data.inviteCode+'\"/>\r\n<',
+							    				content:'<div>邀请码有效期为24小时</div><textarea rows=\"3\" cols=\"25\">邀请码('+data.inviteCode+')\n复制该信息至鸣心公众号-个人中心-我的空间粘贴即可接受邀请。</textarea>',
+							                    okValue: '完成',
+							                    ok: function() {
+							                        dd.close().remove();
+							                    }
+							    		}).showModal();
+							    		
+							    		//setTimeout(function () {
+							    		//	dd.close().remove();
+							    		//}, 2000);
+							    	}else{
+							    		var dd = dialog('生成失败');
+							    		setTimeout(function () {
+							    			dd.close().remove();
+							    		}, 1000);
+							    	}
+								},
+								error: function(json){
+									var ddd = dialog('提交数据异常，请刷新后重试...').show();
+									setTimeout(function () {
+										ddd.close().remove();
+						    		}, 1500);
+								}
+						    });
+						
+					}
+					}]
+				
+			
+			}).showModal();
+			//setTimeout(function () {
+    		//	d.close().remove();
+    		//}, 1500);
+			
 		} else if (operate == "刷新") {
 			alert(operate);
 		} else {

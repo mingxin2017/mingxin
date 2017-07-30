@@ -2,8 +2,10 @@ package com.service.impl;
 
 import java.util.List;
 
+import com.bean.MxActivitiesData;
 import com.bean.MxActivitiesMySpaceComment;
 import com.bean.MxActivitiesMySpaceData;
+import com.bean.MxActivitiesMySpaceInviteCode;
 import com.bean.MxActivitiesMySpaceMaterial;
 import com.bean.MxActivitiesMySpaceUsers;
 import com.bean.MxUsersData;
@@ -83,6 +85,23 @@ public class ActivitiesMySpaceServiceImpl implements com.service.IActivitiesMySp
 	public boolean commentClickPraise(int commentId, int userId) {
 		// TODO Auto-generated method stub
 		return activitiesMySpaceDAO.commentClickPraise(commentId,userId);
+	}
+
+	public MxActivitiesData getActivityByMyspaceId(int parseInt) {
+		// TODO Auto-generated method stub
+		MxActivitiesMySpaceData t=activitiesMySpaceDAO.getMySpaceBySpaceId(parseInt);
+		return activitiesMySpaceDAO.getActivityByMyspaceId(t.getActivitiesId());
+	}
+
+	public boolean addActivityInviteCode(
+			MxActivitiesMySpaceInviteCode inviteCode) {
+		// TODO Auto-generated method stub
+		return activitiesMySpaceDAO.addActivityInviteCode(inviteCode);
+	}
+
+	public boolean validateInviteCode(String inviteCode,int userId) {
+		// TODO Auto-generated method stub
+		return activitiesMySpaceDAO.validateInviteCode(inviteCode,userId);
 	}
 
 	

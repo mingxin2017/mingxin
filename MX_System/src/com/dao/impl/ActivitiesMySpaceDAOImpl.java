@@ -1,14 +1,18 @@
 package com.dao.impl;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import com.bean.MxActivitiesData;
 import com.bean.MxActivitiesMySpaceComment;
 import com.bean.MxActivitiesMySpaceData;
+import com.bean.MxActivitiesMySpaceInviteCode;
 import com.bean.MxActivitiesMySpaceMaterial;
 import com.bean.MxActivitiesMySpaceUsers;
 import com.bean.MxUsersData;
@@ -136,6 +140,44 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 			comment.setPraiseClickNum(comment.getPraiseClickNum()+1);
 			getHibernateTemplate().update(comment);
 			return true;
+		}
+		
+	}
+
+	public MxActivitiesData getActivityByMyspaceId(int parseInt) {
+		// TODO Auto-generated method stub
+		
+		return (MxActivitiesData) getHibernateTemplate().find("from com.bean.MxActivitiesData au where au.activitiesId = "+ parseInt).get(0);
+	}
+
+	public boolean addActivityInviteCode(
+			MxActivitiesMySpaceInviteCode inviteCode) {
+		// TODO Auto-generated method stub
+		try{
+			getHibernateTemplate().save(inviteCode);
+			return true;
+		}catch(Exception e){
+			System.out.println(e);
+			return false;
+		}
+	}
+
+	public boolean validateInviteCode(String inviteCode,int userId) {
+		MxActivitiesMySpaceInviteCode code=(MxActivitiesMySpaceInviteCode) getHibernateTemplate().find("from com.bean.MxActivitiesMySpaceInviteCode au where au.inviteCode ='"+ inviteCode+"'").get(0);
+		if(code==null){
+			return false;
+		}else{
+			MxActivitiesMySpaceUsers buff=(MxActivitiesMySpaceUsers) getHibernateTemplate().find("from com.bean.MxActivitiesMySpaceUsers au where au.mxUsersData.userId ="+ userId+" and au.myspaceId="+code.getMyspaceId()).get(0);
+			if (buff==null) {
+				MxUsersData user = new MxUsersData();
+				user.setUserId(userId);
+				MxActivitiesMySpaceUsers spaceUser = new MxActivitiesMySpaceUsers(
+						user, code.getMyspaceId(), null, new Timestamp(System.currentTimeMillis()), null, 0, 0, null,null);
+				getHibernateTemplate().save(spaceUser);
+				return true;
+			} else {
+				return false;
+			}
 		}
 		
 	}

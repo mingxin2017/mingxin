@@ -2,8 +2,10 @@ package com.service;
 
 import java.util.List;
 
+import com.bean.MxActivitiesData;
 import com.bean.MxActivitiesMySpaceComment;
 import com.bean.MxActivitiesMySpaceData;
+import com.bean.MxActivitiesMySpaceInviteCode;
 import com.bean.MxActivitiesMySpaceMaterial;
 import com.bean.MxActivitiesMySpaceUsers;
 import com.bean.MxUsersData;
@@ -35,6 +37,12 @@ public interface IActivitiesMySpaceService {
 			int myspaceId);
 
 	boolean commentClickPraise(int commentId, int userId);
+
+	MxActivitiesData getActivityByMyspaceId(int parseInt);
+
+	boolean addActivityInviteCode(MxActivitiesMySpaceInviteCode inviteCode);
+
+	boolean validateInviteCode(String inviteCode, int userId);
 
 
 }
