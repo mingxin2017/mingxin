@@ -54,18 +54,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						},{
 							value : '提交',
 							callback : function() {
-								alert("11111");
+								//alert("11111");
 								var inviteCodeAll = document.getElementById('inviteCode').value;//获取选择的文件
 								var inviteCode=inviteCodeAll.substring(inviteCodeAll.indexOf("(")+1,inviteCodeAll.indexOf(")"));
-								alert(inviteCode);
+								//alert(inviteCode);
 								if(inviteCode==''){
-									alert('输入为空！');
+									alert('未输入验证码！');
 								}else{
 									validateInviteCode(inviteCode);
 								}
-								//var myspaceId=$('#myspaceId').val();
-								//var userId=$('#userId').val();//用户id
-								//doUploadImage(userId,myspaceId,imgFile);
 							},
 							autofocus : true
 						} ]
@@ -82,17 +79,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    async:false,
 		    cache:false,
 		    success: function(data){
-		    	if(data.done=='0'){
-		    		//document.getElementById('mainContent').src='activitiesMySpace!getActivitiesMySpaceCommentList.action';
-		    		var dd = dialog('发送成功').show();
-		    		setTimeout(function () {
-		    			dd.close().remove();
-		    		}, 2000);
+		    	var done=parseInt(data.done);
+		    	if(data.done=='0'){//加入活动成功
+		    		//刷新当前页面
+		    		dialog(data.msg, function(){}).showModal();
+		    		window.location.reload();
 		    	}else{
-		    		var dd = dialog('发送失败').show();
-		    		setTimeout(function () {
-		    			dd.close().remove();
-		    		}, 2000);
+		    		dialog(data.msg, function(){}).showModal();
 		    	}
 			},
 			error: function(json){

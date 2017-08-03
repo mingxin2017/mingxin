@@ -1,6 +1,8 @@
 package com.dao.impl;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -162,21 +164,48 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 		}
 	}
 
-	public boolean validateInviteCode(String inviteCode,int userId) {
+	
+	/*
+	 * 验证活动验证码
+	 */
+	public int validateInviteCode(String inviteCode,int userId) {
 		MxActivitiesMySpaceInviteCode code=(MxActivitiesMySpaceInviteCode) getHibernateTemplate().find("from com.bean.MxActivitiesMySpaceInviteCode au where au.inviteCode ='"+ inviteCode+"'").get(0);
-		if(code==null){
-			return false;
+		if(code==null){//验证码不存在
+			return -10;
 		}else{
+			//对比时间是否过期
+			if(code.getState()==-1){//验证码已过期失效
+				return -11;
+			}
+			
+			try {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d HH:mm:ss");
+				Date codeDate=sdf.parse(code.getCreateDate().toString());
+				Date now=sdf.parse(new Timestamp(System.currentTimeMillis()).toString());
+				long cha = now.getTime() - codeDate.getTime(); 
+		        double result = cha * 1.0 / (1000 * 60 * 60); 
+		        if(result>24){ 
+		             //System.out.println("验证码已过期");
+		        	code.setState(-1);
+		        	getHibernateTemplate().update(inviteCode);//更新验证码code将状态设置为已过期
+		            return -11; 
+		        } 
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return -1;
+			}
+			
 			MxActivitiesMySpaceUsers buff=(MxActivitiesMySpaceUsers) getHibernateTemplate().find("from com.bean.MxActivitiesMySpaceUsers au where au.mxUsersData.userId ="+ userId+" and au.myspaceId="+code.getMyspaceId()).get(0);
-			if (buff==null) {
+			if (buff==null) {//为空说明还未加入活动
 				MxUsersData user = new MxUsersData();
 				user.setUserId(userId);
 				MxActivitiesMySpaceUsers spaceUser = new MxActivitiesMySpaceUsers(
 						user, code.getMyspaceId(), null, new Timestamp(System.currentTimeMillis()), null, 0, 0, null,null);
 				getHibernateTemplate().save(spaceUser);
-				return true;
-			} else {
-				return false;
+				return 0;
+			} else {//不为空说明已经是活动参加人员
+				return -12;
 			}
 		}
 		

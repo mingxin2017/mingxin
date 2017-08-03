@@ -42,7 +42,7 @@ public interface IActivitiesMySpaceService {
 
 	boolean addActivityInviteCode(MxActivitiesMySpaceInviteCode inviteCode);
 
-	boolean validateInviteCode(String inviteCode, int userId);
+	int validateInviteCode(String inviteCode, int userId);
 
 
 }

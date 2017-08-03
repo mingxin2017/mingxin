@@ -42,6 +42,9 @@ public interface IActivitiesMySpaceDAO {
 
 	boolean addActivityInviteCode(MxActivitiesMySpaceInviteCode inviteCode);
 
-	boolean validateInviteCode(String inviteCode, int userId);
+	/*
+	 * 验证活动邀请码
+	 */
+	int validateInviteCode(String inviteCode, int userId);
 
 }

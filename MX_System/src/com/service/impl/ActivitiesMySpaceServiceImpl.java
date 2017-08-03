@@ -99,7 +99,7 @@ public class ActivitiesMySpaceServiceImpl implements com.service.IActivitiesMySp
 		return activitiesMySpaceDAO.addActivityInviteCode(inviteCode);
 	}
 
-	public boolean validateInviteCode(String inviteCode,int userId) {
+	public int validateInviteCode(String inviteCode,int userId) {
 		// TODO Auto-generated method stub
 		return activitiesMySpaceDAO.validateInviteCode(inviteCode,userId);
 	}

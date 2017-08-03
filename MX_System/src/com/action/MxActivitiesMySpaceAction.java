@@ -271,7 +271,7 @@ public class MxActivitiesMySpaceAction {
 			map.put("done", "0");
 			map.put("inviteCode", inviteCodeStr);// 显示图片的完整相对路径
 			map.put("msg", "成功，该链接有效时间为24小时！");
-			System.out.println("生成活动邀请链接成功！");
+			System.out.println("成功生成活动邀请码！");
 		}
 		JSONObject jsonObject = JSONObject.fromObject(map);
 		response.getWriter().write(jsonObject.toString());
@@ -290,27 +290,26 @@ public class MxActivitiesMySpaceAction {
 		response.setContentType("application/json; charset=utf-8");
 		String userId = request.getParameter("userId").toString();// 获取用户id
 		String inviteCode = request.getParameter("inviteCode").toString();// 获取活动空间验证码
-		//MxActivitiesData activitiesData=activitiesMySpaceService.getActivityByMyspaceId(Integer.parseInt(myspaceId));
-		//String inviteCodeStr=PasswordUtil.createPWD(6);//生成8位随机验证码
-		//MxActivitiesMySpaceInviteCode getInviteCode=new MxActivitiesMySpaceInviteCode(activitiesData,Integer.parseInt(myspaceId),Integer.parseInt(userId), inviteCodeStr, 0,-1);
-		boolean b=activitiesMySpaceService.validateInviteCode(inviteCode,Integer.parseInt(userId));
+		int b=activitiesMySpaceService.validateInviteCode(inviteCode,Integer.parseInt(userId));
 		
 		//生成的邀请链接WeixinSignUtil.serverUrl+"activitiesMySpace!validateInviteCode.action?activityId=1&myspaceId=5&inviteCode=jdfjsj"
 		
-		
 		Map<String, String> map = new HashMap<String, String>();
-		if (b==false) {
+		if (b==-1) {
 			map.put("done", "-1");
-			//map.put("inviteCodeUrl", "");
-			map.put("msg", "验证码无效!");
-		} else {
-
-			//String inviteUrl=WeixinSignUtil.serverUrl+"activitiesMySpace!validateInviteCode.action?activityId="
-			//			+activitiesData.getActivitiesId()+"&myspaceId="+myspaceId+"&inviteCode="+inviteCodeStr;
-			//String inviteUrl=inviteCodeStr;
+			map.put("msg", "系统错误,请联系平台管理员!");
+		} else if(b==-10){
+			map.put("done", "-10");
+			map.put("msg", "验证码不存在!");
+		}else if(b==-11){
+			map.put("done", "-11");
+			map.put("msg", "验证码已过期，请联系活动组织者!");
+		}else if(b==-12){
+			map.put("done", "-12");
+			map.put("msg", "您已参与过该活动!");
+		}else if(b==0){
 			map.put("done", "0");
-			//map.put("inviteCode", inviteCodeStr);// 显示图片的完整相对路径
-			map.put("msg", "已成功参加活动！");
+			map.put("msg", "参加活动成功！");
 			System.out.println("用户成功参加活动！");
 		}
 		JSONObject jsonObject = JSONObject.fromObject(map);

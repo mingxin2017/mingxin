@@ -163,8 +163,8 @@ function operate(){
 			
 			var d = dialog({
 				fixed: true,
-				title:'确定生成邀请链接？',
-				//content:'<div id="showInviteCode">此处显示邀请链接</div>',
+				//title:'确定生成邀请链接？',
+				content:'<div id="showInviteCode">确定生成活动邀请码？</div>',
 				button : [ {
 					value : '取消'
 					},{
@@ -185,7 +185,7 @@ function operate(){
 							    		var dd = dialog({
 							    				title:'复制以下内容，发送给参加人员',
 							    				//content:'<div>该邀请码有效期为24小时</div><input type=\"text\" value=\"'+data.inviteCode+'\"/>\r\n<',
-							    				content:'<div>邀请码有效期为24小时</div><textarea rows=\"3\" cols=\"25\">邀请码('+data.inviteCode+')\n复制该信息至鸣心公众号-个人中心-我的空间粘贴即可接受邀请。</textarea>',
+							    				content:'<div>邀请码有效期为24小时，过期需要重新生成</div><textarea rows=\"3\" cols=\"25\">邀请码('+data.inviteCode+')\n复制该信息至鸣心公众号-个人中心-我的空间粘贴即可接受邀请。</textarea>',
 							                    okValue: '完成',
 							                    ok: function() {
 							                        dd.close().remove();
