@@ -292,6 +292,8 @@ public class MxActivitiesMySpaceAction {
 		String inviteCode = request.getParameter("inviteCode").toString();// 获取活动空间验证码
 		int b=activitiesMySpaceService.validateInviteCode(inviteCode,Integer.parseInt(userId));
 		
+		System.out.println("//////"+b);
+		
 		//生成的邀请链接WeixinSignUtil.serverUrl+"activitiesMySpace!validateInviteCode.action?activityId=1&myspaceId=5&inviteCode=jdfjsj"
 		
 		Map<String, String> map = new HashMap<String, String>();
@@ -306,10 +308,21 @@ public class MxActivitiesMySpaceAction {
 			map.put("msg", "验证码已过期，请联系活动组织者!");
 		}else if(b==-12){
 			map.put("done", "-12");
-			map.put("msg", "您已参与过该活动!");
-		}else if(b==0){
+			map.put("msg", "您已参加该活动!");
+		}else if(b>0){
+			
+			MxActivitiesMySpaceData userMySpace=activitiesMySpaceService.getMySpaceBySpaceId(b);
+			
 			map.put("done", "0");
 			map.put("msg", "参加活动成功！");
+			map.put("liData","<li  class='mui-table-view-cell mui-media'>" +
+					"<a href='activitiesMySpace!gotoActivitiesMySpaceMain.action?myspaceId="+userMySpace.getMyspaceId()+"'>" +
+							"<img  class='mui-media-object mui-pull-left'  src='"+userMySpace.getCoverImageUrl()+"'>" +
+									"<div class='mui-media-body' style='color:black' >"+userMySpace.getMyspaceName()+
+											"<p class='mui-ellipsis' style='color:#87CEFA' >" +
+													userMySpace.getDescribe()+"</p></div></a></li>");
+			
+		
 			System.out.println("用户成功参加活动！");
 		}
 		JSONObject jsonObject = JSONObject.fromObject(map);

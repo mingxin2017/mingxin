@@ -62,6 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									alert('未输入验证码！');
 								}else{
 									validateInviteCode(inviteCode);
+									d.close().remove();
 								}
 							},
 							autofocus : true
@@ -76,14 +77,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    url: "activitiesMySpace!validateInviteCode.action", //验证邀请码
 		    data: {"userId":${userInfo.userId},"inviteCode":inviteCode},
 		    dataType:"json",
-		    async:false,
-		    cache:false,
+		    async:false,//关闭异步，设置同步
 		    success: function(data){
-		    	var done=parseInt(data.done);
+		    	//var done=parseInt(data.done);
 		    	if(data.done=='0'){//加入活动成功
 		    		//刷新当前页面
 		    		dialog(data.msg, function(){}).showModal();
-		    		window.location.reload();
+		    		//window.location.reload();
+		    		alert(data.liData);
+		    		var t=document.getElementById('tableList');
+		    		alert(t);
+		    		t.innerHTML+=data.liData;
+		    		
 		    	}else{
 		    		dialog(data.msg, function(){}).showModal();
 		    	}
@@ -103,13 +108,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<h1 id="title" class="mui-title">我的活动</h1>
 		<div id="operate" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" onclick="inputInviteCode();">输入邀请码</div>
 	</header>
-	<div class="mui-content " >
-		<ul class="mui-table-view">
-			<c:if
+	<div class="mui-content " id="mainContent">
+		<ul class="mui-table-view" id="tableList">
+			<%--<c:if
 				test="${userMySpaceDataList==null || fn:length(userMySpaceDataList) == 0}">
 				<li>暂未参加任何活动</li>
 				<li><button class="mui-button">点我参看最新活动</button></li>
 			</c:if>
+			--%>
 			<c:forEach items="${userMySpaceDataList}" var="item">
 				<li  class="mui-table-view-cell mui-media">
 					<a href="activitiesMySpace!gotoActivitiesMySpaceMain.action?myspaceId=${item.myspaceId}">

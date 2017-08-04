@@ -187,26 +187,34 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 		        if(result>24){ 
 		             //System.out.println("验证码已过期");
 		        	code.setState(-1);
-		        	getHibernateTemplate().update(inviteCode);//更新验证码code将状态设置为已过期
+		        	getHibernateTemplate().update(code);//更新验证码code将状态设置为已过期
 		            return -11; 
-		        } 
-			} catch (ParseException e) {
+		        }
+		        
+		        
+				List buff= getHibernateTemplate().find("from com.bean.MxActivitiesMySpaceUsers au where au.mxUsersData.userId ="+ userId+" and au.myspaceId="+code.getMyspaceId());
+				System.out.println(buff);
+				if (buff.size()==0) {//为空说明还未加入活动
+					MxUsersData user = new MxUsersData();
+					user.setUserId(userId);
+					MxActivitiesMySpaceUsers spaceUser = new MxActivitiesMySpaceUsers(
+							user, code.getMyspaceId(), -111, new Timestamp(System.currentTimeMillis()), 
+							new Timestamp(System.currentTimeMillis()), 0, 0, 
+							new Timestamp(System.currentTimeMillis()),
+							new Timestamp(System.currentTimeMillis()));
+					getHibernateTemplate().save(spaceUser);
+					return code.getMyspaceId();//成功则返回当前活动空间id
+				} else {//不为空说明已经是活动参加人员
+					return -12;
+				}
+		        
+		        
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return -1;
 			}
 			
-			MxActivitiesMySpaceUsers buff=(MxActivitiesMySpaceUsers) getHibernateTemplate().find("from com.bean.MxActivitiesMySpaceUsers au where au.mxUsersData.userId ="+ userId+" and au.myspaceId="+code.getMyspaceId()).get(0);
-			if (buff==null) {//为空说明还未加入活动
-				MxUsersData user = new MxUsersData();
-				user.setUserId(userId);
-				MxActivitiesMySpaceUsers spaceUser = new MxActivitiesMySpaceUsers(
-						user, code.getMyspaceId(), null, new Timestamp(System.currentTimeMillis()), null, 0, 0, null,null);
-				getHibernateTemplate().save(spaceUser);
-				return 0;
-			} else {//不为空说明已经是活动参加人员
-				return -12;
-			}
 		}
 		
 	}
