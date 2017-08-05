@@ -177,7 +177,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	<body>
 		<div class="mui-content">
-		<c:forEach items="${userMySpaceMaterialList}" var="item1">
+		<c:forEach items="${sessionScope.userMySpaceMaterialList}" var="item1">
 		
 			<div class="mui-card">
 				<div class="mui-card-header mui-card-media">

@@ -47,4 +47,6 @@ public interface IActivitiesMySpaceDAO {
 	 */
 	int validateInviteCode(String inviteCode, int userId);
 
+	boolean validateMySpaceUser(int myspaceId, int userId);
+
 }

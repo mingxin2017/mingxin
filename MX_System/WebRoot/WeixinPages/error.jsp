@@ -9,9 +9,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>错误</title>
-    
-	<meta http-equiv="pragma" content="no-cache">
+    <title>错误提示</title>
+    <meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
@@ -19,10 +18,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-
+<style> 
+body{ text-align:center} 
+#center{ position:absolute; top:50%; left:50%; margin-top:-600px; margin-left:-400px;width:800px}
+.div{ margin:0 auto; width:80%;  border:1px solid #F00} 
+/* css注释：为了观察效果设置宽度 边框 高度等样式 */ 
+</style>
+<script type="text/javascript">
+	// 对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
+	var useragent = navigator.userAgent;
+	if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
+		// 这里警告框会阻塞当前页面继续加载
+		alert('已禁止本次访问：您必须在微信内访问本页面！');
+		// 以下代码是用javascript强行关闭当前页面
+		var opened = window.open('about:blank', '_self');
+		opened.opener = null;
+		opened.close();
+	}
+</script>
   </head>
   
   <body>
-    系统发生错误 <br>
+  	<div id="center">
+  	<div><font size="50">访问网页出错</font> </div>
+  	<div class="div">
+  	
+  		<img src="<%=basePath%>WeixinPages/common/image/error.jpg" style="width:100%;height:?">
+  		
+  	</div>
+  	
+  	</div>
   </body>
 </html>

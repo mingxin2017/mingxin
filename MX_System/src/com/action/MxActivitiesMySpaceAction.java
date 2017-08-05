@@ -51,60 +51,7 @@ public class MxActivitiesMySpaceAction {
 		this.activitiesMySpaceService = activitiesMySpaceService;
 	}
 	
-	//当前用户id缓存
-	private  MxUsersData userInfo;//保存用户个人信息
-	public MxUsersData getUserInfo() {
-		return userInfo;
-	}
-	public void setUserInfo(MxUsersData userInfo) {
-		this.userInfo = userInfo;
-	}
-
-	//活动空间id缓存
-	private int myspaceId;
-	public int getMyspaceId() {
-		return myspaceId;
-	}
-	public void setMyspaceId(int myspaceId) {
-		this.myspaceId = myspaceId;
-	}
-
-	//活动空间讨论缓存
-	private List<MxActivitiesMySpaceComment> userMySpaceCommentList;
-	public List<MxActivitiesMySpaceComment> getUserMySpaceCommentList() {
-		return userMySpaceCommentList;
-	}
-	public void setUserMySpaceCommentList(
-			List<MxActivitiesMySpaceComment> userMySpaceCommentList) {
-		this.userMySpaceCommentList = userMySpaceCommentList;
-	}
-
-	private List<ActivitiesUserMySpaceMaterial> userMySpaceMaterialList;
-	public List<ActivitiesUserMySpaceMaterial> getUserMySpaceMaterialList() {
-		return userMySpaceMaterialList;
-	}
-	public void setUserMySpaceMaterialList(
-			List<ActivitiesUserMySpaceMaterial> userMySpaceMaterialList) {
-		this.userMySpaceMaterialList = userMySpaceMaterialList;
-	}
-
-	//保存活动空间
-	private List<MxActivitiesMySpaceUsers> mySpaceUsersList;
-	public List<MxActivitiesMySpaceUsers> getMySpaceUsersList() {
-		return mySpaceUsersList;
-	}
-	public void setMySpaceUsersList(List<MxActivitiesMySpaceUsers> mySpaceUsersList) {
-		this.mySpaceUsersList = mySpaceUsersList;
-	}
 	
-	//保存个人空间封装类数据
-	private ActivitiesUserMySpaceMine myspaceUserMine;
-	public ActivitiesUserMySpaceMine getMyspaceUserMine() {
-		return myspaceUserMine;
-	}
-	public void setMyspaceUserMine(ActivitiesUserMySpaceMine myspaceUserMine) {
-		this.myspaceUserMine = myspaceUserMine;
-	}
 	
 	/**
 	 * 　　*活动空间action中的默认处理方法 　　
@@ -125,8 +72,7 @@ public class MxActivitiesMySpaceAction {
 		if(snsUserInfo==null){
 			return "noFocus";
 		}
-		
-		userInfo=userService.getUserByOpenId(snsUserInfo.getOpenId());//根据openId获取用户系统信息
+		MxUsersData userInfo=userService.getUserByOpenId(snsUserInfo.getOpenId());//根据openId获取用户系统信息
 		
 		if(userInfo==null){
 			//没有用户信息，说明未关注公众号
@@ -139,6 +85,7 @@ public class MxActivitiesMySpaceAction {
 			//}else{
 				List<MxActivitiesMySpaceData> userMySpaceDataList=activitiesMySpaceService.getMySpaceListBySpceIds(userMySpaceList);
 				request.setAttribute("userMySpaceDataList",userMySpaceDataList);//返回对象列表给前台
+				request.getSession().setAttribute("userInfo",userInfo);//设置用户信息session
 				
 				return "activitiesMySpaceList";
 			//}
@@ -153,19 +100,31 @@ public class MxActivitiesMySpaceAction {
 	public String gotoActivitiesMySpaceMain() {
 		
 		HttpServletRequest request = ServletActionContext.getRequest();
-		myspaceId=Integer.parseInt(request.getParameter("myspaceId"));
-		//request.setAttribute("myspaceId",myspaceId);
+		int myspaceId=Integer.parseInt(request.getParameter("myspaceId"));
+		request.getSession().setAttribute("myspaceId",myspaceId);//缓存用户查看的空间id
+		MxUsersData userInfo=(MxUsersData) request.getSession().getAttribute("userInfo");
+		int userId=-11;
+		if(userInfo!=null){
+			userId=userInfo.getUserId();
+		}
+		boolean b=activitiesMySpaceService.validateMySpaceUser(myspaceId,userId);
+		if(b==true){
+			return "activitiesMySpaceMain";
+		}else{
+			return "error";
+		}
 		
-		return "activitiesMySpaceMain";
 	}
 
 	/**
 	 * 获取活动空间评论内容列表
 	 */
 	public String getActivitiesMySpaceCommentList() {
+		HttpServletRequest request = ServletActionContext.getRequest();
 		//if(userMySpaceCommentList==null||userMySpaceCommentList.size()==0){
-		userMySpaceCommentList=activitiesMySpaceService.getUserMySpaceCommontList(myspaceId);
+		List<MxActivitiesMySpaceComment> userMySpaceCommentList=activitiesMySpaceService.getUserMySpaceCommontList((Integer)request.getSession().getAttribute("myspaceId"));
 		//}
+		request.getSession().setAttribute("userMySpaceCommentList",userMySpaceCommentList);//缓存用户查看的空间讨论
 		return "activitiesMySpaceCommentList";
 	}
 
@@ -173,7 +132,9 @@ public class MxActivitiesMySpaceAction {
 	 * 获取活动空间素材列表
 	 */
 	public String getActivitiesMySpaceMaterialList() {
-		userMySpaceMaterialList=activitiesMySpaceService.getUserMySpaceMaterialList(myspaceId);
+		HttpServletRequest request = ServletActionContext.getRequest();
+		List<ActivitiesUserMySpaceMaterial> userMySpaceMaterialList=activitiesMySpaceService.getUserMySpaceMaterialList((Integer)request.getSession().getAttribute("myspaceId"));
+		request.getSession().setAttribute("userMySpaceMaterialList",userMySpaceMaterialList);//缓存用户查看的空间素材列表
 		return "activitiesMySpaceMaterialList";
 	}
 
@@ -181,8 +142,9 @@ public class MxActivitiesMySpaceAction {
 	 * 获取活动空间用户
 	 */
 	public String getActivitiesMySpaceUsersList() {
-		mySpaceUsersList=activitiesMySpaceService.getMySpaceUsersList(myspaceId);
-		
+		HttpServletRequest request = ServletActionContext.getRequest();
+		List<MxActivitiesMySpaceUsers> mySpaceUsersList=activitiesMySpaceService.getMySpaceUsersList((Integer)request.getSession().getAttribute("myspaceId"));
+		request.getSession().setAttribute("mySpaceUsersList",mySpaceUsersList);//缓存用户查看的空间用户列表
 		return "activitiesMySpaceUsersList";
 		//return "testWebUploader";
 	}
@@ -191,7 +153,10 @@ public class MxActivitiesMySpaceAction {
 	 * 获取活动空间我的内容列表
 	 */
 	public String getActivitiesMySpaceMine() {
-		myspaceUserMine=activitiesMySpaceService.getMySpaceUserMine(userInfo.getUserId(),myspaceId);
+		HttpServletRequest request = ServletActionContext.getRequest();
+		MxUsersData userInfo=(MxUsersData) request.getSession().getAttribute("userInfo");
+		ActivitiesUserMySpaceMine myspaceUserMine=activitiesMySpaceService.getMySpaceUserMine(userInfo.getUserId(),(Integer)request.getSession().getAttribute("myspaceId"));
+		request.getSession().setAttribute("myspaceUserMine",myspaceUserMine);//缓存用户查看的空间个人信息
 		return "activitiesMySpaceMine";
 	}
 
@@ -221,6 +186,7 @@ public class MxActivitiesMySpaceAction {
 		activitiesMySpaceComment.setMyspaceId(myspaceId);
 		activitiesMySpaceComment.setCommentTxt(myspaceComment);
 		activitiesMySpaceComment.setState(0);
+		activitiesMySpaceComment.setPraiseUserIds("");
 		activitiesMySpaceComment.setPraiseClickNum(0);
 		activitiesMySpaceComment.setCreateDate(new Timestamp(System
 				.currentTimeMillis()));
@@ -292,7 +258,7 @@ public class MxActivitiesMySpaceAction {
 		String inviteCode = request.getParameter("inviteCode").toString();// 获取活动空间验证码
 		int b=activitiesMySpaceService.validateInviteCode(inviteCode,Integer.parseInt(userId));
 		
-		System.out.println("//////"+b);
+		//System.out.println("//////"+b);
 		
 		//生成的邀请链接WeixinSignUtil.serverUrl+"activitiesMySpace!validateInviteCode.action?activityId=1&myspaceId=5&inviteCode=jdfjsj"
 		

@@ -35,6 +35,7 @@
 		<!-- 活动空间 -->
 		<action name="activitiesMySpace" class="activitiesMySpaceAction">
 			<result name="noFocus">/WeixinPages/focusWeixin.jsp</result>
+			<result name="error">/WeixinPages/error.jsp</result>
 			
 			<result name="currentActivitiesList">/WeixinPages/Activities/currentActivitiesList.jsp</result>
 		

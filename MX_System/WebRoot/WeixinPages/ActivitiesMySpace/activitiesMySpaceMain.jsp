@@ -100,12 +100,13 @@ function showIframe(pageTag,obj){
 		operateButton.innerHTML="上传照片";
 		url='activitiesMySpace!getActivitiesMySpaceMaterialList.action';
 	}else if(pageTag==3){
-		if(${userInfo.userTypeId}==1100){//活动发起人的类型为1100
+		if(${sessionScope.userInfo.userTypeId}==1100){//活动发起人的类型为1100
 			operateButton.innerHTML="发出邀请";
-			url='activitiesMySpace!getActivitiesMySpaceUsersList.action';
+			
 		}else{
 			operateButton.innerHTML="";
 		}
+		url='activitiesMySpace!getActivitiesMySpaceUsersList.action';
 		
 	}else if(pageTag==4){
 		operateButton.innerHTML="";
@@ -130,7 +131,7 @@ function operate(){
 								var txt = $('#subTxt').val();//获取输入的值
 								//var myspaceId=$('#myspaceId').val();
 								//var userId=$('#userId').val();//用户id
-								doSaveMyspaceComment(${userInfo.userId},${myspaceId},txt);
+								doSaveMyspaceComment(${sessionScope.userInfo.userId},${sessionScope.myspaceId},txt);
 							},
 							autofocus : true
 						}, {
@@ -174,7 +175,7 @@ function operate(){
 							$.ajax({
 							    type: "POST",
 							    url: "activitiesMySpace!DoCreateInviteCodeUrl.action", //生成活动邀请链接
-							    data: {"initiator_userId":${userInfo.userId},"myspaceId":${myspaceId}},
+							    data: {"initiator_userId":${userInfo.userId},"myspaceId":${sessionScope.myspaceId}},
 							    dataType:"json",
 							    async:false,
 							    cache:false,
@@ -360,8 +361,8 @@ function operate(){
 		</a> 
 	</nav>
 	<div id="iframeContent" class="mui-content" >
-		<input id="myspaceId" name="myspaceId" type="hidden" value="${myspaceId}"/>
-		<input id="userId" name="userId" type="hidden" value="${userInfo.userId}"/>
+		<input id="myspaceId" name="myspaceId" type="hidden" value="${sessionScope.myspaceId}"/>
+		<input id="userId" name="userId" type="hidden" value="${sessionScope.userInfo.userId}"/>
 		<iframe style="width:100%"  id="mainContent" name="mainContent"
 			 src="activitiesMySpace!getActivitiesMySpaceCommentList.action" />
 	</div>

@@ -94,7 +94,7 @@ function ClickPraise(commentId,userId){
 
 <body>
 	
-	<c:forEach items="${userMySpaceCommentList}" var="item">
+	<c:forEach items="${sessionScope.userMySpaceCommentList}" var="item">
 	<div class="mui-card">
 		<div class="mui-card-header mui-card-media" >
 			<img data-lazyload="${item.mxUsersData.weixinHeadUrl}" />
@@ -115,12 +115,12 @@ function ClickPraise(commentId,userId){
 			<%boolean isClicked=false; %>
 			<c:set value="${fn:split(item.praiseUserIds, ',') }" var="userIds" />
 			<c:forEach items="${userIds}" var="clickUserId">
-				<c:if test="${clickUserId==userInfo.userId}"><%isClicked=true; %> </c:if>
+				<c:if test="${clickUserId==sessionScope.userInfo.userId}"><%isClicked=true; %> </c:if>
 			</c:forEach>
 			
 			<a></a>
 			<%if(isClicked==false){ %>  
-       				<a id="aaa${item.commentId}" class="mui-card-link" href="javascript:void(0);" onclick="ClickPraise(${item.commentId},${userInfo.userId});"> 
+       				<a id="aaa${item.commentId}" class="mui-card-link" href="javascript:void(0);" onclick="ClickPraise(${item.commentId},${sessionScope.userInfo.userId});"> 
 					<span class="mui-icon icomoon icon-thumbs-up"></span><span id="span${item.commentId}">${item.praiseClickNum}</span>
 					</a>      
   				

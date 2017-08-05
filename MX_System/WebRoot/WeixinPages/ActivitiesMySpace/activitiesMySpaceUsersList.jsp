@@ -2,6 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<%@ page import="com.bean.MxUsersData;" %>
+
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -12,7 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>myspaceUsersList</title>
+    <title>活动用户列表</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -25,18 +28,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
   <div class="mui-content">
    <ul class="mui-table-view">
-   			<c:forEach items="${mySpaceUsersList}" var="item">
+   			<c:forEach items="${sessionScope.mySpaceUsersList}" var="item">
 				<li class="mui-table-view-cell mui-media">
-					<a href="javascript:;">
+					<div class="mui-slider-handle">
 						<img class="mui-media-object mui-pull-left" data-lazyload="${item.mxUsersData.weixinHeadUrl}">
 						<div class="mui-media-body">
 							${item.mxUsersData.userRealName}
-							<c:if test="${item.mxUsersData.userTypeId== 1101}">
+							<c:if test="${item.mxUsersData.userTypeId== 1100}">
 								<span class="mui-badge mui-badge-success">组织者</span>
 							</c:if>
 							<p class='mui-ellipsis'>电话${item.mxUsersData.userPhoneNum}</p>
 						</div>
-					</a>
+					</div>
+					<c:if test="${sessionScope.userInfo.userTypeId== 1100}">
+					<c:if test="${item.mxUsersData.userTypeId!= 1100}">
+					<div class="mui-slider-right mui-disabled">
+						<button id='deleteBtn'  type="button" onclick="DeleteMySpaceUser();" class="mui-btn mui-btn-red ">删除</button>
+					</div>
+					</c:if>
+					</c:if>
 				</li>
 			</c:forEach>
 			</ul>

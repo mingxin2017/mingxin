@@ -35,19 +35,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<form class="mui-input-group">
 						<div class="mui-input-row">
 							<label>姓名</label> <input type="text" class="mui-input-clear"
-								placeholder="输入姓名" value="${userInfo.userRealName}">
+								placeholder="输入姓名" value="${sessionScope.userInfo.userRealName}">
 						</div>
 						<div class="mui-input-row">
 							<label>手机号</label> <input type="text" class="mui-input-clear"
-								placeholder="输入手机号" value="${userInfo.userPhoneNum}">
+								placeholder="输入手机号" value="${sessionScope.userInfo.userPhoneNum}">
 						</div>
 						<div class="mui-input-row">
 							<label>联系地址</label> <input type="text" class="mui-input-clear"
-								placeholder="输入地址" value="${userInfo.userAddr}">
+								placeholder="输入地址" value="${sessionScope.userInfo.userAddr}">
 						</div>
 						<div class="mui-input-row">
 							<label>电子邮箱</label> <input type="text" class="mui-input-clear"
-								placeholder="输入电子邮箱" value="${userInfo.userEmail}">
+								placeholder="输入电子邮箱" value="${sessionScope.userInfo.userEmail}">
 						</div>
 						<div class="mui-button-row">
 							<button class="mui-btn mui-btn-primary" type="button"
@@ -56,11 +56,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</form>
 				</div></li>
 			<li class="mui-table-view-cell mui-collapse "><a
-				class="mui-navigate-right" href="#">我的照片(${fn:length(myspaceUserMine.activitiesMySpaceMaterialMineList)})</a>
+				class="mui-navigate-right" href="#">我的照片(${fn:length(sessionScope.myspaceUserMine.activitiesMySpaceMaterialMineList)})</a>
 				<div class="mui-collapse-content">
 							<div id="slider" class="mui-slider">
 								<div class="mui-slider-group ">
-									<c:forEach items="${myspaceUserMine.activitiesMySpaceMaterialMineList}" var="item" varStatus="st">
+									<c:forEach items="${sessionScope.myspaceUserMine.activitiesMySpaceMaterialMineList}" var="item" varStatus="st">
 									
 									<!-- 第一张 -->
 									<div class="mui-slider-item" >
@@ -74,11 +74,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 			</li>
 			<li class="mui-table-view-cell mui-collapse"><a
-				class="mui-navigate-right" href="#">我的讨论(${fn:length(myspaceUserMine.activitiesMySpaceCommentMineList)})</a>
+				class="mui-navigate-right" href="#">我的讨论(${fn:length(sessionScope.myspaceUserMine.activitiesMySpaceCommentMineList)})</a>
 				<div class="mui-collapse-content">
 				<ul class="mui-table-view mui-table-view-striped mui-table-view-condensed">
 		          
-		          <c:forEach items="${myspaceUserMine.activitiesMySpaceCommentMineList}" var="item">
+		          <c:forEach items="${sessionScope.myspaceUserMine.activitiesMySpaceCommentMineList}" var="item">
 		          <li id="li${item.commentId}" class="mui-table-view-cell mui-media">
 		          	<div class="mui-slider-right mui-disabled">
 						<button  onclick="DeleteComment(${item.commentId});" class="mui-btn mui-btn-red ">删除</button>

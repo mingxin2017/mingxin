@@ -219,5 +219,21 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 		
 	}
 
+	public boolean validateMySpaceUser(int myspaceId, int userId) {
+		// TODO Auto-generated method stub
+		try{
+			
+			List buff=getHibernateTemplate().find("from com.bean.MxActivitiesMySpaceUsers au where au.mxUsersData.userId ="+ userId+" and au.myspaceId="+myspaceId);
+			if (buff.size()==0) {
+				return false;
+			}else{
+				return true;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 
 }

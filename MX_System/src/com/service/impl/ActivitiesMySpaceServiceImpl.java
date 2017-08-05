@@ -104,5 +104,10 @@ public class ActivitiesMySpaceServiceImpl implements com.service.IActivitiesMySp
 		return activitiesMySpaceDAO.validateInviteCode(inviteCode,userId);
 	}
 
+	public boolean validateMySpaceUser(int myspaceId, int userId) {
+		// TODO Auto-generated method stub
+		return activitiesMySpaceDAO.validateMySpaceUser(myspaceId,userId);
+	}
+
 	
 }
