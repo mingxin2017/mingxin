@@ -62,15 +62,20 @@ public class WeixinServiceImpl implements com.service.IWeixinService{
 
             // 文本消息
             if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {
+            	//回复数字1：鸣心招聘;回复数字2：广告业务;回复数字3：联系地址;回复数字4：鸣心简介;回复数字5：鸣心管理员入口
             	String content=requestMap.get("Content");
             	if("1".equals(content)){
             		respContent = "请投放个人简历至mingxin2017@yahoo.com，我们将尽快与你联系，鸣心真诚期待你的加入！";
             	}else if("2".equals(content)){
             		respContent = "广告投放请联系18888888888，鸣心将诚挚与您合作！";
             	}else if("3".equals(content)){
-            		respContent = "鸣心文化有限公司地址：古田县城东街道建设路8号，邮政编码352200";
+            		respContent = "鸣心文化有限公司地址：福建省古田县城西街道康百家药店4楼，邮政编码352200";
+            	}else if("4".equals(content)){
+            		respContent = "鸣心文化有限公司专业策划承办各种户外扩展活动，数字平台化管理模式，网络推广的佼佼者。";
+            	}else if("5".equals(content)){
+            		respContent = "管理员登录入口：www.baidu.com";
             	}else{
-            		respContent = "回复有误,感谢您对鸣心的关注！";
+            		respContent = "未知操作,感谢您对鸣心的关注！";
             	}
                 
                 //测试获取用户详细信息
@@ -240,7 +245,7 @@ public class WeixinServiceImpl implements com.service.IWeixinService{
                 	}
                 	
                 	if(eventKey!=null&&eventKey.equals("35")){
-                		respContent="回复数字1：鸣心招聘\r\n\r\n回复数字2：广告业务\r\n\r\n回复数字3：联系地址\r\n\r\n回复数字4：鸣心简介\r\n\r\n回复数字5：完善个人信息";
+                		respContent="回复数字1：鸣心招聘\r\n\r\n回复数字2：广告业务\r\n\r\n回复数字3：联系地址\r\n\r\n回复数字4：鸣心简介\r\n\r\n回复数字5：鸣心管理员入口";
                 	}
                 }
             }

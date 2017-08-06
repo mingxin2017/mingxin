@@ -84,9 +84,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    		//刷新当前页面
 		    		dialog(data.msg, function(){}).showModal();
 		    		//window.location.reload();
-		    		alert(data.liData);
+		    		//alert(data.liData);
 		    		var t=document.getElementById('tableList');
-		    		alert(t);
+		    		//alert(t);
 		    		t.innerHTML+=data.liData;
 		    		
 		    	}else{

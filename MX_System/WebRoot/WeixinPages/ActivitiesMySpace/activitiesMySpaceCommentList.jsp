@@ -50,7 +50,7 @@ function ClickPraise(commentId,userId){
          type: 'post',
          data: {'commentId':commentId,'userId':userId},
          dataType: 'json',
-         timeout: 2000000,
+         async:false,//关闭异步
          success: function (response) {
              if (response.done == '0') {
             	 numTip.innerHTML=num+1;

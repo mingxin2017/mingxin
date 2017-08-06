@@ -109,5 +109,10 @@ public class ActivitiesMySpaceServiceImpl implements com.service.IActivitiesMySp
 		return activitiesMySpaceDAO.validateMySpaceUser(myspaceId,userId);
 	}
 
+	public boolean deleteMyspaceUser(int myspaceId, int userId) {
+		// TODO Auto-generated method stub
+		return activitiesMySpaceDAO.deleteMyspaceUser(myspaceId,userId);
+	}
+
 	
 }

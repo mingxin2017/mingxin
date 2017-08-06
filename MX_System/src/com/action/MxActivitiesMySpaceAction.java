@@ -375,4 +375,32 @@ public class MxActivitiesMySpaceAction {
 	public void testWebUploader(){
 		System.out.println("testWebUploader");
 	}
+	
+	/*
+	 * 将用户移出活动空间
+	 */
+	public void removeMyspaceUser() throws IOException{
+		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
+		request.setCharacterEncoding("UTF-8");
+		HttpServletResponse response = ServletActionContext.getResponse();// response对象返回数据给前台
+		response.setContentType("application/json; charset=utf-8");
+		
+		int userId = Integer.parseInt(request.getParameter("userId").toString());// 获取用户id
+		int myspaceId = Integer.parseInt(request.getParameter("myspaceId").toString());// 获取活动空间id
+		
+		boolean isDone=activitiesMySpaceService.deleteMyspaceUser(myspaceId,userId);
+		
+		Map<String, String> map = new HashMap<String, String>();
+		if (!isDone) {
+			map.put("done", "-1");
+			map.put("msg", "移除失败，请联系系统管理员!");
+		} else {
+			map.put("done", "0");
+			map.put("msg", "成功移除用户!");
+		}
+		JSONObject jsonObject = JSONObject.fromObject(map);
+		response.getWriter().write(jsonObject.toString());
+	}
+	
+	
 }

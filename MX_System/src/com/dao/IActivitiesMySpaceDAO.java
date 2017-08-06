@@ -49,4 +49,6 @@ public interface IActivitiesMySpaceDAO {
 
 	boolean validateMySpaceUser(int myspaceId, int userId);
 
+	boolean deleteMyspaceUser(int myspaceId, int userId);
+
 }

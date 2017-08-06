@@ -235,5 +235,20 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 		}
 	}
 
+	/*
+	 * 移除活动空间用户
+	 */
+	public boolean deleteMyspaceUser(int myspaceId, int userId) {
+		// TODO Auto-generated method stub
+		List users=getHibernateTemplate().find("from com.bean.MxActivitiesMySpaceUsers au where au.mxUsersData.userId ="+ userId+" and au.myspaceId="+myspaceId);
+		if(users.size()>0){
+			MxActivitiesMySpaceUsers user= (MxActivitiesMySpaceUsers) users.get(0);
+			getHibernateTemplate().delete(user);
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 
 }
