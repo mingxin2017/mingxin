@@ -3,7 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<%@ page import="com.bean.MxUsersData;"%>
+<%@ page import="com.mx.ssh.bean.MxUsersData;"%>
 
 <%
 String path = request.getContextPath();

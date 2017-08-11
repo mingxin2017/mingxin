@@ -24,7 +24,7 @@ body{ text-align:center}
 .div{ margin:0 auto; width:80%;  border:1px solid #F00} 
 /* css注释：为了观察效果设置宽度 边框 高度等样式 */ 
 </style>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	// 对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
 	var useragent = navigator.userAgent;
 	if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
@@ -35,7 +35,7 @@ body{ text-align:center}
 		opened.opener = null;
 		opened.close();
 	}
-</script>
+</script> -->
   </head>
   
   <body>

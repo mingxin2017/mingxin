@@ -1,76 +1,57 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
-	<constant name = "struts.multipart.maxSize" value = "52428800" /><!-- 修改struts2默认文件上传大小限制为50M -->
-	<package name="JC_Web_System" namespace="/" extends="struts-default">
-		<action name="sysUser" class="userAction">
-			<result name="success">/Pages/index.jsp</result>
-			
-			<result name="loginFail">/login.jsp</result>
-			<!-- <result name="input">/Pages/error.jsp</result> -->
-			<result name="LogOut">/login.jsp</result>
-			<result name="userList">/Pages/user_List.jsp</result>
-			
-		</action>
-		
-		<action name="weixin" class="weixinAction">
-		    
-			<result name="unregistered2">/WeixinPages/AlumniActivitiesList.jsp</result>
-			<result name="unregistered">/WeixinPages/erweima.jsp</result>
-			<result name="gotoEditNews">/WeixinPages/News/editNews.jsp</result>
-			<result name="countryNews">/WeixinPages/countryNews.jsp</result>
-			<result name="schoolNews">/WeixinPages/schoolNews.jsp</result>
-		</action>
-		
-		<!-- 活动宣传文章 -->
-		<action name="activitiesPublicity" class="activitiesPublicityAction">
-			
-			<result name="noFocus">/WeixinPages/focusWeixin.jsp</result>
-			<result name="error">/WeixinPages/error.jsp</result>
-			
-			<result name="ActivitiesPublicityList">/WeixinPages/ActivitiesPublicity/ActivitiesPublicityList.jsp</result>
-			<result name="ActivitiesPublicityDetail">/WeixinPages/ActivitiesPublicity/ActivitiesPublicityDetail.jsp</result>
-		</action>
-		
-		<!-- 活动空间 -->
-		<action name="activitiesMySpace" class="activitiesMySpaceAction">
-			<result name="noFocus">/WeixinPages/focusWeixin.jsp</result>
-			<result name="error">/WeixinPages/error.jsp</result>
-			
-			<result name="currentActivitiesList">/WeixinPages/Activities/currentActivitiesList.jsp</result>
-		
-			<result name="activitiesMySpaceList">/WeixinPages/ActivitiesMySpace/activitiesMySpaceAllList.jsp</result> 
-			<result name="activitiesMySpaceMain">/WeixinPages/ActivitiesMySpace/activitiesMySpaceMain.jsp</result>
-			<result name="activitiesMySpaceCommentList">/WeixinPages/ActivitiesMySpace/activitiesMySpaceCommentList.jsp</result>
-			<result name="activitiesMySpaceMaterialList">/WeixinPages/ActivitiesMySpace/activitiesMySpaceMaterialList.jsp</result>
-			<result name="activitiesMySpaceUsersList">/WeixinPages/ActivitiesMySpace/activitiesMySpaceUsersList.jsp</result>
-			<result name="activitiesMySpaceMine">/WeixinPages/ActivitiesMySpace/activitiesMySpaceMine.jsp</result>
-			<!-- <result name="activitiesMySpaceMine">/WeixinPages/ActivitiesMySpace/testImgUpload.jsp</result> -->
-			<!-- <result name="testEducation">/WeixinPages/Education/testEducation.jsp</result> -->
-			<!-- <result name="testEducation">/WeixinPages/TestQiNiu/testQiNiu.jsp</result> -->
-			<result name="testWebUploader">/WeixinPages/Education/testWebUploader5.jsp</result>
-			
-		</action>
-		
-		
-		<!-- 小记者相关业务 -->
-		<action name="mxReporterBusiness" class="mxReporterBusinessAction">
-			<result name="ReporterApply">/WeixinPages/Reporter/reporterApplyIndex.jsp</result>
-		    <result name="ReporterManage">/WeixinPages/Reporter/reporterManageIndex.jsp</result>
-			<result name="NewsPage">/WeixinPages/News/newsPage.jsp</result>
-		</action>
-		
-		<!-- 上传文件action -->
-		<action name="uploadFile" class="testFileUploadAction">
-		<!-- 引用fileUpload拦截器
-      		<interceptor-ref name="fileUpload">
 
-          设置单个上传文件的大小，单位字节
-          		<param name="maximumSize">50000000</param>
-      		</interceptor-ref>
+	<!-- 请求参数的编码方式 -->  
+    <constant name="struts.i18n.encoding" value="UTF-8" />  
+    <!-- 指定被struts2处理的请求后缀类型。多个用逗号隔开 -->  
+    <constant name="struts.action.extension" value="action" />  
+    <!-- 当struts.xml改动后，是否重新加载。默认值为false(生产环境下使用),开发阶段最好打开 -->  
+    <constant name="struts.configuration.xml.reload" value="true" />  
+    <!-- 是否使用struts的开发模式。开发模式会有更多的调试信息。默认值为false(生产环境下使用),开发阶段最好打开 -->  
+    <constant name="struts.devMode" value="true" />  
+    <!-- 设置浏览器是否缓存静态内容。默认值为true(生产环境下使用),开发阶段最好关闭 -->  
+    <constant name="struts.serve.static.browserCache" value="false" />  
+    <!-- 指定由spring负责action对象的创建   -->  
+    <constant name="struts.objectFactory" value="spring" />  
+    <!-- 是否开启动态方法调用 -->  
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<!-- 修改struts2默认文件上传大小限制为50M -->
+	<constant name = "struts.multipart.maxSize" value = "52428800" />
+	
+	
+	<!-- 系统全局错误页面配置，用户登录拦截器配置 -->
+	<package name="default-package" extends="struts-default">
+		<global-results>
+			<result name="error">/WeixinPages/error.jsp</result>
+		</global-results>
 
-      当显示声明使用某一具体拦截器时，那么默认拦截器栈中的18个拦截器就不起作用了
- -->
-		</action>
+		<global-exception-mappings>
+			<exception-mapping exception="java.lang.NullPointerException" result="error" />
+			<exception-mapping exception="java.lang.Exception" result="error" />
+		</global-exception-mappings>
 	</package>
+	
+	
+	<package name="sys-default" extends="default-package">
+		<!-- 用户登录拦截器 -->
+	    <interceptors>
+            <!-- 定义权限控制拦截器 -->
+            <interceptor name="authority"
+                class="com.mx.util.AuthInterceptor" />
+            <!-- 定义一个包含权限控制的拦截器栈 -->
+            <interceptor-stack name="mydefault">
+                <interceptor-ref name="defaultStack" />
+                <interceptor-ref name="authority" />
+            </interceptor-stack>
+        </interceptors>
+        <!-- 定义默认拦截器 -->
+        <default-interceptor-ref name="mydefault" />
+        <!-- 定义全局处理结果 -->
+        <global-results>
+            <!-- 逻辑名为login的结果，映射到/nologin.jsp页面 -->
+            <result name="noLogin">/WeixinPages/noLogin.jsp</result>
+        </global-results>
+    </package>
+	
 </struts>
