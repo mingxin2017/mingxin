@@ -24,17 +24,21 @@ public class AuthInterceptor extends AbstractInterceptor{
 	
     @Override  
     public String intercept(ActionInvocation invocation) throws Exception {  
+    	System.out.println("进入登录拦截器");
     	HttpServletRequest request = ServletActionContext.getRequest();
     	MxUsersData userInfo = (MxUsersData)request.getSession().getAttribute("userInfo");//从session中获取用户信息
+    	//System.out.println(userInfo);
     	if(userInfo==null){//若session用户信息不存在，则验证是否有微信的用户验证机制传过来的用户信息
     		SNSUserInfo snsUserInfo=WeixinUtil.validateWeixinWebUser(request);//获取网页验证个人信息
+
+    		//System.out.println(snsUserInfo.getOpenId());
     		if(snsUserInfo!=null){
     			userInfo=userService.getUserByOpenId(snsUserInfo.getOpenId());//根据openId获取用户系统信息
     			request.getSession().setAttribute("userInfo", userInfo);//是从微信网页验证过来的请求，设置session用户信息
+    			return invocation.invoke();
     		}else{
     			return "noLogin";
     		}
-    		return invocation.invoke();
     	}else{
             return invocation.invoke();
         }

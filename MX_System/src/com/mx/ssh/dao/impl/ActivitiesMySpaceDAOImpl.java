@@ -61,7 +61,7 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 		// TODO Auto-generated method stub
 		List<MxActivitiesMySpaceData> userSpaceList=new ArrayList();
 		for(int i=0;i<userMySpaceList.size();i++){
-			MxActivitiesMySpaceData spaceData=(MxActivitiesMySpaceData) getHibernateTemplate().find("from com.bean.MxActivitiesMySpaceData au where au.myspaceId = "+ userMySpaceList.get(i).getMyspaceId()).get(0);
+			MxActivitiesMySpaceData spaceData=(MxActivitiesMySpaceData) getHibernateTemplate().find("from com.mx.ssh.bean.MxActivitiesMySpaceData au where au.myspaceId = "+ userMySpaceList.get(i).getMyspaceId()).get(0);
 			userSpaceList.add(spaceData);
 		}
 		return userSpaceList;
@@ -69,7 +69,7 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 
 	public MxActivitiesMySpaceData getMySpaceBySpaceId(int myspaceId) {
 		// TODO Auto-generated method stub
-		return (MxActivitiesMySpaceData) getHibernateTemplate().find("from com.bean.MxActivitiesMySpaceData au where au.myspaceId = "+ myspaceId).get(0);
+		return (MxActivitiesMySpaceData) getHibernateTemplate().find("from com.mx.ssh.bean.MxActivitiesMySpaceData au where au.myspaceId = "+ myspaceId).get(0);
 	}
 
 	public MxActivitiesMySpaceUsers getMySpaceUserByUserId_SpaceId(

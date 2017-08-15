@@ -1,16 +1,9 @@
 package com.mx.ssh.service.impl;
 
-import java.util.HashMap;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.mx.ssh.bean.MxUsersData;
-import com.mx.ssh.bean.PageBean;
 import com.mx.ssh.dao.ISysUsersDAO;
 
 @Service("userService")

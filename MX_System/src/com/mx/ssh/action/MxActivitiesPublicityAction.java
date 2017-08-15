@@ -8,6 +8,7 @@ import org.apache.struts2.ServletActionContext;
 
 import com.mx.ssh.bean.MxActivitiesPublicityContent;
 import com.mx.ssh.bean.MxActivitiesPublicityData;
+import com.mx.ssh.bean.MxUsersData;
 import com.mx.ssh.service.IActivitiesPublicityService;
 import com.mx.weixin.pojo.SNSUserInfo;
 import com.mx.weixin.util.WeixinSignUtil;
@@ -38,10 +39,11 @@ public class MxActivitiesPublicityAction {
 		 */
 		
 		
-		SNSUserInfo snsUserInfo=WeixinUtil.validateWeixinWebUser(request);
-		if(snsUserInfo==null){
-			return "noFocus";
-		}
+		SNSUserInfo userInfo=WeixinUtil.validateWeixinWebUser(request);
+//		
+//		if(userInfo==null){
+//			return "noFocus";
+//		}
 		
 		String activitiesType = request.getParameter("type");
 		List<MxActivitiesPublicityData> activitiesPublicityList = activitiesPublicityService

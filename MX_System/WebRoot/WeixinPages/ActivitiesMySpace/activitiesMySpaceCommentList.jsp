@@ -46,7 +46,7 @@ function ClickPraise(commentId,userId){
 	//numTip.innerHTML=num+1;
 	
 	 $.ajax({
-         url:'activitiesMySpace!CommentClickPraise.action',
+         url:'activitiesMySpace/CommentClickPraise.action',
          type: 'post',
          data: {'commentId':commentId,'userId':userId},
          dataType: 'json',
@@ -94,7 +94,7 @@ function ClickPraise(commentId,userId){
 
 <body>
 	
-	<c:forEach items="${sessionScope.userMySpaceCommentList}" var="item">
+	<c:forEach items="${userMySpaceCommentList}" var="item">
 	<div class="mui-card">
 		<div class="mui-card-header mui-card-media" >
 			<img data-lazyload="${item.mxUsersData.weixinHeadUrl}" />

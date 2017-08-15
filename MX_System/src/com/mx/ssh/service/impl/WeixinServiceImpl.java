@@ -32,9 +32,9 @@ public class WeixinServiceImpl implements com.mx.ssh.service.IWeixinService{
 	private ISysUsersDAO sysUsersDAO;//依赖注入用户dao
 	
 	public String processRequest(HttpServletRequest request) {
-		System.out.println("process");
+		System.out.println("进入微信serviceImpl.process");
 		// TODO Auto-generated method stub
-		System.out.println("微信用户发出请求");
+		//System.out.println("微信用户发出请求");
 		// xml格式的消息数据
         String respXml = null;
         // 默认返回的文本消息内容
@@ -58,10 +58,11 @@ public class WeixinServiceImpl implements com.mx.ssh.service.IWeixinService{
             //获取请求用户信息
             WeixinUserInfo wui=WeixinUtil.getUserInfo(WeixinGetTokenTimerTask.token.getAccessToken(), fromUserName);
 
-            MxUsersData userInfo=sysUsersDAO.validateWeixinUser(wui.getOpenId());
-            if(userInfo!=null){//若系统用户信息存在，设置session值
-            	request.getSession().setAttribute("userInfo", userInfo);
-            }
+//            MxUsersData userInfo=sysUsersDAO.validateWeixinUser(wui.getOpenId());
+//            if(userInfo!=null){//若系统用户信息存在，设置session值
+//            	request.getSession().setAttribute("userInfo", userInfo);
+//            	System.out.println("设置了session中的userInfo");
+//            }
             
             // 回复文本消息
             TextMessage textMessage = new TextMessage();

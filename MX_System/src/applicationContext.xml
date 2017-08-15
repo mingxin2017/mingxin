@@ -69,7 +69,13 @@
 	<context:annotation-config />
 
  	<!-- 让Spring通过自动扫描来查询和管理Bean -->
-	<context:component-scan base-package="com.mx.ssh" ></context:component-scan>  
+	<!-- <context:component-scan base-package="com.mx.ssh" ></context:component-scan>   -->
+	<context:component-scan base-package="com" use-default-filters="false">
+        <context:include-filter type="regex" expression="com.mx.ssh.action.*"/>
+        <context:include-filter type="regex" expression="com.mx.ssh.service.impl.*"/>
+        <context:include-filter type="regex" expression="com.mx.ssh.dao.impl.*"/>
+        <context:include-filter type="regex" expression="com.mx.weixin.util.*"/>
+	</context:component-scan>
 	
 	<task:annotation-driven /> <!-- 定时器开关-->  
   	<context:component-scan base-package="com.mx.weixin.task"></context:component-scan>

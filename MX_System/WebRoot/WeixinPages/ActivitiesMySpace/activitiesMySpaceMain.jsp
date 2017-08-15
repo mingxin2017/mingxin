@@ -95,10 +95,10 @@ function showIframe(pageTag,obj){
 	var url;
 	if(pageTag==1){
 		operateButton.innerHTML="发言";
-		url='activitiesMySpace!getActivitiesMySpaceCommentList.action';
+		url='getActivitiesMySpaceCommentList.action';
 	}else if(pageTag==2){
 		operateButton.innerHTML="上传照片";
-		url='activitiesMySpace!getActivitiesMySpaceMaterialList.action';
+		url='getActivitiesMySpaceMaterialList.action';
 	}else if(pageTag==3){
 		if(${sessionScope.userInfo.userTypeId}==1100){//活动发起人的类型为1100
 			operateButton.innerHTML="发出邀请";
@@ -106,11 +106,11 @@ function showIframe(pageTag,obj){
 		}else{
 			operateButton.innerHTML="";
 		}
-		url='activitiesMySpace!getActivitiesMySpaceUsersList.action';
+		url='getActivitiesMySpaceUsersList.action';
 		
 	}else if(pageTag==4){
 		operateButton.innerHTML="";
-		url='activitiesMySpace!getActivitiesMySpaceMine.action';
+		url='getActivitiesMySpaceMine.action';
 	}else{return;}
 	document.getElementById('mainContent').src=url;
 	$("#mainContent").load(function(){//iframe加载完成后关闭加载框
@@ -174,7 +174,7 @@ function operate(){
 						callback : function() {
 							$.ajax({
 							    type: "POST",
-							    url: "activitiesMySpace!DoCreateInviteCodeUrl.action", //生成活动邀请链接
+							    url: "DoCreateInviteCodeUrl.action", //生成活动邀请链接
 							    data: {"initiator_userId":${userInfo.userId},"myspaceId":${sessionScope.myspaceId}},
 							    dataType:"json",
 							    async:false,
@@ -252,7 +252,7 @@ function operate(){
             .then(function (rst) {
             	//alert(222);
                 $.ajax({
-                    url: 'activitiesMySpace!UploadImage.action',
+                    url: 'UploadImage.action',
                     type: 'post',
                     data: {img: rst.base64,userId:userId,myspaceId:myspaceId},
                     dataType: 'json',
@@ -264,7 +264,7 @@ function operate(){
         		    			d.close().remove();
         		    		}, 1500);
                         	//刷新页面
-                        	document.getElementById('mainContent').src= "activitiesMySpace!getActivitiesMySpaceMaterialList.action";
+                        	document.getElementById('mainContent').src= "getActivitiesMySpaceMaterialList.action";
                         	
                             return true;
                         } else {
@@ -306,14 +306,14 @@ function operate(){
 	function doSaveMyspaceComment(userId,myspaceId,txt){
 		$.ajax({
 		    type: "POST",
-		    url: "activitiesMySpace!DoSaveActivitiesMySpaceComment.action", //orderModifyStatus
+		    url: "DoSaveActivitiesMySpaceComment.action", //orderModifyStatus
 		    data: {"userId":userId,"myspaceId":myspaceId,"txt":txt},
 		    dataType:"json",
 		    async:false,
 		    cache:false,
 		    success: function(data){
 		    	if(data.done=='0'){
-		    		document.getElementById('mainContent').src='activitiesMySpace!getActivitiesMySpaceCommentList.action';
+		    		document.getElementById('mainContent').src='getActivitiesMySpaceCommentList.action';
 		    		var dd = dialog('发送成功').show();
 		    		setTimeout(function () {
 		    			dd.close().remove();
@@ -364,7 +364,7 @@ function operate(){
 		<input id="myspaceId" name="myspaceId" type="hidden" value="${sessionScope.myspaceId}"/>
 		<input id="userId" name="userId" type="hidden" value="${sessionScope.userInfo.userId}"/>
 		<iframe style="width:100%"  id="mainContent" name="mainContent"
-			 src="activitiesMySpace!getActivitiesMySpaceCommentList.action" />
+			 src="getActivitiesMySpaceCommentList.action" />
 	</div>
 </body>
 

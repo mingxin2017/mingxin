@@ -79,7 +79,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 	<div class="mui-content">
 		<ul class="mui-table-view">
-			<c:forEach items="${sessionScope.mySpaceUsersList}" var="item">
+			<c:forEach items="${mySpaceUsersList}" var="item">
 				<li class="mui-table-view-cell mui-media"
 					id="${item.mxUsersData.userId}">
 					<div class="mui-slider-handle">

@@ -4,20 +4,26 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import net.sf.json.JSONObject;
 
+import com.mx.ssh.bean.MxUsersData;
 import com.mx.ssh.service.IUserService;
 import com.mx.weixin.menu.Menu;
 import com.mx.weixin.pojo.SNSUserInfo;
 import com.mx.weixin.pojo.WeixinOauth2Token;
 import com.mx.weixin.pojo.WeixinUserInfo;
 
+@Component
 public class WeixinUtil {
 
 	private static Logger log = LoggerFactory.getLogger(WeixinUtil.class);
 	
-	private static IUserService userService;
+	@Autowired
+	private  IUserService userService;
+	
 	// 菜单创建（POST） 限100（次/天）
     public static String menu_create_url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
     
@@ -103,9 +109,9 @@ public class WeixinUtil {
     }
    
     
-    public static SNSUserInfo validateWeixinWebUser(HttpServletRequest request){
+    public  static SNSUserInfo validateWeixinWebUser(HttpServletRequest request){
     	String code = request.getParameter("code");
-		if (!"authdeny".equals(code)&&code!=null) {
+		if (!"authdeny".equals(code)) {
 			// 获取网页授权access_token
 			WeixinOauth2Token weixinOauth2Token = OAuth2TokenUtil
 					.getOauth2AccessToken(WeixinSignUtil.AppID,
@@ -117,7 +123,10 @@ public class WeixinUtil {
 			
 			SNSUserInfo snsUserInfo = OAuth2TokenUtil.getSNSUserInfo(
 					accessToken, openId);
-			if(userService.validateWeixinUser(openId)==null){
+			
+			//MxUsersData user=userService.validateWeixinUser(openId);
+			
+			if(snsUserInfo==null){
 				return null;
 			}else{
 				return snsUserInfo;
@@ -129,16 +138,5 @@ public class WeixinUtil {
 		
     }
 
-
-
-	public IUserService getUserService() {
-		return userService;
-	}
-
-
-
-	public void setUserService(IUserService userService) {
-		this.userService = userService;
-	}
     
 }

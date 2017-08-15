@@ -41,7 +41,7 @@ body{ text-align:center}
   <body>
   	<div id="center">
   	<div><font size="50">访问网页出错</font> </div>
-  	<div class="div">
+  	<div >
   	
   		<img src="<%=basePath%>WeixinPages/common/image/error.jpg" style="width:100%;height:?">
   		

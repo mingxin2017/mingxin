@@ -41,7 +41,6 @@ import com.mx.weixin.util.WeixinSignUtil;
 
 @Controller//控制层的Spring注解
 @Scope("prototype")//支持多例
-@ParentPackage("default-package")//weixinAction不需要做登录校验，只需要做全局错误校验
 @Namespace(value="/weixin") //表示当前Action所在命名空间 
 public class WeixinAction { 
 
@@ -59,7 +58,8 @@ public class WeixinAction {
 	
 	@Action(value = "defaultMethod")
 	public String defaultMethod() throws Exception {
-        System.out.println("exec");   
+		
+        System.out.println("进入weixinAction.defaultMethod");   
 		// 将请求、响应的编码均设置为UTF-8（防止中文乱码）
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
@@ -76,14 +76,11 @@ public class WeixinAction {
 		// System.out.println(signature+"...............................");
 		PrintWriter out = response.getWriter();
 		
-		System.out.println(signature+','+timestamp+','+nonce);
+		//System.out.println("signature;timestamp;nonce"+signature+','+timestamp+','+nonce);
 		
 		//返回参数
 		String respParams= null;
-//		if(1==1){
-//			String respXml = weixinService.processRequest(request);
-//			return "notMyUser";
-//		}
+
 		// 请求校验
 		if (WeixinSignUtil.checkSignature(signature, timestamp, nonce)) {
 			String method = ServletActionContext.getRequest().getMethod();
