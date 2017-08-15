@@ -57,16 +57,13 @@ public class MxActivitiesMySpaceAction extends ActionSupport{
 	public String gotoActivitiesMySpaceList() {
 		
 		HttpServletRequest request = ServletActionContext.getRequest();
-		SNSUserInfo snsUserInfo=WeixinUtil.validateWeixinWebUser(request);
-		if(snsUserInfo==null){
-			return "error";
-		}
-		MxUsersData userInfo=userService.getUserByOpenId(snsUserInfo.getOpenId());//根据openId获取用户系统信息
 		
-		if(userInfo==null){
-			//没有用户信息，说明未关注公众号
-			return "noLogin";
-		}else{
+		MxUsersData userInfo=(MxUsersData) request.getSession().getAttribute("userInfo");//获取session中的用户信息
+		
+//		if(userInfo==null){
+//			//没有用户信息，说明未关注公众号
+//			return "noLogin";
+//		}else{
 			List<MxActivitiesMySpaceUsers> userMySpaceList = activitiesMySpaceService.getMySpaceListByUserId(userInfo.getUserId());
 			//if(userMySpaceList.size()==0){
 				//未参加过任何活动
@@ -78,7 +75,7 @@ public class MxActivitiesMySpaceAction extends ActionSupport{
 				
 				return "activitiesMySpaceList";
 			//}
-		}
+//		}
 		
 		
 	}

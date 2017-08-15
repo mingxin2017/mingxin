@@ -38,7 +38,7 @@
 	    <interceptors>
             <!-- 定义权限控制拦截器 -->
             <interceptor name="authority"
-                class="com.mx.util.AuthInterceptor" />
+                class="com.mx.ssh.util.AuthInterceptor" />
             <!-- 定义一个包含权限控制的拦截器栈 -->
             <interceptor-stack name="mydefault">
                 <interceptor-ref name="defaultStack" />

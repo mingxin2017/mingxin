@@ -121,8 +121,7 @@ public class MenuManager {
         CommonButton btn34 = new CommonButton(); 
         btn34.setName("活动空间");
         btn34.setType("view");
-        btn34.setUrl((baseUrl.replace("APPID",WeixinSignUtil.AppID)).replace("GOTOURL",WeixinSignUtil.serverUrl+ "activitiesMySpace!gotoActivitiesMySpaceList.action"));
-        //btn34.setUrl("http://mingxin.imwork.net/MX_System/activitiesMySpace!gotoActivitiesMySpaceMain.action");
+        btn34.setUrl((baseUrl.replace("APPID",WeixinSignUtil.AppID)).replace("GOTOURL",WeixinSignUtil.serverUrl+ "activitiesMySpace/gotoActivitiesMySpaceList.action"));
         
         CommonButton btn35 = new CommonButton();
         btn35.setName("其他功能");

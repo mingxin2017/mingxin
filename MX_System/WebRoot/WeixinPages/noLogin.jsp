@@ -39,6 +39,6 @@ body{ text-align:center}
   </head>
   
   <body>
-  	未检测到登录信息，请通过鸣心公众号访问该内容！
+  	未检测到系统登录信息，请通过鸣心公众号访问该内容！
   </body>
 </html>

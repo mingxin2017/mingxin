@@ -105,7 +105,7 @@ public class WeixinUtil {
     
     public static SNSUserInfo validateWeixinWebUser(HttpServletRequest request){
     	String code = request.getParameter("code");
-		if (!"authdeny".equals(code)) {
+		if (!"authdeny".equals(code)&&code!=null) {
 			// ªÒ»°Õ¯“≥ ⁄»®access_token
 			WeixinOauth2Token weixinOauth2Token = OAuth2TokenUtil
 					.getOauth2AccessToken(WeixinSignUtil.AppID,
