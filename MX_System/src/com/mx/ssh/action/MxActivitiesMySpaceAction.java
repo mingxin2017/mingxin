@@ -28,8 +28,8 @@ import com.mx.ssh.bean.sysBean.ActivitiesUserMySpaceMaterial;
 import com.mx.ssh.bean.sysBean.ActivitiesUserMySpaceMine;
 import com.mx.ssh.service.IActivitiesMySpaceService;
 import com.mx.ssh.service.IUserService;
-import com.mx.util.ImageMethod;
-import com.mx.util.PasswordUtil;
+import com.mx.ssh.util.ImageMethod;
+import com.mx.ssh.util.PasswordUtil;
 import com.mx.weixin.pojo.SNSUserInfo;
 import com.mx.weixin.util.WeixinUtil;
 import com.opensymphony.xwork2.ActionSupport;
@@ -59,13 +59,13 @@ public class MxActivitiesMySpaceAction extends ActionSupport{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		SNSUserInfo snsUserInfo=WeixinUtil.validateWeixinWebUser(request);
 		if(snsUserInfo==null){
-			return "noFocus";
+			return "error";
 		}
 		MxUsersData userInfo=userService.getUserByOpenId(snsUserInfo.getOpenId());//根据openId获取用户系统信息
 		
 		if(userInfo==null){
 			//没有用户信息，说明未关注公众号
-			return "noFocus";
+			return "noLogin";
 		}else{
 			List<MxActivitiesMySpaceUsers> userMySpaceList = activitiesMySpaceService.getMySpaceListByUserId(userInfo.getUserId());
 			//if(userMySpaceList.size()==0){
@@ -83,9 +83,11 @@ public class MxActivitiesMySpaceAction extends ActionSupport{
 		
 	}
 
-	/**
+	/*
 	 * 跳转到活动空间页面主框架
 	 */
+	@Action(value = "gotoActivitiesMySpaceMain", 
+			results = {@Result(name = "activitiesMySpaceMain",location = "/WeixinPages/ActivitiesMySpace/activitiesMySpaceMain.jsp")})
 	public String gotoActivitiesMySpaceMain() {
 		
 		HttpServletRequest request = ServletActionContext.getRequest();
@@ -108,6 +110,8 @@ public class MxActivitiesMySpaceAction extends ActionSupport{
 	/**
 	 * 获取活动空间评论内容列表
 	 */
+	@Action(value = "getActivitiesMySpaceCommentList", 
+			results = {@Result(name = "activitiesMySpaceCommentList",location = "/WeixinPages/ActivitiesMySpace/activitiesMySpaceCommentList.jsp")})
 	public String getActivitiesMySpaceCommentList() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		//if(userMySpaceCommentList==null||userMySpaceCommentList.size()==0){
@@ -120,6 +124,8 @@ public class MxActivitiesMySpaceAction extends ActionSupport{
 	/**
 	 * 获取活动空间素材列表
 	 */
+	@Action(value = "getActivitiesMySpaceMaterialList", 
+			results = {@Result(name = "activitiesMySpaceMaterialList",location = "/WeixinPages/ActivitiesMySpace/activitiesMySpaceMaterialList.jsp")})
 	public String getActivitiesMySpaceMaterialList() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		List<ActivitiesUserMySpaceMaterial> userMySpaceMaterialList=activitiesMySpaceService.getUserMySpaceMaterialList((Integer)request.getSession().getAttribute("myspaceId"));
@@ -130,6 +136,8 @@ public class MxActivitiesMySpaceAction extends ActionSupport{
 	/**
 	 * 获取活动空间用户
 	 */
+	@Action(value = "getActivitiesMySpaceUsersList", 
+			results = {@Result(name = "activitiesMySpaceUsersList",location = "/WeixinPages/ActivitiesMySpace/activitiesMySpaceUsersList.jsp")})
 	public String getActivitiesMySpaceUsersList() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		List<MxActivitiesMySpaceUsers> mySpaceUsersList=activitiesMySpaceService.getMySpaceUsersList((Integer)request.getSession().getAttribute("myspaceId"));
@@ -141,6 +149,8 @@ public class MxActivitiesMySpaceAction extends ActionSupport{
 	/**
 	 * 获取活动空间我的内容列表
 	 */
+	@Action(value = "getActivitiesMySpaceMine", 
+			results = {@Result(name = "activitiesMySpaceMine",location = "/WeixinPages/ActivitiesMySpace/activitiesMySpaceMine.jsp")})
 	public String getActivitiesMySpaceMine() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		MxUsersData userInfo=(MxUsersData) request.getSession().getAttribute("userInfo");
@@ -152,6 +162,7 @@ public class MxActivitiesMySpaceAction extends ActionSupport{
 	/**
 	 * 保存活动空间讨论内容
 	 */
+	@Action(value = "DoSaveActivitiesMySpaceComment")
 	public void DoSaveActivitiesMySpaceComment() throws IOException {
 		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
 		request.setCharacterEncoding("UTF-8");
@@ -198,6 +209,7 @@ public class MxActivitiesMySpaceAction extends ActionSupport{
 	/*
 	 * 生成活动空间邀请链接
 	 */
+	@Action(value = "DoCreateInviteCodeUrl")
 	public void DoCreateInviteCodeUrl() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
 		request.setCharacterEncoding("UTF-8");
@@ -236,6 +248,7 @@ public class MxActivitiesMySpaceAction extends ActionSupport{
 	/*
 	 * 验证活动申请码的有效性
 	 */
+	@Action(value = "validateInviteCode")
 	public void validateInviteCode() throws IOException{
 		//获取邀请码信息，判断邀请码是否存在，判断邀请码是否过期
 
@@ -290,6 +303,7 @@ public class MxActivitiesMySpaceAction extends ActionSupport{
 	/*
 	 * 压缩并上传图片方法
 	 */
+	@Action(value = "UploadImage")
 	public void UploadImage() throws IOException, ServletException {
 
 		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
@@ -339,6 +353,7 @@ public class MxActivitiesMySpaceAction extends ActionSupport{
 	/*
 	 * 评论点赞
 	 */
+	@Action(value = "CommentClickPraise")
 	public void CommentClickPraise() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
 		request.setCharacterEncoding("UTF-8");
@@ -368,6 +383,7 @@ public class MxActivitiesMySpaceAction extends ActionSupport{
 	/*
 	 * 将用户移出活动空间
 	 */
+	@Action(value = "removeMyspaceUser")
 	public void removeMyspaceUser() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
 		request.setCharacterEncoding("UTF-8");

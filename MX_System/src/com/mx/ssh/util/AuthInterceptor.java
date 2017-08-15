@@ -1,0 +1,47 @@
+package com.mx.ssh.util;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;  
+import org.apache.struts2.ServletActionContext;  
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.mx.ssh.bean.MxUsersData;
+import com.mx.ssh.service.IUserService;
+import com.mx.weixin.pojo.SNSUserInfo;
+import com.mx.weixin.util.WeixinUtil;
+import com.opensymphony.xwork2.ActionInvocation;  
+import com.opensymphony.xwork2.interceptor.AbstractInterceptor;  
+  
+
+@Component
+public class AuthInterceptor extends AbstractInterceptor{  
+
+	private static final long serialVersionUID = -6378441318183725486L;
+	
+	@Autowired
+	private IUserService userService;
+	
+    @Override  
+    public String intercept(ActionInvocation invocation) throws Exception {  
+    	
+    	HttpServletRequest request = ServletActionContext.getRequest();
+    	
+    	MxUsersData userInfo = (MxUsersData)request.getSession().getAttribute("userInfo");//从session中获取用户信息
+    	
+    	if(userInfo==null){//若session不存在，则验证是否有微信的用户验证机制传过来的用户信息
+    		SNSUserInfo snsUserInfo=WeixinUtil.validateWeixinWebUser(request);//获取网页验证个人信息
+    		
+    		if(snsUserInfo!=null){
+    			userInfo=userService.getUserByOpenId(snsUserInfo.getOpenId());//根据openId获取用户系统信息
+    			request.getSession().setAttribute("userInfo", userInfo);//是从微信网页验证过来的请求，设置session用户信息
+    		}
+    	}
+        if(userInfo == null){//错误,跳转到未登录界面
+            return "noLogin";  
+        }else{  
+            return invocation.invoke();  
+        }  
+    }  
+  
+}  
