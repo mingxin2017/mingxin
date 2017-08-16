@@ -121,6 +121,7 @@ public class MxActivitiesMySpaceAction extends ActionSupport {
 			
 	})
 	public String getActivitiesMySpaceCommentList() {
+		try{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		// if(userMySpaceCommentList==null||userMySpaceCommentList.size()==0){
 		List<MxActivitiesMySpaceComment> userMySpaceCommentList = activitiesMySpaceService
@@ -129,6 +130,9 @@ public class MxActivitiesMySpaceAction extends ActionSupport {
 		// }
 		request.setAttribute("userMySpaceCommentList",
 				userMySpaceCommentList);// 缓存用户查看的空间讨论
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		return "activitiesMySpaceCommentList";
 	}
 

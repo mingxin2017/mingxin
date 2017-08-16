@@ -50,17 +50,17 @@ public class WeixinNewsDAOImpl extends HibernateDaoSupport implements IWeixinNew
 	//查询新闻类型列表
 	@SuppressWarnings("unchecked")
 	public List<MxNewsType> getNewsType() {
-		return getHibernateTemplate().find("from com.bean.MxNewsType");
+		return getHibernateTemplate().find("from com.mx.ssh.bean.MxNewsType");
 	}
 	//查询学校返回
 	@SuppressWarnings("unchecked")
 	public List<MxSchools> getSchools() {
-		return getHibernateTemplate().find("from com.bean.MxSchools");
+		return getHibernateTemplate().find("from com.mx.ssh.bean.MxSchools");
 	}
 	//查询乡村返回
 	@SuppressWarnings("unchecked")
 	public List<MxRegion> getRegion() {
-		return getHibernateTemplate().find("from com.bean.MxRegion");
+		return getHibernateTemplate().find("from com.mx.ssh.bean.MxRegion");
 	}
 	
 

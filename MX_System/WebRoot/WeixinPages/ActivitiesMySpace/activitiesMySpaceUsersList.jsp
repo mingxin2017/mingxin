@@ -42,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							callback : function() {
 								$.ajax({
 								    type: "POST",
-								    url: "activitiesMySpace!removeMyspaceUser.action", //验证邀请码
+								    url: "activitiesMySpace/removeMyspaceUser.action", //验证邀请码
 								    data: {"userId":userId,"myspaceId":myspaceId},
 								    dataType:"json",
 								    async:false,//关闭异步，设置同步

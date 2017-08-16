@@ -49,6 +49,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<label>电子邮箱</label> <input type="text" class="mui-input-clear"
 								placeholder="输入电子邮箱" value="${sessionScope.userInfo.userEmail}">
 						</div>
+						<div class="mui-input-row">
+							<label>身份证号码</label> <input type="text" class="mui-input-clear"
+								placeholder="输入身份证号码" value="${sessionScope.userInfo.userIdcardNum}">
+						</div>
 						<div class="mui-button-row">
 							<button class="mui-btn mui-btn-primary" type="button"
 								onclick="return false;">提交修改</button>

@@ -30,7 +30,7 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 	}
 
 	public List<MxUsersData> getAll() {
-		return getHibernateTemplate().find("from com.bean.SysUsers");
+		return getHibernateTemplate().find("from com.mx.ssh.bean.SysUsers");
 	}
 	
 	public MxUsersData get(Integer id) {
@@ -44,7 +44,7 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 	public MxUsersData findSysUsersByNameAndPass(String SysUsersname,
 			String password) {
 		
-		List<MxUsersData> ul = getHibernateTemplate().find("from com.bean.SysUsers au where au.userLoginName = '"+ SysUsersname+"' and au.userPwd = '"+ password+"'");
+		List<MxUsersData> ul = getHibernateTemplate().find("from com.mx.ssh.bean.SysUsers au where au.userLoginName = '"+ SysUsersname+"' and au.userPwd = '"+ password+"'");
 
 		if (ul.size() == 1)
         {
