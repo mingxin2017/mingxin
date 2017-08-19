@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="com.mx.weixin.pojo.SNSUserInfo,java.lang.*"%>
+<%-- <%@ page import="com.weixin.pojo.SNSUserInfo,java.lang.*"%> --%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -12,6 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
 	<link rel="stylesheet" type="text/css" href="<%=basePath%>WeixinPages/common/css/mui.min.css" />
 	<link rel="stylesheet" type="text/css" href="<%=basePath%>WeixinPages/common/css/feedback.css" />
+	<link rel="stylesheet" type="text/css" href="<%=basePath%>WeixinPages/common/h5uploader/html5uploader.css" />
 	<link href="<%=basePath%>WeixinPages/common/css/mui.picker.css" rel="stylesheet" />
 	<link href="<%=basePath%>WeixinPages/common/css/mui.poppicker.css" rel="stylesheet" />
 <!-- <script type="text/javascript">
@@ -37,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="mui-content">
 			<div class="mui-content-padded">
 				<div class="mui-input-row">
-					<input id='head_line' type="text" class="mui-input-clear contact" placeholder="标题..." />
+				标题：<input id='head_line' type="text" class="mui-input-clear contact" placeholder="标题..." />
 				</div>
 				<div class="mui-input-row">
 					<input id='lead_text' type="text" class="mui-input-clear contact" placeholder="引言..." />
@@ -46,23 +47,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input id='writer_name' type="text" class="mui-input-clear contact" placeholder="笔名..." />
 				</div>
 				<div class="mui-input-row">
+					<input id='subId' type="hidden" class="mui-input-clear contact" placeholder="单位..." />
+				    <input id='newsTypeId' type="hidden" class="mui-input-clear contact" placeholder="单位..." />
 					<input id='showCityPicker' type="text" class="mui-input-clear contact" placeholder="单位..." />
 				</div>
 				<div class="row mui-input-row">
 					<textarea id='content' style="height:160px" class="mui-input-clear question" placeholder="内容..."></textarea>
 				</div>
 
-				<p>图片</p> 
-  				<div id='image-list' class="row image-list"></div>
- <!--      <button class="btn btn_primary" id="chooseImage">chooseImage</button> -->
-<!--       <span class="desc">预览图片接口</span>
-      <button class="btn btn_primary" id="previewImage">previewImage</button>
-      <span class="desc">上传图片接口</span>
-      <button class="btn btn_primary" id="uploadImage">uploadImage</button>
-      <span class="desc">下载图片接口</span>
-      <button class="btn btn_primary" id="downloadImage">downloadImage</button>
-				<code id="response"></code>  -->
-				
+  				<!-- <div id="upload"></div> -->
+  				<form action="weixin!fileUp.action" method="post" enctype="multipart/form-data">
+				图片：<input type="file" name="upload"/>
+				<input type="submit" value="提交"/>
+				</form>
 				<code id="response"></code>
 			</div>	
 		</div>
@@ -72,163 +69,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  --%>		<script src="<%=basePath%>WeixinPages/common/js/mui.picker.js"></script>
 		<script src="<%=basePath%>WeixinPages/common/js/mui.poppicker.js"></script>
 		<script src="<%=basePath%>WeixinPages/common/js/city.data.js" type="text/javascript" charset="utf-8"></script>
-		<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+		<!-- <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script> -->
 		<script src="<%=basePath%>WeixinPages/common/js/zepto.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
- 			    wx.config({
-			      debug: false, 
-			      appId: '${server_app_id}', // 必填，公众号的唯一标识
-			      timestamp: '${timestamp}', // 必填，生成签名的时间戳
-			      nonceStr: '${noncestr}', // 必填，生成签名的随机串 
-			      signature: '${signature}',// 必填，签名，见附录1
-			      jsApiList: [        'checkJsApi',
-        'onMenuShareTimeline',
-        'onMenuShareAppMessage',
-        'onMenuShareQQ',
-        'onMenuShareWeibo',
-        'onMenuShareQZone',
-        'hideMenuItems',
-        'showMenuItems',
-        'hideAllNonBaseMenuItem',
-        'showAllNonBaseMenuItem',
-        'translateVoice',
-        'startRecord',
-        'stopRecord',
-        'onVoiceRecordEnd',
-        'playVoice',
-        'onVoicePlayEnd',
-        'pauseVoice',
-        'stopVoice',
-        'uploadVoice',
-        'downloadVoice',
-        'chooseImage',
-        'previewImage',
-        'uploadImage',
-        'downloadImage',
-        'getNetworkType',
-        'openLocation',
-        'getLocation',
-        'hideOptionMenu',
-        'showOptionMenu',
-        'closeWindow',
-        'scanQRCode',
-        'chooseWXPay',
-        'openProductSpecificView',
-        'addCard',
-        'chooseCard',
-        'openCard'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-			    }); 
-			     
- 
-
-  /* // 5.2 图片预览
-  document.querySelector('#previewImage').onclick = function () {
-    wx.previewImage({
-      current: 'http://img.knowledge.csdn.net/upload/base/1458526868366_366.jpg',
-      urls: [
-        'http://img3.douban.com/view/photo/photo/public/p2152117150.jpg',
-        'http://img.knowledge.csdn.net/upload/base/1458526868366_366.jpg',
-        'http://img3.douban.com/view/photo/photo/public/p2152134700.jpg'
-      ]
-    });
-  };*/
-
-
-/*  // 5.3 上传图片
-  document.querySelector('#uploadImage').onclick = function () {
-    if (images.localId.length == 0) {
-      alert('请先使用 chooseImage 接口选择图片');
-      return;
-    }
-    var i = 0, length = images.localId.length;
-    images.serverId = [];
-    function upload() {
-      wx.uploadImage({
-        localId: images.localId[i],
-        success: function (res) {
-          i++;
-          //alert('已上传：' + i + '/' + length);
-          images.serverId.push(res.serverId);
-          if (i < length) {
-            upload();
-          }
-        },
-        fail: function (res) {
-          alert(JSON.stringify(res));
-        }
-      });
-    }
-    upload();
-  };
-
-  // 5.4 下载图片
-  document.querySelector('#downloadImage').onclick = function () {
-    if (images.serverId.length === 0) {
-      alert('请先使用 uploadImage 上传图片');
-      return;
-    }
-    var i = 0, length = images.serverId.length;
-    images.localId = [];
-    function download() {
-      wx.downloadImage({
-        serverId: images.serverId[i],
-        success: function (res) {
-          i++;
-          alert('已下载：' + i + '/' + length);
-          images.localId.push(res.localId);
-          if (i < length) {
-            download();
-          }
-        }
-      });
-    }
-    download();
-  }; */
-//});		
-
-var images = {
-  localId: [],
-  serverId: []
-};
-			    
-			    //上传图片
-function uploadImage() {
-    if (images.localId.length == 0) {
-      mui.toast('请先使用 chooseImage 接口选择图片');
-      return;
-    }
-    var i = 0, length = images.localId.length;
-    images.serverId = [];
-    function upload() {
-      wx.uploadImage({
-        localId: images.localId[i],
-        isShowProgressTips: 1,// 默认为1，显示进度提示
-        success: function (res) {
-          i++;
-          //alert('已上传：' + i + '/' + length);
-          images.serverId.push(res.serverId);
-          //mui.toast(res.serverId);
-          //ajax();
-
-          //mui.toast(images.serverId[0]);
-          alert(images.serverId[0]);
-          if (i < length) {
-            upload();
-          }
-        },
-        fail: function (res) {
-          alert(JSON.stringify(res));
-        }
-      });
-    }
-    upload();
-    
-  };
-
-
 			(function($, doc) {
 	    
 			    /****************************************************/
+			    
 				$.init();
 				$.ready(function() {	
 					//-----------------------------------------
@@ -238,12 +85,17 @@ function uploadImage() {
 					});
 					cityPicker.setData(cityData);
 					var showCityPickerButton = doc.getElementById('showCityPicker');
+					var newsTypeId = doc.getElementById('newsTypeId');
+					var subId = doc.getElementById('subId');
 					showCityPickerButton.addEventListener('tap', function(event) {
 						cityPicker.show(function(items) {
 							showCityPickerButton.value = "你选择的区域是:" + items[0].text + " " + items[1].text;
+							newsTypeId.value = items[0].value;
+							subId.value = items[1].value;
 							//返回 false 可以阻止选择框的关闭
 							//return false;
 						});
+						
 					}, false);
 					//-----------------------------------------
 				});
@@ -257,13 +109,14 @@ var index = 1;
 	var feedback = {
 		question: document.getElementById('question'), 
 		contact: document.getElementById('contact'), 
-		imageList: document.getElementById('image-list'),
 		
 		headLine: document.getElementById('head_line'),
 		leadText: document.getElementById('lead_text'),
 		writerName: document.getElementById('writer_name'),
 		content: document.getElementById('content'),
-		submitBtn: document.getElementById('submit')
+		submitBtn: document.getElementById('submit'),
+		newsTypeId: document.getElementById('newsTypeId'),
+		subId : doc.getElementById('subId')
 	};
 	
 	var url = 'https://service.dcloud.net.cn/feedback';
@@ -421,7 +274,10 @@ var index = 1;
 			leadText : feedback.leadText.value,
 			writerName : feedback.writerName.value,
 			content : feedback.content.value,
-			serverId : images.serverId[0]
+			newsTypeId : feedback.newsTypeId.value,
+			subId : feedback.subId.value,
+			code : "${code}",
+			state : "${state}"
 		};
 		respnoseEl.innerHTML = '正在请求中...';
 		if (type === 'get') {
@@ -457,11 +313,6 @@ var index = 1;
 			return mui.toast('内容信息超长,请重新填写！');
 		}
         
- 
-		//图片上传
-		uploadImage();
-		mui.toast(images.serverId[0]);
-		//请求数据上传
 		ajax();
 		
 		
@@ -517,5 +368,46 @@ var index = 1;
 
 			
 		</script>
+		<script src="<%=basePath%>WeixinPages/common/h5uploader/jquery.js"></script>
+		<script src="<%=basePath%>WeixinPages/common/h5uploader/jquery.html5uploader.js"></script>
+<script type="text/javascript">
+
+/* $(function(){
+
+	$('#upload').html5uploader({
+
+		auto:false,
+
+		multi:true,
+
+		removeTimeout:9999999,
+
+		url:'weixin!ImageUpLoader.action',
+
+		onUploadStart:function(){
+
+			alert('开始上传');
+
+			},
+
+		onInit:function(){
+
+			alert('初始化');
+
+			},
+
+		onUploadComplete:function(){
+
+			alert('上传完成');
+
+			},
+ 		onUploadError:function(file,error,state){
+ 			alert(state);
+ 		}
+		});
+
+	}); */
+
+</script>
 	</body>
 </html>
