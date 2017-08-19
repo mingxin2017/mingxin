@@ -53,7 +53,7 @@
         </property>    
             
         <!--自动扫描实体 -->    
-        <!-- <property name="packagesToScan"  value="com.bean" /> -->  
+        <!-- <property name="packagesToScan"  value="com.mx.ssh.bean" /> -->  
         <property name="mappingLocations">  
         	<value>classpath:/com/mx/ssh/bean/*.hbm.xml </value><!-- 扫描所有bean实体类配置文件 -->
     	</property>    

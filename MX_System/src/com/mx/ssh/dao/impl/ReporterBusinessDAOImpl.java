@@ -27,7 +27,7 @@ public class ReporterBusinessDAOImpl extends HibernateDaoSupport implements IRep
 	//获取小记者团队
 	@SuppressWarnings("unchecked")
 	public List<MxUsersReporterTeam> getReporterTeams() {
-		return getHibernateTemplate().find("from com.bean.MxUsersReporterTeam");
+		return getHibernateTemplate().find("from com.mx.ssh.bean.MxUsersReporterTeam");
 	}
 	//小记者申请
 	public void reporterApply(MxUsersReporterSignUp mxUsersReporterSignUp) {

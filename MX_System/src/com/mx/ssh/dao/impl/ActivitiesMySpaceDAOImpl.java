@@ -94,7 +94,7 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 		List<MxActivitiesMySpaceUsers> spaceUsers=getHibernateTemplate().find("from com.mx.ssh.bean.MxActivitiesMySpaceUsers au where au.myspaceId = "+ myspaceId);
 		for(int i=0;i<spaceUsers.size();i++){
 			ActivitiesUserMySpaceMaterial itemBuff=new ActivitiesUserMySpaceMaterial();
-			List<MxActivitiesMySpaceMaterial> materialsBuff=getHibernateTemplate().find("from com.bean.MxActivitiesMySpaceMaterial au where au.submitUserId = "+ spaceUsers.get(i).getMxUsersData().getUserId()+" order by au.createDate desc ");
+			List<MxActivitiesMySpaceMaterial> materialsBuff=getHibernateTemplate().find("from com.mx.ssh.bean.MxActivitiesMySpaceMaterial au where au.submitUserId = "+ spaceUsers.get(i).getMxUsersData().getUserId()+" order by au.createDate desc ");
 			//MxUsersData user=(MxUsersData) getHibernateTemplate().find("from com.mx.ssh.bean.MxUsersData au where au.userId = "+ spaceUsers.get(i).getUserId()).get(0);
 			itemBuff.setUserData(spaceUsers.get(i).getMxUsersData());
 			itemBuff.setUserMySpaceMaterialList(materialsBuff);
@@ -125,7 +125,10 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 			int myspaceId) {
 		// TODO Auto-generated method stub
 		ActivitiesUserMySpaceMine returnList=new ActivitiesUserMySpaceMine();
-		List<MxActivitiesMySpaceMaterial> materialsBuff=getHibernateTemplate().find("from com.bean.MxActivitiesMySpaceMaterial au where au.submitUserId = "+ userId+" and au.myspaceId="+myspaceId+" order by au.createDate desc ");
+
+
+		List<MxActivitiesMySpaceMaterial> materialsBuff=getHibernateTemplate().find("from com.mx.ssh.bean.MxActivitiesMySpaceMaterial au where au.submitUserId = "+ userId+" and au.myspaceId="+myspaceId+" order by au.createDate desc ");
+
 		List<MxActivitiesMySpaceComment> myspaceCommentList=getHibernateTemplate().find("from com.mx.ssh.bean.MxActivitiesMySpaceComment au where au.myspaceId = "+ myspaceId +" and au.mxUsersData.userId="+userId+"order by au.createDate desc");
 		returnList.setActivitiesMySpaceCommentMineList(myspaceCommentList);
 		returnList.setActivitiesMySpaceMaterialMineList(materialsBuff);
@@ -181,7 +184,7 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 	 * 验证活动验证码
 	 */
 	public int validateInviteCode(String inviteCode,int userId) {
-		MxActivitiesMySpaceInviteCode code=(MxActivitiesMySpaceInviteCode) getHibernateTemplate().find("from com.bean.MxActivitiesMySpaceInviteCode au where au.inviteCode ='"+ inviteCode+"'").get(0);
+		MxActivitiesMySpaceInviteCode code=(MxActivitiesMySpaceInviteCode) getHibernateTemplate().find("from com.mx.ssh.bean.MxActivitiesMySpaceInviteCode au where au.inviteCode ='"+ inviteCode+"'").get(0);
 		if(code==null){//验证码不存在
 			return -10;
 		}else{

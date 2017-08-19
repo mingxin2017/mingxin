@@ -16,15 +16,15 @@ public class ActivitiesPublicityDAOImpl extends HibernateDaoSupport implements I
 	 */
 	public List<MxActivitiesPublicityData> getActivitiesPublicityByType(
 			int activitiesType) {
-		List<MxActivitiesPublicityData> publicityList = getHibernateTemplate().find("from com.bean.MxActivitiesPublicityData au where au.actvitiesTypeId = "+ activitiesType);
+		List<MxActivitiesPublicityData> publicityList = getHibernateTemplate().find("from com.mx.ssh.bean.MxActivitiesPublicityData au where au.actvitiesTypeId = "+ activitiesType);
 		
 		return publicityList;
 	}
 
 	public MxActivitiesPublicityContent getActivitiesPublicityContent(int pdID) {
-		// TODO Auto-generated method stubcom.bean.MxActivitiesPublicityContent.publicitityDataId
+		// TODO Auto-generated method stubcom.mx.ssh.bean.MxActivitiesPublicityContent.publicitityDataId
 		//return getHibernateTemplate().get(MxActivitiesPublicityContent.class , pdID);
-		return (MxActivitiesPublicityContent) getHibernateTemplate().find("from com.bean.MxActivitiesPublicityContent au where au.publicityDataId = "+ pdID).get(0);
+		return (MxActivitiesPublicityContent) getHibernateTemplate().find("from com.mx.ssh.bean.MxActivitiesPublicityContent au where au.publicityDataId = "+ pdID).get(0);
 	}
 
 

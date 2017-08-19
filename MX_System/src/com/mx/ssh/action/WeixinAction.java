@@ -7,33 +7,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
-
-import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
-import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.mx.ssh.bean.MxNewsType;
 import com.mx.ssh.bean.MxRegion;
 import com.mx.ssh.bean.MxSchools;
 import com.mx.ssh.service.IWeixinNewsService;
 import com.mx.ssh.service.IWeixinService;
-import com.mx.ssh.service.impl.WeixinServiceImpl;
 import com.mx.weixin.pojo.SNSUserInfo;
 import com.mx.weixin.pojo.WeixinOauth2Token;
-import com.mx.weixin.task.WeixinGetTokenTimerTask;
 import com.mx.weixin.util.MxKeyValue;
 import com.mx.weixin.util.OAuth2TokenUtil;
 import com.mx.weixin.util.ResultUtil;
@@ -45,7 +37,8 @@ import com.mx.weixin.util.WeixinSignUtil;
 public class WeixinAction { 
 
 	private static final long serialVersionUID = -1627548805862485475L;
-
+	private final Log logger = LogFactory.getLog(getClass());
+	
 	@Autowired
 	private IWeixinService weixinService;
 	
@@ -138,14 +131,16 @@ public class WeixinAction {
 
 	
 	//鸣心时报乡村时报主页跳转方法
+	@Action(value = "getCountryNews", results = { @Result(name = "getCountryNews", location = "/WeixinPages/News/countryNews.jsp") })
 	public String getCountryNews(){
-		return "countryNews";
+		return "getCountryNews";
 	}
 	
 	
 	//鸣心时报学校时报主页跳转方法
+	@Action(value = "getSchoolNews", results = { @Result(name = "getSchoolNews", location = "/WeixinPages/News/schoolNews.jsp") })
 	public String getSchoolNews(){
-			return "schoolNews";
+			return "getSchoolNews";
 	}
 	
 	//未关注进入公众号
@@ -154,6 +149,7 @@ public class WeixinAction {
 	}
 	
 	//新闻投稿页面
+	@Action(value = "loadEditNews", results = { @Result(name = "loadEditNews", location = "/WeixinPages/News/editNews.jsp") })
 	public String loadEditNews(){
 		System.out.println("getadd");
 		HttpServletRequest request = ServletActionContext.getRequest();

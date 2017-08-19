@@ -39,8 +39,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script type="text/javascript">
 function ClickPraise(commentId,userId){
-	document.getElementById('aaa'+commentId).onclick='';
-	document.getElementById('aaa'+commentId).style.color='gray';
+	document.getElementById('praise_'+commentId).onclick='';
+	document.getElementById('praise_'+commentId).style.color='gray';
 	var numTip=document.getElementById('span'+commentId);
 	var num=parseInt(numTip.innerHTML);
 	//numTip.innerHTML=num+1;
@@ -54,20 +54,9 @@ function ClickPraise(commentId,userId){
          success: function (response) {
              if (response.done == '0') {
             	 numTip.innerHTML=num+1;
-            	 document.getElementById('aaa'+commentId).style.color='gray';
-             	//var d=dialog().show();
-             	//d.content(response.msg);
-             	//setTimeout(function () {
-		    	//		d.close().remove();
-		    	//	}, 1500);
-             	//刷新页面
-             	//document.getElementById('mainContent').src= "activitiesMySpace!getActivitiesMySpaceMaterialList.action";
-             	
-             	
+            	 document.getElementById('praise_'+commentId).style.color='gray';
                  return true;
              } else {
-            	 //numTip.innerHTML=num-1;
-            	 //num=num-1;
             	 var d=dialog().show();
              	d.content(response.msg);
              	setTimeout(function () {
@@ -107,7 +96,7 @@ function ClickPraise(commentId,userId){
 		</div>
 		<div class="mui-card-content">
 			<div class="mui-card-content-inner">
-				${item.commentTxt}
+				<font size="3" face="arial">${item.commentTxt}</font>
 			</div>
 		</div>
 		<div class="mui-card-footer">
@@ -118,9 +107,9 @@ function ClickPraise(commentId,userId){
 				<c:if test="${clickUserId==sessionScope.userInfo.userId}"><%isClicked=true; %> </c:if>
 			</c:forEach>
 			
-			<a></a>
+			
 			<%if(isClicked==false){ %>  
-       				<a id="aaa${item.commentId}" class="mui-card-link" href="javascript:void(0);" onclick="ClickPraise(${item.commentId},${sessionScope.userInfo.userId});"> 
+       				<a id="praise_${item.commentId}" class="mui-card-link" href="javascript:void(0);" onclick="ClickPraise(${item.commentId},${sessionScope.userInfo.userId});"> 
 					<span class="mui-icon icomoon icon-thumbs-up"></span><span id="span${item.commentId}">${item.praiseClickNum}</span>
 					</a>      
   				
@@ -129,7 +118,9 @@ function ClickPraise(commentId,userId){
 					<span class="mui-icon icomoon icon-thumbs-up"></span><span id="span${item.commentId}">${item.praiseClickNum}</span>
 				</a>
    			<%} %>
-			
+			<a id="comment_${item.commentId}" class="mui-card-link" href="javascript:void(0);" onclick="ClickComment(${item.commentId},${sessionScope.userInfo.userId});"> 
+				<span class="mui-icon icomoon icon-thumbs-up"></span><span id="span${item.commentId}">${item.praiseClickNum}</span>
+			</a> 
 		</div>
 	</div>
 	</c:forEach>

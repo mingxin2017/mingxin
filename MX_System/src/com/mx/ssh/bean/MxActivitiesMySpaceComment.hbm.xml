@@ -10,7 +10,7 @@
             <column name="comment_id" />
             <generator class="native" />
         </id>
-        <many-to-one name="mxUsersData" class="com.mx.ssh.bean.MxUsersData" fetch="select" lazy="false">
+        <many-to-one name="mxUsersData" class="com.mx.ssh.bean.MxUsersData" fetch="select" " lazy="false">
             <column name="submit_userID" not-null="true" />
         </many-to-one>
         <property name="myspaceId" type="integer">
@@ -33,6 +33,9 @@
         </property>
         <property name="others" type="string">
             <column name="others" />
+        </property>
+        <property name="parentCommentId" type="integer">
+            <column name="parent_comment_id" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>

@@ -19,6 +19,7 @@ public class MxActivitiesMySpaceComment implements java.io.Serializable {
 	private Integer praiseClickNum;
 	private Date createDate;
 	private String others;
+	private Integer parentCommentId;
 
 	// Constructors
 
@@ -29,7 +30,8 @@ public class MxActivitiesMySpaceComment implements java.io.Serializable {
 	/** minimal constructor */
 	public MxActivitiesMySpaceComment(MxUsersData mxUsersData,
 			Integer myspaceId, Integer state, String commentTxt,
-			String praiseUserIds, Integer praiseClickNum, Date createDate) {
+			String praiseUserIds, Integer praiseClickNum, Date createDate,
+			Integer parentCommentId) {
 		this.mxUsersData = mxUsersData;
 		this.myspaceId = myspaceId;
 		this.state = state;
@@ -37,13 +39,14 @@ public class MxActivitiesMySpaceComment implements java.io.Serializable {
 		this.praiseUserIds = praiseUserIds;
 		this.praiseClickNum = praiseClickNum;
 		this.createDate = createDate;
+		this.parentCommentId = parentCommentId;
 	}
 
 	/** full constructor */
 	public MxActivitiesMySpaceComment(MxUsersData mxUsersData,
 			Integer myspaceId, Integer state, String commentTxt,
 			String praiseUserIds, Integer praiseClickNum, Date createDate,
-			String others) {
+			String others, Integer parentCommentId) {
 		this.mxUsersData = mxUsersData;
 		this.myspaceId = myspaceId;
 		this.state = state;
@@ -52,6 +55,7 @@ public class MxActivitiesMySpaceComment implements java.io.Serializable {
 		this.praiseClickNum = praiseClickNum;
 		this.createDate = createDate;
 		this.others = others;
+		this.parentCommentId = parentCommentId;
 	}
 
 	// Property accessors
@@ -126,6 +130,14 @@ public class MxActivitiesMySpaceComment implements java.io.Serializable {
 
 	public void setOthers(String others) {
 		this.others = others;
+	}
+
+	public Integer getParentCommentId() {
+		return this.parentCommentId;
+	}
+
+	public void setParentCommentId(Integer parentCommentId) {
+		this.parentCommentId = parentCommentId;
 	}
 
 }
