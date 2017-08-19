@@ -58,7 +58,7 @@ public class MxActivitiesMySpaceAction extends ActionSupport {
 	 */
 
 	@Action(value = "gotoActivitiesMySpaceList", results = { @Result(name = "activitiesMySpaceList", location = "/WeixinPages/ActivitiesMySpace/activitiesMySpaceAllList.jsp") })
-	public String gotoActivitiesMySpaceList() {
+	public String gotoActivitiesMySpaceList(){
 		try {
 			System.out
 					.println("进入MxActivitiesMySpaceAction.gotoActivitiesMySpaceList");
@@ -94,7 +94,7 @@ public class MxActivitiesMySpaceAction extends ActionSupport {
 			@Result(name = "activitiesMySpaceMain", location = "/WeixinPages/ActivitiesMySpace/activitiesMySpaceMain.jsp"),
 			@Result(name = "illegal", location = "/WeixinPages/illegal.jsp")
 	})
-	public String gotoActivitiesMySpaceMain() {
+	public String gotoActivitiesMySpaceMain() throws Exception{
 
 		HttpServletRequest request = ServletActionContext.getRequest();
 		int myspaceId = Integer.parseInt(request.getParameter("myspaceId"));
@@ -120,7 +120,8 @@ public class MxActivitiesMySpaceAction extends ActionSupport {
 			@Result(name = "activitiesMySpaceCommentList", location = "/WeixinPages/ActivitiesMySpace/activitiesMySpaceCommentList.jsp") 
 			
 	})
-	public String getActivitiesMySpaceCommentList() {
+	public String getActivitiesMySpaceCommentList() throws Exception{
+		
 		HttpServletRequest request = ServletActionContext.getRequest();
 		// if(userMySpaceCommentList==null||userMySpaceCommentList.size()==0){
 		List<MxActivitiesMySpaceComment> userMySpaceCommentList = activitiesMySpaceService
@@ -129,6 +130,7 @@ public class MxActivitiesMySpaceAction extends ActionSupport {
 		// }
 		request.setAttribute("userMySpaceCommentList",
 				userMySpaceCommentList);// 缓存用户查看的空间讨论
+		
 		return "activitiesMySpaceCommentList";
 	}
 
@@ -139,13 +141,15 @@ public class MxActivitiesMySpaceAction extends ActionSupport {
 			@Result(name = "activitiesMySpaceMaterialList", location = "/WeixinPages/ActivitiesMySpace/activitiesMySpaceMaterialList.jsp") 
 			
 	})
-	public String getActivitiesMySpaceMaterialList() {
+	public String getActivitiesMySpaceMaterialList() throws Exception{
+		
 		HttpServletRequest request = ServletActionContext.getRequest();
 		List<ActivitiesUserMySpaceMaterial> userMySpaceMaterialList = activitiesMySpaceService
 				.getUserMySpaceMaterialList((Integer) request.getSession()
 						.getAttribute("myspaceId"));
 		request.setAttribute("userMySpaceMaterialList",
 				userMySpaceMaterialList);// 缓存用户查看的空间素材列表
+		
 		return "activitiesMySpaceMaterialList";
 	}
 
@@ -156,12 +160,14 @@ public class MxActivitiesMySpaceAction extends ActionSupport {
 			@Result(name = "activitiesMySpaceUsersList", location = "/WeixinPages/ActivitiesMySpace/activitiesMySpaceUsersList.jsp") 
 			
 	})
-	public String getActivitiesMySpaceUsersList() {
+	public String getActivitiesMySpaceUsersList() throws Exception{
+		
 		HttpServletRequest request = ServletActionContext.getRequest();
 		List<MxActivitiesMySpaceUsers> mySpaceUsersList = activitiesMySpaceService
 				.getMySpaceUsersList((Integer) request.getSession()
 						.getAttribute("myspaceId"));
 		request.setAttribute("mySpaceUsersList", mySpaceUsersList);// 缓存用户查看的空间用户列表
+		
 		return "activitiesMySpaceUsersList";
 		// return "testWebUploader";
 	}
@@ -173,7 +179,8 @@ public class MxActivitiesMySpaceAction extends ActionSupport {
 			@Result(name = "activitiesMySpaceMine", location = "/WeixinPages/ActivitiesMySpace/activitiesMySpaceMine.jsp") 
 			
 	})
-	public String getActivitiesMySpaceMine() {
+	public String getActivitiesMySpaceMine() throws Exception{
+		
 		HttpServletRequest request = ServletActionContext.getRequest();
 		MxUsersData userInfo = (MxUsersData) request.getSession().getAttribute(
 				"userInfo");
@@ -181,6 +188,7 @@ public class MxActivitiesMySpaceAction extends ActionSupport {
 				.getMySpaceUserMine(userInfo.getUserId(), (Integer) request
 						.getSession().getAttribute("myspaceId"));
 		request.getSession().setAttribute("myspaceUserMine", myspaceUserMine);// 缓存用户查看的空间个人信息
+		
 		return "activitiesMySpaceMine";
 	}
 

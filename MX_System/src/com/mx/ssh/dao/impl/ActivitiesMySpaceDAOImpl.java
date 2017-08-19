@@ -82,7 +82,7 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 			int myspaceId) {
 		// TODO Auto-generated method stub
 		//List<ActivitiesUserMySpaceComment> reutnList=new ArrayList();
-		List<MxActivitiesMySpaceComment> myspaceCommentList=getHibernateTemplate().find("from com.bean.MxActivitiesMySpaceComment au order by au.createDate desc where au.myspaceId = "+ myspaceId);
+		List<MxActivitiesMySpaceComment> myspaceCommentList=getHibernateTemplate().find("from com.mx.ssh.bean.MxActivitiesMySpaceComment au order by au.createDate desc where au.myspaceId = "+ myspaceId);
 		
 		return myspaceCommentList;
 	}
@@ -126,7 +126,7 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 		// TODO Auto-generated method stub
 		ActivitiesUserMySpaceMine returnList=new ActivitiesUserMySpaceMine();
 		List<MxActivitiesMySpaceMaterial> materialsBuff=getHibernateTemplate().find("from com.bean.MxActivitiesMySpaceMaterial au where au.submitUserId = "+ userId+" and au.myspaceId="+myspaceId+" order by au.createDate desc ");
-		List<MxActivitiesMySpaceComment> myspaceCommentList=getHibernateTemplate().find("from com.bean.MxActivitiesMySpaceComment au where au.myspaceId = "+ myspaceId +" and au.mxUsersData.userId="+userId+"order by au.createDate desc");
+		List<MxActivitiesMySpaceComment> myspaceCommentList=getHibernateTemplate().find("from com.mx.ssh.bean.MxActivitiesMySpaceComment au where au.myspaceId = "+ myspaceId +" and au.mxUsersData.userId="+userId+"order by au.createDate desc");
 		returnList.setActivitiesMySpaceCommentMineList(myspaceCommentList);
 		returnList.setActivitiesMySpaceMaterialMineList(materialsBuff);
 		return returnList;
@@ -134,7 +134,7 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 
 	public boolean commentClickPraise(int commentId, int userId) {
 		// TODO Auto-generated method stub
-		MxActivitiesMySpaceComment comment=(MxActivitiesMySpaceComment) getHibernateTemplate().find("from com.bean.MxActivitiesMySpaceComment au where au.commentId = "+ commentId).get(0);
+		MxActivitiesMySpaceComment comment=(MxActivitiesMySpaceComment) getHibernateTemplate().find("from com.mx.ssh.bean.MxActivitiesMySpaceComment au where au.commentId = "+ commentId).get(0);
 	
 		if (comment == null) {
 			return false;
