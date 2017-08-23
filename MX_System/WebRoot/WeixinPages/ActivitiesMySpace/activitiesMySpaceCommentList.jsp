@@ -84,11 +84,18 @@ function ClickPraise(commentId,userId){
 <body>
 	
 	<c:forEach items="${userMySpaceCommentList}" var="item">
+	<c:if test="${item.parentCommentId eq -1}">
+	<%int commentNum=0; %>
+		<c:forEach items="${userMySpaceCommentList}" var="item1">
+				<c:if test="${item1.parentCommentId eq item.commentId}">
+					<% commentNum=commentNum+1; %>
+				</c:if> 
+		</c:forEach>
 	<div class="mui-card">
 		<div class="mui-card-header mui-card-media" >
 			<img data-lazyload="${item.mxUsersData.weixinHeadUrl}" />
 			<div class="mui-media-body">
-				${item.mxUsersData.weixinNikeName}
+				${item.mxUsersData.userRealName}
 				<p>发表于<fmt:formatDate value="${item.createDate}" pattern="yyyy-MM-dd　HH:mm"/>
 					<span class="mui-badge mui-badge-danger">新</span>
 				</p>
@@ -109,29 +116,37 @@ function ClickPraise(commentId,userId){
 			
 			
 			<%if(isClicked==false){ %>  
-       				<a id="praise_${item.commentId}" class="mui-card-link" href="javascript:void(0);" onclick="ClickPraise(${item.commentId},${sessionScope.userInfo.userId});"> 
-					<span class="mui-icon icomoon icon-thumbs-up"></span><span id="span${item.commentId}">${item.praiseClickNum}</span>
-					</a>      
+       			<a id="praise_${item.commentId}" class="mui-card-link" href="javascript:void(0);" onclick="ClickPraise(${item.commentId},${sessionScope.userInfo.userId});"> 
+					<span class="mui-icon icomoon icon-thumbs-up"></span><span id="span${item.commentId}">${item.praiseClickNum}</span>赞
+				</a>      
   				
    			 <%}else{ %>
      			<a id="a${item.commentId}" class="mui-card-link" href="javascript:void(0);" style="color:gray"> 
-					<span class="mui-icon icomoon icon-thumbs-up"></span><span id="span${item.commentId}">${item.praiseClickNum}</span>
+					<span class="mui-icon icomoon icon-thumbs-up"></span><span id="span${item.commentId}">${item.praiseClickNum}</span>赞
 				</a>
    			<%} %>
-			<a id="comment_${item.commentId}" class="mui-card-link" href="javascript:void(0);" onclick="ClickComment(${item.commentId},${sessionScope.userInfo.userId});"> 
-				<span class="mui-icon icomoon icon-thumbs-up"></span><span id="span${item.commentId}">${item.praiseClickNum}</span>
+   			<c:if test="${item.mxUsersData.userId eq sessionScope.userInfo.userId}">
+			<a id="comment_${item.commentId}" class="mui-card-link" href="javascript:void(0);" style="color:gray"> 
+				<span class="mui-icon mui-icon-chatboxes"></span><span id="span${item.commentId}"><%=commentNum %></span>评论
 			</a> 
-			<div class="mui-card-media">
-				<img data-lazyload="${item.mxUsersData.weixinHeadUrl}" />
-				<div class="mui-media-body">
-					${item.mxUsersData.weixinNikeName}
-					<p>发表于<fmt:formatDate value="${item.createDate}" pattern="yyyy-MM-dd　HH:mm"/>
-						<span class="mui-badge mui-badge-danger">新</span>
-					</p>
-				</div>
-			</div>
+			</c:if>
+			<c:if test="${item.mxUsersData.userId ne sessionScope.userInfo.userId}">
+			<a id="comment_${item.commentId}" class="mui-card-link" href="javascript:void(0);" onclick="ClickComment(${item.commentId},${sessionScope.userInfo.userId});"> 
+				<span class="mui-icon mui-icon-chatboxes"></span><span id="span${item.commentId}"><%=commentNum %></span>评论
+			</a> 
+			</c:if>
 		</div>
+		
+			<div style="padding-left:40px;">
+				
+				<c:forEach items="${userMySpaceCommentList}" var="item2">
+					<c:if test="${item2.parentCommentId eq item.commentId}">
+     					<h5><b>${item2.mxUsersData.userRealName} 评论：</b>${item2.commentTxt}</h5>
+					</c:if> 
+				</c:forEach>
+			</div>
 	</div>
+	</c:if>
 	</c:forEach>
 	
 </body>
