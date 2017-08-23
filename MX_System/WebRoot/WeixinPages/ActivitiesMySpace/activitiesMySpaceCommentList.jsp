@@ -121,6 +121,15 @@ function ClickPraise(commentId,userId){
 			<a id="comment_${item.commentId}" class="mui-card-link" href="javascript:void(0);" onclick="ClickComment(${item.commentId},${sessionScope.userInfo.userId});"> 
 				<span class="mui-icon icomoon icon-thumbs-up"></span><span id="span${item.commentId}">${item.praiseClickNum}</span>
 			</a> 
+			<div class="mui-card-media">
+				<img data-lazyload="${item.mxUsersData.weixinHeadUrl}" />
+				<div class="mui-media-body">
+					${item.mxUsersData.weixinNikeName}
+					<p>发表于<fmt:formatDate value="${item.createDate}" pattern="yyyy-MM-dd　HH:mm"/>
+						<span class="mui-badge mui-badge-danger">新</span>
+					</p>
+				</div>
+			</div>
 		</div>
 	</div>
 	</c:forEach>

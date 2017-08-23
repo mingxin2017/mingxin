@@ -7,10 +7,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
@@ -20,12 +23,15 @@ import org.apache.struts2.convention.annotation.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+
+import com.mx.ssh.bean.MxNewsType;
 import com.mx.ssh.bean.MxRegion;
 import com.mx.ssh.bean.MxSchools;
 import com.mx.ssh.service.IWeixinNewsService;
 import com.mx.ssh.service.IWeixinService;
 import com.mx.weixin.pojo.SNSUserInfo;
 import com.mx.weixin.pojo.WeixinOauth2Token;
+import com.mx.weixin.task.WeixinGetTokenTimerTask;
 import com.mx.weixin.util.MxKeyValue;
 import com.mx.weixin.util.OAuth2TokenUtil;
 import com.mx.weixin.util.ResultUtil;

@@ -123,7 +123,6 @@ public class MxActivitiesMySpaceAction extends ActionSupport {
 	public String getActivitiesMySpaceCommentList() throws Exception{
 		
 
-	public String getActivitiesMySpaceCommentList() {
 		try{
 
 		HttpServletRequest request = ServletActionContext.getRequest();
