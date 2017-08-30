@@ -266,5 +266,27 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 		}
 	}
 
+	
+	/*保存帖子的评论
+	 * (non-Javadoc)
+	 * @see com.mx.ssh.dao.IActivitiesMySpaceDAO#saveMyspaceComment_comment(int, int, java.lang.String)
+	 */
+	public boolean saveMyspaceComment_comment(int myspaceId,int commentId, int userId,
+			String commentTxt) {
+		
+		MxUsersData user=new MxUsersData();
+		user.setUserId(userId);
+		
+		MxActivitiesMySpaceComment mc=new MxActivitiesMySpaceComment(user,myspaceId,0,commentTxt,"",0,new Timestamp(System.currentTimeMillis()),commentId);
+
+		try{
+			getHibernateTemplate().save(mc);
+			return true;
+		}catch(Exception e){
+			System.out.println(e);
+			return false;
+		}
+	}
+
 
 }

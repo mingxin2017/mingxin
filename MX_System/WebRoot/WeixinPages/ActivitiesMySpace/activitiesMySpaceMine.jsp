@@ -53,6 +53,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<label>身份证号码</label> <input type="text" class="mui-input-clear"
 								placeholder="输入身份证号码" value="${sessionScope.userInfo.userIdcardNum}">
 						</div>
+						<div class="mui-input-row">
+							<label>年级班级</label> <input type="text" class="mui-input-clear"
+								placeholder="例：古十中87届18班" value="${sessionScope.userInfo.others}">
+						</div>
 						<div class="mui-button-row">
 							<button class="mui-btn mui-btn-primary" type="button"
 								onclick="return false;">提交修改</button>

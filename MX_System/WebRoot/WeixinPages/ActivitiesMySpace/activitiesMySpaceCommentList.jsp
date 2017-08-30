@@ -80,7 +80,7 @@ function ClickPraise(commentId,userId){
 }
 
 
-function ClickComment_comment(obj,commentId,userId){
+function ClickComment_comment(obj,myspaceId,commentId,userId){
 	var d = dialog({
 		content: '<textarea autofocus id="subTxt" rows="1" cols="25" placeholder="请输入评论内容">',
 		quickClose: true,// 点击空白处快速关闭
@@ -90,7 +90,7 @@ function ClickComment_comment(obj,commentId,userId){
 							callback : function() {
 								var txt = $('#subTxt').val();//获取输入的值
 								if(txt!=''){
-									doSaveMyspaceComment_comment(userId,commentId,txt);
+									doSaveMyspaceComment_comment(userId,myspaceId,commentId,txt);
 								}
 								
 							},
@@ -100,19 +100,16 @@ function ClickComment_comment(obj,commentId,userId){
 	}).show(obj);
 }
 
-function doSaveMyspaceComment_comment(userId,commentId,txt){
+function doSaveMyspaceComment_comment(userId,myspaceId,commentId,commentTxt){
 	$.ajax({
 		    type: "POST",
-		    url: "DoSaveActivitiesMySpaceComment.action", //orderModifyStatus
-		    data: {"userId":userId,"commentId":commentId,"txt":txt},
+		    url: "activitiesMySpace/DoSaveMyspaceComment_comment.action", //orderModifyStatus
+		    data: {"userId":userId,"commentId":commentId,"commentTxt":commentTxt,"myspaceId":myspaceId},
 		    dataType:"json",
 		    success: function(data){
 		    	if(data.done=='0'){
-		    		document.getElementById('mainContent').src='getActivitiesMySpaceCommentList.action';
-		    		var dd = dialog('发送成功').show();
-		    		setTimeout(function () {
-		    			dd.close().remove();
-		    		}, 2000);
+		    		document.getElementById('comment2_'+commentId).innerHTML+=('<h5><b>${sessionScope.userInfo.userRealName} 说：</b>“'+commentTxt+'”</h5>');
+		    		alert('发送成功');
 		    	}else{
 		    		var dd = dialog('发送失败');
 		    	}
@@ -178,13 +175,13 @@ function doSaveMyspaceComment_comment(userId,commentId,txt){
 			</a> 
 			</c:if> --%>
 			<%-- <c:if test="${item.mxUsersData.userId ne sessionScope.userInfo.userId}"> --%>
-			<a id="comment_${item.commentId}" class="mui-card-link" href="javascript:void(0);" onclick="ClickComment_comment(this,${item.commentId},${sessionScope.userInfo.userId});"> 
+			<a id="comment_${item.commentId}" class="mui-card-link" href="javascript:void(0);" onclick="ClickComment_comment(this,${sessionScope.myspaceId},${item.commentId},${sessionScope.userInfo.userId});"> 
 				<span class="mui-icon mui-icon-chatboxes"></span><span id="span${item.commentId}"><%=commentNum %></span>评论
 			</a> 
 			<%-- </c:if>--%>
 		</div>
 		
-			<div style="padding-left:40px;">
+			<div style="padding:0px 20px 20px 40px;" id="comment2_${item.commentId}">
 				
 				<c:forEach items="${userMySpaceCommentList}" var="item2">
 					<c:if test="${item2.parentCommentId eq item.commentId}">
