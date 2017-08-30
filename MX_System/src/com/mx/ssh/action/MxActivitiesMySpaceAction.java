@@ -230,6 +230,7 @@ public class MxActivitiesMySpaceAction extends ActionSupport {
 		activitiesMySpaceComment.setState(0);
 		activitiesMySpaceComment.setPraiseUserIds("");
 		activitiesMySpaceComment.setPraiseClickNum(0);
+		activitiesMySpaceComment.setParentCommentId(-1);
 		activitiesMySpaceComment.setCreateDate(new Timestamp(System
 				.currentTimeMillis()));
 

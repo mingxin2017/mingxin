@@ -124,7 +124,6 @@ function operate(){
 		var d = dialog({
 			fixed: true,
 			content: '<textarea autofocus id="subTxt" rows="3" cols="25" placeholder="发言内容">',
-			
 			button : [ {
 							value : '发送',
 							callback : function() {
@@ -343,12 +342,13 @@ function operate(){
 	</header>
 	<nav class="mui-bar mui-bar-tab" id="footerTab"> 
 		<a  class="mui-tab-item mui-active" href= "JavaScript:void(0);" onclick="showIframe(1,this);" > 
-			<span class="mui-icon mui-icon-chat"><span class="mui-badge">8</span></span> 
+			<span class="mui-icon mui-icon-chat"><!-- <span class="mui-badge">8</span> --></span> 
 			<span class="mui-tab-label">讨论区</span>
 		</a> 
 		<a  class="mui-tab-item"  href= "JavaScript:void(0);" onclick="showIframe(2,this);" > 
 			<span class="mui-icon mui-icon-image">
-			<span class="mui-badge">3</span></span> 
+			<!-- <span class="mui-badge">3</span> -->
+			</span> 
 			<span class="mui-tab-label">照片墙</span> 
 		</a> 
 		<a  class="mui-tab-item" href= "JavaScript:void(0);" onclick="showIframe(3,this);" > 

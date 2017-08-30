@@ -50,7 +50,7 @@ function ClickPraise(commentId,userId){
          type: 'post',
          data: {'commentId':commentId,'userId':userId},
          dataType: 'json',
-         async:false,//关闭异步
+         async:true,//关闭异步
          success: function (response) {
              if (response.done == '0') {
             	 numTip.innerHTML=num+1;
@@ -77,6 +77,53 @@ function ClickPraise(commentId,userId){
              alert(jqXHR.responseText);
          }
      });
+}
+
+
+function ClickComment_comment(obj,commentId,userId){
+	var d = dialog({
+		content: '<textarea autofocus id="subTxt" rows="1" cols="25" placeholder="请输入评论内容">',
+		quickClose: true,// 点击空白处快速关闭
+		height: '2em',
+		button : [ {
+							value : '发送',
+							callback : function() {
+								var txt = $('#subTxt').val();//获取输入的值
+								if(txt!=''){
+									doSaveMyspaceComment_comment(userId,commentId,txt);
+								}
+								
+							},
+							autofocus : true
+				}]
+		
+	}).show(obj);
+}
+
+function doSaveMyspaceComment_comment(userId,commentId,txt){
+	$.ajax({
+		    type: "POST",
+		    url: "DoSaveActivitiesMySpaceComment.action", //orderModifyStatus
+		    data: {"userId":userId,"commentId":commentId,"txt":txt},
+		    dataType:"json",
+		    success: function(data){
+		    	if(data.done=='0'){
+		    		document.getElementById('mainContent').src='getActivitiesMySpaceCommentList.action';
+		    		var dd = dialog('发送成功').show();
+		    		setTimeout(function () {
+		    			dd.close().remove();
+		    		}, 2000);
+		    	}else{
+		    		var dd = dialog('发送失败');
+		    	}
+			},
+			error: function(json){
+				var ddd = dialog('提交数据异常，请刷新后重试...').show();
+				setTimeout(function () {
+					ddd.close().remove();
+	    		}, 1500);
+			}
+	    });
 }
 </script>
 </head>
@@ -125,23 +172,23 @@ function ClickPraise(commentId,userId){
 					<span class="mui-icon icomoon icon-thumbs-up"></span><span id="span${item.commentId}">${item.praiseClickNum}</span>赞
 				</a>
    			<%} %>
-   			<c:if test="${item.mxUsersData.userId eq sessionScope.userInfo.userId}">
+   			<%-- <c:if test="${item.mxUsersData.userId eq sessionScope.userInfo.userId}">
 			<a id="comment_${item.commentId}" class="mui-card-link" href="javascript:void(0);" style="color:gray"> 
 				<span class="mui-icon mui-icon-chatboxes"></span><span id="span${item.commentId}"><%=commentNum %></span>评论
 			</a> 
-			</c:if>
-			<c:if test="${item.mxUsersData.userId ne sessionScope.userInfo.userId}">
-			<a id="comment_${item.commentId}" class="mui-card-link" href="javascript:void(0);" onclick="ClickComment(${item.commentId},${sessionScope.userInfo.userId});"> 
+			</c:if> --%>
+			<%-- <c:if test="${item.mxUsersData.userId ne sessionScope.userInfo.userId}"> --%>
+			<a id="comment_${item.commentId}" class="mui-card-link" href="javascript:void(0);" onclick="ClickComment_comment(this,${item.commentId},${sessionScope.userInfo.userId});"> 
 				<span class="mui-icon mui-icon-chatboxes"></span><span id="span${item.commentId}"><%=commentNum %></span>评论
 			</a> 
-			</c:if>
+			<%-- </c:if>--%>
 		</div>
 		
 			<div style="padding-left:40px;">
 				
 				<c:forEach items="${userMySpaceCommentList}" var="item2">
 					<c:if test="${item2.parentCommentId eq item.commentId}">
-     					<h5><b>${item2.mxUsersData.userRealName} 评论：</b>${item2.commentTxt}</h5>
+     					<h5><b>${item2.mxUsersData.userRealName} 说：</b>“${item2.commentTxt}”</h5>
 					</c:if> 
 				</c:forEach>
 			</div>

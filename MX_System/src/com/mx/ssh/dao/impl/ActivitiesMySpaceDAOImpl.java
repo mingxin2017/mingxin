@@ -82,11 +82,13 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 			int myspaceId) {
 		// TODO Auto-generated method stub
 		//List<ActivitiesUserMySpaceComment> reutnList=new ArrayList();
-		List<MxActivitiesMySpaceComment> myspaceCommentList=getHibernateTemplate().find("from com.mx.ssh.bean.MxActivitiesMySpaceComment au order by au.createDate desc where au.myspaceId = "+ myspaceId);
+		//List<MxActivitiesMySpaceComment> myspaceCommentList=getHibernateTemplate().find(" from com.mx.ssh.bean.MxActivitiesMySpaceComment c order by c.createDate desc where c.myspaceId = "+ myspaceId);
+		List<MxActivitiesMySpaceComment> myspaceCommentList=getHibernateTemplate().find("select c from MxActivitiesMySpaceComment c,MxActivitiesMySpaceUsers u where c.mxUsersData.userId=u.mxUsersData.userId and c.myspaceId = "+ myspaceId +" order by c.createDate desc");
 		
 		return myspaceCommentList;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<ActivitiesUserMySpaceMaterial> getUserMySpaceMaterialList(
 			int myspaceId) {
 		// TODO Auto-generated method stub
@@ -95,7 +97,6 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 		for(int i=0;i<spaceUsers.size();i++){
 			ActivitiesUserMySpaceMaterial itemBuff=new ActivitiesUserMySpaceMaterial();
 			List<MxActivitiesMySpaceMaterial> materialsBuff=getHibernateTemplate().find("from com.mx.ssh.bean.MxActivitiesMySpaceMaterial au where au.submitUserId = "+ spaceUsers.get(i).getMxUsersData().getUserId()+" order by au.createDate desc ");
-			//MxUsersData user=(MxUsersData) getHibernateTemplate().find("from com.mx.ssh.bean.MxUsersData au where au.userId = "+ spaceUsers.get(i).getUserId()).get(0);
 			itemBuff.setUserData(spaceUsers.get(i).getMxUsersData());
 			itemBuff.setUserMySpaceMaterialList(materialsBuff);
 			returnBuff.add(itemBuff);
