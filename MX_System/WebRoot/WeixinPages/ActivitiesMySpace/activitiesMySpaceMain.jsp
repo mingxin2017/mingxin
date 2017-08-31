@@ -94,7 +94,7 @@ function showIframe(pageTag,obj){
 	
 	var url;
 	if(pageTag==1){
-		operateButton.innerHTML="发言";
+		operateButton.innerHTML="发帖";
 		url='getActivitiesMySpaceCommentList.action';
 	}else if(pageTag==2){
 		operateButton.innerHTML="上传照片";
@@ -120,10 +120,10 @@ function showIframe(pageTag,obj){
 
 function operate(){
 	var operate=document.getElementById('operate').innerHTML;
-	if(operate=="发言"){
+	if(operate=="发帖"){
 		var d = dialog({
 			fixed: true,
-			content: '<textarea autofocus id="subTxt" rows="3" cols="25" placeholder="发言内容">',
+			content: '<textarea autofocus id="subTxt" rows="3" cols="25" placeholder="发帖内容">',
 			button : [ {
 							value : '发送',
 							callback : function() {
@@ -338,7 +338,7 @@ function operate(){
 	<header class="mui-bar mui-bar-nav" id="myspaceMainHeader"> 
 		<a class="mui-btn mui-btn-blue mui-btn-link mui-pull-left" onclick="quitPage();">退出</a>
 		<h1 id="title" class="mui-title">讨论区</h1>
-		<div id="operate" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" onclick="operate();">发言</div>
+		<div id="operate" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" onclick="operate();">发帖</div>
 	</header>
 	<nav class="mui-bar mui-bar-tab" id="footerTab"> 
 		<a  class="mui-tab-item mui-active" href= "JavaScript:void(0);" onclick="showIframe(1,this);" > 

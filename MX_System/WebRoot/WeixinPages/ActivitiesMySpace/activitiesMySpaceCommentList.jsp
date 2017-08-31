@@ -122,6 +122,53 @@ function doSaveMyspaceComment_comment(userId,myspaceId,commentId,commentTxt){
 			}
 	    });
 }
+
+function DeleteComment_comment(commentId){
+
+		/* var d = dialog({
+			fixed: true,
+			content: '确定删除本条评论吗？',
+			button : [{
+						value : '取消'
+						},{
+							value : '确定',
+							callback : function() {
+								DoDeleteComment_comment(commentId);
+							},
+							autofocus : true
+						}]
+					}).showModal(); */
+	
+	var truthBeTold = window.confirm("确定删除本条评论吗？");
+	if (truthBeTold) {
+		DoDeleteComment_comment(commentId);
+	}
+}
+
+//删除帖子评论
+function DoDeleteComment_comment(commentId){
+	$.ajax({
+		    type: "POST",
+		    url: "activitiesMySpace/DoDeleteMyspaceComment_comment.action", //orderModifyStatus
+		    data: {"commentId":commentId},
+		    dataType:"json",
+		    success: function(data){
+		    	if(data.done=='0'){
+		    		var c=document.getElementById('comment3_'+commentId);
+		    		c.parentNode.removeChild(c);
+		    		alert('成功删除');
+		    	}else{
+		    		var dd = dialog('删除失败');
+		    	}
+			},
+			error: function(json){
+				var ddd = dialog('提交数据异常，请刷新后重试...').show();
+				setTimeout(function () {
+					ddd.close().remove();
+	    		}, 1500);
+			}
+	    });
+}
 </script>
 </head>
 
@@ -182,11 +229,26 @@ function doSaveMyspaceComment_comment(userId,myspaceId,commentId,commentTxt){
 		</div>
 		
 			<div style="padding:0px 20px 20px 40px;" id="comment2_${item.commentId}">
-				
 				<c:forEach items="${userMySpaceCommentList}" var="item2">
 					<c:if test="${item2.parentCommentId eq item.commentId}">
-     					<h5><b>${item2.mxUsersData.userRealName} 说：</b>“${item2.commentTxt}”</h5>
+					<c:if test="${item.mxUsersData.userId eq sessionScope.userInfo.userId}">
+					<div class="mui-row" id="comment3_${item.commentId}"> 
+						<div class="mui-col-xs-10">
+     						<h5><b>${item2.mxUsersData.userRealName} 说：</b>“${item2.commentTxt}”</h5>
+     					</div>
+     					<div class="mui-col-xs-2">
+     						<a style=" color:red;" href="javascript:void(0);" onclick="DeleteComment_comment(${item2.commentId});">删除</a>
+     					</div>
+     				</div>
 					</c:if> 
+					<c:if test="${item.mxUsersData.userId ne sessionScope.userInfo.userId}">
+					<div class="mui-row" id="comment3_${item.commentId}"> 
+						<div class="mui-col-xs-12">
+     						<h5><b>${item2.mxUsersData.userRealName} 说：</b>“${item2.commentTxt}”</h5>
+     					</div>
+     				</div>
+					</c:if>
+					</c:if>
 				</c:forEach>
 			</div>
 	</div>

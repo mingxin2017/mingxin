@@ -117,5 +117,10 @@ public class ActivitiesMySpaceServiceImpl implements com.mx.ssh.service.IActivit
 		return activitiesMySpaceDAO.saveMyspaceComment_comment(myspaceId,commentId,userId,commentTxt);
 	}
 
+	public boolean deleteMyspaceComment_comment(int commentId) {
+		// TODO Auto-generated method stub
+		return activitiesMySpaceDAO.deleteMyspaceComment_comment(commentId);
+	}
+
 	
 }

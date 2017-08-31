@@ -53,4 +53,6 @@ public interface IActivitiesMySpaceDAO {
 
 	boolean saveMyspaceComment_comment(int myspaceId,int commentId, int userId,  String commentTxt);
 
+	boolean deleteMyspaceComment_comment(int commentId);
+
 }

@@ -130,7 +130,7 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 
 		List<MxActivitiesMySpaceMaterial> materialsBuff=getHibernateTemplate().find("from com.mx.ssh.bean.MxActivitiesMySpaceMaterial au where au.submitUserId = "+ userId+" and au.myspaceId="+myspaceId+" order by au.createDate desc ");
 
-		List<MxActivitiesMySpaceComment> myspaceCommentList=getHibernateTemplate().find("from com.mx.ssh.bean.MxActivitiesMySpaceComment au where au.myspaceId = "+ myspaceId +" and au.mxUsersData.userId="+userId+"order by au.createDate desc");
+		List<MxActivitiesMySpaceComment> myspaceCommentList=getHibernateTemplate().find("from com.mx.ssh.bean.MxActivitiesMySpaceComment au where au.myspaceId = "+ myspaceId +" and au.mxUsersData.userId="+userId+" and au.parentCommentId=-1 order by au.createDate desc");
 		returnList.setActivitiesMySpaceCommentMineList(myspaceCommentList);
 		returnList.setActivitiesMySpaceMaterialMineList(materialsBuff);
 		return returnList;
@@ -284,6 +284,19 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 			return true;
 		}catch(Exception e){
 			System.out.println(e);
+			return false;
+		}
+	}
+
+	public boolean deleteMyspaceComment_comment(int commentId) {
+		// TODO Auto-generated method stub
+		MxActivitiesMySpaceComment comment=new MxActivitiesMySpaceComment();
+		comment.setCommentId(commentId);
+		try{
+			getHibernateTemplate().delete(commentId);
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
 			return false;
 		}
 	}

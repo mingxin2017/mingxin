@@ -51,5 +51,10 @@ public interface IActivitiesMySpaceService {
 	boolean saveMyspaceComment_comment(int myspaceId,int commentId, int userId,
 			String commentTxt);
 
+	/*
+	 * É¾³ıÌû×ÓÆÀÂÛ
+	 */
+	boolean deleteMyspaceComment_comment(int commentId);
+
 
 }
