@@ -183,7 +183,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="mui-card-header mui-card-media">
 					<img data-lazyload="${item1.userData.weixinHeadUrl}" />
 					<div class="mui-media-body">
-						${item1.userData.weixinNikeName}
+						${item1.userData.userRealName}
 						<p>更新于<fmt:formatDate value="${item1.userMySpaceMaterialList[0].createDate}" pattern="yyyy-MM-dd　HH:mm"/></p>
 					</div>
 				</div>

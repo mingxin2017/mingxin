@@ -155,6 +155,7 @@ function DoDeleteComment_comment(commentId){
 		    success: function(data){
 		    	if(data.done=='0'){
 		    		var c=document.getElementById('comment3_'+commentId);
+		    		alert(c);
 		    		c.parentNode.removeChild(c);
 		    		alert('成功删除');
 		    	}else{
@@ -232,17 +233,17 @@ function DoDeleteComment_comment(commentId){
 				<c:forEach items="${userMySpaceCommentList}" var="item2">
 					<c:if test="${item2.parentCommentId eq item.commentId}">
 					<c:if test="${item.mxUsersData.userId eq sessionScope.userInfo.userId}">
-					<div class="mui-row" id="comment3_${item.commentId}"> 
+					<div class="mui-row" id="comment3_${item2.commentId}"> 
 						<div class="mui-col-xs-10">
      						<h5><b>${item2.mxUsersData.userRealName} 说：</b>“${item2.commentTxt}”</h5>
      					</div>
      					<div class="mui-col-xs-2">
-     						<a style=" color:red;" href="javascript:void(0);" onclick="DeleteComment_comment(${item2.commentId});">删除</a>
+     						<a style=" color:#EE7942;" href="javascript:void(0);" onclick="DeleteComment_comment(${item2.commentId});">删除</a>
      					</div>
      				</div>
 					</c:if> 
 					<c:if test="${item.mxUsersData.userId ne sessionScope.userInfo.userId}">
-					<div class="mui-row" id="comment3_${item.commentId}"> 
+					<div class="mui-row" id="comment3_${item2.commentId}"> 
 						<div class="mui-col-xs-12">
      						<h5><b>${item2.mxUsersData.userRealName} 说：</b>“${item2.commentTxt}”</h5>
      					</div>

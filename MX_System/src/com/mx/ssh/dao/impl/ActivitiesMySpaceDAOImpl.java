@@ -288,12 +288,18 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 		}
 	}
 
+	/*É¾³ýÌû×ÓÆÀÂÛ
+	 * (non-Javadoc)
+	 * @see com.mx.ssh.dao.IActivitiesMySpaceDAO#deleteMyspaceComment_comment(int)
+	 */
 	public boolean deleteMyspaceComment_comment(int commentId) {
-		// TODO Auto-generated method stub
-		MxActivitiesMySpaceComment comment=new MxActivitiesMySpaceComment();
+		
+		MxUsersData user=new MxUsersData();
+		user.setUserId(0);
+		MxActivitiesMySpaceComment comment=new MxActivitiesMySpaceComment(user,0,0,"","",0,new Timestamp(System.currentTimeMillis()),0);
 		comment.setCommentId(commentId);
 		try{
-			getHibernateTemplate().delete(commentId);
+			getHibernateTemplate().delete(comment);
 			return true;
 		}catch(Exception e){
 			e.printStackTrace();
