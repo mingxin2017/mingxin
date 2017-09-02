@@ -78,6 +78,56 @@ function ClickPraise(commentId,userId){
          }
      });
 }
+
+//评论发言
+function ClickComment(commentId,userId){
+
+	alert(123);
+	var d = dialog({
+		fixed: true,
+		content: '<textarea autofocus id="subCommentTxt" rows="3" cols="25" placeholder="发表评论">',
+		button : [ {
+						value : '发送',
+						callback : function() {
+							var txt = $('#subCommentTxt').val();//获取输入的值
+							doSaveComment_Comment(userId,commentId,txt);
+						},
+						autofocus : true
+					}, {
+						value : '取消'
+					} ]
+
+				}).show();
+}
+
+//保存帖子的评论
+function doSaveComment_Comment(){
+	$.ajax({
+	    type: "POST",
+	    url: "doSaveComment_Comment.action", //orderModifyStatus
+	    data: {"userId":userId,"commentId":commentId,"txt":txt},
+	    dataType:"json",
+	    async:false,
+	    cache:false,
+	    success: function(data){
+	    	if(data.done=='0'){
+	    		document.getElementById('mainContent').src='getActivitiesMySpaceCommentList.action';
+	    		var dd = dialog('发送成功').show();
+	    		setTimeout(function () {
+	    			dd.close().remove();
+	    		}, 2000);
+	    	}else{
+	    		var dd = dialog('发送失败');
+	    	}
+		},
+		error: function(json){
+			var ddd = dialog('提交数据异常，请刷新后重试...').show();
+			setTimeout(function () {
+				ddd.close().remove();
+    		}, 1500);
+		}
+    });
+}
 </script>
 </head>
 
@@ -125,16 +175,17 @@ function ClickPraise(commentId,userId){
 					<span class="mui-icon icomoon icon-thumbs-up"></span><span id="span${item.commentId}">${item.praiseClickNum}</span>赞
 				</a>
    			<%} %>
-   			<c:if test="${item.mxUsersData.userId eq sessionScope.userInfo.userId}">
+   			<%--<c:if test="${item.mxUsersData.userId eq sessionScope.userInfo.userId}">
 			<a id="comment_${item.commentId}" class="mui-card-link" href="javascript:void(0);" style="color:gray"> 
 				<span class="mui-icon mui-icon-chatboxes"></span><span id="span${item.commentId}"><%=commentNum %></span>评论
 			</a> 
 			</c:if>
-			<c:if test="${item.mxUsersData.userId ne sessionScope.userInfo.userId}">
+			--%><%--<c:if test="${item.mxUsersData.userId ne sessionScope.userInfo.userId}">
+			--%>
 			<a id="comment_${item.commentId}" class="mui-card-link" href="javascript:void(0);" onclick="ClickComment(${item.commentId},${sessionScope.userInfo.userId});"> 
 				<span class="mui-icon mui-icon-chatboxes"></span><span id="span${item.commentId}"><%=commentNum %></span>评论
 			</a> 
-			</c:if>
+			<%--</c:if>--%>
 		</div>
 		
 			<div style="padding-left:40px;">
