@@ -97,7 +97,7 @@ function showIframe(pageTag,obj){
 	
 	var url;
 	if(pageTag==1){
-		operateButton.innerHTML="发帖";
+		operateButton.innerHTML="发言";
 		url='getActivitiesMySpaceCommentList.action';
 	}else if(pageTag==2){
 		operateButton.innerHTML="上传照片";
@@ -124,10 +124,11 @@ function showIframe(pageTag,obj){
 
 function operate(){
 	var operate=document.getElementById('operate').innerHTML;
-	if(operate=="发帖"){
+	if(operate=="发言"){
 		var d = dialog({
 			fixed: true,
-			content: '<textarea autofocus id="subTxt" rows="3" cols="25" placeholder="发帖内容">',
+			content: '<textarea autofocus id="subTxt" rows="3" cols="25" placeholder="发言内容">',
+			
 			button : [ {
 							value : '发送',
 							callback : function() {
@@ -189,7 +190,7 @@ function operate(){
 							    		var dd = dialog({
 							    				title:'复制以下内容，发送给参加人员',
 							    				//content:'<div>该邀请码有效期为24小时</div><input type=\"text\" value=\"'+data.inviteCode+'\"/>\r\n<',
-							    				content:'<div>邀请码有效期为24小时，过期需要重新生成</div><textarea rows=\"3\" cols=\"25\">邀请码('+data.inviteCode+')\n复制该信息至鸣心公众号-个人中心-个人空间粘贴即可接受邀请。</textarea>',
+							    				content:'<div>邀请码有效期为24小时，过期需要重新生成</div><textarea rows=\"3\" cols=\"25\">邀请码('+data.inviteCode+')\n复制该信息至鸣心公众号-个人中心-我的空间粘贴即可接受邀请。</textarea>',
 							                    okValue: '完成',
 							                    ok: function() {
 							                        dd.close().remove();
@@ -342,17 +343,16 @@ function operate(){
 	<header class="mui-bar mui-bar-nav" id="myspaceMainHeader"> 
 		<a class="mui-btn mui-btn-blue mui-btn-link mui-pull-left" onclick="quitPage();">退出</a>
 		<h1 id="title" class="mui-title">讨论区</h1>
-		<div id="operate" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" onclick="operate();">发帖</div>
+		<div id="operate" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" onclick="operate();">发言</div>
 	</header>
 	<nav class="mui-bar mui-bar-tab" id="footerTab"> 
 		<a  class="mui-tab-item mui-active" href= "JavaScript:void(0);" onclick="showIframe(1,this);" > 
-			<span class="mui-icon mui-icon-chat"><!-- <span class="mui-badge">8</span> --></span> 
+			<span class="mui-icon mui-icon-chat"><span class="mui-badge">8</span></span> 
 			<span class="mui-tab-label">讨论区</span>
 		</a> 
 		<a  class="mui-tab-item"  href= "JavaScript:void(0);" onclick="showIframe(2,this);" > 
 			<span class="mui-icon mui-icon-image">
-			<!-- <span class="mui-badge">3</span> -->
-			</span> 
+			<span class="mui-badge">3</span></span> 
 			<span class="mui-tab-label">照片墙</span> 
 		</a> 
 		<a  class="mui-tab-item" href= "JavaScript:void(0);" onclick="showIframe(3,this);" > 
@@ -361,7 +361,7 @@ function operate(){
 		</a> 
 		<a  class="mui-tab-item" href= "JavaScript:void(0);" onclick="showIframe(4,this);" >
 			<span class="mui-icon mui-icon-gear"></span> 
-			<span class="mui-tab-label">个人空间</span> 
+			<span class="mui-tab-label">我的空间</span> 
 		</a> 
 	</nav>
 	<div id="iframeContent" class="mui-content" >

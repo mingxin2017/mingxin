@@ -23,7 +23,7 @@ public class AuthInterceptor extends AbstractInterceptor{
 	private IUserService userService;
 	
     @Override  
-    public String intercept(ActionInvocation invocation) throws Exception {
+    public String intercept(ActionInvocation invocation) throws Exception {  
     	System.out.println("进入登录拦截器");
     	HttpServletRequest request = ServletActionContext.getRequest();
     	MxUsersData userInfo = (MxUsersData)request.getSession().getAttribute("userInfo");//从session中获取用户信息
