@@ -108,7 +108,14 @@ function doSaveMyspaceComment_comment(userId,myspaceId,commentId,commentTxt){
 		    dataType:"json",
 		    success: function(data){
 		    	if(data.done=='0'){
-		    		document.getElementById('comment2_'+commentId).innerHTML+=('<h5><b>${sessionScope.userInfo.userRealName} 说：</b>“'+commentTxt+'”</h5>');
+		    	//	if(userId==${sessionScope.userInfo.userId}){
+		    	//		document.getElementById('comment2_'+commentId).innerHTML+=('<div class="mui-col-xs-10"><h5><b>${sessionScope.userInfo.userRealName} 说：</b>“'+commentTxt+'”</h5></div><div class="mui-col-xs-2"><a style=" color:#EE7942;" href="javascript:void(0);" onclick="DeleteComment_comment(${item2.commentId});">删除</a></div>');
+		    	//	}else{
+		    			document.getElementById('comment2_'+commentId).innerHTML+=('<h5><b>${sessionScope.userInfo.userRealName} 说：</b>“'+commentTxt+'”</h5>');
+		    	//	}
+		    			var cc=document.getElementById('span'+commentId).innerHTML;
+			    		//alert(cc);
+			    		cc=cc+1;
 		    		alert('发送成功');
 		    	}else{
 		    		var dd = dialog('发送失败');
@@ -155,9 +162,12 @@ function DoDeleteComment_comment(commentId){
 		    success: function(data){
 		    	if(data.done=='0'){
 		    		var c=document.getElementById('comment3_'+commentId);
-		    		alert(c);
+		    		//alert(c);
 		    		c.parentNode.removeChild(c);
-		    		alert('成功删除');
+		    		//alert('成功删除');
+		    		//var cc=document.getElementById('span'+commentId).innerHTML;
+		    		//alert(cc);
+		    		//cc=cc-1;
 		    	}else{
 		    		var dd = dialog('删除失败');
 		    	}
@@ -189,7 +199,15 @@ function DoDeleteComment_comment(commentId){
 			<div class="mui-media-body">
 				${item.mxUsersData.userRealName}
 				<p>发表于<fmt:formatDate value="${item.createDate}" pattern="yyyy-MM-dd　HH:mm"/>
+					<c:set var="itemDate" value="${item.createDate}" scope="request"></c:set>
+					<%
+					Date itemDate=(Date)request.getAttribute("itemDate");
+					Date nowDate=new Date();
+					long  between = nowDate.getTime() - itemDate.getTime();
+					if(between <= (3*24*3600000)){
+					%>
 					<span class="mui-badge mui-badge-danger">新</span>
+					<%} %>
 				</p>
 			</div>
 		</div>

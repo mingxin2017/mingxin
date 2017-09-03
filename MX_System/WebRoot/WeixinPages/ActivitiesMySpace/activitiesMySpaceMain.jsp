@@ -77,12 +77,15 @@ $(document).ready(function() {
 
 function showIframe(pageTag,obj){
 	//alert(1010);
-	var dl=dialog('加载中...').showModal();
-	var current = document.querySelector(".mui-bar-tab>.mui-tab-item.mui-active");
+	
+	var current = document.querySelector(".mui-tab-item.mui-active");
+	//alert(current);
+	//alert(obj);
 	if (obj !== current) {
+		var dl=dialog('加载中...').showModal();
 		current.classList.remove('mui-active');
 		obj.classList.add('mui-active');
-	}else{return;}
+	
 	
 	//更换标题
 	var title = document.getElementById("title");
@@ -116,6 +119,7 @@ function showIframe(pageTag,obj){
 	$("#mainContent").load(function(){//iframe加载完成后关闭加载框
         dl.close().remove();
     });  
+	}else{return;}
 }
 
 function operate(){

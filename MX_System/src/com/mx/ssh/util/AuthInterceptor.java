@@ -29,16 +29,24 @@ public class AuthInterceptor extends AbstractInterceptor{
     	MxUsersData userInfo = (MxUsersData)request.getSession().getAttribute("userInfo");//从session中获取用户信息
     	//System.out.println(userInfo);
     	if(userInfo==null){//若session用户信息不存在，则验证是否有微信的用户验证机制传过来的用户信息
-    		SNSUserInfo snsUserInfo=WeixinUtil.validateWeixinWebUser(request);//获取网页验证个人信息
+    		//SNSUserInfo snsUserInfo=WeixinUtil.validateWeixinWebUser(request);//获取网页验证个人信息
 
     		//System.out.println(snsUserInfo.getOpenId());
-    		if(snsUserInfo!=null){
-    			userInfo=userService.getUserByOpenId(snsUserInfo.getOpenId());//根据openId获取用户系统信息
-    			request.getSession().setAttribute("userInfo", userInfo);//是从微信网页验证过来的请求，设置session用户信息
-    			return invocation.invoke();
-    		}else{
+    		//if(snsUserInfo!=null){
+    		//	userInfo=userService.getUserByOpenId(snsUserInfo.getOpenId());//根据openId获取用户系统信息
+    		//	request.getSession().setAttribute("userInfo", userInfo);//是从微信网页验证过来的请求，设置session用户信息
+    		//	return invocation.invoke();
+    		//}else{
+    		//	return "noLogin";
+    		//}
+    		
+    		userInfo=WeixinUtil.validate_getUser(request);
+    		if(userInfo==null){//如果还是没有用户信息，说明用户没有登录
     			return "noLogin";
+    		}else{//不为空，且已经设置了session，则向下执行
+    			return invocation.invoke();
     		}
+    		
     	}else{
             return invocation.invoke();
         }

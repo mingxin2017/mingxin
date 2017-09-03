@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import net.sf.json.JSONObject;
@@ -21,8 +22,14 @@ public class WeixinUtil {
 
 	private static Logger log = LoggerFactory.getLogger(WeixinUtil.class);
 	
-	@Autowired
-	private  IUserService userService;
+	
+	private static  IUserService userService;
+	
+	//静态注入bean的方法
+	@Autowired(required = true)
+	  public void setUserService(IUserService userService) {
+		WeixinUtil.userService = userService;
+	  }
 	
 	// 菜单创建（POST） 限100（次/天）
     public static String menu_create_url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
@@ -136,6 +143,21 @@ public class WeixinUtil {
 			return null;
 		}
 		
+    }
+    
+    
+    public static MxUsersData validate_getUser(HttpServletRequest request){
+    	SNSUserInfo snsUserInfo=WeixinUtil.validateWeixinWebUser(request);//获取网页验证个人信息
+
+    	MxUsersData userInfo=new MxUsersData();
+		System.out.println("执行validate_getUser");
+		if(snsUserInfo!=null){
+			userInfo=userService.getUserByOpenId(snsUserInfo.getOpenId());//根据openId获取用户系统信息
+			request.getSession().setAttribute("userInfo", userInfo);//是从微信网页验证过来的请求，设置session用户信息
+			return userInfo;
+		}else{
+			return null;
+		}
     }
 
     
