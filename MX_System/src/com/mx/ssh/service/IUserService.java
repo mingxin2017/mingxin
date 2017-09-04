@@ -14,5 +14,6 @@ public interface IUserService {
 	MxUsersData getUserByID(Integer userId);
 	public MxUsersData validateWeixinUser(String openId);
 	public MxUsersData getUserByOpenId(String openId);
+	public MxUsersData userLogin(String userName, String userPwd);
 	
 }

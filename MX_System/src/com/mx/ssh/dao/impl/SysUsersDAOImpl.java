@@ -101,4 +101,17 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 		return 0;
 	}
 
+
+	public MxUsersData userLogin(String userName, String userPwd) {
+		// TODO Auto-generated method stub
+		List<MxUsersData> ud= getHibernateTemplate().find("from com.mx.ssh.bean.MxUsersData au where au.userName ='"+userName+"' and au.userTypeId=1100 and au.password='"+userPwd+"'");
+		
+		if(ud.size()>0){
+			return ud.get(0);
+		}else{
+			return null;
+		}
+		
+	}
+
 }

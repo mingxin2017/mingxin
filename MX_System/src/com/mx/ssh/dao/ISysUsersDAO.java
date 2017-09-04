@@ -67,6 +67,8 @@ public interface ISysUsersDAO {
 	public boolean setUserState(MxUsersData ur);
 
 	public MxUsersData validateWeixinUser(String openId);
+
+	public MxUsersData userLogin(String userName, String userPwd);
 	
 	
 	

@@ -59,6 +59,11 @@ public class UserServiceImpl implements com.mx.ssh.service.IUserService {
 		return sysUsersDAO.getUserByOpenId(openId);
 	}
 
+	public MxUsersData userLogin(String userName, String userPwd) {
+		// TODO Auto-generated method stub
+		return sysUsersDAO.userLogin(userName,userPwd);
+	}
+
 	
 	
 }

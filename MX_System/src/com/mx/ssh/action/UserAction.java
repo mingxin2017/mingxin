@@ -1,6 +1,9 @@
 package com.mx.ssh.action;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -87,5 +90,42 @@ public class UserAction extends ActionSupport {
 	        e.printStackTrace();
 	    }
 	    
+	}
+	
+	
+	/*
+	 * 后台用户登录
+	 */
+	@Action(value = "doLogin", results = { 
+			@Result(name = "loginSuccess", location = "/SystemPages/index.jsp") 
+			
+	})
+	public String doLogin() throws IOException {
+		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
+		request.setCharacterEncoding("UTF-8");
+		HttpServletResponse response = ServletActionContext.getResponse();// response对象返回数据给前台
+		response.setContentType("application/json; charset=utf-8");
+
+		String userName = request.getParameter("userName").toString();// 获取用户名
+		String userPwd = request.getParameter("userPwd").toString();// 获取密码
+
+		MxUsersData userInfo = userService.userLogin(userName,
+				userPwd);
+
+		Map<String, String> map = new HashMap<String, String>();
+		if (null==userInfo) {
+			map.put("done", "-1");
+			map.put("msg", "登录失败!");
+			JSONObject jsonObject = JSONObject.fromObject(map);
+			response.getWriter().write(jsonObject.toString());
+			return null;
+		} else {
+			map.put("done", "0");
+			map.put("msg", "登录成功!");
+			request.getSession().setAttribute("userInfo", userInfo);//设置管理员session值
+			JSONObject jsonObject = JSONObject.fromObject(map);
+			response.getWriter().write(jsonObject.toString());
+			return "loginSuccess";
+		}
 	}
 }
