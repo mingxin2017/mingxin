@@ -13,7 +13,11 @@ import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.Namespace;
+import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 
 import com.mx.ssh.bean.MxUsersData;
@@ -27,10 +31,13 @@ import com.opensymphony.xwork2.ActionSupport;
  *
  */
 
-
-@Action(value = "userAction", results = { 
-		@Result(name = "success", location = "/success.jsp"),
-		@Result(name = "input", location = "/register.jsp") })
+@Controller
+//控制层的Spring注解
+@Scope("prototype")
+//支持多例
+@ParentPackage("sys-default")
+//表示struts继承的父包
+@Namespace(value = "/userAction")
 public class UserAction extends ActionSupport {  
 	
 	private static final long serialVersionUID = 1L;
@@ -96,11 +103,8 @@ public class UserAction extends ActionSupport {
 	/*
 	 * 后台用户登录
 	 */
-	@Action(value = "doLogin", results = { 
-			@Result(name = "loginSuccess", location = "/SystemPages/index.jsp") 
-			
-	})
-	public String doLogin() throws IOException {
+	@Action(value = "doLogin")
+	public void doLogin() throws IOException {
 		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
 		request.setCharacterEncoding("UTF-8");
 		HttpServletResponse response = ServletActionContext.getResponse();// response对象返回数据给前台
@@ -118,14 +122,32 @@ public class UserAction extends ActionSupport {
 			map.put("msg", "登录失败!");
 			JSONObject jsonObject = JSONObject.fromObject(map);
 			response.getWriter().write(jsonObject.toString());
-			return null;
+			//return null;
 		} else {
 			map.put("done", "0");
 			map.put("msg", "登录成功!");
 			request.getSession().setAttribute("userInfo", userInfo);//设置管理员session值
 			JSONObject jsonObject = JSONObject.fromObject(map);
 			response.getWriter().write(jsonObject.toString());
-			return "loginSuccess";
+			//return "sysIndex";
 		}
+	}
+	
+	/*
+	 * 后台用户登录
+	 */
+	@Action(value = "gotoIndex", results = { 
+			@Result(name = "sysIndex", location = "/SystemPages/index.jsp")})
+	public String gotoIndex(){
+		return "sysIndex";
+	}
+	
+	/*
+	 * 系统默认页面
+	 */
+	@Action(value = "gotoDefault", results = { 
+			@Result(name = "welcome", location = "/SystemPages/welcome.jsp")})
+	public String gotoDefault(){
+		return "welcome";
 	}
 }
