@@ -1,168 +1,129 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://"
-			+ request.getServerName() + ":" + request.getServerPort()
-			+ path + "/";
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html> 
+<!DOCTYPE HTML>
+<html>
 <head>
-<base href="<%=basePath%>">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link href="<%=basePath%>SystemPages/static/h-ui/css/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="<%=basePath%>SystemPages/static/h-ui.admin/css/H-ui.login.css" rel="stylesheet" type="text/css" />
+<link href="<%=basePath%>SystemPages/static/h-ui.admin/css/style.css" rel="stylesheet" type="text/css" />
+<link href="<%=basePath%>SystemPages/lib/Hui-iconfont/1.0.8/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<script type="text/javascript" src="<%=basePath%>WeixinPages/common/js/jquery-1.11.2.js"></script>
+<script type="text/javascript" src="<%=basePath%>WeixinPages/common/js/dialog.js"></script>
 
-<title>登录页面</title>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<title>鸣心-后台登录</title>
+<meta name="keywords" content="H-ui.admin v3.1,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
+<meta name="description" content="H-ui.admin v3.1，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
 
-<meta http-equiv="x-ua-compatible" content="IE=edge">
-<meta http-equiv="pragma" content="no-cache">
-<meta http-equiv="cache-control" content="no-cache">
-<meta http-equiv="expires" content="0">
-<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-
-<link href="<%=basePath%>WeixinPages/common/css/mui.min.css"
-	rel="stylesheet" />
-
-
-<script src="<%=basePath%>WeixinPages/common/js/mui.min.js"></script>
-
-
-<%--<script type="text/javascript">
-	// 对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
-	var useragent = navigator.userAgent;
-	if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
-		// 这里警告框会阻塞当前页面继续加载
-		alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
-		// 以下代码是用javascript强行关闭当前页面
-		var opened = window.open('about:blank', '_self');
-		opened.opener = null;
-		opened.close();
-	}
-	</script>
---%><script>
-	(function($, doc) {
-		$.init({
-			statusBarBackground : '#f7f7f7'
-		});
-		
-	}(mui, document));
-</script>
 <script type="text/javascript">
-	function doLogin(){
-		var username=document.getElementById("account").value;
-		var password=document.getElementById("password").value;
-		//alert(username+password);
-		if((username !== null || username !== undefined || username !== '')&&(password !== null || password !== undefined || password !== '')){
-			window.location.href = "sysUser!login.action?username="
-	    		+username+"&password="+password;
-		} else{
-			alert("账号或密码未输入！");
-		}
+function doLogin(){
+	
+	var userName=document.getElementById("userName").value;
+	var userPwd=document.getElementById("userPwd").value;
+	//numTip.innerHTML=num+1;
+	if(userName==""||userPwd==""){
+		alert("请输入用户名和密码！");
+		return;
 	}
+	 $.ajax({
+         url:'userAction/doLogin.action',
+         type: 'post',
+         data: {'userName':userName,'userPwd':userPwd},
+         dataType: 'json',
+         success: function (response) {
+             if (response.done == '0') {
+            	 //document.getElementById('praise_'+commentId).style.color='gray';
+                 window.location.href="userAction/gotoIndex.action";
+            	 return true;
+             } else {
+            	 var d=dialog().showModal();
+             	d.content(response.msg);
+             	setTimeout(function () {
+		    			d.close().remove();
+		    		}, 2000);
+                 //return alert(response.msg);
+             }
+         },
+         error: function (jqXHR, textStatus, errorThrown) {
+             if (textStatus == 'timeout') {
+                 a_info_alert('请求超时');
+                 return false;
+             }
+			alert("错误");
+			//alert(jqXHR);
+			 //alert(jqXHR.status);
+             //alert(jqXHR.readyState);
+			//alert(textStatus);
+            //alert(errorThrown);
+           
+         }
+     });
+}
+
+function doReset(){
+	document.getElementById("userName").value="";
+	document.getElementById("userPwd").value="";
+}
 </script>
-<style>
-.area {
-	margin: 20px auto 0px auto;
-}
-
-.mui-input-group {
-	margin-top: 10px;
-}
-
-.mui-input-group:first-child {
-	margin-top: 20px;
-}
-
-.mui-input-group label {
-	width: 22%;
-}
-
-.mui-input-row label  ~input,.mui-input-row label  ~select,.mui-input-row label
-	 ~textarea {
-	width: 78%;
-}
-
-.mui-checkbox input[type=checkbox],.mui-radio input[type=radio] {
-	top: 6px;
-}
-
-.mui-content-padded {
-	margin-top: 25px;
-}
-
-.mui-btn {
-	padding: 10px;
-}
-
-.link-area {
-	display: block;
-	margin-top: 25px;
-	text-align: center;
-}
-
-.spliter {
-	color: #bbb;
-	padding: 0px 8px;
-}
-
-.oauth-area {
-	position: absolute;
-	bottom: 20px;
-	left: 0px;
-	text-align: center;
-	width: 100%;
-	padding: 0px;
-	margin: 0px;
-}
-
-.oauth-area .oauth-btn {
-	display: inline-block;
-	width: 50px;
-	height: 50px;
-	background-size: 30px 30px;
-	background-position: center center;
-	background-repeat: no-repeat;
-	margin: 0px 20px;
-	/*-webkit-filter: grayscale(100%); */
-	border: solid 1px #ddd;
-	border-radius: 25px;
-}
-
-.oauth-area .oauth-btn:active {
-	border: solid 1px #aaa;
-}
-
-.oauth-area .oauth-btn.disabled {
-	background-color: #ddd;
-}
-</style>
 
 </head>
-
 <body>
-	<header class="mui-bar mui-bar-nav">
-	<h1 class="mui-title">管理员登录</h1>
-	</header>
-	
-	<div class="mui-content">
-		<form id='login-form' class="mui-input-group" method="post">
-			<div class="mui-input-row">
-				<label>账号</label> <input id='account' type="text"
-					class="mui-input-clear mui-input" placeholder="请输入账号">
-			</div>
-			<div class="mui-input-row">
-				<label>密码</label> <input id='password' type="password"
-					class="mui-input-clear mui-input" placeholder="请输入密码">
-			</div>
-		</form>
-		<div class="mui-content-padded">
-			<button id='login'  onclick="doLogin();" class="mui-btn mui-btn-block mui-btn-primary">登录</button>		
-		</div>
-		<div class="mui-content-padded oauth-area"></div>
-	</div>
-
-
+<input type="hidden" id="TenantId" name="TenantId" value="" />
+<div class="header"></div>
+<div class="loginWraper">
+  <div id="loginform" class="loginBox">
+    <div class="form form-horizontal" >
+      <div class="row cl">
+        <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
+        <div class="formControls col-xs-8">
+          <input id="userName" name="" type="text" placeholder="管理员账号" class="input-text size-L">
+        </div>
+      </div>
+      <div class="row cl">
+        <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60e;</i></label>
+        <div class="formControls col-xs-8">
+          <input id="userPwd" name="" type="password" placeholder="密码" class="input-text size-L">
+        </div>
+      </div>
+      <%--<div class="row cl">
+        <div class="formControls col-xs-8 col-xs-offset-3">
+          <input class="input-text size-L" type="text" placeholder="验证码" onblur="if(this.value==''){this.value='验证码:'}" onclick="if(this.value=='验证码:'){this.value='';}" value="验证码:" style="width:150px;">
+          <img src=""> <a id="kanbuq" href="javascript:;">看不清，换一张</a> </div>
+      </div>
+      --%><div class="row cl">
+        <%--<div class="formControls col-xs-8 col-xs-offset-3">
+          <label for="online">
+            <input type="checkbox" name="online" id="online" value="">
+            使我保持登录状态</label>
+        </div>
+      --%>
+      </div>
+      
+      <div class="row cl">
+        <div class="formControls col-xs-8 col-xs-offset-3">
+          <input  type="button" onclick="doLogin();" class="btn btn-success radius size-L" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
+          <input type="reset" onclick="doReset();" class="btn btn-danger radius size-L" value="&nbsp;清&nbsp;&nbsp;&nbsp;&nbsp;空&nbsp;">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="footer">Copyright 鸣心文化传播有限公司</div>
+<script type="text/javascript" src="<%=basePath%>SystemPages/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="<%=basePath%>SystemPages/static/h-ui/js/H-ui.min.js"></script>
 </body>
 </html>
