@@ -35,8 +35,6 @@ import com.opensymphony.xwork2.ActionSupport;
 //控制层的Spring注解
 @Scope("prototype")
 //支持多例
-@ParentPackage("sys-default")
-//表示struts继承的父包
 @Namespace(value = "/userAction")
 public class UserAction extends ActionSupport {  
 	
