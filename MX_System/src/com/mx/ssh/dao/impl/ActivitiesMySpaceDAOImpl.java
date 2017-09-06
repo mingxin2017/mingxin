@@ -1,21 +1,16 @@
 package com.mx.ssh.dao.impl;
 
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import org.hibernate.HibernateException;
 import org.hibernate.Query;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
@@ -83,56 +78,25 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 		return (MxActivitiesMySpaceUsers) getHibernateTemplate().find("from com.mx.ssh.bean.MxActivitiesMySpaceUsers au where au.myspaceId = "+ myspaceId+"and au.userId="+userId).get(0);
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<MxActivitiesMySpaceComment> getUserMySpaceCommontList(
 			int myspaceId) {
+		// TODO Auto-generated method stub
+		//List<ActivitiesUserMySpaceComment> reutnList=new ArrayList();
+		//List<MxActivitiesMySpaceComment> myspaceCommentList=getHibernateTemplate().find(" from com.mx.ssh.bean.MxActivitiesMySpaceComment c order by c.createDate desc where c.myspaceId = "+ myspaceId);
+		List<MxActivitiesMySpaceComment> myspaceCommentList=getHibernateTemplate().find("select c from MxActivitiesMySpaceComment c,MxActivitiesMySpaceUsers u where c.mxUsersData.userId=u.mxUsersData.userId and c.myspaceId = "+ myspaceId +" order by c.createDate desc");
 		
-		String hql="select m.* from MxActivitiesMySpaceUsers u,MxActivitiesMySpaceComment m where u.userId=m.mxUsersData.userId and u.myspaceId="+ myspaceId;
-		
-		//List<MxActivitiesMySpaceUsers> spaceUsers=getHibernateTemplate().find("from com.mx.ssh.bean.MxActivitiesMySpaceUsers au where au.myspaceId = "+ myspaceId);
-		
-		List<MxActivitiesMySpaceComment> comments=getSession().createSQLQuery(hql).addEntity( "m" , MxActivitiesMySpaceComment.class ).addEntity( "u" , MxActivitiesMySpaceUsers.class ).list();
-		
-		return comments;
-		
-//		final Integer[] userIds=new Integer[spaceUsers.size()];
-//		for(int i=0;i<spaceUsers.size();i++){
-//			userIds[i]=spaceUsers.get(i).getMxUsersData().getUserId();
-//			System.out.println(userIds[i]+"  ");
-//		}
-		
-		
-		//String hql="from com.mx.ssh.bean.MxActivitiesMySpaceComment au order by au.createDate desc where au.mxUsersData.userId in (:userIds)";
-		
-		//final String hql="";
-		
-		//System.out.println(hql);
-//		Query query=getSession().createQuery(hql);
-//		query.setParameterList("userIds", Arrays.asList(userIds));
-//		return query.list();
-		
-//		return getHibernateTemplate().execute(new HibernateCallback<List<MxActivitiesMySpaceComment>>() {
-//			  public List<MxActivitiesMySpaceComment> doInHibernate(Session session)
-//			  throws HibernateException, SQLException {
-//			    return session.createSQLQuery("select au.* from [MXDB].[dbo].[MX_activities_mySpace_comment] au where au.submit_userID in (:userIds)").
-//			    		addEntity( "au" , MxActivitiesMySpaceComment.class ).
-//			    		setParameterList("userIds", userIds)//typeids为集合对象,如果是数组可以自己转下Arrays.asList();
-//			             .list();
-//			            }
-//			        });
-		
+		return myspaceCommentList;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<ActivitiesUserMySpaceMaterial> getUserMySpaceMaterialList(
 			int myspaceId) {
 		// TODO Auto-generated method stub
 		List<ActivitiesUserMySpaceMaterial> returnBuff=new ArrayList();
 		List<MxActivitiesMySpaceUsers> spaceUsers=getHibernateTemplate().find("from com.mx.ssh.bean.MxActivitiesMySpaceUsers au where au.myspaceId = "+ myspaceId);
-		String userIds="";
 		for(int i=0;i<spaceUsers.size();i++){
 			ActivitiesUserMySpaceMaterial itemBuff=new ActivitiesUserMySpaceMaterial();
 			List<MxActivitiesMySpaceMaterial> materialsBuff=getHibernateTemplate().find("from com.mx.ssh.bean.MxActivitiesMySpaceMaterial au where au.submitUserId = "+ spaceUsers.get(i).getMxUsersData().getUserId()+" order by au.createDate desc ");
-			//MxUsersData user=(MxUsersData) getHibernateTemplate().find("from com.mx.ssh.bean.MxUsersData au where au.userId = "+ spaceUsers.get(i).getUserId()).get(0);
 			itemBuff.setUserData(spaceUsers.get(i).getMxUsersData());
 			itemBuff.setUserMySpaceMaterialList(materialsBuff);
 			returnBuff.add(itemBuff);
@@ -166,7 +130,7 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 
 		List<MxActivitiesMySpaceMaterial> materialsBuff=getHibernateTemplate().find("from com.mx.ssh.bean.MxActivitiesMySpaceMaterial au where au.submitUserId = "+ userId+" and au.myspaceId="+myspaceId+" order by au.createDate desc ");
 
-		List<MxActivitiesMySpaceComment> myspaceCommentList=getHibernateTemplate().find("from com.mx.ssh.bean.MxActivitiesMySpaceComment au where au.myspaceId = "+ myspaceId +" and au.mxUsersData.userId="+userId+"order by au.createDate desc");
+		List<MxActivitiesMySpaceComment> myspaceCommentList=getHibernateTemplate().find("from com.mx.ssh.bean.MxActivitiesMySpaceComment au where au.myspaceId = "+ myspaceId +" and au.mxUsersData.userId="+userId+" and au.parentCommentId=-1 order by au.createDate desc");
 		returnList.setActivitiesMySpaceCommentMineList(myspaceCommentList);
 		returnList.setActivitiesMySpaceMaterialMineList(materialsBuff);
 		return returnList;
@@ -298,6 +262,47 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 			getHibernateTemplate().delete(user);
 			return true;
 		}else{
+			return false;
+		}
+	}
+
+	
+	/*保存帖子的评论
+	 * (non-Javadoc)
+	 * @see com.mx.ssh.dao.IActivitiesMySpaceDAO#saveMyspaceComment_comment(int, int, java.lang.String)
+	 */
+	public boolean saveMyspaceComment_comment(int myspaceId,int commentId, int userId,
+			String commentTxt) {
+		
+		MxUsersData user=new MxUsersData();
+		user.setUserId(userId);
+		
+		MxActivitiesMySpaceComment mc=new MxActivitiesMySpaceComment(user,myspaceId,0,commentTxt,"",0,new Timestamp(System.currentTimeMillis()),commentId);
+
+		try{
+			getHibernateTemplate().save(mc);
+			return true;
+		}catch(Exception e){
+			System.out.println(e);
+			return false;
+		}
+	}
+
+	/*删除帖子评论
+	 * (non-Javadoc)
+	 * @see com.mx.ssh.dao.IActivitiesMySpaceDAO#deleteMyspaceComment_comment(int)
+	 */
+	public boolean deleteMyspaceComment_comment(int commentId) {
+		
+		MxUsersData user=new MxUsersData();
+		user.setUserId(0);
+		MxActivitiesMySpaceComment comment=new MxActivitiesMySpaceComment(user,0,0,"","",0,new Timestamp(System.currentTimeMillis()),0);
+		comment.setCommentId(commentId);
+		try{
+			getHibernateTemplate().delete(comment);
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
 			return false;
 		}
 	}

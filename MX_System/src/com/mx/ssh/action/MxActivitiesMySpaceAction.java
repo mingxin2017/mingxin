@@ -1,6 +1,7 @@
 package com.mx.ssh.action;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
@@ -230,6 +231,7 @@ public class MxActivitiesMySpaceAction extends ActionSupport {
 		activitiesMySpaceComment.setState(0);
 		activitiesMySpaceComment.setPraiseUserIds("");
 		activitiesMySpaceComment.setPraiseClickNum(0);
+		activitiesMySpaceComment.setParentCommentId(-1);
 		activitiesMySpaceComment.setCreateDate(new Timestamp(System
 				.currentTimeMillis()));
 
@@ -435,6 +437,9 @@ public class MxActivitiesMySpaceAction extends ActionSupport {
 		System.out.println("testWebUploader");
 	}
 
+	
+	
+	
 	/*
 	 * 将用户移出活动空间
 	 */
@@ -464,5 +469,70 @@ public class MxActivitiesMySpaceAction extends ActionSupport {
 		JSONObject jsonObject = JSONObject.fromObject(map);
 		response.getWriter().write(jsonObject.toString());
 	}
+	
+	/*
+	 * 保存帖子评论内容
+	 */
+	@Action(value = "DoSaveMyspaceComment_comment")
+	public void DoSaveMyspaceComment_comment() throws IOException{
+
+		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
+		request.setCharacterEncoding("UTF-8");
+		HttpServletResponse response = ServletActionContext.getResponse();// response对象返回数据给前台
+		response.setContentType("application/json; charset=utf-8");
+		int userId = Integer
+				.parseInt(request.getParameter("userId").toString());// 获取用户id
+		
+		int myspaceId=Integer.parseInt(request.getParameter("myspaceId")
+				.toString());
+		
+		int commentId = Integer.parseInt(request.getParameter("commentId")
+				.toString());// 获取活动空间id
+
+		String commentTxt=request.getParameter("commentTxt").toString();//获取评论内容
+		
+		boolean isClicked = activitiesMySpaceService.saveMyspaceComment_comment(
+				myspaceId,commentId, userId,commentTxt);
+		Map<String, String> map = new HashMap<String, String>();
+		if (!isClicked) {
+			map.put("done", "-1");
+			map.put("msg", "保存失败!");
+		} else {
+			map.put("done", "0");
+			map.put("msg", "保存成功!");
+		}
+		JSONObject jsonObject = JSONObject.fromObject(map);
+		response.getWriter().write(jsonObject.toString());
+
+	
+	}
+	
+	
+	/*
+	 * 删除帖子评论
+	 */
+	@Action(value = "DoDeleteMyspaceComment_comment")
+	public void DoDeleteMyspaceComment_comment() throws IOException{
+		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
+		request.setCharacterEncoding("UTF-8");
+		HttpServletResponse response = ServletActionContext.getResponse();// response对象返回数据给前台
+		response.setContentType("application/json; charset=utf-8");
+		int commentId = Integer.parseInt(request.getParameter("commentId")
+				.toString());// 获取评论id
+		boolean isDeleted = activitiesMySpaceService.deleteMyspaceComment_comment(commentId);
+		Map<String, String> map = new HashMap<String, String>();
+		if (!isDeleted) {
+			map.put("done", "-1");
+			map.put("msg", "删除失败!");
+		} else {
+			map.put("done", "0");
+			map.put("msg", "删除成功!");
+		}
+		JSONObject jsonObject = JSONObject.fromObject(map);
+		response.getWriter().write(jsonObject.toString());
+
+	
+	}
+	
 
 }

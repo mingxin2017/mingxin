@@ -108,27 +108,6 @@ function doSaveMyspaceComment_comment(userId,myspaceId,commentId,commentTxt){
 		    dataType:"json",
 		    success: function(data){
 		    	if(data.done=='0'){
-		    		document.getElementById('comment2_'+commentId).innerHTML+=('<h5><b>${sessionScope.userInfo.userRealName} 说：</b>“'+commentTxt+'”</h5>');
-		    		alert('发送成功');
-		    	}else{
-		    		var dd = dialog('发送失败');
-		    	}
-			},
-			error: function(json){
-				var ddd = dialog('提交数据异常，请刷新后重试...').show();
-				setTimeout(function () {
-					ddd.close().remove();
-	    		}, 1500);
-			}
-	    });
-function doSaveMyspaceComment_comment(userId,myspaceId,commentId,commentTxt){
-	$.ajax({
-		    type: "POST",
-		    url: "activitiesMySpace/DoSaveMyspaceComment_comment.action", //orderModifyStatus
-		    data: {"userId":userId,"commentId":commentId,"commentTxt":commentTxt,"myspaceId":myspaceId},
-		    dataType:"json",
-		    success: function(data){
-		    	if(data.done=='0'){
 		    	//	if(userId==${sessionScope.userInfo.userId}){
 		    	//		document.getElementById('comment2_'+commentId).innerHTML+=('<div class="mui-col-xs-10"><h5><b>${sessionScope.userInfo.userRealName} 说：</b>“'+commentTxt+'”</h5></div><div class="mui-col-xs-2"><a style=" color:#EE7942;" href="javascript:void(0);" onclick="DeleteComment_comment(${item2.commentId});">删除</a></div>');
 		    	//	}else{
@@ -176,30 +155,6 @@ function DeleteComment_comment(commentId){
 //删除帖子评论
 function DoDeleteComment_comment(commentId){
 	$.ajax({
-		    type: "POST",
-		    url: "activitiesMySpace/DoDeleteMyspaceComment_comment.action", //orderModifyStatus
-		    data: {"commentId":commentId},
-		    dataType:"json",
-		    success: function(data){
-		    	if(data.done=='0'){
-		    		var c=document.getElementById('comment3_'+commentId);
-		    		alert(c);
-		    		c.parentNode.removeChild(c);
-		    		alert('成功删除');
-		    	}else{
-		    		var dd = dialog('删除失败');
-		    	}
-			},
-			error: function(json){
-				var ddd = dialog('提交数据异常，请刷新后重试...').show();
-				setTimeout(function () {
-					ddd.close().remove();
-	    		}, 1500);
-			}
-	    });
-
-
-
 		    type: "POST",
 		    url: "activitiesMySpace/DoDeleteMyspaceComment_comment.action", //orderModifyStatus
 		    data: {"commentId":commentId},
