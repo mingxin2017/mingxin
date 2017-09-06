@@ -14,11 +14,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="lib/html5shiv.js"></script>
 <script type="text/javascript" src="lib/respond.min.js"></script>
 <![endif]-->
-<link rel="stylesheet" type="text/css" href="<%=basePath%>SystemPages/static/h-ui/css/H-ui.min.css" />
-<link rel="stylesheet" type="text/css" href="<%=basePath%>SystemPages/static/h-ui.admin/css/H-ui.admin.css" />
-<link rel="stylesheet" type="text/css" href="<%=basePath%>SystemPages/lib/Hui-iconfont/1.0.8/iconfont.css" />
-<link rel="stylesheet" type="text/css" href="<%=basePath%>SystemPages/static/h-ui.admin/skin/default/skin.css" id="skin" />
-<link rel="stylesheet" type="text/css" href="<%=basePath%>SystemPages/static/h-ui.admin/css/style.css" />
+<link rel="stylesheet" type="text/css" href="<%=basePath%>SystemPages/common/static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="<%=basePath%>SystemPages/common/static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="<%=basePath%>SystemPages/common/lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="<%=basePath%>SystemPages/common/static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="<%=basePath%>SystemPages/common/static/h-ui.admin/css/style.css" />
 <!--[if IE 6]>
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
@@ -196,8 +196,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			本后台系统由<a href="http://www.h-ui.net/" target="_blank" title="H-ui前端框架">H-ui前端框架</a>提供前端技术支持</p>
 	</div>
 </footer>
-<script type="text/javascript" src="<%=basePath%>SystemPages/lib/jquery/1.9.1/jquery.min.js"></script> 
-<script type="text/javascript" src="<%=basePath%>SystemPages/static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="<%=basePath%>SystemPages/common/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="<%=basePath%>SystemPages/common/static/h-ui/js/H-ui.min.js"></script> 
 
 </body>
 </html>

@@ -17,11 +17,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="lib/html5shiv.js"></script>
 <script type="text/javascript" src="lib/respond.min.js"></script>
 <![endif]-->
-<link rel="stylesheet" type="text/css" href="<%=basePath%>SystemPages/static/h-ui/css/H-ui.min.css" />
-<link rel="stylesheet" type="text/css" href="<%=basePath%>SystemPages/static/h-ui.admin/css/H-ui.admin.css" />
-<link rel="stylesheet" type="text/css" href="<%=basePath%>SystemPages/lib/Hui-iconfont/1.0.8/iconfont.css" />
-<link rel="stylesheet" type="text/css" href="<%=basePath%>SystemPages/static/h-ui.admin/skin/default/skin.css" id="skin" />
-<link rel="stylesheet" type="text/css" href="<%=basePath%>SystemPages/static/h-ui.admin/css/style.css" />
+<link rel="stylesheet" type="text/css" href="<%=basePath%>SystemPages/common/static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="<%=basePath%>SystemPages/common/static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="<%=basePath%>SystemPages/common/lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="<%=basePath%>SystemPages/common/static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="<%=basePath%>SystemPages/common/static/h-ui.admin/css/style.css" />
 <!--[if IE 6]>
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
@@ -53,7 +53,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<a href="#" class="dropDown_A">admin <i class="Hui-iconfont">&#xe6d5;</i></a>
 					<ul class="dropDown-menu menu radius box-shadow">
 						<li><a href="javascript:;" onClick="myselfinfo()">个人信息</a></li>
-						
 						<li><a href="#">退出</a></li>
 				</ul>
 			</li>
@@ -194,13 +193,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </ul>
 </div>
 <!--_footer 作为公共模版分离出去-->
-<script type="text/javascript" src="<%=basePath%>SystemPages/lib/jquery/1.9.1/jquery.min.js"></script> 
-<script type="text/javascript" src="<%=basePath%>SystemPages/lib/layer/2.4/layer.js"></script>
-<script type="text/javascript" src="<%=basePath%>SystemPages/static/h-ui/js/H-ui.min.js"></script>
-<script type="text/javascript" src="<%=basePath%>SystemPages/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="<%=basePath%>SystemPages/common/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="<%=basePath%>SystemPages/common/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="<%=basePath%>SystemPages/common/static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>SystemPages/common/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->
-<script type="text/javascript" src="<%=basePath%>SystemPages/lib/jquery.contextmenu/jquery.contextmenu.r2.js"></script>
+<script type="text/javascript" src="<%=basePath%>SystemPages/common/lib/jquery.contextmenu/jquery.contextmenu.r2.js"></script>
 <script type="text/javascript">
 $(function(){
 	/*$("#min_title_list li").contextMenu('Huiadminmenu', {
@@ -265,16 +264,6 @@ function member_add(title,url,w,h){
 
 </script> 
 
-<!--此乃百度统计代码，请自行删除-->
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?080836300300be57b7f34f4b3e97d911";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
-<!--/此乃百度统计代码，请自行删除-->
+
 </body>
 </html>
