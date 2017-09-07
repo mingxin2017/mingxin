@@ -18,31 +18,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="lib/html5shiv.js"></script>
 <script type="text/javascript" src="lib/respond.min.js"></script>
 <![endif]-->
+
 <link rel="stylesheet" type="text/css" href="<%=basePath%>SystemPages/common/static/h-ui/css/H-ui.min.css" />
 <link rel="stylesheet" type="text/css" href="<%=basePath%>SystemPages/common/static/h-ui.admin/css/H-ui.admin.css" />
 <link rel="stylesheet" type="text/css" href="<%=basePath%>SystemPages/common/lib/Hui-iconfont/1.0.8/iconfont.css" />
 <link rel="stylesheet" type="text/css" href="<%=basePath%>SystemPages/common/static/h-ui.admin/skin/default/skin.css" id="skin" />
 <link rel="stylesheet" type="text/css" href="<%=basePath%>SystemPages/common/static/h-ui.admin/css/style.css" />
+<link rel="stylesheet" type="text/css" href="<%=basePath%>SystemPages/common/lib/layui/css/layui.css"  media="all"/>
 <!--[if IE 6]>
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
+
 <title>用户管理</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i>用户管理 <span class="c-gray en">&gt;</span>用户列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i>用户管理 <span class="c-gray en">&gt;</span>用户列表 
+	<a class="btn btn-primary radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
+	<i class="Hui-iconfont">&#xe68f;刷新当前页面</i></a>
+</nav>
 <div class="page-container">
-	<div class="text-c"> 日期范围：
-		<input type="text" onfocus="WdatePicker({ maxDate:'#F{$dp.$D(\'datemax\')||\'%y-%M-%d\'}' })" id="datemin" class="input-text Wdate" style="width:120px;">
-		-
-		<input type="text" onfocus="WdatePicker({ minDate:'#F{$dp.$D(\'datemin\')}',maxDate:'%y-%M-%d' })" id="datemax" class="input-text Wdate" style="width:120px;">
-		<input type="text" class="input-text" style="width:250px" placeholder="输入用户名称、电话、邮箱" id="" name="">
-		<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索用户</button>
+	<div>
+	<div class="f-l">
+		<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius">
+				<i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> 
+			<a href="javascript:;" onclick="member_add('添加用户','member-add.html','','510')" class="btn btn-primary radius">
+				<i class="Hui-iconfont">&#xe600;</i> 添加用户</a>
 	</div>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="member_add('添加用户','member-add.html','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加用户</a></span> <span class="r">共有数据：<strong>88</strong> 条</span> </div>
+	<div class="f-r">
+		<input type="text" class="input-text" style="width:250px" placeholder="输入用户名称、电话、邮箱" id="" name="">
+		<button type="submit" class="btn btn-primary radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+	</div>
+	</div>
+	
 	<div class="mt-20">
-	<table class="table table-border table-bordered table-hover table-bg table-sort">
-		<thead>
+	<table class="table table-border table-bordered table-hover table-bg tale-sort">
+		<thead class="text-c">
 			<tr class="text-c">
 				<th width="25"><input type="checkbox" name="" value=""></th>
 				<th width="80">用户类型</th>
@@ -67,7 +78,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>${item.userSex}</td>
 				<td>${item.userPhoneNum}</td>
 				<td>${item.userEmail}</td>
-				<td class="text-l">${item.userAddr}</td>
+				<td>${item.userAddr}</td>
 				<td><fmt:formatDate value="${item.lastLoginTime}" pattern="yyyy-MM-dd　HH:mm"/></td>
 				<td class="td-status">
 					<c:if test="${item.userState eq 0}">
@@ -85,15 +96,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<a style="text-decoration:none" onClick="member_open(this,'10001')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>
 					</c:if>
 					<a title="编辑" href="javascript:;" onclick="member_edit('编辑','member-add.html','4','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
-					<a style="text-decoration:none" class="ml-5" onClick="change_password('修改密码','change-password.html','10001','600','270')" href="javascript:;" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a> 
-					<a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+					<%--<a style="text-decoration:none" class="ml-5" onClick="change_password('修改密码','change-password.html','10001','600','270')" href="javascript:;" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a> 
+					--%><a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
 				</td>
 			</tr>
 			</c:forEach>
 		</tbody>
 	</table>
+	
 	</div>
+	<div class="text-c">
+      <div id="_pager"></div>
+   </div>
 </div>
+
 <!--_footer 作为公共模版分离出去-->
 <script type="text/javascript" src="<%=basePath%>SystemPages/common/lib/jquery/1.9.1/jquery.min.js"></script> 
 <script type="text/javascript" src="<%=basePath%>SystemPages/common/lib/layer/2.4/layer.js"></script>
@@ -104,7 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="<%=basePath%>SystemPages/common/lib/My97DatePicker/4.8/WdatePicker.js"></script> 
 <script type="text/javascript" src="<%=basePath%>SystemPages/common/lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
-<script type="text/javascript" src="<%=basePath%>SystemPages/common/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="<%=basePath%>SystemPages/common/lib/layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript">
 $(function(){
 	$('.table-sort').dataTable({
@@ -117,6 +133,18 @@ $(function(){
 	});
 	
 });
+
+layui.use('laypage', function(){
+	  var laypage = layui.laypage;
+	  
+	  //执行一个laypage实例
+	  laypage.render({
+		    elem: '_pager'
+		    ,count: 100
+		    ,theme: '#1E9FFF'
+		  });
+	});
+
 /*用户-添加*/
 function member_add(title,url,w,h){
 	layer_show(title,url,w,h);
@@ -189,6 +217,6 @@ function member_del(obj,id){
 		});		
 	});
 }
-</script> 
+</script>
 </body>
 </html>
