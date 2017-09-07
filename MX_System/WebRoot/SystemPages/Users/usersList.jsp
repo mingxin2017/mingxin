@@ -68,17 +68,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>${item.userPhoneNum}</td>
 				<td>${item.userEmail}</td>
 				<td class="text-l">${item.userAddr}</td>
-				<td>${item.lastLoginTime}</td>
+				<td><fmt:formatDate value="${item.lastLoginTime}" pattern="yyyy-MM-dd　HH:mm"/></td>
 				<td class="td-status">
 					<c:if test="${item.userState eq 0}">
 						<span class="label label-success radius">正常</span>
 					</c:if>
-					<c:if test="${item.userTypeId eq 1100}">
+					<c:if test="${item.userState eq -1}">
 						<span class="label label-danger radius">停用</span>
 					</c:if>
 				</td>
 				<td class="td-manage">
-					<a style="text-decoration:none" onClick="member_stop(this,'10001')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> 
+					<c:if test="${item.userState eq 0}">
+						<a style="text-decoration:none" onClick="member_stop(this,'10001')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> 
+					</c:if>
+					<c:if test="${item.userState eq -1}">
+						<a style="text-decoration:none" onClick="member_open(this,'10001')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>
+					</c:if>
 					<a title="编辑" href="javascript:;" onclick="member_edit('编辑','member-add.html','4','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
 					<a style="text-decoration:none" class="ml-5" onClick="change_password('修改密码','change-password.html','10001','600','270')" href="javascript:;" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a> 
 					<a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
@@ -97,9 +102,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--/_footer 作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->
-<script type="text/javascript" src="<%=basePath%>SystemPages/commonlib/My97DatePicker/4.8/WdatePicker.js"></script> 
-<script type="text/javascript" src="<%=basePath%>SystemPages/commonlib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
-<script type="text/javascript" src="<%=basePath%>SystemPages/commonlib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="<%=basePath%>SystemPages/common/lib/My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="<%=basePath%>SystemPages/common/lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="<%=basePath%>SystemPages/common/lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
 $(function(){
 	$('.table-sort').dataTable({

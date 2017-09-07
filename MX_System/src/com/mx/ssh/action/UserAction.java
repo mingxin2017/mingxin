@@ -152,7 +152,7 @@ public class UserAction extends ActionSupport {
 	/*
 	 * 后台用户列表页面
 	 */
-	@Action(value = "gotoDefault", results = { 
+	@Action(value = "gotoUserList", results = { 
 			@Result(name = "users", location = "/SystemPages/Users/usersList.jsp")})
 	public String gotoUserList() throws IOException{
 		

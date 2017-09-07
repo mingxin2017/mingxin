@@ -10,6 +10,7 @@ import com.mx.ssh.bean.MxUsersData;
 import com.mx.ssh.dao.ISysUsersDAO;
 
 
+
 //声明此类为数据持久层的类
 @Repository("sysUsersDAO")
 public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO {
@@ -30,7 +31,7 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 	}
 
 	public List<MxUsersData> getAll() {
-		return getHibernateTemplate().find("from com.mx.ssh.bean.SysUsers");
+		return getHibernateTemplate().find("from com.mx.ssh.bean.MxUsersData");
 	}
 	
 	public MxUsersData get(Integer id) {
@@ -44,7 +45,7 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 	public MxUsersData findSysUsersByNameAndPass(String SysUsersname,
 			String password) {
 		
-		List<MxUsersData> ul = getHibernateTemplate().find("from com.mx.ssh.bean.SysUsers au where au.userLoginName = '"+ SysUsersname+"' and au.userPwd = '"+ password+"'");
+		List<MxUsersData> ul = getHibernateTemplate().find("from com.mx.ssh.bean.MxUsersData au where au.userLoginName = '"+ SysUsersname+"' and au.userPwd = '"+ password+"'");
 
 		if (ul.size() == 1)
         {
