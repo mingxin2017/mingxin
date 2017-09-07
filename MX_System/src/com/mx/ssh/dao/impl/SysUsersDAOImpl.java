@@ -67,7 +67,7 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 		// TODO Auto-generated method stub
 		List<MxUsersData> mud=getHibernateTemplate().find("from com.mx.ssh.bean.MxUsersData au where au.weixinOpenId ='"+openId+"'");
 		if(mud.size()!=0){
-			return (MxUsersData) mud.get(0);
+			return mud.get(0);
 		}else{
 			return null;
 		}

@@ -5,7 +5,6 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.mx.ssh.bean.MxActivitiesPublicityContent;
 import com.mx.ssh.bean.MxActivitiesPublicityData;
-import com.mx.ssh.bean.MxUsersData;
 import com.mx.ssh.dao.IActivitiesPublicityDAO;
 
 public class ActivitiesPublicityDAOImpl extends HibernateDaoSupport implements IActivitiesPublicityDAO{

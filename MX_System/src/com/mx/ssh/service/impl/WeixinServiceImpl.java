@@ -12,17 +12,12 @@ import org.springframework.stereotype.Service;
 
 import com.mx.ssh.bean.MxUsersData;
 import com.mx.ssh.dao.ISysUsersDAO;
-import com.mx.weixin.message.req.LinkMessage;
 import com.mx.weixin.message.resp.Article;
 import com.mx.weixin.message.resp.NewsMessage;
 import com.mx.weixin.message.resp.TextMessage;
-import com.mx.weixin.pojo.SNSUserInfo;
-import com.mx.weixin.pojo.WeixinOauth2Token;
 import com.mx.weixin.pojo.WeixinUserInfo;
 import com.mx.weixin.task.WeixinGetTokenTimerTask;
 import com.mx.weixin.util.MessageUtil;
-import com.mx.weixin.util.OAuth2TokenUtil;
-import com.mx.weixin.util.WeixinSignUtil;
 import com.mx.weixin.util.WeixinUtil;
 
 @Service("weixinService")

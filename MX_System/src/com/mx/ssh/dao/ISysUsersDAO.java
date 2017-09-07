@@ -1,10 +1,8 @@
 package com.mx.ssh.dao;
 
-import java.util.HashMap;
 import java.util.List;
 
 import com.mx.ssh.bean.MxUsersData;
-import com.mx.ssh.bean.PageBean;
 public interface ISysUsersDAO {
 	
 	/**

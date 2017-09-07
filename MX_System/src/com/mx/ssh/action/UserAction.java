@@ -1,6 +1,7 @@
 package com.mx.ssh.action;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,6 @@ import net.sf.json.JSONObject;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
-import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -148,4 +148,21 @@ public class UserAction extends ActionSupport {
 	public String gotoDefault(){
 		return "welcome";
 	}
+	
+	/*
+	 * 后台用户列表页面
+	 */
+	@Action(value = "gotoDefault", results = { 
+			@Result(name = "users", location = "/SystemPages/Users/usersList.jsp")})
+	public String gotoUserList() throws IOException{
+		
+		List<MxUsersData> allUsers = userService.getAllUsers();
+		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
+		request.setCharacterEncoding("UTF-8");
+		request.setAttribute("allUsers", allUsers);
+		return "users";
+	}
+	
+	
+	
 }

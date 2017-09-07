@@ -1,14 +1,12 @@
 package com.mx.ssh.util;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;  
 import org.apache.struts2.ServletActionContext;  
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.mx.ssh.bean.MxUsersData;
 import com.mx.ssh.service.IUserService;
-import com.mx.weixin.pojo.SNSUserInfo;
 import com.mx.weixin.util.WeixinUtil;
 import com.opensymphony.xwork2.ActionInvocation;  
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;  

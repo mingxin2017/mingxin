@@ -2,9 +2,7 @@ package com.mx.ssh.bean.sysBean;
 
 import java.util.List;
 
-import com.mx.ssh.bean.MxActivitiesMySpaceData;
 import com.mx.ssh.bean.MxActivitiesMySpaceMaterial;
-import com.mx.ssh.bean.MxActivitiesMySpaceUsers;
 import com.mx.ssh.bean.MxUsersData;
 
 /**

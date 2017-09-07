@@ -6,7 +6,6 @@ import com.mx.ssh.bean.MxNewsData;
 import com.mx.ssh.bean.MxUsersReporterScore;
 import com.mx.ssh.bean.MxUsersReporterSignUp;
 import com.mx.ssh.bean.MxUsersReporterTeam;
-import com.mx.weixin.util.MxKeyValue;
 
 
 public interface IReporterBusinessService {

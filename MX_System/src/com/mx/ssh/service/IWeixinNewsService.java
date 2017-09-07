@@ -2,8 +2,6 @@ package com.mx.ssh.service;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.mx.ssh.bean.MxNewsContent;
 import com.mx.ssh.bean.MxNewsData;
 import com.mx.ssh.bean.MxNewsType;

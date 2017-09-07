@@ -1,7 +1,6 @@
 package com.mx.ssh.action;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +13,6 @@ import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
-import org.apache.struts2.convention.annotation.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -31,8 +29,6 @@ import com.mx.ssh.service.IActivitiesMySpaceService;
 import com.mx.ssh.service.IUserService;
 import com.mx.ssh.util.ImageMethod;
 import com.mx.ssh.util.PasswordUtil;
-import com.mx.weixin.pojo.SNSUserInfo;
-import com.mx.weixin.util.WeixinUtil;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.convention.annotation.Result;
 

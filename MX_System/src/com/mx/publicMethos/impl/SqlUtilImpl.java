@@ -53,7 +53,7 @@ public class SqlUtilImpl extends HibernateDaoSupport implements ISqlUtil {
 		pb.init();
 		pb.setCurrentPage(PageBean.countCurrentPage(pageCurrent));
 		//System.out.println("sqlUtil中设置当前页码："+pageCurrent);
-		List<T> list = (List<T>) this.queryHqlListBySession(DB_table_name,Primarykey,
+		List<T> list = this.queryHqlListBySession(DB_table_name,Primarykey,
 				conditionList, bean,pageCurrent);
 		int allRow = this.queryHqlRowsNum(DB_table_name,Primarykey, conditionList);
 		//System.out.println("sqlUtil中执行查找获取的总行数："+allRow);

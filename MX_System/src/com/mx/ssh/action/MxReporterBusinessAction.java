@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
 
-import com.mx.ssh.bean.MxUsersReporterSignUp;
 import com.mx.ssh.service.IReporterBusinessService;
 import com.mx.ssh.service.IWeixinNewsService;
 import com.mx.weixin.pojo.SNSUserInfo;

@@ -12,7 +12,6 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
-import com.mx.weixin.message.req.LinkMessage;
 import com.mx.weixin.message.resp.Article;
 import com.mx.weixin.message.resp.ImageMessage;
 import com.mx.weixin.message.resp.MusicMessage;
@@ -115,17 +114,20 @@ public class MessageUtil {
      * 扩展xstream使其支持CDATA
      */
     private static XStream xstream = new XStream(new XppDriver() {
-        public HierarchicalStreamWriter createWriter(Writer out) {
+        @Override
+		public HierarchicalStreamWriter createWriter(Writer out) {
             return new PrettyPrintWriter(out) {
                 // 对所有xml节点的转换都增加CDATA标记
                 boolean cdata = true;
 
-                @SuppressWarnings("unchecked")
+                @Override
+				@SuppressWarnings("unchecked")
                 public void startNode(String name, Class clazz) {
                     super.startNode(name, clazz);
                 }
 
-                protected void writeText(QuickWriter writer, String text) {
+                @Override
+				protected void writeText(QuickWriter writer, String text) {
                     if (cdata) {
                         writer.write("<![CDATA[");
                         writer.write(text);

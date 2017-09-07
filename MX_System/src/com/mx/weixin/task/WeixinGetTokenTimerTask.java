@@ -1,7 +1,5 @@
 package com.mx.weixin.task;
 
-import java.util.TimerTask;
-
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 

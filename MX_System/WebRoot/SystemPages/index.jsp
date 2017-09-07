@@ -77,9 +77,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<dt><i class="Hui-iconfont">&#xe60d;</i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					
-					<li><a data-href="admin-list.html" data-title="管理员列表" href="javascript:void(0)">管理员列表</a></li>
-					<li><a data-href="member-list.html" data-title="微信用户列表" href="javascript:;">微信用户列表</a></li>
+					<li><a data-href="userAction/gotoUserList.action" data-title="用户列表" href="javascript:;">用户列表</a></li>
 					<li><a data-href="admin-permission.html" data-title="权限管理" href="javascript:void(0)">权限管理</a></li>
 					<%--<li><a data-href="admin-role.html" data-title="角色管理" href="javascript:void(0)">角色管理</a></li>
 					<li><a data-href="member-scoreoperation.html" data-title="积分管理" href="javascript:;">积分管理</a></li>

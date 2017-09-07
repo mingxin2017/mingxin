@@ -7,7 +7,6 @@ import com.mx.ssh.bean.MxUsersReporterScore;
 import com.mx.ssh.bean.MxUsersReporterSignUp;
 import com.mx.ssh.bean.MxUsersReporterTeam;
 import com.mx.ssh.dao.IReporterBusinessDAO;
-import com.mx.weixin.util.MxKeyValue;
 
 public class ReporterBusinessServiceImpl implements com.mx.ssh.service.IReporterBusinessService {
 	

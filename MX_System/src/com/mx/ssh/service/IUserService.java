@@ -3,8 +3,6 @@ package com.mx.ssh.service;
 import java.util.List;
 
 import com.mx.ssh.bean.MxUsersData;
-import com.mx.ssh.bean.PageBean;
-import com.mx.ssh.dao.ISysUsersDAO;
 
 public interface IUserService {
 

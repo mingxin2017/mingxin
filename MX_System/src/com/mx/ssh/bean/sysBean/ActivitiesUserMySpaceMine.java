@@ -3,9 +3,7 @@ package com.mx.ssh.bean.sysBean;
 import java.util.List;
 
 import com.mx.ssh.bean.MxActivitiesMySpaceComment;
-import com.mx.ssh.bean.MxActivitiesMySpaceData;
 import com.mx.ssh.bean.MxActivitiesMySpaceMaterial;
-import com.mx.ssh.bean.MxUsersData;
 
 /**
  * 封装了用户和用户某个空间下所有的媒体素材

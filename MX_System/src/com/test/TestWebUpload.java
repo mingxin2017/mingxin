@@ -1,20 +1,5 @@
 package com.test;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.util.List;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemFactory;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.math.NumberUtils;
-
 public class TestWebUpload {/*
 	public void fileUpload(HttpServletRequest request,
             HttpServletResponse response) throws ServletException {

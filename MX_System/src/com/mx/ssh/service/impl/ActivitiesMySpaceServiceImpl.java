@@ -11,7 +11,6 @@ import com.mx.ssh.bean.MxActivitiesMySpaceData;
 import com.mx.ssh.bean.MxActivitiesMySpaceInviteCode;
 import com.mx.ssh.bean.MxActivitiesMySpaceMaterial;
 import com.mx.ssh.bean.MxActivitiesMySpaceUsers;
-import com.mx.ssh.bean.MxUsersData;
 import com.mx.ssh.bean.sysBean.ActivitiesUserMySpaceMaterial;
 import com.mx.ssh.bean.sysBean.ActivitiesUserMySpaceMine;
 import com.mx.ssh.dao.IActivitiesMySpaceDAO;
