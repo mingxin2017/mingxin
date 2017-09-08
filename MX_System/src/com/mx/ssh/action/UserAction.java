@@ -23,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import com.mx.ssh.bean.MxUsersData;
 import com.mx.ssh.bean.PageBean;
 import com.mx.ssh.service.IUserService;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 
@@ -156,17 +157,18 @@ public class UserAction extends ActionSupport {
 			@Result(name = "users", location = "/SystemPages/Users/usersList.jsp")})
 	public String gotoUserList() throws IOException{
 		
-		List<MxUsersData> allUsers = userService.getAllUsers();
-		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
-		request.setCharacterEncoding("UTF-8");
-		request.setAttribute("allUsers", allUsers);
+		PageBean<MxUsersData> allUsers = userService.findByPage(1);
+//		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
+//		request.setCharacterEncoding("UTF-8");
+//		request.setAttribute("allUsers", allUsers);
+		 ActionContext.getContext().getValueStack().set("allUsers", allUsers);
 		return "users";
 	}
 	
 	/*
 	 * 后台用户退出登录
 	 */
-	@Action(value = "userLogout", results = { 
+	@Action(value = "/userLogout", results = { 
 			@Result(name = "login", location = "/SystemPages/login.jsp")})
 	public String userLogout() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象

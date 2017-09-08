@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.mx.ssh.bean.MxUsersData;
+import com.mx.ssh.bean.PageBean;
 import com.mx.ssh.dao.ISysUsersDAO;
 
 @Service("userService")
@@ -62,6 +63,23 @@ public class UserServiceImpl implements com.mx.ssh.service.IUserService {
 	public MxUsersData userLogin(String userName, String userPwd) {
 		// TODO Auto-generated method stub
 		return sysUsersDAO.userLogin(userName,userPwd);
+	}
+
+	public PageBean<MxUsersData> findByPage(int page) {
+		// TODO Auto-generated method stub
+		PageBean<MxUsersData> pageBean =new PageBean<MxUsersData>();
+        pageBean.setCurrentPage(page);
+        int limit=4;//每页数量
+        pageBean.setPageSize(limit);
+        int totalCount=sysUsersDAO.findTotalCount();
+        pageBean.setAllRow(totalCount);
+        int totalpage=(int)Math.ceil(totalCount/limit);
+        pageBean.setTotalPage(totalpage);
+        //每页显示的数据集合
+        int begin=(page-1)*limit;
+        List<MxUsersData> list=sysUsersDAO.findUsersByPage(begin,limit);
+        pageBean.setList(list);
+        return pageBean;
 	}
 
 	

@@ -6,6 +6,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE HTML>
 <html>
 <head>
+<base href="<%=basePath%>"/>
 <meta charset="UTF-8">
 <meta name="renderer" content="webkit|ie-comp|ie-stand">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -42,18 +43,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<li><a href="javascript:;" onclick="article_add('创建活动','article-add.html')"><i class="Hui-iconfont">&#xe616;</i> 活动</a></li>
 							<li><a href="javascript:;" onclick="article_add('创建新闻','article-add2.html')"><i class="Hui-iconfont">&#xe616;</i> 新闻</a></li>
 							<li><a href="javascript:;" onclick="member_add('添加用户','member-add3.html','','510')"><i class="Hui-iconfont">&#xe60d;</i> 用户</a></li>
-					</ul>
-				</li>
-			</ul>
-		</nav>
+						</ul>
+					</li>
+				</ul>
+			</nav>
 		<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
 			<ul class="cl">
 				<li>超级管理员</li>
 				<li class="dropDown dropDown_hover">
-					<a href="#" class="dropDown_A">admin <i class="Hui-iconfont">&#xe6d5;</i></a>
+					<a href="javascript:;" class="dropDown_A">admin <i class="Hui-iconfont">&#xe6d5;</i></a>
 					<ul class="dropDown-menu menu radius box-shadow">
 						<li><a href="javascript:;" onClick="myselfinfo()">个人信息</a></li>
-						<li><a href="userLogout.action">退出</a></li>
+						<li><a href="<%=basePath%>userLogout.action">退出</a></li>
 				</ul>
 			</li>
 				<li id="Hui-msg"> <a href="#" title="消息"><span class="badge badge-danger">1</span><i class="Hui-iconfont" style="font-size:18px">&#xe68a;</i></a> </li>
@@ -77,7 +78,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<dt><i class="Hui-iconfont">&#xe60d;</i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="gotoUserList.action" data-title="用户列表" href="javascript:;">用户列表</a></li>
+					<li><a data-href="userAction/gotoUserList.action" data-title="用户列表" href="javascript:;">用户列表</a></li>
 					<li><a data-href="admin-permission.html" data-title="权限管理" href="javascript:void(0)">权限管理</a></li>
 					<%--<li><a data-href="admin-role.html" data-title="角色管理" href="javascript:void(0)">角色管理</a></li>
 					<li><a data-href="member-scoreoperation.html" data-title="积分管理" href="javascript:;">积分管理</a></li>
@@ -170,7 +171,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="Hui-tabNav-wp">
 			<ul id="min_title_list" class="acrossTab cl">
 				<li class="active">
-					<span title="主页" data-href="gotoDefault.action">我的桌面</span>
+					<span title="主页" data-href="userAction/gotoDefault.action">我的桌面</span>
 					<em></em></li>
 		</ul>
 	</div>
@@ -179,7 +180,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="iframe_box" class="Hui-article">
 		<div class="show_iframe">
 			<div style="display:none" class="loading"></div>
-			<iframe scrolling="yes" frameborder="0" src="gotoDefault.action"></iframe>
+			<iframe scrolling="yes" frameborder="0" src="userAction/gotoDefault.action"></iframe>
 	</div>
 </div>
 </section>

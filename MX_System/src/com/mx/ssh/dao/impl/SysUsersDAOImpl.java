@@ -5,10 +5,12 @@ import java.util.List;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 import com.mx.ssh.bean.MxUsersData;
 import com.mx.ssh.dao.ISysUsersDAO;
+import com.mx.ssh.util.PageHibernateCallback;
 
 
 
@@ -104,8 +106,13 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 	}
 
 
+	/*
+	 * 系统用户登录(non-Javadoc)
+	 * @see com.mx.ssh.dao.ISysUsersDAO#userLogin(java.lang.String, java.lang.String)
+	 */
 	public MxUsersData userLogin(String userName, String userPwd) {
 		// TODO Auto-generated method stub
+		//this.getHibernateTemplate().clear();
 		List<MxUsersData> ud= getHibernateTemplate().find("from com.mx.ssh.bean.MxUsersData au where au.userName ='"+userName+"' and au.userTypeId=1100 and au.password='"+userPwd+"'");
 		
 		if(ud.size()>0){
@@ -118,5 +125,30 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 		}
 		
 	}
+	
+	
+	//查询MxUsersData表中总记录数
+    public int findTotalCount() {
+        String hql="select count(*) from MxUsersData";
+        List<Long> list=(List<Long>) this.getHibernateTemplate().find(hql);
+        if(list!=null&&list.size()>0){
+            return list.get(0).intValue();
+        }
+        return 0;
+    }
+	
+	/*
+	 * 分页查询用户
+	 * begin为
+	 */
+    public List<MxUsersData> findUsersByPage(int begin, int limit) {
+        String hql="from MxUsersData";
+        List<MxUsersData> list=(List<MxUsersData>) this.getHibernateTemplate().execute((HibernateCallback<MxUsersData>) new PageHibernateCallback(hql, new Object[]{}, begin, limit));
+        if(list!=null&&list.size()>0){
+            
+            return list;
+        }
+        return null;
+    }
 
 }

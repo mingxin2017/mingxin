@@ -6,6 +6,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE HTML>
 <html>
 <head>
+<base href="<%=basePath%>"/>
 <meta name="renderer" content="webkit|ie-comp|ie-stand">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
@@ -40,7 +41,7 @@ function doLogin(){
 		return;
 	}
 	 $.ajax({
-         url:'doLogin.action',
+         url:'userAction/doLogin.action',
          type: 'post',
          data: {'userName':userName,'userPwd':userPwd},
          dataType: 'json',
@@ -68,8 +69,8 @@ function doLogin(){
 			 //alert(jqXHR.status);
              //alert(jqXHR.readyState);
 			//alert(textStatus);
-            //alert(errorThrown);
-           
+           //alert(errorThrown);
+          
          }
      });
 }

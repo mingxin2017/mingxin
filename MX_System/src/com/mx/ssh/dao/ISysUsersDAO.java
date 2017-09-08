@@ -68,6 +68,8 @@ public interface ISysUsersDAO {
 
 	public MxUsersData userLogin(String userName, String userPwd);
 	
+	public int findTotalCount();
 	
+	 public List<MxUsersData> findUsersByPage(int begin, int limit);
 	
 }
