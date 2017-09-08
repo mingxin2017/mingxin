@@ -1,5 +1,6 @@
 package com.mx.ssh.dao.impl;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
@@ -108,7 +109,10 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 		List<MxUsersData> ud= getHibernateTemplate().find("from com.mx.ssh.bean.MxUsersData au where au.userName ='"+userName+"' and au.userTypeId=1100 and au.password='"+userPwd+"'");
 		
 		if(ud.size()>0){
-			return ud.get(0);
+			MxUsersData user=ud.get(0);
+			user.setLastLoginTime(new Timestamp(System.currentTimeMillis()));
+			getHibernateTemplate().update(user);
+			return user;
 		}else{
 			return null;
 		}

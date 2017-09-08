@@ -59,6 +59,6 @@
   
   
   <welcome-file-list>  
-    <welcome-file>/SystemPages/login.jsp</welcome-file>  
+    <welcome-file>/SystemPages/login.jsp</welcome-file> 
   </welcome-file-list>
 </web-app>

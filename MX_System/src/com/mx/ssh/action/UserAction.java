@@ -117,7 +117,7 @@ public class UserAction extends ActionSupport {
 		Map<String, String> map = new HashMap<String, String>();
 		if (null==userInfo) {
 			map.put("done", "-1");
-			map.put("msg", "登录失败!");
+			map.put("msg", "用户名或密码错误!");
 			JSONObject jsonObject = JSONObject.fromObject(map);
 			response.getWriter().write(jsonObject.toString());
 			//return null;
@@ -163,6 +163,17 @@ public class UserAction extends ActionSupport {
 		return "users";
 	}
 	
+	/*
+	 * 后台用户退出登录
+	 */
+	@Action(value = "userLogout", results = { 
+			@Result(name = "login", location = "/SystemPages/login.jsp")})
+	public String userLogout() throws IOException{
+		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
+		request.setCharacterEncoding("UTF-8");
+		request.getSession().removeAttribute("userInfo");
+		return "login";
+	}
 	
 	
 }

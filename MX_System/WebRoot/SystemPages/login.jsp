@@ -40,7 +40,7 @@ function doLogin(){
 		return;
 	}
 	 $.ajax({
-         url:'userAction/doLogin.action',
+         url:'doLogin.action',
          type: 'post',
          data: {'userName':userName,'userPwd':userPwd},
          dataType: 'json',
@@ -54,7 +54,7 @@ function doLogin(){
              	d.content(response.msg);
              	setTimeout(function () {
 		    			d.close().remove();
-		    		}, 2000);
+		    		}, 1500);
                  //return alert(response.msg);
              }
          },
