@@ -62,7 +62,27 @@ public class WeixinNewsDAOImpl extends HibernateDaoSupport implements IWeixinNew
 	public List<MxRegion> getRegion() {
 		return getHibernateTemplate().find("from com.mx.ssh.bean.MxRegion");
 	}
-	
-
-
+	//根据用户id查询新闻返回
+	@SuppressWarnings("unchecked")
+	public List<MxNewsData> getNewsByUserId(String userId){
+		return getHibernateTemplate().find("from com.mx.ssh.bean.MxNewsData d where d.newsWriterId ='"+userId+"'");
+	}
+	//根据用户id查询新闻条数返回
+	@SuppressWarnings("unchecked")
+	public int getCountNewsByUserId(String userId,String state){
+		if(state.equals("-1")){
+			return ((Long)getHibernateTemplate().find("select count(*) from com.mx.ssh.bean.MxNewsData d where d.newsWriterId ='"+userId+"'").listIterator().next()).intValue();
+		}else{
+			return ((Long)getHibernateTemplate().find("select count(*) from com.mx.ssh.bean.MxNewsData d where d.newsWriterId ='"+userId+"' and d.state = "+state).listIterator().next()).intValue();
+		}
+	}
+	//根据新闻id查询新闻返回
+	public MxNewsData getNewsById(String newsId){
+		return (MxNewsData) getHibernateTemplate().find("from com.mx.ssh.bean.MxNewsData d where d.newsId ='"+newsId+"'").get(0);
+	}
+	//根据类型id查询新闻返回
+	@SuppressWarnings("unchecked")
+	public List<MxNewsData> getNewsByNewsTypeId(String newsTypeId){
+		return getHibernateTemplate().find("from com.mx.ssh.bean.MxNewsData d where d.newsTypeId ='"+newsTypeId+"'");
+	}
 }

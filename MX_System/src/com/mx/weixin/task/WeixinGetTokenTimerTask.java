@@ -30,6 +30,8 @@ public class WeixinGetTokenTimerTask{
 		//刷新全局变量token，时间配置在applicationContext.xml中
 		token=TokenUtil.getToken(WeixinSignUtil.AppID, WeixinSignUtil.AppSecret);
 		
+		System.out.println();
+		System.out.println("全局token");
 		System.out.println("token refresh:"+token.getAccessToken());
 		System.out.println("expiresIn:"+token.getExpiresIn());
 		

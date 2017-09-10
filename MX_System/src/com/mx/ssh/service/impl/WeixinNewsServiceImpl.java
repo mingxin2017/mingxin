@@ -21,14 +21,6 @@ public class WeixinNewsServiceImpl implements com.mx.ssh.service.IWeixinNewsServ
 	@Autowired
 	private IWeixinNewsDAO weixinNewsDAO;//依赖注入用户dao
 
-	public IWeixinNewsDAO getWeixinNewsDAO() {
-		return weixinNewsDAO;
-	}
-
-	public void setWeixinNewsDAO(IWeixinNewsDAO weixinNewsDAO) {
-		this.weixinNewsDAO = weixinNewsDAO;
-	}
-
 	//添加新闻
 	public void addNews(MxNewsData newsData,MxNewsContent newsContent) {
 		weixinNewsDAO.addNews(newsData,newsContent);
@@ -48,6 +40,22 @@ public class WeixinNewsServiceImpl implements com.mx.ssh.service.IWeixinNewsServ
     //查询乡村
 	public List<MxRegion> getRegion() {
 		return weixinNewsDAO.getRegion();
+	}
+    //根据用户id获取新闻
+	public List<MxNewsData> getNewsByUserId(String userId) {
+		return weixinNewsDAO.getNewsByUserId(userId);
+	}
+	//根据用户id查询新闻条数返回
+	public int getCountNewsByUserId(String userId,String state) {
+		return weixinNewsDAO.getCountNewsByUserId(userId,state);
+	}
+    //根据新闻id查询新闻返回
+	public MxNewsData getNewsById(String newsId) {
+		return weixinNewsDAO.getNewsById(newsId);
+	}
+	//根据类型id查询新闻返回
+	public List<MxNewsData> getNewsByNewsTypeId(String newsTypeId) {
+		return weixinNewsDAO.getNewsByNewsTypeId(newsTypeId);
 	}
 
 

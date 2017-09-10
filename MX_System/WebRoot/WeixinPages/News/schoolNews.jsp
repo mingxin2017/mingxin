@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ page import="com.mx.weixin.pojo.SNSUserInfo,java.lang.*"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -22,7 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		});
 		
 		
-	</script>
+</script>
 </head>
 <body>
 
@@ -78,6 +78,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div>
 
+<div class="mui-content" style="height:60px;text-align:left;">
+  <div class="wrap" style="height:50px;padding:5px;border:1px #ccc solid;margin:0;">
+   <p style="display:inline;float:left;font-weight:bold;font-size:13px;color:red;padding:0 10px;">快讯<br>时间 </p>     
+ 	<div style="float:left;text-align:center;padding:5px;">
+	 	<div class="roll-wrap" id="roll-wrap" style="height:31px;font-size:20px;float:left;overflow:hidden;">
+			 <ul style="margin:0;">
+	            <li style="margin:5;">JS文本向上滚动1</li>
+	            <li style="margin:5;">JS文本向上滚动2</li>
+	            <li style="margin:5;">JS文本向上滚动3</li>
+	            <li style="margin:5;">JS文本向上滚动4</li>
+	            <li style="margin:5;">JS文本向上滚动5</li>
+	            <li style="margin:5;">JS文本向上滚动6</li>
+	            <li style="margin:5;">JS文本向上滚动7</li>
+	        </ul>
+	    </div>
+    </div>
+   </div>
+</div>
 
 <div class="mui-content">
 			
@@ -85,135 +103,120 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				缩略图居左
 			</div>
 			<ul class="mui-table-view">
-				<li class="mui-table-view-cell mui-media">
-					<a href="javascript:;">
-						<img class="mui-media-object mui-pull-left" src="<%=basePath%>WeixinPages/common/images/shuijiao.jpg">
-						<div class="mui-media-body">
-							幸福
-							<p class='mui-ellipsis'>能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
-						</div>
-					</a>
-				</li>
-				<li class="mui-table-view-cell mui-media">
-					<a href="javascript:;">
-						<img class="mui-media-object mui-pull-left" src="<%=basePath%>WeixinPages/common/images/muwu.jpg">
-						<div class="mui-media-body">
-							木屋
-							<p class='mui-ellipsis'>想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.</p>
-						</div>
-					</a>
-				</li>
-				<li class="mui-table-view-cell mui-media">
-					<a href="javascript:;">
-						<img class="mui-media-object mui-pull-left" src="<%=basePath%>WeixinPages/common/images/cbd.jpg">
-						<div class="mui-media-body">
-							CBD
-							<p class='mui-ellipsis'>烤炉模式的城，到黄昏，如同打翻的调色盘一般.</p>
-						</div>
-					</a>
-				</li>
+				<c:forEach items="${MxNewsDataList}" var="item" varStatus="status">  
+					<li class="mui-table-view-cell mui-media">
+						<a href="weixin/newsPage.action?newsId=${item.newsId}">
+							<img class="mui-media-object mui-pull-left" src="<%=basePath%>WeixinPages/common/images/shuijiao.jpg">
+							<div class="mui-media-body">
+								标题：${item.newsHeadline}
+								<p class='mui-ellipsis'>引言：${item.newsLeadText}</p>
+							</div>
+						</a>
+					</li>
+			    </c:forEach>
 
 			</ul>
 			<div class="title">
 				缩略图居右
 			</div>
 			<ul class="mui-table-view">
-				<li class="mui-table-view-cell mui-media">
-					<a href="javascript:;">
-						<img class="mui-media-object mui-pull-right" src="<%=basePath%>WeixinPages/common/images/yuantiao.jpg">
-						<div class="mui-media-body">
-							远眺
-							<p class='mui-ellipsis'>静静的看这个世界，最后终于疯了</p>
-						</div>
-					</a>
-				</li>
-				<li class="mui-table-view-cell mui-media">
-					<a href="javascript:;">
-						<img class="mui-media-object mui-pull-right" src="<%=basePath%>WeixinPages/common/images/shuijiao.jpg">
-						<div class="mui-media-body">
-							幸福
-							<p class='mui-ellipsis'>能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
-						</div>
-					</a>
-				</li>
-				<li class="mui-table-view-cell mui-media">
-					<a href="javascript:;">
-						<img class="mui-media-object mui-pull-right" src="<%=basePath%>WeixinPages/common/images/muwu.jpg">
-						<div class="mui-media-body">
-							木屋
-							<p class='mui-ellipsis'>想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.</p>
-						</div>
-					</a>
-				</li>
+				<c:forEach items="${MxNewsDataList}" var="item" varStatus="status"> 
+					<li class="mui-table-view-cell mui-media">
+						<a href="weixin/newsPage.action?newsId=${item.newsId}">
+							<img class="mui-media-object mui-pull-right" src="<%=basePath%>WeixinPages/common/images/yuantiao.jpg">
+							<div class="mui-media-body">
+								标题：${item.newsHeadline}
+								<p class='mui-ellipsis'>引言：${item.newsLeadText}</p>
+							</div>
+						</a>
+					</li>
+				</c:forEach>
+				
 			</ul>
 			<div class="title">
 				右侧带导航箭头
 			</div>
 			<ul class="mui-table-view mui-table-view-chevron">
-				<li class="mui-table-view-cell mui-media">
-					<a class="mui-navigate-right">
-						<img class="mui-media-object mui-pull-left" src="<%=basePath%>WeixinPages/common/images/cbd.jpg">
-						<div class="mui-media-body">
-							CBD
-							<p class='mui-ellipsis'>烤炉模式的城，到黄昏，如同打翻的调色盘一般.</p>
-						</div>
-					</a>
-				</li>
-				<li class="mui-table-view-cell mui-media">
-					<a class='mui-navigate-right' href="javascript:;">
-						<img class="mui-media-object mui-pull-left" src="<%=basePath%>WeixinPages/common/images/yuantiao.jpg">
-						<div class="mui-media-body">
-							远眺
-							<p class='mui-ellipsis'>静静的看这个世界，最后终于疯了</p>
-						</div>
-					</a>
-				</li>
-				<li class="mui-table-view-cell mui-media">
-					<a class="mui-navigate-right">
-						<img class="mui-media-object mui-pull-left" src="<%=basePath%>WeixinPages/common/images/shuijiao.jpg">
-						<div class="mui-media-body">
-							幸福
-							<p class='mui-ellipsis'>能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
-						</div>
-					</a>
-				</li>
+				<c:forEach items="${MxNewsDataList}" var="item" varStatus="status"> 
+					<li class="mui-table-view-cell mui-media">
+						<a class="mui-navigate-right" href="weixin/newsPage.action?newsId=${item.newsId}">
+							<img class="mui-media-object mui-pull-left" src="<%=basePath%>WeixinPages/common/images/cbd.jpg">
+							<div class="mui-media-body">
+								标题：${item.newsHeadline}
+								<p class='mui-ellipsis'>引言：${item.newsLeadText}</p>
+							</div>
+						</a>
+					</li>
+				</c:forEach>
 			</ul>
 			<div class="title">
 				card（圆角列表）
 			</div>
 			<div class="mui-card" style="margin-bottom: 35px;">
 				<ul class="mui-table-view">
-					<li class="mui-table-view-cell mui-media">
-						<a href="javascript:;">
-							<img class="mui-media-object mui-pull-right" src="<%=basePath%>WeixinPages/common/images/muwu.jpg">
-							<div class="mui-media-body">
-								木屋
-								<p class='mui-ellipsis'>想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.</p>
-							</div>
-						</a>
-					</li>
-					<li class="mui-table-view-cell mui-media">
-						<a href="javascript:;">
-							<img class="mui-media-object mui-pull-right" src="<%=basePath%>WeixinPages/common/images/cbd.jpg">
-							<div class="mui-media-body">
-								CBD
-								<p class='mui-ellipsis'>烤炉模式的城，到黄昏，如同打翻的调色盘一般.</p>
-							</div>
-						</a>
-					</li>
-					<li class="mui-table-view-cell mui-media">
-						<a href="javascript:;">
-							<img class="mui-media-object mui-pull-right" src="<%=basePath%>WeixinPages/common/images/yuantiao.jpg">
-							<div class="mui-media-body">
-								远眺
-								<p class='mui-ellipsis'>静静的看这个世界，最后终于疯了</p>
-							</div>
-						</a>
-					</li>
+					<c:forEach items="${MxNewsDataList}" var="item" varStatus="status"> 
+						<li class="mui-table-view-cell mui-media">
+							<a href="weixin/newsPage.action?newsId=${item.newsId}">
+								<img class="mui-media-object mui-pull-right" src="<%=basePath%>WeixinPages/common/images/muwu.jpg">
+								<div class="mui-media-body">
+									标题：${item.newsHeadline}
+									<p class='mui-ellipsis'>引言：${item.newsLeadText}</p>
+								</div>
+							</a>
+						</li>
+					</c:forEach>
+					
 				</ul>
 			</div>
 		</div>
-
+<script type="text/javascript" src="<%=basePath%>WeixinPages/common/js/jquery-1.11.2.js"></script>
+<!-- 快讯单行滚动 -->		
+<script type="text/javascript"> 
+function scrollTxt(){
+    var controls={}, 
+        values={},
+        t1=200, /*播放动画的时间*/
+        t2=2000, /*播放时间间隔*/
+        si;
+    controls.rollWrap=$("#roll-wrap");
+    controls.rollWrapUl=controls.rollWrap.children();
+    controls.rollWrapLIs=controls.rollWrapUl.children();
+    values.liNums=controls.rollWrapLIs.length;
+    values.liHeight=controls.rollWrapLIs.eq(0).height();
+    values.ulHeight=controls.rollWrap.height();
+    this.init=function(){
+        autoPlay();
+        pausePlay();
+    }
+    /*滚动*/
+    function play(){
+        controls.rollWrapUl.animate({"margin-top" : "-"+values.liHeight}, t1, function(){
+            $(this).css("margin-top" , "0").children().eq(0).appendTo($(this));
+        });
+    }
+    /*自动滚动*/
+    function autoPlay(){
+        /*如果所有li标签的高度和大于.roll-wrap的高度则滚动*/
+        if(values.liHeight*values.liNums > values.ulHeight){
+            si=setInterval(function(){
+                play();
+            },t2);
+        }
+    }
+    /*鼠标经过ul时暂停滚动*/
+    function pausePlay(){
+        controls.rollWrapUl.on({
+            "mouseenter":function(){
+                clearInterval(si);
+            },
+            "mouseleave":function(){
+                autoPlay();
+            }
+        });
+    }
+}
+new scrollTxt().init();
+</script>
 
 </body>
 </html>

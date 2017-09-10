@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ page import="com.mx.weixin.pojo.SNSUserInfo,java.lang.*"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -85,131 +85,69 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				缩略图居左
 			</div>
 			<ul class="mui-table-view">
-				<li class="mui-table-view-cell mui-media">
-					<a href="javascript:;">
-						<img class="mui-media-object mui-pull-left" src="<%=basePath%>WeixinPages/common/images/shuijiao.jpg">
-						<div class="mui-media-body">
-							幸福
-							<p class='mui-ellipsis'>能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
-						</div>
-					</a>
-				</li>
-				<li class="mui-table-view-cell mui-media">
-					<a href="javascript:;">
-						<img class="mui-media-object mui-pull-left" src="<%=basePath%>WeixinPages/common/images/muwu.jpg">
-						<div class="mui-media-body">
-							木屋
-							<p class='mui-ellipsis'>想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.</p>
-						</div>
-					</a>
-				</li>
-				<li class="mui-table-view-cell mui-media">
-					<a href="javascript:;">
-						<img class="mui-media-object mui-pull-left" src="<%=basePath%>WeixinPages/common/images/cbd.jpg">
-						<div class="mui-media-body">
-							CBD
-							<p class='mui-ellipsis'>烤炉模式的城，到黄昏，如同打翻的调色盘一般.</p>
-						</div>
-					</a>
-				</li>
+				<c:forEach items="${MxNewsDataList}" var="item" varStatus="status">  
+					<li class="mui-table-view-cell mui-media">
+						<a href="weixin/newsPage.action?newsId=${item.newsId}">
+							<img class="mui-media-object mui-pull-left" src="<%=basePath%>WeixinPages/common/images/shuijiao.jpg">
+							<div class="mui-media-body">
+								标题：${item.newsHeadline}
+								<p class='mui-ellipsis'>引言：${item.newsLeadText}</p>
+							</div>
+						</a>
+					</li>
+			    </c:forEach>
 
 			</ul>
 			<div class="title">
 				缩略图居右
 			</div>
 			<ul class="mui-table-view">
-				<li class="mui-table-view-cell mui-media">
-					<a href="javascript:;">
-						<img class="mui-media-object mui-pull-right" src="<%=basePath%>WeixinPages/common/images/yuantiao.jpg">
-						<div class="mui-media-body">
-							远眺
-							<p class='mui-ellipsis'>静静的看这个世界，最后终于疯了</p>
-						</div>
-					</a>
-				</li>
-				<li class="mui-table-view-cell mui-media">
-					<a href="javascript:;">
-						<img class="mui-media-object mui-pull-right" src="<%=basePath%>WeixinPages/common/images/shuijiao.jpg">
-						<div class="mui-media-body">
-							幸福
-							<p class='mui-ellipsis'>能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
-						</div>
-					</a>
-				</li>
-				<li class="mui-table-view-cell mui-media">
-					<a href="javascript:;">
-						<img class="mui-media-object mui-pull-right" src="<%=basePath%>WeixinPages/common/images/muwu.jpg">
-						<div class="mui-media-body">
-							木屋
-							<p class='mui-ellipsis'>想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.</p>
-						</div>
-					</a>
-				</li>
+				<c:forEach items="${MxNewsDataList}" var="item" varStatus="status"> 
+					<li class="mui-table-view-cell mui-media">
+						<a href="weixin/newsPage.action?newsId=${item.newsId}">
+							<img class="mui-media-object mui-pull-right" src="<%=basePath%>WeixinPages/common/images/yuantiao.jpg">
+							<div class="mui-media-body">
+								标题：${item.newsHeadline}
+								<p class='mui-ellipsis'>引言：${item.newsLeadText}</p>
+							</div>
+						</a>
+					</li>
+				</c:forEach>
+				
 			</ul>
 			<div class="title">
 				右侧带导航箭头
 			</div>
 			<ul class="mui-table-view mui-table-view-chevron">
-				<li class="mui-table-view-cell mui-media">
-					<a class="mui-navigate-right">
-						<img class="mui-media-object mui-pull-left" src="<%=basePath%>WeixinPages/common/images/cbd.jpg">
-						<div class="mui-media-body">
-							CBD
-							<p class='mui-ellipsis'>烤炉模式的城，到黄昏，如同打翻的调色盘一般.</p>
-						</div>
-					</a>
-				</li>
-				<li class="mui-table-view-cell mui-media">
-					<a class='mui-navigate-right' href="javascript:;">
-						<img class="mui-media-object mui-pull-left" src="<%=basePath%>WeixinPages/common/images/yuantiao.jpg">
-						<div class="mui-media-body">
-							远眺
-							<p class='mui-ellipsis'>静静的看这个世界，最后终于疯了</p>
-						</div>
-					</a>
-				</li>
-				<li class="mui-table-view-cell mui-media">
-					<a class="mui-navigate-right">
-						<img class="mui-media-object mui-pull-left" src="<%=basePath%>WeixinPages/common/images/shuijiao.jpg">
-						<div class="mui-media-body">
-							幸福
-							<p class='mui-ellipsis'>能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
-						</div>
-					</a>
-				</li>
+				<c:forEach items="${MxNewsDataList}" var="item" varStatus="status"> 
+					<li class="mui-table-view-cell mui-media">
+						<a class="mui-navigate-right" href="weixin/newsPage.action?newsId=${item.newsId}">
+							<img class="mui-media-object mui-pull-left" src="<%=basePath%>WeixinPages/common/images/cbd.jpg">
+							<div class="mui-media-body">
+								标题：${item.newsHeadline}
+								<p class='mui-ellipsis'>引言：${item.newsLeadText}</p>
+							</div>
+						</a>
+					</li>
+				</c:forEach>
 			</ul>
 			<div class="title">
 				card（圆角列表）
 			</div>
 			<div class="mui-card" style="margin-bottom: 35px;">
 				<ul class="mui-table-view">
-					<li class="mui-table-view-cell mui-media">
-						<a href="javascript:;">
-							<img class="mui-media-object mui-pull-right" src="<%=basePath%>WeixinPages/common/images/muwu.jpg">
-							<div class="mui-media-body">
-								木屋
-								<p class='mui-ellipsis'>想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.</p>
-							</div>
-						</a>
-					</li>
-					<li class="mui-table-view-cell mui-media">
-						<a href="javascript:;">
-							<img class="mui-media-object mui-pull-right" src="<%=basePath%>WeixinPages/common/images/cbd.jpg">
-							<div class="mui-media-body">
-								CBD
-								<p class='mui-ellipsis'>烤炉模式的城，到黄昏，如同打翻的调色盘一般.</p>
-							</div>
-						</a>
-					</li>
-					<li class="mui-table-view-cell mui-media">
-						<a href="javascript:;">
-							<img class="mui-media-object mui-pull-right" src="<%=basePath%>WeixinPages/common/images/yuantiao.jpg">
-							<div class="mui-media-body">
-								远眺
-								<p class='mui-ellipsis'>静静的看这个世界，最后终于疯了</p>
-							</div>
-						</a>
-					</li>
+					<c:forEach items="${MxNewsDataList}" var="item" varStatus="status"> 
+						<li class="mui-table-view-cell mui-media">
+							<a href="weixin/newsPage.action?newsId=${item.newsId}">
+								<img class="mui-media-object mui-pull-right" src="<%=basePath%>WeixinPages/common/images/muwu.jpg">
+								<div class="mui-media-body">
+									标题：${item.newsHeadline}
+									<p class='mui-ellipsis'>引言：${item.newsLeadText}</p>
+								</div>
+							</a>
+						</li>
+					</c:forEach>
+					
 				</ul>
 			</div>
 		</div>
