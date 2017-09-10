@@ -72,7 +72,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<tbody>
 			<c:forEach items="${allUsers.list}" var="item">
 			<tr class="text-c">
-				<td><input type="checkbox" value="1" name=""></td>
+				<td><input type="checkbox" value="${item.userId}" name=""></td>
 				<td><c:if test="${item.userTypeId eq 1100}">管理员</c:if><c:if test="${item.userTypeId eq -1}">微信用户</c:if></td>
 				<td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','member-show.html','10001','360','400')">${item.userRealName}</u></td>
 				<td>${item.weixinNikeName}</td>
@@ -124,7 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="<%=basePath%>SystemPages/common/lib/layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript">
 
-layui.use('laypage', function(){
+	layui.use('laypage', function(){
 	  var laypage = layui.laypage;
 	 
 	  //执行一个laypage实例
@@ -133,9 +133,8 @@ layui.use('laypage', function(){
 		    ,count: ${allUsers.allRow}
 		    ,limit:${allUsers.pageSize}
 		    ,theme: '#1E9FFF'
-		    	,jump: function(obj, first){
-		    	   
-		    	    
+		    ,jump: function(obj, first){
+		    	alert(123);
 		    	    //首次不执行
 		    	    if(!first){
 		    	    	 //obj包含了当前分页的所有参数，比如：
@@ -148,93 +147,87 @@ layui.use('laypage', function(){
 		    	  }
 		  });
 	});
+	
+	
 
+	/*
 function getPage(curr){
-	 $.getJSON('/page', {
-	        page: curr //向服务端传的参数
-	      }, function(res){
-	          //此处输出内容
-	          var table = $("#tb");
-	          //table.attr({class:"layui-table admin-table",id:"page"});
+	var url='userAction/getUsersByPage.action';
+	alert(555);
+	$.ajax({
+		   url: url,
+		   data: {'page':curr},
+		   dataType: json,
+		   success: function (response) {
+			   alert(666);
+	             var list=response.list;
+	             $.each(list, function(index, item){
+	            	 var state=item.userState;
+                	 var lastLoginTime = Date.parse(new Date(item.lastLoginTime));
+                	 var role;
+                	 if(item.userTypeId=='1100'){
+                		 role='管理员';
+                	 }else{
+                		 role='微信用户';
+                	 }
+                	 var tb=tbody.innerHTML;
+                	 if(state=='0'){
+                		 alert(0);
+                		 
+                		 tb+=('<tr class="text-c">');
+                		 tb+=('<td><input type="checkbox" value="'+value.userId+'" name=""></td>');
+                		 tb+=('<td>'+role+'</td>'
+                		 tb+=('<td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','member-show.html','10001','360','400')">'+value.userRealName+'</u></td>');
+                		 tb+=('<td>${item.weixinNikeName}</td>');
+                		 tb+=('<td>'+value.userSex+'</td>');
+                		 tb+=('<td>'+value.userPhoneNum+'</td>');
+                		 tb+=('<td>'+value.userEmail+'</td>');
+                		 tb+=('<td>'+value.userAddr+'</td>');
+                		 tb+=('<td>'+value.lastLoginTime+'</td>');
+                		 tb+=('<td class="td-status"><span class="label label-success radius">正常</span></td>');
+                		 tb+=('<td class="td-manage">');
+                		 tb+=('<a style="text-decoration:none" onClick="member_stop(this,'10001')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
+                		 tb+=('<a title="编辑" href="javascript:;" onclick="member_edit('编辑','member-add.html','4','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>');
+                		 tb+=('<a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>');
+                		 tb+=('</td>');
+                	 }else(state=='-1'){
+                		 alert(-1);
+                		 tb+=('<tr class="text-c">');
+                		 tb+=('<td><input type="checkbox" value="'+value.userId+'" name=""></td>');
+                		 tb+=('<td>'+role+'</td>');
+                		 tb+=('<td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','member-show.html','10001','360','400')">'+value.userRealName+'</u></td>');
+                		 tb+=('<td>${item.weixinNikeName}</td>');
+                		 tb+=('<td>'+value.userSex+'</td>');
+                		 tb+=('<td>'+value.userPhoneNum+'</td>');
+                		 tb+=('<td>'+value.userEmail+'</td>');
+                		 tb+=('<td>'+value.userAddr+'</td>');
+                		 tb+=('<td>'+value.lastLoginTime+'</td>');
+                		 tb+=('<td class="td-status"><span class="label label-danger radius">停用</span></td>');
+                		 tb+=('<td class="td-manage">');
+                		 tb+=('<a style="text-decoration:none" onClick="member_open(this,'10001')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
+                		 tb+=('<a title="编辑" href="javascript:;" onclick="member_edit('编辑','member-add.html','4','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>');
+                		 tb+=('<a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>');
+                		 tb+=('</td>');
+                	 }
+                	 
+	            	 
+	  		     });
+	         },
+	         error: function (jqXHR, textStatus, errorThrown) {
 
-	          //var thead = $("<thead><tr><th>编号</th><th>姓名</th><th>行为</th><th>时间</th><th>操作</th></tr></thead>");
-	          //table.append(thead);
-	          var tbody = $("#tb tbody");
-	          //tbody.attr({id:"content"});
+	             if (textStatus == 'timeout') {
+	                 a_info_alert('请求超时');
 
-	          $(function(){
-	                var datas = res.list;
-	                 $.each(datas,function(index,value){
-	                	 
-	                	 tbody.innerHTML+='<tr class="text-c">';
-	                	 
-	                	 
-	                	 <tr class="text-c">
-	     				<td><input type="checkbox" value="1" name=""></td>
-	     				<td><c:if test="${item.userTypeId eq 1100}">管理员</c:if><c:if test="${item.userTypeId eq -1}">微信用户</c:if></td>
-	     				<td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','member-show.html','10001','360','400')">${item.userRealName}</u></td>
-	     				<td>${item.weixinNikeName}</td>
-	     				<td>${item.userSex}</td>
-	     				<td>${item.userPhoneNum}</td>
-	     				<td>${item.userEmail}</td>
-	     				<td>${item.userAddr}</td>
-	     				<td><fmt:formatDate value="${item.lastLoginTime}" pattern="yyyy-MM-dd　HH:mm"/></td>
-	     				<td class="td-status">
-	     					<c:if test="${item.userState eq 0}">
-	     						<span class="label label-success radius">正常</span>
-	     					</c:if>
-	     					<c:if test="${item.userState eq -1}">
-	     						<span class="label label-danger radius">停用</span>
-	     					</c:if>
-	     				</td>
-	     				<td class="td-manage">
-	     					<c:if test="${item.userState eq 0}">
-	     						<a style="text-decoration:none" onClick="member_stop(this,'10001')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> 
-	     					</c:if>
-	     					<c:if test="${item.userState eq -1}">
-	     						<a style="text-decoration:none" onClick="member_open(this,'10001')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>
-	     					</c:if>
-	     					<a title="编辑" href="javascript:;" onclick="member_edit('编辑','member-add.html','4','','510')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> 
-	     					<%--<a style="text-decoration:none" class="ml-5" onClick="change_password('修改密码','change-password.html','10001','600','270')" href="javascript:;" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a> 
-	     					--%><a title="删除" href="javascript:;" onclick="member_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
-	     				</td>
-	     			</tr>
-	     			
-	     			
-	     			
-	     			
-	                	 
-	                	 
-	                	 
-	                    var tr = $("<tr></tr>");
-	                    tr.attr({class:"text-c"});
-	                    tr.append("<td>"+ (++index) + "</td>");
-	                    tbody.append(tr);
-	                    tr.append("<td>"+ value.staffName + "</td>");
-	                    tbody.append(tr);
-	                    tr.append("<td>"+ value.operation + "</td>");
-	                    tbody.append(tr);
-	                    tr.append("<td>"+ value.createTime + "</td>");
-	                      tbody.append(tr);
-	                      var td = $("<td></td>");
-	                      var div = $("<div></div>");
-	                      div.attr({class:"layui-btn-group"});
-	                      var button1 = $("<button detailId=" + value.weeklyId +">详情</button>");
-	                      button1.attr({class:"layui-btn detail"});
-	                      var button2 = $("<button recoveryId=" + value.weeklyId +">恢复</button>");
-	                      button2.attr({class:"layui-btn recovery"});
-	                      div.append(button1);div.append(button2);
-	                      td.append(div);
-	                      tr.append(td);
-	                      tbody.append(tr);
-	                  }); 
-	              });
-	          table.append(tbody);
-	         $("#log-list").append(table);
-	        // $("#log-list").innerHTML = table;
+	                 return false;
+	             }
 
-	      });
+	             alert(jqXHR.responseText);
+	         }
+	         
+	});
 }
+*/
+
 
 /*用户-添加*/
 function member_add(title,url,w,h){

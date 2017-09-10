@@ -168,15 +168,21 @@ public class UserAction extends ActionSupport {
 	
 	
 	@Action(value = "getUsersByPage")
-	public PageBean<MxUsersData> getUsersByPage() throws IOException{
+	public void getUsersByPage() throws IOException{
 		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
 		request.setCharacterEncoding("UTF-8");
+		HttpServletResponse response = ServletActionContext.getResponse();// response对象返回数据给前台
+		response.setContentType("application/json; charset=utf-8");
 		
 		String page=request.getParameter("page");
 		if(!"".equals(page)){
-			return userService.findByPage(Integer.parseInt(page));
+			PageBean<MxUsersData> pageBean= userService.findByPage(Integer.parseInt(page));
+			 JSONArray jsonArray = JSONArray.fromObject(pageBean); 
+			 response.getWriter().write(jsonArray.toString());
 		}else{
-			return userService.findByPage(1);
+			PageBean<MxUsersData> pageBean= userService.findByPage(1);
+			JSONArray jsonArray = JSONArray.fromObject(pageBean); 
+			 response.getWriter().write(jsonArray.toString());
 		}
 		
 	}
