@@ -2,23 +2,21 @@ package com.mx.ssh.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.mx.ssh.bean.MxNewsData;
 import com.mx.ssh.bean.MxUsersReporterScore;
 import com.mx.ssh.bean.MxUsersReporterSignUp;
 import com.mx.ssh.bean.MxUsersReporterTeam;
 import com.mx.ssh.dao.IReporterBusinessDAO;
 
+@Service("reporterBusinessService")
 public class ReporterBusinessServiceImpl implements com.mx.ssh.service.IReporterBusinessService {
 	
+	@Autowired
 	private IReporterBusinessDAO reporterBusinessDAO;
 
-	public IReporterBusinessDAO getReporterBusinessDAO() {
-		return reporterBusinessDAO;
-	}
-
-	public void setReporterBusinessDAO(IReporterBusinessDAO reporterBusinessDAO) {
-		this.reporterBusinessDAO = reporterBusinessDAO;
-	}
     //获取小记者团队
 	public List<MxUsersReporterTeam> getReporterTeams() {
 		return reporterBusinessDAO.getReporterTeams();

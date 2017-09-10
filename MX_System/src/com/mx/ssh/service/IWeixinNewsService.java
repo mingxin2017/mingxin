@@ -36,4 +36,24 @@ public interface IWeixinNewsService {
 	 * @return
 	 */
 	List<MxRegion> getRegion();
+	/**
+	 * 根据用户id获取新闻
+	 */
+	List<MxNewsData> getNewsByUserId(String userId);
+	/**
+	 * 根据用户id查询新闻条数返回
+	 */
+	int getCountNewsByUserId(String userId,String state);
+	/**
+	 * 根据新闻id查询新闻返回
+	 * @param newsId
+	 * @return
+	 */
+	MxNewsData getNewsById(String newsId);
+	/**
+	 * 根据类型id查询新闻返回
+	 * @param newsTypeId
+	 * @return
+	 */
+	List<MxNewsData> getNewsByNewsTypeId(String newsTypeId);
 }

@@ -43,4 +43,24 @@ public interface IWeixinNewsDAO {
 	 * @return
 	 */
 	public List<MxRegion> getRegion();
+	/**
+	 * 根据用户id获取新闻
+	 */
+	public List<MxNewsData> getNewsByUserId(String userId);
+	/**
+	 * 根据用户id查询新闻条数返回
+	 */
+	public int getCountNewsByUserId(String userId,String state);
+	/**
+	 * 根据新闻id查询新闻返回
+	 * @param newsId
+	 * @return
+	 */
+	public MxNewsData getNewsById(String newsId);
+	/**
+	 * 根据类型id查询新闻返回
+	 * @param newsTypeId
+	 * @return
+	 */
+	public List<MxNewsData> getNewsByNewsTypeId(String newsTypeId);
 }

@@ -1,6 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page import="com.mx.weixin.pojo.SNSUserInfo,java.lang.*"%>
 <%String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";%>
 <head>
@@ -55,15 +54,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div>[评论区]</div>
 			</div>
 		</div>
+		<div style="height:800px;">
+			<input onclick="toCommit" type="text">
+		</div>
+		<div id="controller" style="bottom: 0;position: fixed;z-index: 10;right: 0;left: 0;border:1px solid gray;height:50px;background:#fff;">
+		  <a href="javascript:void(0);" onclick="toCommit();">
+		    <input type="text" style="border-radius:15px;width:100px;margin-top:4px;margin-left:5px;font-size:15px;background:url(<%=basePath%>WeixinPages/common/images/icons/pencil.png) no-repeat 0 center;background-attachment:fixed;background-position:10 center;padding-left:20px;" value="写评论..."/>
+		  </a>
+		  
+		</div>
+<script src="<%=basePath%>WeixinPages/common/js/mui.min.js "></script>
+<script src="<%=basePath%>WeixinPages/common/js/mui.view.js "></script>
+<%-- <script src='<%=basePath%>WeixinPages/common/js/feedback.js'></script> --%>
+<script>
+	mui.init();
 
+
+</script>
+<script type="text/javascript" src="<%=basePath%>WeixinPages/common/js/jquery-1.11.2.js"></script>
+<script type="text/javascript">
+    function toCommit(){
+    	$("#controller").append("<div id=\"commit\">commit</div>");
+    }
+</script>	
 	</body>
-	<script src="<%=basePath%>WeixinPages/common/js/mui.min.js "></script>
-	<script src="<%=basePath%>WeixinPages/common/js/mui.view.js "></script>
-	<script src='<%=basePath%>WeixinPages/common/js/feedback.js'></script>
-	<script>
-		mui.init();
 
-	
-	</script>
 
 
