@@ -156,14 +156,31 @@ public class UserAction extends ActionSupport {
 	@Action(value = "gotoUserList", results = { 
 			@Result(name = "users", location = "/SystemPages/Users/usersList.jsp")})
 	public String gotoUserList() throws IOException{
+		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
+		request.setCharacterEncoding("UTF-8");
 		
 		PageBean<MxUsersData> allUsers = userService.findByPage(1);
-//		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
-//		request.setCharacterEncoding("UTF-8");
-//		request.setAttribute("allUsers", allUsers);
-		 ActionContext.getContext().getValueStack().set("allUsers", allUsers);
+		
+		request.setAttribute("allUsers", allUsers);
+//		 ActionContext.getContext().getValueStack().set("allUsers", allUsers);
 		return "users";
 	}
+	
+	
+	@Action(value = "getUsersByPage")
+	public PageBean<MxUsersData> getUsersByPage() throws IOException{
+		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
+		request.setCharacterEncoding("UTF-8");
+		
+		String page=request.getParameter("page");
+		if(!"".equals(page)){
+			return userService.findByPage(Integer.parseInt(page));
+		}else{
+			return userService.findByPage(1);
+		}
+		
+	}
+	
 	
 	/*
 	 * 后台用户退出登录
