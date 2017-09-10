@@ -79,6 +79,7 @@
         <context:include-filter type="regex" expression="com.mx.ssh.service.impl.*"/>
         <context:include-filter type="regex" expression="com.mx.ssh.dao.impl.*"/>
         <context:include-filter type="regex" expression="com.mx.weixin.util.*"/>
+        <context:include-filter type="regex" expression="com.mx.publicMethos.*"/>
 	</context:component-scan>
 	
 	<task:annotation-driven /> <!-- 定时器开关-->  
