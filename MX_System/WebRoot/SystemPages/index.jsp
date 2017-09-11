@@ -74,8 +74,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <aside class="Hui-aside">
 	<div class="menu_dropdown bk_2">
 	
-	<dl id="menu-users">
-			<dt><i class="Hui-iconfont">&#xe60d;</i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+	<dl id="menu-users" >
+			<dt class="mb-5" style="background-color:#E8E8E8;">
+				<i class="Hui-iconfont">&#xe60d;</i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
 					<li><a data-href="userAction/gotoUserList.action" data-title="用户列表" href="javascript:;">用户列表</a></li>
@@ -90,7 +91,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</dd>
 	</dl>
 		<dl id="menu-activities">
-			<dt><i class="Hui-iconfont">&#xe702;</i> 活动管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt class="mb-5" style="background-color:#E8E8E8;">
+				<i class="Hui-iconfont">&#xe702;</i> 活动管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
 					<li><a data-href="article-list.html" data-title="活动列表" href="javascript:void(0)">活动列表</a></li>
@@ -99,7 +101,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</dd>
 	</dl>
 		<dl id="menu-material">
-			<dt><i class="Hui-iconfont">&#xe685;</i> 素材管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt class="mb-5" style="background-color:#E8E8E8;">
+				<i class="Hui-iconfont">&#xe685;</i> 素材管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
 					<li><a data-href="picture-list.html" data-title="文章管理" href="javascript:void(0)">文章管理</a></li>
@@ -110,7 +113,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</dd>
 	</dl>
 		<dl id="menu-schools">
-			<dt><i class="Hui-iconfont">&#xe643;</i> 学校管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt class="mb-5" style="background-color:#E8E8E8;">
+				<i class="Hui-iconfont">&#xe643;</i> 学校管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
 					<li><a data-href="product-brand.html" data-title="学校列表" href="javascript:void(0)">学校列表</a></li>
@@ -118,7 +122,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</dd>
 	</dl>
 	<dl id="menu-areas">
-			<dt><i class="Hui-iconfont">&#xe654;</i> 地区管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt class="mb-5" style="background-color:#E8E8E8;">
+				<i class="Hui-iconfont">&#xe654;</i> 地区管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
 					<li><a data-href="product-brand.html" data-title="地区列表" href="javascript:void(0)">地区列表</a></li>
@@ -126,7 +131,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</dd>
 	</dl>
 		<dl id="menu-news">
-			<dt><i class="Hui-iconfont">&#xe622;</i> 新闻管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt class="mb-5" style="background-color:#E8E8E8;">
+				<i class="Hui-iconfont">&#xe622;</i> 新闻管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
 					<li><a data-href="http://h-ui.duoshuo.com/admin/" data-title="新闻列表" href="javascript:;">新闻列表</a></li>
@@ -137,7 +143,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		
 		<dl id="menu-tongji">
-			<dt><i class="Hui-iconfont">&#xe61a;</i> 系统统计<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt class="mb-5" style="background-color:#E8E8E8;">
+				<i class="Hui-iconfont">&#xe61a;</i> 系统统计<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
 					<li><a data-href="charts-1.html" data-title="折线图" href="javascript:void(0)">折线图</a></li>
@@ -151,7 +158,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</dd>
 	</dl>
 		<dl id="menu-system">
-			<dt><i class="Hui-iconfont">&#xe62e;</i> 系统管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt class="mb-5" style="background-color:#E8E8E8;">
+				<i class="Hui-iconfont">&#xe62e;</i> 系统管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
 					

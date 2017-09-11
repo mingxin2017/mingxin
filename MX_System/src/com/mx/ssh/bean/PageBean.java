@@ -5,6 +5,7 @@ import java.util.List;
 @SuppressWarnings("unchecked")  
 public class PageBean<T> {  
   
+	
     private  List<T> list; // 要返回的某一页的记录列表  
   
     private int allRow; // 总记录数  

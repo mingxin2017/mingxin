@@ -2,6 +2,7 @@ package com.mx.ssh.action;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Controller;
 import com.mx.ssh.bean.MxUsersData;
 import com.mx.ssh.bean.PageBean;
 import com.mx.ssh.service.IUserService;
+import com.mx.ssh.util.JsonDateValueProcessorUtil;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -179,12 +181,14 @@ public class UserAction extends ActionSupport {
 		
 		JsonConfig jsonConfig = new JsonConfig();
 		jsonConfig .setExcludes( new String[]{ "mxActivitiesMySpaceUserses" , "mxActivitiesMySpaceComments" } );//过滤掉外键才能正常转为json格式数据
+		jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessorUtil());//将json中所有Date类型数据转为yyyy-MM-dd HH:mm:ss字符串
 		//JSONObject jsonModel= JSONArray.fromObject(yourObject, jsonConfig );
 
 		if(!"".equals(page)){
 			PageBean<MxUsersData> pageBean= userService.findByPage(Integer.parseInt(page));
 			JSONObject jsonModel = JSONObject.fromObject(pageBean,jsonConfig); 
 			response.getWriter().write(jsonModel.toString());
+			System.out.println(jsonModel.toString());
 		}else{
 			PageBean<MxUsersData> pageBean= userService.findByPage(1);
 			JSONObject jsonModel = JSONObject.fromObject(pageBean,jsonConfig); 
