@@ -12,6 +12,7 @@
 <html>
 <head>
 <base href="<%=basePath%>" />
+<meta http-equiv="X-UA-Compatible" content="IE=9;IE=8;IE=7;IE=EDGE">
 <meta charset="UTF-8">
 <meta name="renderer" content="webkit|ie-comp|ie-stand">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -49,8 +50,8 @@
 		<i class="Hui-iconfont">&#xe67f;</i>用户管理 <span class="c-gray en">&gt;</span>用户列表
 		<a class="btn btn-primary radius r"
 			style="line-height:1.6em;margin-top:3px"
-			href="javascript:location.replace(location.href);" title="刷新"> <i
-			class="Hui-iconfont">&#xe68f;刷新当前页面</i>
+			href="javascript:location.replace(location.href);" title="刷新"> 
+			<i class="Hui-iconfont">&#xe68f;刷新当前页面</i>
 		</a>
 	</nav>
 	<div class="page-container">
@@ -59,7 +60,7 @@
 				<a href="javascript:;" onclick="datadel()"
 					class="btn btn-danger radius"> <i class="Hui-iconfont">&#xe6e2;</i>
 					批量删除</a> <a href="javascript:;"
-					onclick="member_add('添加用户','member-add.html','','510')"
+					onclick="member_add('添加用户','userAction/gotoUserAdd.action','','')"
 					class="btn btn-primary radius"> <i class="Hui-iconfont">&#xe600;</i>
 					添加用户</a>
 			</div>
@@ -73,23 +74,21 @@
 		</div>
 
 		<div class="mt-20">
-			<table
-				class="table table-border table-bordered table-hover table-bg tale-sort"
-				id="tableList">
+			<table class="table table-border table-bordered table-hover table-bg tale-sort" id="tableList">
 				<thead class="text-c">
 					<tr class="text-c">
 						<th width="25"><input type="checkbox" name="" value="">
 						</th>
-						<th width="80">用户类型</th>
-						<th width="100">用户名</th>
-						<th width="100">微信昵称</th>
-						<th width="40">性别</th>
-						<th width="90">手机</th>
-						<th width="150">邮箱</th>
-						<th width="">地址</th>
-						<th width="130">最近登录</th>
-						<th width="70">状态</th>
-						<th width="100">操作</th>
+						<th >用户类型</th>
+						<th >用户名</th>
+						<th >微信昵称</th>
+						<th >性别</th>
+						<th >手机</th>
+						<th >邮箱</th>
+						<th >地址</th>
+						<th >最近登录</th>
+						<th >状态</th>
+						<th >操作</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -104,7 +103,10 @@
 								onclick="member_show('张三','member-show.html','10001','360','400')">${item.userRealName}</u>
 							</td>
 							<td>${item.weixinNikeName}</td>
-							<td>${item.userSex}</td>
+							<c:if test="${item.userSex eq -1}"><td>女</td></c:if>
+							<c:if test="${item.userSex eq 1}"><td>男</td></c:if>
+							<c:if test="${item.userSex ne -1||item.userSex ne -1}"><td>保密</td></c:if>
+							
 							<td>${item.userPhoneNum}</td>
 							<td>${item.userEmail}</td>
 							<td>${item.userAddr}</td>
@@ -199,13 +201,14 @@
 	<script type="text/javascript">
 
 function test(curr){
-	//var url='userAction/getUsersByPage.action';
+	var url='userAction/getUsersByPage.action?number='+Math.random();
 	$.ajax({
 		type: 'POST',
-		url:'userAction/getUsersByPage.action',
+		url:url,
 		data:{'page':curr},
 		dataType:'json',
 		success:function(response){
+			//alert(111);
 			var list=response.list;
        	 	var role;
        	 	if(item.userTypeId=='1100'){
@@ -247,7 +250,7 @@ function test(curr){
 			});
 			
 			if(tb!=''){
-				$("#tableList tbody").html("");
+				//$("#tableList tbody").innerHTML=("");
 				$("#tableList tbody").html(tb);
 				//$('#tableList tbody').innerHTML+=tb;
 			}

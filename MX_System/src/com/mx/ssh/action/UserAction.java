@@ -1,7 +1,6 @@
 package com.mx.ssh.action;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -208,6 +207,15 @@ public class UserAction extends ActionSupport {
 		request.setCharacterEncoding("UTF-8");
 		request.getSession().removeAttribute("userInfo");
 		return "login";
+	}
+	
+	/*
+	 * 添加用户页面
+	 */
+	@Action(value = "gotoUserAdd", results = { 
+			@Result(name = "addUser", location = "/SystemPages/Users/userAdd.jsp")})
+	public String gotoUserAdd(){
+		return "addUser";
 	}
 	
 	
