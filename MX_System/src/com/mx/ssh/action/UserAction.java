@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
 
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
@@ -175,14 +176,19 @@ public class UserAction extends ActionSupport {
 		response.setContentType("application/json; charset=utf-8");
 		
 		String page=request.getParameter("page");
+		
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig .setExcludes( new String[]{ "mxActivitiesMySpaceUserses" , "mxActivitiesMySpaceComments" } );//过滤掉外键才能正常转为json格式数据
+		//JSONObject jsonModel= JSONArray.fromObject(yourObject, jsonConfig );
+
 		if(!"".equals(page)){
 			PageBean<MxUsersData> pageBean= userService.findByPage(Integer.parseInt(page));
-			 JSONArray jsonArray = JSONArray.fromObject(pageBean); 
-			 response.getWriter().write(jsonArray.toString());
+			JSONObject jsonModel = JSONObject.fromObject(pageBean,jsonConfig); 
+			response.getWriter().write(jsonModel.toString());
 		}else{
 			PageBean<MxUsersData> pageBean= userService.findByPage(1);
-			JSONArray jsonArray = JSONArray.fromObject(pageBean); 
-			 response.getWriter().write(jsonArray.toString());
+			JSONObject jsonModel = JSONObject.fromObject(pageBean,jsonConfig); 
+			response.getWriter().write(jsonModel.toString());
 		}
 		
 	}

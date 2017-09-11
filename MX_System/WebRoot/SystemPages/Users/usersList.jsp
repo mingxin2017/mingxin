@@ -143,14 +143,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	      //do something
 		    	      $("#tb tbody").html("");
 		    	      //getPage(obj.curr);
+		    	      test(obj.curr);
 		    	    }
 		    	  }
 		  });
 	});
 	
 	
+	</script>
+	
+<script type="text/javascript">
 
-	/*
+function test(curr){
+	//var url='userAction/getUsersByPage.action';
+	$.ajax({
+		type: 'POST',
+		url:'userAction/getUsersByPage.action',
+		data:{'page':curr},
+		dataType:'json',
+		success:function(response){
+			alert('success');
+		},
+        error: function (jqXHR, textStatus, errorThrown) {
+            if (textStatus == 'timeout') {
+                a_info_alert('请求超时');
+                return false;
+            }
+            alert(jqXHR.responseText);
+        }
+	});
+	alert(5555555);
+}
+
+/*
 function getPage(curr){
 	var url='userAction/getUsersByPage.action';
 	alert(555);

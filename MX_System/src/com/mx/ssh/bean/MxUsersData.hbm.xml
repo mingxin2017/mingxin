@@ -89,13 +89,13 @@
             <key>
                 <column name="user_id" not-null="true" />
             </key>
-            <one-to-many class="com.mx.ssh.bean.MxActivitiesMySpaceUsers" />
+            <one-to-many class="com.mx.ssh.bean.MxActivitiesMySpaceUsers"/>
         </set>
         <set name="mxActivitiesMySpaceComments" inverse="true">
             <key>
                 <column name="submit_userID" not-null="true" />
             </key>
-            <one-to-many class="com.mx.ssh.bean.MxActivitiesMySpaceComment" />
+            <one-to-many class="com.mx.ssh.bean.MxActivitiesMySpaceComment"/>
         </set>
     </class>
 </hibernate-mapping>

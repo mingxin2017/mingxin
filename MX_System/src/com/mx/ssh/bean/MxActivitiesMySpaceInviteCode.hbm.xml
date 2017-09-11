@@ -10,7 +10,7 @@
             <column name="id" />
             <generator class="native" />
         </id>
-        <many-to-one name="mxActivitiesData" class="com.mx.ssh.bean.MxActivitiesData" fetch="select">
+        <many-to-one name="mxActivitiesData" class="com.mx.ssh.bean.MxActivitiesData" fetch="select" lazy="false">
             <column name="activities_id" not-null="true" />
         </many-to-one>
         <property name="myspaceId" type="integer">
