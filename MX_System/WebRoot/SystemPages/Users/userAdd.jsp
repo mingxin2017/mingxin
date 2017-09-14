@@ -32,7 +32,7 @@
 <![endif]-->
 <!--/meta 作为公共模版分离出去-->
 
-<title>添加用户 </title>
+<title>添加系统管理员 </title>
 </head>
 <body>
 <article class="page-container">
@@ -41,6 +41,18 @@
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="text" class="input-text" value="" placeholder="" id="username" name="username">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>输入密码：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="password" class="input-text valid" autocomplete="off" placeholder="输入密码" name="password" id="password" data-filtered="filtered" aria-required="true" aria-invalid="false">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>确认密码：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="password" class="input-text error" autocomplete="off" placeholder="重复密码" name="password2" id="password2" data-filtered="filtered" aria-required="true" aria-invalid="true">
 			</div>
 		</div>
 		<div class="row cl">

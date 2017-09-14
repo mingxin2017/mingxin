@@ -60,9 +60,9 @@
 				<a href="javascript:;" onclick="datadel()"
 					class="btn btn-danger radius"> <i class="Hui-iconfont">&#xe6e2;</i>
 					批量删除</a> <a href="javascript:;"
-					onclick="member_add('添加用户','userAction/gotoUserAdd.action','','')"
+					onclick="member_add('添加管理员','userAction/gotoUserAdd.action','','')"
 					class="btn btn-primary radius"> <i class="Hui-iconfont">&#xe600;</i>
-					添加用户</a>
+					添加管理员</a>
 			</div>
 			<div class="f-r">
 				<input type="text" class="input-text" style="width:250px"
@@ -183,24 +183,18 @@
 		    	//alert(123);
 		    	    //首次不执行
 		    	    if(!first){
-		    	    	 //obj包含了当前分页的所有参数，比如：
-			    	    //alert(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
-			    	    //alert(obj.limit); //得到每页显示的条数
-		    	      //do something
-		    	      
-		    	      //getPage(obj.curr);
-		    	      test(obj.curr);
+		    	      getPage(obj.curr);
 		    	    }
 		    	  }
 		  });
 	});
 	
 	
-	</script>
+</script>
 
-	<script type="text/javascript">
+<script type="text/javascript">
 
-function test(curr){
+function getPage(curr){
 	var url='userAction/getUsersByPage.action?number='+Math.random();
 	$.ajax({
 		type: 'POST',
@@ -208,16 +202,17 @@ function test(curr){
 		data:{'page':curr},
 		dataType:'json',
 		success:function(response){
-			//alert(111);
+			///alert(111);
 			var list=response.list;
        	 	var role;
-       	 	if(item.userTypeId=='1100'){
-       		 	role='管理员';
-       	 	}else{
-       		 	role='微信用户';
-       	 	}
+       	 	///alert(222);
 			var tb='';
 			$.each(list, function(index, item){
+				if(item.userTypeId=='1100'){
+	       		 	role='管理员';
+	       	 	}else{
+	       		 	role='微信用户';
+	       	 	}
 				tb+=('<tr class="text-c">');
 	            tb+=('<td><input type="checkbox" value="'+item.userId+'"></td>');
 	            tb+=('<td>'+role+'</td>');
@@ -249,8 +244,7 @@ function test(curr){
 				
 			});
 			
-			if(tb!=''){
-				//$("#tableList tbody").innerHTML=("");
+			if(tb.length!=0){
 				$("#tableList tbody").html(tb);
 				//$('#tableList tbody').innerHTML+=tb;
 			}
