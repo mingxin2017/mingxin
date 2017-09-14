@@ -69,7 +69,7 @@ public class UserServiceImpl implements com.mx.ssh.service.IUserService {
 		// TODO Auto-generated method stub
 		PageBean<MxUsersData> pageBean =new PageBean<MxUsersData>();
         pageBean.setCurrentPage(page);
-        int limit=2;//每页数量
+        int limit=5;//每页数量
         pageBean.setPageSize(limit);
         int totalCount=sysUsersDAO.findTotalCount();
         pageBean.setAllRow(totalCount);
@@ -80,6 +80,11 @@ public class UserServiceImpl implements com.mx.ssh.service.IUserService {
         List<MxUsersData> list=sysUsersDAO.findUsersByPage(begin,limit);
         pageBean.setList(list);
         return pageBean;
+	}
+
+	public boolean addAdmin(MxUsersData user) {
+		// TODO Auto-generated method stub
+		return sysUsersDAO.addAdmin(user);
 	}
 
 	

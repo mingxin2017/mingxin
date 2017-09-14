@@ -99,9 +99,7 @@
 							<td><c:if test="${item.userTypeId eq 1100}">管理员</c:if>
 								<c:if test="${item.userTypeId eq -1}">微信用户</c:if>
 							</td>
-							<td><u style="cursor:pointer" class="text-primary"
-								onclick="member_show('张三','member-show.html','10001','360','400')">${item.userRealName}</u>
-							</td>
+							<td>${item.userName}</td>
 							<td>${item.weixinNikeName}</td>
 							<c:if test="${item.userSex eq -1}"><td>女</td></c:if>
 							<c:if test="${item.userSex eq 1}"><td>男</td></c:if>
@@ -216,7 +214,7 @@ function getPage(curr){
 				tb+=('<tr class="text-c">');
 	            tb+=('<td><input type="checkbox" value="'+item.userId+'"></td>');
 	            tb+=('<td>'+role+'</td>');
-	            tb+=('<td><u style="cursor:pointer" class="text-primary" onclick="member_show("张三","member-show.html","10001","360","400")">'+item.userRealName+'</u></td>');
+	            tb+=('<td>'+item.userName+'</td>');
 	            tb+=('<td>'+item.weixinNikeName+'</td>');
 	            if(item.userSex=='1'){
 	            	tb+=('<td>男</td>');

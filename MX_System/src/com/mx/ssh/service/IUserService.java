@@ -15,4 +15,5 @@ public interface IUserService {
 	public MxUsersData getUserByOpenId(String openId);
 	public MxUsersData userLogin(String userName, String userPwd);
 	public PageBean<MxUsersData> findByPage(int page);
+	public boolean addAdmin(MxUsersData user);
 }

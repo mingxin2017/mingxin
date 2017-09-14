@@ -151,4 +151,20 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
         return null;
     }
 
+
+    /*
+     * 添加系统管理员(non-Javadoc)
+     * @see com.mx.ssh.dao.ISysUsersDAO#addAdmin(com.mx.ssh.bean.MxUsersData)
+     */
+	public boolean addAdmin(MxUsersData user) {
+		// TODO Auto-generated method stub
+		try{
+			getHibernateTemplate().save(user);
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 }

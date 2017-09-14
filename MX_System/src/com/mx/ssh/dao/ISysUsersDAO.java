@@ -71,5 +71,7 @@ public interface ISysUsersDAO {
 	public int findTotalCount();
 	
 	 public List<MxUsersData> findUsersByPage(int begin, int limit);
+
+	public boolean addAdmin(MxUsersData user);
 	
 }

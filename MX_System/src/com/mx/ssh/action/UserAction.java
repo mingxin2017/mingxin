@@ -1,6 +1,7 @@
 package com.mx.ssh.action;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -218,5 +219,49 @@ public class UserAction extends ActionSupport {
 		return "addUser";
 	}
 	
+	/*
+	 * 添加系统管理员
+	 */
+	@Action(value = "addAdmin")
+	public void addAdmin() throws IOException{
+		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
+		request.setCharacterEncoding("UTF-8");
+		HttpServletResponse response = ServletActionContext.getResponse();// response对象返回数据给前台
+		response.setContentType("application/json; charset=utf-8");
+		
+		String adminName=request.getParameter("adminName");
+		String password=request.getParameter("password");
+		int sex=Integer.parseInt(request.getParameter("sex").trim());
+		String phone=request.getParameter("phone");
+		String email=request.getParameter("email");
+		
+		//System.out.println("roleId:"+request.getParameter("adminRole")+"  sex:"+sex);
+		
+		int adminRole=("0".equals(request.getParameter("adminRole").trim())?1100:1111);
+		String others=request.getParameter("others");
+		
+		
+		MxUsersData user=new MxUsersData(adminName,password,adminRole,
+				"","","",
+				new Date(),"", sex/*Integer userSex*/,
+				"","",0,
+				-1, email,phone,
+				-1,"",0,
+				-1, "",new Date(),
+				"","","");
+		
+		boolean isDone=userService.addAdmin(user);
+		
+		Map<String, String> map = new HashMap<String, String>();
+		if (!isDone) {
+			map.put("done", "-1");
+			map.put("msg", "添加管理员失败!");
+		} else {
+			map.put("done", "0");
+			map.put("msg", "添加管理员成功!");
+		}
+		JSONObject jsonObject = JSONObject.fromObject(map);
+		response.getWriter().write(jsonObject.toString());
+	}
 	
 }
