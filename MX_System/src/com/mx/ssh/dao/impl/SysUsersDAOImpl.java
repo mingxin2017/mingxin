@@ -3,6 +3,8 @@ package com.mx.ssh.dao.impl;
 import java.sql.Timestamp;
 import java.util.List;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateCallback;
@@ -142,7 +144,7 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 	 * beginΪ
 	 */
     public List<MxUsersData> findUsersByPage(int begin, int limit) {
-        String hql="from MxUsersData";
+        String hql="from MxUsersData order by subscribeTime desc";
         List<MxUsersData> list=(List<MxUsersData>) this.getHibernateTemplate().execute((HibernateCallback<MxUsersData>) new PageHibernateCallback(hql, new Object[]{}, begin, limit));
         if(list!=null&&list.size()>0){
             
@@ -161,6 +163,28 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 		try{
 			getHibernateTemplate().save(user);
 			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+
+	public boolean deleteUsers(List<Integer> idList) {
+		// TODO Auto-generated method stub
+		try{
+			String hql = "";
+	        for(int i=0;i<idList.size();i++) {
+	            if(i==0) {
+	                hql = "userId="+idList.get(i);
+	            } else {
+	                hql =hql + " or userId="+idList.get(i);
+	            }
+	        }   
+	        Session session= this.getSession();
+	        Query q= session.createQuery("delete from MxUsersData where "+hql);
+	        q.executeUpdate();
+	        return true;
 		}catch(Exception e){
 			e.printStackTrace();
 			return false;

@@ -164,15 +164,23 @@ $(function(){
 				type: 'post',
 				url: url,
 				success: function(data){
-					layer.msg('添加成功！',{icon:1,time:1500});
+					alert(data.msg);
+					//if(data.done=='0'){
+					//	layer.msg('添加管理员成功',{icon:1,time:15000});
+					//}else{
+					//	layer.msg('添加管理员失败',{icon:1,time:15000});
+					//}
+					var index = parent.layer.getFrameIndex(window.name);
+					var refresh=parent.document.getElementById('btn-refresh');
+					refresh.click();
+					parent.layer.close(index);
 				},
                 error: function(XmlHttpRequest, textStatus, errorThrown){
-					layer.msg('error!',{icon:1,time:1000});
+                	alert('错误');
+                	//layer.msg('error!',{icon:1,time:1000});
 				}
 			});
-			var index = parent.layer.getFrameIndex(window.name);
-			parent.$('.btn-refresh').click();
-			parent.layer.close(index);
+			
 		}
 	});
 });

@@ -87,6 +87,11 @@ public class UserServiceImpl implements com.mx.ssh.service.IUserService {
 		return sysUsersDAO.addAdmin(user);
 	}
 
+	public boolean deleteUsers(List<Integer> idList) {
+		// TODO Auto-generated method stub
+		return sysUsersDAO.deleteUsers(idList);
+	}
+
 	
 	
 }

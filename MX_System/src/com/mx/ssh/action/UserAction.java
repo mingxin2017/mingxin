@@ -2,6 +2,7 @@ package com.mx.ssh.action;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -262,6 +263,48 @@ public class UserAction extends ActionSupport {
 		}
 		JSONObject jsonObject = JSONObject.fromObject(map);
 		response.getWriter().write(jsonObject.toString());
+	}
+	
+	
+	/*
+	 * 批量删除用户
+	 */
+	@Action(value = "deleteUsers")
+	public void deleteUsers() throws IOException{
+		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
+		request.setCharacterEncoding("UTF-8");
+		HttpServletResponse response = ServletActionContext.getResponse();// response对象返回数据给前台
+		response.setContentType("application/json; charset=utf-8");
+		
+		String ids=request.getParameter("ids");
+		System.out.println(ids);
+		List<Integer> idList=new ArrayList();
+		if(ids!=null&&ids!=""){
+			JSONArray array= JSONArray.fromObject(ids);
+			List<String> list=JSONArray.toList(array);
+			for(int i=0;i<list.size();i++){
+				System.out.println(list.get(i)+"-----");
+				idList.add(i, Integer.parseInt(list.get(i)));
+			}
+			
+			boolean done=userService.deleteUsers(idList);
+			
+			Map<String, String> map = new HashMap<String, String>();
+			if(done==true){
+				map.put("done", "0");
+				JSONObject jsonObject = JSONObject.fromObject(map);
+				response.getWriter().write(jsonObject.toString());
+			}else{
+				map.put("done", "-1");
+				JSONObject jsonObject = JSONObject.fromObject(map);
+				response.getWriter().write(jsonObject.toString());
+			}
+			
+		}
+//		JSONArray array= JSONArray.fromObject(ids);
+//		
+//		List<String> list=JSONArray.toList(array); 
+		
 	}
 	
 }

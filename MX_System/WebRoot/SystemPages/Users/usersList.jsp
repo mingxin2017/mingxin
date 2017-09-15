@@ -48,7 +48,7 @@
 <body>
 	<nav class="breadcrumb">
 		<i class="Hui-iconfont">&#xe67f;</i>用户管理 <span class="c-gray en">&gt;</span>用户列表
-		<a class="btn btn-primary radius r"
+		<a class="btn btn-primary radius r" id="btn-refresh"
 			style="line-height:1.6em;margin-top:3px"
 			href="javascript:location.replace(location.href);" title="刷新"> 
 			<i class="Hui-iconfont">&#xe68f;刷新当前页面</i>
@@ -77,8 +77,7 @@
 			<table class="table table-border table-bordered table-hover table-bg tale-sort" id="tableList">
 				<thead class="text-c">
 					<tr class="text-c">
-						<th width="25"><input type="checkbox" name="" value="">
-						</th>
+						<th width="39px"><input type="checkbox" name="" value="">全选</th>
 						<th >用户类型</th>
 						<th >用户名</th>
 						<th >微信昵称</th>
@@ -94,7 +93,7 @@
 				<tbody>
 					<c:forEach items="${allUsers.list}" var="item">
 						<tr class="text-c">
-							<td><input type="checkbox" value="${item.userId}" name="">
+							<td><input type="checkbox" value="${item.userId}" name="userIds">
 							</td>
 							<td><c:if test="${item.userTypeId eq 1100}">管理员</c:if>
 								<c:if test="${item.userTypeId eq -1}">微信用户</c:if>
@@ -103,7 +102,7 @@
 							<td>${item.weixinNikeName}</td>
 							<c:if test="${item.userSex eq -1}"><td>女</td></c:if>
 							<c:if test="${item.userSex eq 1}"><td>男</td></c:if>
-							<c:if test="${item.userSex ne -1||item.userSex ne -1}"><td>保密</td></c:if>
+							<c:if test="${item.userSex ne -1&&item.userSex ne 1}"><td>保密</td></c:if>
 							
 							<td>${item.userPhoneNum}</td>
 							<td>${item.userEmail}</td>
@@ -212,7 +211,7 @@ function getPage(curr){
 	       		 	role='微信用户';
 	       	 	}
 				tb+=('<tr class="text-c">');
-	            tb+=('<td><input type="checkbox" value="'+item.userId+'"></td>');
+	            tb+=('<td><input type="checkbox" name="userIds" value="'+item.userId+'"></td>');
 	            tb+=('<td>'+role+'</td>');
 	            tb+=('<td>'+item.userName+'</td>');
 	            tb+=('<td>'+item.weixinNikeName+'</td>');
@@ -268,6 +267,7 @@ function member_show(title,url,id,w,h){
 }
 /*用户-停用*/
 function member_stop(obj,id){
+	alert('');
 	layer.confirm('确认要停用吗？',function(index){
 		$.ajax({
 			type: 'POST',
@@ -288,6 +288,7 @@ function member_stop(obj,id){
 
 /*用户-启用*/
 function member_start(obj,id){
+	alert('');
 	layer.confirm('确认要启用吗？',function(index){
 		$.ajax({
 			type: 'POST',
@@ -315,6 +316,7 @@ function change_password(title,url,id,w,h){
 }
 /*用户-删除*/
 function member_del(obj,id){
+	alert('');
 	layer.confirm('确认要删除吗？',function(index){
 		$.ajax({
 			type: 'POST',
@@ -329,6 +331,34 @@ function member_del(obj,id){
 			},
 		});		
 	});
+}
+
+/*批量删除*/
+function datadel(){
+	var arrays = new Array();//定义一个数组 
+	var i=0; 
+	 $('input[name="userIds"]:checked').each(function(){ 
+		 arrays[i]=$(this).val(); 
+		 i=i+1;
+	 });
+	 if(i==0){alert('未选择任何用户');return;}
+	 layer.confirm('确认要删除这些用户吗？',function(index){
+			$.ajax({
+				type: 'POST',
+				url: ('userAction/deleteUsers.action?ids='+ JSON.stringify(arrays)),
+				dataType: 'json',
+				success: function(data){
+					//alert('成功');
+					//$(obj).parents("tr").remove();
+					var refresh=document.getElementById('btn-refresh');
+					refresh.click();
+					layer.msg('已删除!',{icon:1,time:3600});
+				},
+				error:function(data) {
+					console.log(data.msg);
+				},
+			});		
+		});
 }
 </script>
 </body>
