@@ -11,6 +11,7 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 import com.mx.ssh.bean.MxUsersData;
+import com.mx.ssh.bean.PageBean;
 import com.mx.ssh.dao.ISysUsersDAO;
 import com.mx.ssh.util.PageHibernateCallback;
 
@@ -170,6 +171,10 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 	}
 
 
+	/*
+	 * 批量删除用户(non-Javadoc)
+	 * @see com.mx.ssh.dao.ISysUsersDAO#deleteUsers(java.util.List)
+	 */
 	public boolean deleteUsers(List<Integer> idList) {
 		// TODO Auto-generated method stub
 		try{
@@ -189,6 +194,30 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+
+	public PageBean<MxUsersData> searchUser(String txtSearch) {
+		// TODO Auto-generated method stub
+		
+//		 String hql="from MxUsersData where userName like '%"+txtSearch+"%' or userRealName like '%"+txtSearch+"%' or userRealName like '%"+;
+//	    List<MxUsersData> users=this.getHibernateTemplate().find(hql);
+//		List<MxUsersData> users=
+//		
+//		PageBean<MxUsersData> pageBean =new PageBean<MxUsersData>();
+//        pageBean.setCurrentPage(page);
+//        int limit=5;//每页数量
+//        pageBean.setPageSize(limit);
+//        int totalCount=sysUsersDAO.findTotalCount();
+//        pageBean.setAllRow(totalCount);
+//        int totalpage=(int)Math.ceil(totalCount/limit);
+//        pageBean.setTotalPage(totalpage);
+//        //每页显示的数据集合
+//        int begin=(page-1)*limit;
+//        List<MxUsersData> list=sysUsersDAO.findUsersByPage(begin,limit);
+//        pageBean.setList(list);
+//        return pageBean;
+		return null;
 	}
 
 }

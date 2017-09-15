@@ -17,4 +17,5 @@ public interface IUserService {
 	public PageBean<MxUsersData> findByPage(int page);
 	public boolean addAdmin(MxUsersData user);
 	public boolean deleteUsers(List<Integer> idList);
+	public PageBean<MxUsersData> searchUser(String txtSearch);
 }

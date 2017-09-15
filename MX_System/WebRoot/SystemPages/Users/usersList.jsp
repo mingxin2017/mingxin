@@ -66,7 +66,7 @@
 			</div>
 			<div class="f-r">
 				<input type="text" class="input-text" style="width:250px"
-					placeholder="输入用户名称、电话、邮箱" id="" name="">
+					placeholder="输入用户名称、电话、邮箱" id="txtSearch" name="txtSearch">
 				<button type="submit" class="btn btn-primary radius" id="" name="">
 					<i class="Hui-iconfont">&#xe665;</i> 搜索
 				</button>
@@ -165,7 +165,7 @@
 	<script type="text/javascript"
 		src="<%=basePath%>SystemPages/common/lib/layui/layui.js"
 		charset="utf-8"></script>
-	<script type="text/javascript">
+<script type="text/javascript">
 
 	layui.use('laypage', function(){
 	  var laypage = layui.laypage;
@@ -180,7 +180,8 @@
 		    	//alert(123);
 		    	    //首次不执行
 		    	    if(!first){
-		    	      getPage(obj.curr);
+		    	    	var url='userAction/getUsersByPage.action?number='+Math.random();
+		    	      	getPage(obj.curr,url);
 		    	    }
 		    	  }
 		  });
@@ -191,8 +192,32 @@
 
 <script type="text/javascript">
 
-function getPage(curr){
-	var url='userAction/getUsersByPage.action?number='+Math.random();
+function searchUsers(){
+	var txtSearch=document.getElementById("txtSearch");
+	var url='userAction/searchUsers.action?number='+Math.random();
+	$.ajax({
+		type: 'POST',
+		url:url,
+		data:{'txtSearch':txtSearch},
+		dataType:'json',
+		success:function(response){
+			///alert(111);
+			
+			
+			
+		},
+        error: function (jqXHR, textStatus, errorThrown) {
+            if (textStatus == 'timeout') {
+                a_info_alert('请求超时');
+                return false;
+            }
+            alert(jqXHR.responseText);
+        }
+	});
+}
+
+
+function getPage(curr,url){
 	$.ajax({
 		type: 'POST',
 		url:url,

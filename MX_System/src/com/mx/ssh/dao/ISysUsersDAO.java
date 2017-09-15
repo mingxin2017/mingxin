@@ -3,6 +3,7 @@ package com.mx.ssh.dao;
 import java.util.List;
 
 import com.mx.ssh.bean.MxUsersData;
+import com.mx.ssh.bean.PageBean;
 public interface ISysUsersDAO {
 	
 	/**
@@ -75,5 +76,7 @@ public interface ISysUsersDAO {
 	public boolean addAdmin(MxUsersData user);
 
 	public boolean deleteUsers(List<Integer> idList);
+
+	public PageBean<MxUsersData> searchUser(String txtSearch);
 	
 }

@@ -92,6 +92,24 @@ public class UserServiceImpl implements com.mx.ssh.service.IUserService {
 		return sysUsersDAO.deleteUsers(idList);
 	}
 
+	public PageBean<MxUsersData> searchUser(String txtSearch) {
+		// TODO Auto-generated method stub
+		/*PageBean<MxUsersData> pageBean =new PageBean<MxUsersData>();
+        pageBean.setCurrentPage(page);
+        int limit=5;//每页数量
+        pageBean.setPageSize(limit);
+        int totalCount=sysUsersDAO.findTotalCount();
+        pageBean.setAllRow(totalCount);
+        int totalpage=(int)Math.ceil(totalCount/limit);
+        pageBean.setTotalPage(totalpage);
+        //每页显示的数据集合
+        int begin=(page-1)*limit;
+        List<MxUsersData> list=sysUsersDAO.findUsersByPage(begin,limit);
+        pageBean.setList(list);
+        return pageBean;*/
+		return sysUsersDAO.searchUser(txtSearch);
+	}
+
 	
 	
 }

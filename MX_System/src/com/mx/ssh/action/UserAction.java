@@ -307,4 +307,22 @@ public class UserAction extends ActionSupport {
 		
 	}
 	
+	
+	/*
+	 * 查询用户
+	 */
+	@Action(value = "searchUsers")
+	public void searchUsers() throws IOException{
+		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
+		request.setCharacterEncoding("UTF-8");
+		HttpServletResponse response = ServletActionContext.getResponse();// response对象返回数据给前台
+		response.setContentType("application/json; charset=utf-8");
+		
+		String txtSearch=request.getParameter("txtSearch");
+		
+		PageBean<MxUsersData> allUsers = userService.searchUser(txtSearch);
+		
+		
+	}
+	
 }
