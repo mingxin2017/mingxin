@@ -38,23 +38,12 @@
 <article class="page-container">
 	<form class="form form-horizontal" id="form-admin-add">
 	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>管理员账号：</label>
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>账号：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="adminName" name="adminName">
+			<input type="text" class="input-text" value="${editUser.userName}" placeholder="账号" id="adminName" name="adminName" disabled="disabled">
 		</div>
 	</div>
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>初始密码：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="password" class="input-text" autocomplete="off" value="" placeholder="密码" id="password" name="password">
-		</div>
-	</div>
-	<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>确认密码：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="password" class="input-text" autocomplete="off"  placeholder="确认新密码" id="password2" name="password2">
-		</div>
-	</div>
+	
 	<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别：</label>
 		<div class="formControls col-xs-8 col-sm-9 skin-minimal">

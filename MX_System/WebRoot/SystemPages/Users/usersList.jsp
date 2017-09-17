@@ -131,10 +131,10 @@
 										onClick="user_stop_open(this,1,'${item.userId}')" href="javascript:;"
 										title="启用"><i class="Hui-iconfont">&#xe6e1;</i> </a>
 								</c:if> <a title="编辑" href="javascript:;"
-								onclick="member_edit('编辑','userAction/gotoUserAdd.action','4','','510')"
+								onclick="member_edit('编辑','userAction/gotoUserEdit.action?userId=${item.userId}','','510')"
 								class="ml-5" style="text-decoration:none"><i
 									class="Hui-iconfont">&#xe6df;</i> </a> 
-									<a style="text-decoration:none" class="ml-5" onclick="restore_password(1001)" href="javascript:;" title="重置密码"><i class="Hui-iconfont">&#xe63f;</i></a> 
+									<a style="text-decoration:none" class="ml-5" onclick="restore_password(${item.userId})" href="javascript:;" title="重置密码"><i class="Hui-iconfont">&#xe63f;</i></a> 
 								<a title="删除" href="javascript:;"
 								onclick="user_del(this,'${item.userId}')" class="ml-5"
 								style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i>
@@ -147,7 +147,7 @@
 
 		</div>
 		<div class="text-c">
-			<div id="Per_All" class="f-l">每页${allUsers.pageSize}条，共${allUsers.allRow}条</div>
+			<div id="Per_All" class="f-l">每页显示${allUsers.pageSize}条，共${allUsers.allRow}条</div>
 			<div class="f-c" id="_pager"></div>
 		</div>
 	</div>
@@ -218,7 +218,7 @@ function searchUsers(){
 				//$('#tableList tbody').innerHTML+=tb;
 			}
 			
-			document.getElementById("Per_All").innerHTML = ('每页'+response.pageSize+'条，共'+response.allRow+'条');
+			document.getElementById("Per_All").innerHTML = ('每页显示'+response.pageSize+'条，共'+response.allRow+'条');
 			
 			layui.use('laypage', function(){
 				  var laypage = layui.laypage;
@@ -279,9 +279,9 @@ var flushList=function(list){
             tb+=('<td class="td-manage">');
             tb+=('<a style="text-decoration:none" onClick="user_stop_open(this,1,'+item.userId+')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
         }
-        tb+=('<a title="编辑" href="javascript:;" onclick="member_edit(\'编辑\',\'userAction/gotoUserAdd.action\',\'4\',\'\',\'510\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>');
-        tb+=('<a style="text-decoration:none" class="ml-5" onclick="restore_password(1001)" href="javascript:;" title="重置密码"><i class="Hui-iconfont">&#xe63f;</i></a>');
-        tb+=('<a title="删除" href="javascript:;" onclick="user_del(this,\''+item.userId+'\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>');
+        tb+=('<a title="编辑" href="javascript:;" onclick="member_edit(\'编辑\',\'userAction/gotoUserEdit.action?userId='+item.userId+'\',\'\',\'510\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>');
+        tb+=('<a style="text-decoration:none" class="ml-5" onclick="restore_password('+item.userId+')" href="javascript:;" title="重置密码"><i class="Hui-iconfont">&#xe63f;</i></a>');
+        tb+=('<a title="删除" href="javascript:;" onclick="user_del(this,'+item.userId+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>');
         tb+=('</td></tr>');
 		
 	});
@@ -317,14 +317,7 @@ function getPage(curr,url){
 	});
 }
 
-/*用户-添加*/
-function member_add(title,url,w,h){
-	layer_show(title,url,w,h);
-}
-/*用户-查看*/
-function member_show(title,url,id,w,h){
-	layer_show(title,url,w,h);
-}
+
 /*用户-停用-启用*/
 function user_stop_open(obj,op,id){
 	//alert('');
@@ -364,33 +357,33 @@ function user_stop_open(obj,op,id){
 	});
 }
 
-/*用户-启用
-function member_start(obj,id){
-	//alert('');
-	layer.confirm('确认要启用吗？',function(index){
+
+/*用户-编辑*/
+function member_edit(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+/*密码-重置*/
+function restore_password(id){
+	layer.confirm('确认要重置用户密码？',function(index){
 		$.ajax({
 			type: 'POST',
-			url: '',
+			url: 'userAction/restorePassword.action?number='+Math.random(),
+			data:{'userId':id},
 			dataType: 'json',
 			success: function(data){
-				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_stop(this,id)" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
-				$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
-				$(obj).remove();
-				layer.msg('已启用!',{icon: 6,time:1000});
+				if(data.done=='0'){
+					//$(obj).parents("tr").remove();
+					layer.msg('密码已重置!',{icon:1,time:1000});
+				}else{
+					layer.msg('密码重置失败!',{icon:4,time:1000});
+				}
+				
 			},
 			error:function(data) {
 				console.log(data.msg);
 			},
-		});
+		});		
 	});
-}*/
-/*用户-编辑*/
-function member_edit(title,url,id,w,h){
-	layer_show(title,url,w,h);
-}
-/*密码-修改*/
-function change_password(title,url,id,w,h){
-	layer_show(title,url,w,h);	
 }
 /*用户-删除*/
 function user_del(obj,id){

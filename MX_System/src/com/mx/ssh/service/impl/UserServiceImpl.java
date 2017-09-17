@@ -120,6 +120,11 @@ public class UserServiceImpl implements com.mx.ssh.service.IUserService {
 		return sysUsersDAO.deleteUser(userId);
 	}
 
+	public boolean restoreUserPassword(int userId) {
+		// TODO Auto-generated method stub
+		return sysUsersDAO.restoreUserPassword(userId);
+	}
+
 	
 	
 }

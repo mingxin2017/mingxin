@@ -400,5 +400,51 @@ public class UserAction extends ActionSupport {
 	}
 	
 	
+	/*
+	 *重置用户密码 
+	 */
+	@Action(value = "restorePassword")
+	public void restorePassword() throws IOException{
+		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
+		request.setCharacterEncoding("UTF-8");
+		HttpServletResponse response = ServletActionContext.getResponse();// response对象返回数据给前台
+		response.setContentType("application/json; charset=utf-8");
+
+		int userId = Integer.parseInt(request.getParameter("userId"));
+
+		boolean	done = userService.restoreUserPassword(userId);
+		
+		Map<String, String> map = new HashMap<String, String>();
+		if (done == true) {
+			map.put("done", "0");
+		} else {
+			map.put("done", "-1");
+		}
+		JSONObject jsonObject = JSONObject.fromObject(map);
+		response.getWriter().write(jsonObject.toString());
+	}
+	
+	
+	/*
+	 * 编辑用户信息页面
+	 */
+	@Action(value = "gotoUserEdit", results = { 
+			@Result(name = "eidtUser", location = "/SystemPages/Users/userEdit.jsp")})
+	public String gotoUserEdit() throws IOException{
+		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
+		request.setCharacterEncoding("UTF-8");
+		HttpServletResponse response = ServletActionContext.getResponse();// response对象返回数据给前台
+		response.setContentType("application/json; charset=utf-8");
+
+		int userId = Integer.parseInt(request.getParameter("userId").trim());
+
+		MxUsersData user=userService.getUserByID(userId);
+		
+		request.setAttribute("editUser", user);
+		
+		return "eidtUser";
+	}
+	
+	
 	
 }

@@ -243,16 +243,27 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 	 */
 	public boolean deleteUser(int userId) {
 		// TODO Auto-generated method stub
-		MxUsersData u=new MxUsersData();
-		u.setUserId(userId);
+		
 		try{
-			String hql = "Delete FROM MxUsersData Where userId=?" ;     
-	        Query q = getHibernateTemplate().getSessionFactory().openSession().createQuery(hql) ;     
-	        q.setInteger(0, userId) ;     
-	        q.executeUpdate() ;   
-//			getHibernateTemplate().delete(MxUsersData.class, userId);
-//	            
-//			getHibernateTemplate().delete(u);
+			String hql = "Delete FROM MxUsersData Where userId="+userId;     
+	        Query q = getHibernateTemplate().getSessionFactory().openSession().createQuery(hql);     
+	        q.executeUpdate();   
+
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+
+	public boolean restoreUserPassword(int userId) {
+		// TODO Auto-generated method stub
+
+		try{
+			String hql = "update MxUsersData set password='123456' where userId="+userId;     
+	        Query q = getHibernateTemplate().getSessionFactory().openSession().createQuery(hql);     
+	        q.executeUpdate();
 			return true;
 		}catch(Exception e){
 			e.printStackTrace();
