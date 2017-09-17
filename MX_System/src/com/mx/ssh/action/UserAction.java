@@ -322,7 +322,83 @@ public class UserAction extends ActionSupport {
 		
 		PageBean<MxUsersData> allUsers = userService.searchUser(txtSearch);
 		
+		//request.setAttribute("allUsers", allUsers);
 		
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig .setExcludes( new String[]{ "mxActivitiesMySpaceUserses" , "mxActivitiesMySpaceComments" } );//过滤掉外键才能正常转为json格式数据
+		jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessorUtil());//将json中所有Date类型数据转为yyyy-MM-dd HH:mm:ss字符串
+		
+		
+		JSONObject jsonModel = JSONObject.fromObject(allUsers,jsonConfig); 
+		response.getWriter().write(jsonModel.toString());
+		
+		//return "users";
 	}
+	
+	
+	/*
+	 * 启用、禁用用户
+	 */
+	@Action(value = "open_close_User")
+	public void open_close_User() throws IOException {
+		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
+		request.setCharacterEncoding("UTF-8");
+		HttpServletResponse response = ServletActionContext.getResponse();// response对象返回数据给前台
+		response.setContentType("application/json; charset=utf-8");
+
+		String operate = request.getParameter("operate");
+		int userId = Integer.parseInt(request.getParameter("userId"));
+
+		boolean done = false;
+		if ("1".equals(operate)) {
+			done = userService.setState(0, userId);
+		} else {
+			done = userService.setState(-1, userId);
+		}
+
+		Map<String, String> map = new HashMap<String, String>();
+		if (done == true) {
+			map.put("done", "0");
+			if ("1".equals(operate)) {// 启用
+				map.put("operate", "1");
+			} else {// 禁用
+				map.put("operate", "0");
+			}
+			JSONObject jsonObject = JSONObject.fromObject(map);
+			response.getWriter().write(jsonObject.toString());
+		} else {
+			map.put("done", "-1");
+			map.put("operate", "-1");
+			JSONObject jsonObject = JSONObject.fromObject(map);
+			response.getWriter().write(jsonObject.toString());
+		}
+	}
+	
+	
+	/*
+	 * 删除用户
+	 */
+	@Action(value = "deleteUser")
+	public void deleteUser() throws IOException {
+		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
+		request.setCharacterEncoding("UTF-8");
+		HttpServletResponse response = ServletActionContext.getResponse();// response对象返回数据给前台
+		response.setContentType("application/json; charset=utf-8");
+
+		int userId = Integer.parseInt(request.getParameter("userId"));
+
+		boolean	done = userService.deleteUser(userId);
+		
+		Map<String, String> map = new HashMap<String, String>();
+		if (done == true) {
+			map.put("done", "0");
+		} else {
+			map.put("done", "-1");
+		}
+		JSONObject jsonObject = JSONObject.fromObject(map);
+		response.getWriter().write(jsonObject.toString());
+	}
+	
+	
 	
 }

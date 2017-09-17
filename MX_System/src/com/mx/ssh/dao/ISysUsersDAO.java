@@ -78,5 +78,9 @@ public interface ISysUsersDAO {
 	public boolean deleteUsers(List<Integer> idList);
 
 	public PageBean<MxUsersData> searchUser(String txtSearch);
+
+	public boolean setState(int i, int userId);
+
+	public boolean deleteUser(int userId);
 	
 }

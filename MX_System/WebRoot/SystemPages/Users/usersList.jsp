@@ -50,9 +50,8 @@
 		<i class="Hui-iconfont">&#xe67f;</i>用户管理 <span class="c-gray en">&gt;</span>用户列表
 		<a class="btn btn-primary radius r" id="btn-refresh"
 			style="line-height:1.6em;margin-top:3px"
-			href="javascript:location.replace(location.href);" title="刷新"> 
-			<i class="Hui-iconfont">&#xe68f;刷新当前页面</i>
-		</a>
+			href="javascript:location.replace(location.href);" title="刷新"> <i
+			class="Hui-iconfont">&#xe68f;刷新当前页面</i> </a>
 	</nav>
 	<div class="page-container">
 		<div>
@@ -66,50 +65,58 @@
 			</div>
 			<div class="f-r">
 				<input type="text" class="input-text" style="width:250px"
-					placeholder="输入用户名称、电话、邮箱" id="txtSearch" name="txtSearch">
-				<button type="submit" class="btn btn-primary radius" id="" name="">
+					placeholder="输入微信昵称、姓名、电话、邮箱" id="txtSearch" name="txtSearch">
+				<button type="button" onclick="searchUsers();"
+					class="btn btn-primary radius" id="" name="">
 					<i class="Hui-iconfont">&#xe665;</i> 搜索
 				</button>
 			</div>
 		</div>
-
+		
+		
 		<div class="mt-20">
-			<table class="table table-border table-bordered table-hover table-bg tale-sort" id="tableList">
+			<table
+				class="table table-border table-bordered table-hover table-bg tale-sort"
+				id="tableList">
 				<thead class="text-c">
 					<tr class="text-c">
 						<th width="39px"><input type="checkbox" name="" value="">全选</th>
-						<th >用户类型</th>
-						<th >用户名</th>
-						<th >微信昵称</th>
-						<th >性别</th>
-						<th >手机</th>
-						<th >邮箱</th>
-						<th >地址</th>
-						<th >最近登录</th>
-						<th >状态</th>
-						<th >操作</th>
+						<th>用户类型</th>
+						<th>用户名</th>
+						<th>微信昵称</th>
+						<th>性别</th>
+						<th>手机</th>
+						<th>邮箱</th>
+						<th>地址</th>
+						<th>最近登录</th>
+						<th>状态</th>
+						<th>操作</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach items="${allUsers.list}" var="item">
 						<tr class="text-c">
-							<td><input type="checkbox" value="${item.userId}" name="userIds">
-							</td>
-							<td><c:if test="${item.userTypeId eq 1100}">管理员</c:if>
-								<c:if test="${item.userTypeId eq -1}">微信用户</c:if>
-							</td>
+							<td><input type="checkbox" value="${item.userId}"
+								name="userIds"></td>
+							<td><c:if test="${item.userTypeId eq 1100}">管理员</c:if> <c:if
+									test="${item.userTypeId eq -1}">微信用户</c:if></td>
 							<td>${item.userName}</td>
 							<td>${item.weixinNikeName}</td>
-							<c:if test="${item.userSex eq -1}"><td>女</td></c:if>
-							<c:if test="${item.userSex eq 1}"><td>男</td></c:if>
-							<c:if test="${item.userSex ne -1&&item.userSex ne 1}"><td>保密</td></c:if>
-							
+							<c:if test="${item.userSex eq -1}">
+								<td>女</td>
+							</c:if>
+							<c:if test="${item.userSex eq 1}">
+								<td>男</td>
+							</c:if>
+							<c:if test="${item.userSex ne -1&&item.userSex ne 1}">
+								<td>保密</td>
+							</c:if>
+
 							<td>${item.userPhoneNum}</td>
 							<td>${item.userEmail}</td>
 							<td>${item.userAddr}</td>
 							<td><fmt:formatDate value="${item.lastLoginTime}"
-									pattern="yyyy-MM-dd　HH:mm" />
-							</td>
+									pattern="yyyy-MM-dd　HH:mm" /></td>
 							<td class="td-status"><c:if test="${item.userState eq 0}">
 									<span class="label label-success radius">正常</span>
 								</c:if> <c:if test="${item.userState eq -1}">
@@ -117,24 +124,22 @@
 								</c:if></td>
 							<td class="td-manage"><c:if test="${item.userState eq 0}">
 									<a style="text-decoration:none"
-										onClick="member_stop(this,'10001')" href="javascript:;"
-										title="停用"><i class="Hui-iconfont">&#xe631;</i>
-									</a>
+										onClick="user_stop_open(this,0,'${item.userId}')" href="javascript:;"
+										title="停用"><i class="Hui-iconfont">&#xe631;</i> </a>
 								</c:if> <c:if test="${item.userState eq -1}">
 									<a style="text-decoration:none"
-										onClick="member_open(this,'10001')" href="javascript:;"
-										title="启用"><i class="Hui-iconfont">&#xe6e1;</i>
-									</a>
+										onClick="user_stop_open(this,1,'${item.userId}')" href="javascript:;"
+										title="启用"><i class="Hui-iconfont">&#xe6e1;</i> </a>
 								</c:if> <a title="编辑" href="javascript:;"
-								onclick="member_edit('编辑','member-add.html','4','','510')"
+								onclick="member_edit('编辑','userAction/gotoUserAdd.action','4','','510')"
 								class="ml-5" style="text-decoration:none"><i
-									class="Hui-iconfont">&#xe6df;</i>
-							</a> <%--<a style="text-decoration:none" class="ml-5" onClick="change_password('修改密码','change-password.html','10001','600','270')" href="javascript:;" title="修改密码"><i class="Hui-iconfont">&#xe63f;</i></a> 
-					--%>
-								<a title="删除" href="javascript:;" onclick="member_del(this,'1')"
-								class="ml-5" style="text-decoration:none"><i
-									class="Hui-iconfont">&#xe6e2;</i>
-							</a></td>
+									class="Hui-iconfont">&#xe6df;</i> </a> 
+									<a style="text-decoration:none" class="ml-5" onclick="restore_password(1001)" href="javascript:;" title="重置密码"><i class="Hui-iconfont">&#xe63f;</i></a> 
+								<a title="删除" href="javascript:;"
+								onclick="user_del(this,'${item.userId}')" class="ml-5"
+								style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i>
+							</a>
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -142,7 +147,8 @@
 
 		</div>
 		<div class="text-c">
-			<div class="f-l">每页${allUsers.pageSize}条，共${allUsers.allRow}条</div><div class="f-c" id="_pager"></div>
+			<div id="Per_All" class="f-l">每页${allUsers.pageSize}条，共${allUsers.allRow}条</div>
+			<div class="f-c" id="_pager"></div>
 		</div>
 	</div>
 
@@ -165,7 +171,7 @@
 	<script type="text/javascript"
 		src="<%=basePath%>SystemPages/common/lib/layui/layui.js"
 		charset="utf-8"></script>
-<script type="text/javascript">
+	<script type="text/javascript">
 
 	layui.use('laypage', function(){
 	  var laypage = layui.laypage;
@@ -190,10 +196,10 @@
 	
 </script>
 
-<script type="text/javascript">
+	<script type="text/javascript">
 
 function searchUsers(){
-	var txtSearch=document.getElementById("txtSearch");
+	var txtSearch=document.getElementById("txtSearch").value;
 	var url='userAction/searchUsers.action?number='+Math.random();
 	$.ajax({
 		type: 'POST',
@@ -201,9 +207,32 @@ function searchUsers(){
 		data:{'txtSearch':txtSearch},
 		dataType:'json',
 		success:function(response){
-			///alert(111);
+			//alert(111);
+			
+			var list=response.list;
+			
+			var tb=flushList(list);
+			
+			if(tb.length!=0){
+				$("#tableList tbody").html(tb);
+				//$('#tableList tbody').innerHTML+=tb;
+			}
+			
+			document.getElementById("Per_All").innerHTML = ('每页'+response.pageSize+'条，共'+response.allRow+'条');
+			
+			layui.use('laypage', function(){
+				  var laypage = layui.laypage;
+				  //执行一个laypage实例
+				  laypage.render({
+					    elem: '_pager'
+					    ,count: response.allRow
+					    ,limit:response.pageSize
+					    ,theme: '#1E9FFF'
+					  });
+				});
 			
 			
+			//location.replace(location.href);
 			
 		},
         error: function (jqXHR, textStatus, errorThrown) {
@@ -216,6 +245,48 @@ function searchUsers(){
 	});
 }
 
+var flushList=function(list){
+	var role;
+	var tb='';
+	$.each(list, function(index, item){
+		if(item.userTypeId=='1100'){
+   		 	role='管理员';
+   	 	}else{
+   		 	role='微信用户';
+   	 	}
+		tb+=('<tr class="text-c">');
+        tb+=('<td><input type="checkbox" name="userIds" value="'+item.userId+'"></td>');
+        tb+=('<td>'+role+'</td>');
+        tb+=('<td>'+item.userName+'</td>');
+        tb+=('<td>'+item.weixinNikeName+'</td>');
+        if(item.userSex=='1'){
+        	tb+=('<td>男</td>');
+        }else if(item.userSex=='-1'){
+        	tb+=('<td>女</td>');
+        }else{
+        	tb+=('<td>保密</td>');
+        }
+        tb+=('<td>'+item.userPhoneNum+'</td>');
+        tb+=('<td>'+item.userEmail+'</td>');
+        tb+=('<td>'+item.userAddr+'</td>');
+        tb+=('<td>'+item.lastLoginTime+'</td>');
+        if(item.userState=='0'){
+            tb+=('<td class="td-status"><span class="label label-success radius">正常</span></td>');
+            tb+=('<td class="td-manage">');
+            tb+=('<a style="text-decoration:none" onClick="user_stop_open(this,0,'+item.userId+')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
+        }else{
+        	tb+=('<td class="td-status"><span class="label label-danger radius">停用</span></td>');
+            tb+=('<td class="td-manage">');
+            tb+=('<a style="text-decoration:none" onClick="user_stop_open(this,1,'+item.userId+')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
+        }
+        tb+=('<a title="编辑" href="javascript:;" onclick="member_edit(\'编辑\',\'userAction/gotoUserAdd.action\',\'4\',\'\',\'510\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>');
+        tb+=('<a style="text-decoration:none" class="ml-5" onclick="restore_password(1001)" href="javascript:;" title="重置密码"><i class="Hui-iconfont">&#xe63f;</i></a>');
+        tb+=('<a title="删除" href="javascript:;" onclick="user_del(this,\''+item.userId+'\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>');
+        tb+=('</td></tr>');
+		
+	});
+	return tb;
+}
 
 function getPage(curr,url){
 	$.ajax({
@@ -226,45 +297,9 @@ function getPage(curr,url){
 		success:function(response){
 			///alert(111);
 			var list=response.list;
-       	 	var role;
+       	 	
        	 	///alert(222);
-			var tb='';
-			$.each(list, function(index, item){
-				if(item.userTypeId=='1100'){
-	       		 	role='管理员';
-	       	 	}else{
-	       		 	role='微信用户';
-	       	 	}
-				tb+=('<tr class="text-c">');
-	            tb+=('<td><input type="checkbox" name="userIds" value="'+item.userId+'"></td>');
-	            tb+=('<td>'+role+'</td>');
-	            tb+=('<td>'+item.userName+'</td>');
-	            tb+=('<td>'+item.weixinNikeName+'</td>');
-	            if(item.userSex=='1'){
-	            	tb+=('<td>男</td>');
-	            }else if(item.userSex=='-1'){
-	            	tb+=('<td>女</td>');
-	            }else{
-	            	tb+=('<td>保密</td>');
-	            }
-	            tb+=('<td>'+item.userPhoneNum+'</td>');
-	            tb+=('<td>'+item.userEmail+'</td>');
-	            tb+=('<td>'+item.userAddr+'</td>');
-	            tb+=('<td>'+item.lastLoginTime+'</td>');
-	            if(item.userState=='0'){
-	                tb+=('<td class="td-status"><span class="label label-success radius">正常</span></td>');
-	                tb+=('<td class="td-manage">');
-	                tb+=('<a style="text-decoration:none" onClick="member_stop(this,"10001")" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
-	            }else{
-	            	tb+=('<td class="td-status"><span class="label label-danger radius">停用</span></td>');
-	                tb+=('<td class="td-manage">');
-	                tb+=('<a style="text-decoration:none" onClick="member_stop(this,"10001")" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
-	            }
-	            tb+=('<a title="编辑" href="javascript:;" onclick="member_edit("编辑","member-add.html","4","","510")" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>');
-	            tb+=('<a title="删除" href="javascript:;" onclick="member_del(this,"1")" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>');
-	            tb+=('</td></tr>');
-				
-			});
+			var tb=flushList(list);
 			
 			if(tb.length!=0){
 				$("#tableList tbody").html(tb);
@@ -290,19 +325,37 @@ function member_add(title,url,w,h){
 function member_show(title,url,id,w,h){
 	layer_show(title,url,w,h);
 }
-/*用户-停用*/
-function member_stop(obj,id){
-	alert('');
-	layer.confirm('确认要停用吗？',function(index){
+/*用户-停用-启用*/
+function user_stop_open(obj,op,id){
+	//alert('');
+	var opt='';
+	var url='userAction/open_close_User.action?number='+Math.random();
+	if(op==1){//启用
+		opt='确认启用该用户吗？';
+	}else{//禁用
+		opt='确认停用该用户吗？';
+	}
+	layer.confirm(opt,function(index){
 		$.ajax({
 			type: 'POST',
-			url: '',
+			url: url,
+			data:{'operate':op,'userId':id},
 			dataType: 'json',
 			success: function(data){
-				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_start(this,id)" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
-				$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已停用</span>');
-				$(obj).remove();
-				layer.msg('已停用!',{icon: 5,time:1000});
+				if(data.done=='0'&&data.operate=='1'){
+					$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="user_stop_open(this,0,'+id+')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
+					$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">正常</span>');
+					$(obj).remove();
+					layer.msg('用户已启用!',{icon: 6,time:1000});
+				}else if(data.done=='0'&&data.operate=='0'){
+					$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="user_stop_open(this,1,'+id+')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
+					$(obj).parents("tr").find(".td-status").html('<span class="label label-danger radius">停用</span>');
+					$(obj).remove();
+					layer.msg('用户已停用!',{icon: 6,time:1000});
+				}else{
+					layer.msg('未知错误!',{icon: 5,time:1000});
+				}
+				
 			},
 			error:function(data) {
 				console.log(data.msg);
@@ -311,9 +364,9 @@ function member_stop(obj,id){
 	});
 }
 
-/*用户-启用*/
+/*用户-启用
 function member_start(obj,id){
-	alert('');
+	//alert('');
 	layer.confirm('确认要启用吗？',function(index){
 		$.ajax({
 			type: 'POST',
@@ -330,7 +383,7 @@ function member_start(obj,id){
 			},
 		});
 	});
-}
+}*/
 /*用户-编辑*/
 function member_edit(title,url,id,w,h){
 	layer_show(title,url,w,h);
@@ -340,16 +393,22 @@ function change_password(title,url,id,w,h){
 	layer_show(title,url,w,h);	
 }
 /*用户-删除*/
-function member_del(obj,id){
-	alert('');
-	layer.confirm('确认要删除吗？',function(index){
+function user_del(obj,id){
+	//alert('');
+	layer.confirm('确认要删除该用户吗？',function(index){
 		$.ajax({
 			type: 'POST',
-			url: '',
+			url: 'userAction/deleteUser.action?number='+Math.random(),
+			data:{'userId':id},
 			dataType: 'json',
 			success: function(data){
-				$(obj).parents("tr").remove();
-				layer.msg('已删除!',{icon:1,time:1000});
+				if(data.done=='0'){
+					$(obj).parents("tr").remove();
+					layer.msg('已删除!',{icon:1,time:1000});
+				}else{
+					layer.msg('删除失败!',{icon:4,time:1000});
+				}
+				
 			},
 			error:function(data) {
 				console.log(data.msg);

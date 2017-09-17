@@ -84,7 +84,7 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 		// TODO Auto-generated method stub
 		
 		try{
-			getHibernateTemplate().getSessionFactory().openSession().createSQLQuery("update [MXDB].[dbo].[MX_users_data] set user_state="+ur.getUserState()+" where weixin_openID='"+ur.getWeixinOpenId()+"'");
+			getHibernateTemplate().getSessionFactory().openSession().createSQLQuery("update [MXDB].[dbo].[MX_users_data] set user_state="+ur.getUserState()+" where weixin_openID='"+ur.getWeixinOpenId()+"'").executeUpdate();
 			return true;
 		}catch(Exception e){
 			e.printStackTrace();
@@ -200,24 +200,64 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 	public PageBean<MxUsersData> searchUser(String txtSearch) {
 		// TODO Auto-generated method stub
 		
-//		 String hql="from MxUsersData where userName like '%"+txtSearch+"%' or userRealName like '%"+txtSearch+"%' or userRealName like '%"+;
-//	    List<MxUsersData> users=this.getHibernateTemplate().find(hql);
-//		List<MxUsersData> users=
-//		
-//		PageBean<MxUsersData> pageBean =new PageBean<MxUsersData>();
-//        pageBean.setCurrentPage(page);
-//        int limit=5;//每页数量
-//        pageBean.setPageSize(limit);
-//        int totalCount=sysUsersDAO.findTotalCount();
-//        pageBean.setAllRow(totalCount);
-//        int totalpage=(int)Math.ceil(totalCount/limit);
-//        pageBean.setTotalPage(totalpage);
-//        //每页显示的数据集合
-//        int begin=(page-1)*limit;
-//        List<MxUsersData> list=sysUsersDAO.findUsersByPage(begin,limit);
-//        pageBean.setList(list);
-//        return pageBean;
-		return null;
+		String hql="from MxUsersData where userName like '%"+txtSearch+
+				"%' or userRealName like '%"+txtSearch+
+				"%' or userEmail like '%"+txtSearch+
+				"%' or userPhoneNum like '%"+txtSearch+
+				"%'";
+	    List<MxUsersData> users=this.getHibernateTemplate().find(hql);
+		//List<MxUsersData> users=
+		
+		PageBean<MxUsersData> pageBean =new PageBean<MxUsersData>();
+        pageBean.setCurrentPage(1);
+        int limit=users.size();//每页数量
+        pageBean.setPageSize(limit);
+        //int totalCount=sysUsersDAO.findTotalCount();
+        pageBean.setAllRow(limit);
+        int totalpage=1;
+        pageBean.setTotalPage(totalpage);
+        //每页显示的数据集合
+        //int begin=(page-1)*limit;
+        //List<MxUsersData> list=sysUsersDAO.findUsersByPage(begin,limit);
+        pageBean.setList(users);
+        return pageBean;
+		//return null;
+	}
+
+
+	public boolean setState(int i, int userId) {
+		// TODO Auto-generated method stub
+		try{
+			getHibernateTemplate().getSessionFactory().openSession().createSQLQuery("update [MXDB].[dbo].[MX_users_data] set user_state="+i+" where user_id="+userId).executeUpdate();
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+
+	/*
+	 * 删除用户(non-Javadoc)
+	 * @see com.mx.ssh.dao.ISysUsersDAO#deleteUser(int)
+	 */
+	public boolean deleteUser(int userId) {
+		// TODO Auto-generated method stub
+		MxUsersData u=new MxUsersData();
+		u.setUserId(userId);
+		try{
+			String hql = "Delete FROM MxUsersData Where userId=?" ;     
+	        Query q = getHibernateTemplate().getSessionFactory().openSession().createQuery(hql) ;     
+	        q.setInteger(0, userId) ;     
+	        q.executeUpdate() ;   
+//			getHibernateTemplate().delete(MxUsersData.class, userId);
+//	            
+//			getHibernateTemplate().delete(u);
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }

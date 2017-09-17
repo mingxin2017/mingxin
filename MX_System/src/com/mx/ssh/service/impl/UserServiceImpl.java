@@ -110,6 +110,16 @@ public class UserServiceImpl implements com.mx.ssh.service.IUserService {
 		return sysUsersDAO.searchUser(txtSearch);
 	}
 
+	public boolean setState(int i, int userId) {
+		// TODO Auto-generated method stub
+		return sysUsersDAO.setState(i,userId);
+	}
+
+	public boolean deleteUser(int userId) {
+		// TODO Auto-generated method stub
+		return sysUsersDAO.deleteUser(userId);
+	}
+
 	
 	
 }
