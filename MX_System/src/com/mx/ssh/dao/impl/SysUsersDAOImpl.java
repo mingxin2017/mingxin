@@ -21,15 +21,15 @@ import com.mx.ssh.util.PageHibernateCallback;
 @Repository("sysUsersDAO")
 public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO {
 
-	public static final int pageLinesNum=3;//定义每个页面显示的列表行数
-	public static final String DB_table_name="[JC_Web_System_DB].[dbo].[Sys_Users]";//用户数据库及数据表名称
-	public static final String Primarykey="user_id";//用户数据表主键名称
-	
-	@Autowired 
-    public void setSessionFactoryOverride(SessionFactory sessionFactory)
-    { 
-      super.setSessionFactory(sessionFactory); 
-    } 
+//	public static final int pageLinesNum=3;//定义每个页面显示的列表行数
+//	public static final String DB_table_name="[JC_Web_System_DB].[dbo].[Sys_Users]";//用户数据库及数据表名称
+//	public static final String Primarykey="user_id";//用户数据表主键名称
+//	
+//	@Autowired 
+//    public void setSessionFactoryOverride(SessionFactory sessionFactory)
+//    { 
+//      super.setSessionFactory(sessionFactory); 
+//    } 
 	
 	
 	public void delete(Integer id) {

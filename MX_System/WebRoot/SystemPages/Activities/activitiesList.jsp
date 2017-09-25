@@ -59,7 +59,7 @@
 				<a href="javascript:;" onclick="datadel()"
 					class="btn btn-danger radius"> <i class="Hui-iconfont">&#xe6e2;</i>
 					批量删除</a> <a href="javascript:;"
-					onclick="member_add('添加活动','userAction/gotoUserAdd.action','','')"
+					onclick="act_add('添加活动','activitiesAction/gotoActivitiesAdd.action','','')"
 					class="btn btn-primary radius"> <i class="Hui-iconfont">&#xe600;</i>
 					添加活动</a>
 			</div>
@@ -81,67 +81,75 @@
 				<thead class="text-c">
 					<tr class="text-c">
 						<th width="39px"><input type="checkbox" name="" value="">全选</th>
-						<th>用户类型</th>
-						<th>用户名</th>
-						<th>微信昵称</th>
-						<th>姓名</th>
-						<th>性别</th>
-						<th>手机</th>
-						<th>邮箱</th>
-						<th>地址</th>
-						<th>最近登录</th>
+						<th>创建者</th>
+						<th>活动名称</th>
+						<th>活动类型</th>
+						<th>活动描述</th>
 						<th>状态</th>
+						<th>创建日期</th>
+						<th>更新日期</th>
+						<th>人数下限</th>
+						<th>人数上限</th>
+						<th>流程管理</th>
+						<th>活动空间</th>
 						<th>操作</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${allUsers.list}" var="item">
+					<c:forEach items="${allActivities.list}" var="item">
 						<tr class="text-c">
-							<td><input type="checkbox" value="${item.userId}"
-								name="userIds"></td>
-							<td><c:if test="${item.userTypeId eq 1100}">管理员</c:if> <c:if
-									test="${item.userTypeId eq -1}">微信用户</c:if></td>
-							<td>${item.userName}</td>
-							<td>${item.weixinNikeName}</td>
-							<td>${item.userRealName}</td>
-							<c:if test="${item.userSex eq 2}">
-								<td>女</td>
-							</c:if>
-							<c:if test="${item.userSex eq 1}">
-								<td>男</td>
-							</c:if>
-							<c:if test="${item.userSex eq 0}">
-								<td>保密</td>
-							</c:if>
-							<c:if test="${item.userSex ne 1&&item.userSex ne 2&&item.userSex ne 0}">
-								<td>未知</td>
-							</c:if>
-
-							<td>${item.userPhoneNum}</td>
-							<td>${item.userEmail}</td>
-							<td>${item.userAddr}</td>
-							<td><fmt:formatDate value="${item.lastLoginTime}"
-									pattern="yyyy-MM-dd　HH:mm" /></td>
-							<td class="td-status"><c:if test="${item.userState eq 0}">
-									<span class="label label-success radius">正常</span>
-								</c:if> <c:if test="${item.userState eq -1}">
-									<span class="label label-danger radius">停用</span>
+							<td><input type="checkbox" value="${item.activitiesId}"
+								name="activitiesIds"></td>
+							<td>${item.mxUsersData.userRealName}</td>
+							<td>${item.activitiesName}</td>
+							
+							<td class="td-status"><c:if test="${item.activitiesTypeId eq 1}">
+									<span class="label label-default radius">周年聚会</span>
+								</c:if> <c:if test="${item.activitiesTypeId eq 2}">
+									<span class="label label-default radius">素质拓展</span>
 								</c:if></td>
-							<td class="td-manage"><c:if test="${item.userState eq 0}">
+							<td>${item.activitiesDescribe}</td>
+							<td class="td-status"><c:if test="${item.state eq 0}">
+									<span class="label label-success radius">正常</span>
+								</c:if> <c:if test="${item.state eq -1}">
+									<span class="label label-danger radius">已取消</span>
+								</c:if></td>
+							<td><fmt:formatDate value="${item.createDate}"
+									pattern="yyyy-MM-dd　HH:mm" /></td>
+							<td><fmt:formatDate value="${item.updateDate}"
+									pattern="yyyy-MM-dd　HH:mm" /></td>
+									
+							<td>${item.lowerLimit}</td>
+							<td>${item.upperLimit}</td>
+							<td class="td-step">
+								<a title="活动流程" href="javascript:;"
+								onclick="act_flow(this,'${item.activitiesId}')" class="ml-5"
+								style="text-decoration:none">
+								<i class="Hui-iconfont">&#xe6dc;活动流程</i>
+								</a>
+							</td>
+							<td class="td-space">
+								<a title="空间管理" href="javascript:;"
+								onclick="act_flow(this,'${item.activitiesId}')" class="ml-5"
+								style="text-decoration:none">
+								<i class="Hui-iconfont">&#xe693;空间管理</i>
+								</a>
+							</td>
+							<td class="td-manage"><c:if test="${item.state eq 0}">
 									<a style="text-decoration:none"
-										onClick="user_stop_open(this,0,'${item.userId}')" href="javascript:;"
+										onClick="act_stop_open(this,0,'${item.activitiesId}')" href="javascript:;"
 										title="停用"><i class="Hui-iconfont">&#xe631;</i> </a>
-								</c:if> <c:if test="${item.userState eq -1}">
+								</c:if> <c:if test="${item.state eq -1}">
 									<a style="text-decoration:none"
-										onClick="user_stop_open(this,1,'${item.userId}')" href="javascript:;"
+										onClick="act_stop_open(this,1,'${item.activitiesId}')" href="javascript:;"
 										title="启用"><i class="Hui-iconfont">&#xe6e1;</i> </a>
 								</c:if> <a title="编辑" href="javascript:;"
-								onclick="member_edit('编辑','userAction/gotoUserEdit.action?userId=${item.userId}','','510')"
+								onclick="member_edit('编辑','userAction/gotoUserEdit.action?activitiesId=${item.activitiesId}','','510')"
 								class="ml-5" style="text-decoration:none"><i
 									class="Hui-iconfont">&#xe6df;</i> </a> 
-									<a style="text-decoration:none" class="ml-5" onclick="restore_password(${item.userId})" href="javascript:;" title="重置密码"><i class="Hui-iconfont">&#xe63f;</i></a> 
+									<a style="text-decoration:none" class="ml-5" onclick="restore_password(${item.activitiesId})" href="javascript:;" title="重置密码"><i class="Hui-iconfont">&#xe63f;</i></a> 
 								<a title="删除" href="javascript:;"
-								onclick="user_del(this,'${item.userId}')" class="ml-5"
+								onclick="user_del(this,'${item.activitiesId}')" class="ml-5"
 								style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i>
 							</a>
 							</td>
@@ -152,8 +160,9 @@
 
 		</div>
 		<div class="text-c">
-			<div id="Per_All" class="f-l">每页显示${allUsers.pageSize}条，共${allUsers.allRow}条</div>
+			<div id="Per_All" class="f-l">每页显示${allActivities.pageSize}条，共${allActivities.allRow}条</div>
 			<div class="f-c" id="_pager"></div>
+			
 		</div>
 	</div>
 
@@ -184,8 +193,8 @@
 	  //执行一个laypage实例
 	  laypage.render({
 		    elem: '_pager'
-		    ,count: ${allUsers.allRow}
-		    ,limit:${allUsers.pageSize}
+		    ,count: ${allActivities.allRow}
+		    ,limit:${allActivities.pageSize}
 		    ,theme: '#1E9FFF'
 		    ,jump: function(obj, first){
 		    	//alert(123);
@@ -264,7 +273,7 @@ var flushList=function(list){
    		 	role='微信用户';
    	 	}
 		tb+=('<tr class="text-c">');
-        tb+=('<td><input type="checkbox" name="userIds" value="'+item.userId+'"></td>');
+        tb+=('<td><input type="checkbox" name="activitiesIds" value="'+item.activitiesId+'"></td>');
         tb+=('<td>'+role+'</td>');
         tb+=('<td>'+item.userName+'</td>');
         tb+=('<td>'+item.weixinNikeName+'</td>');
@@ -285,15 +294,15 @@ var flushList=function(list){
         if(item.userState=='0'){
             tb+=('<td class="td-status"><span class="label label-success radius">正常</span></td>');
             tb+=('<td class="td-manage">');
-            tb+=('<a style="text-decoration:none" onClick="user_stop_open(this,0,'+item.userId+')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
+            tb+=('<a style="text-decoration:none" onClick="user_stop_open(this,0,'+item.activitiesId+')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
         }else{
         	tb+=('<td class="td-status"><span class="label label-danger radius">停用</span></td>');
             tb+=('<td class="td-manage">');
-            tb+=('<a style="text-decoration:none" onClick="user_stop_open(this,1,'+item.userId+')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
+            tb+=('<a style="text-decoration:none" onClick="user_stop_open(this,1,'+item.activitiesId+')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
         }
-        tb+=('<a title="编辑" href="javascript:;" onclick="member_edit(\'编辑\',\'userAction/gotoUserEdit.action?userId='+item.userId+'\',\'\',\'510\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>');
-        tb+=('<a style="text-decoration:none" class="ml-5" onclick="restore_password('+item.userId+')" href="javascript:;" title="重置密码"><i class="Hui-iconfont">&#xe63f;</i></a>');
-        tb+=('<a title="删除" href="javascript:;" onclick="user_del(this,'+item.userId+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>');
+        tb+=('<a title="编辑" href="javascript:;" onclick="member_edit(\'编辑\',\'userAction/gotoUserEdit.action?activitiesId='+item.activitiesId+'\',\'\',\'510\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>');
+        tb+=('<a style="text-decoration:none" class="ml-5" onclick="restore_password('+item.activitiesId+')" href="javascript:;" title="重置密码"><i class="Hui-iconfont">&#xe63f;</i></a>');
+        tb+=('<a title="删除" href="javascript:;" onclick="user_del(this,'+item.activitiesId+')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>');
         tb+=('</td></tr>');
 		
 	});
@@ -345,7 +354,7 @@ function user_stop_open(obj,op,id){
 		$.ajax({
 			type: 'POST',
 			url: url,
-			data:{'operate':op,'userId':id},
+			data:{'operate':op,'activitiesId':id},
 			dataType: 'json',
 			success: function(data){
 				if(data.done=='0'&&data.operate=='1'){
@@ -370,6 +379,10 @@ function user_stop_open(obj,op,id){
 	});
 }
 
+/*活动-新增*/
+function act_add(title,url,w,h){
+	layer_show(title,url,w,h);
+}
 
 /*用户-编辑*/
 function member_edit(title,url,w,h){
@@ -381,7 +394,7 @@ function restore_password(id){
 		$.ajax({
 			type: 'POST',
 			url: 'userAction/restorePassword.action?number='+Math.random(),
-			data:{'userId':id},
+			data:{'activitiesId':id},
 			dataType: 'json',
 			success: function(data){
 				if(data.done=='0'){
@@ -405,7 +418,7 @@ function user_del(obj,id){
 		$.ajax({
 			type: 'POST',
 			url: 'userAction/deleteUser.action?number='+Math.random(),
-			data:{'userId':id},
+			data:{'activitiesId':id},
 			dataType: 'json',
 			success: function(data){
 				if(data.done=='0'){
@@ -427,15 +440,15 @@ function user_del(obj,id){
 function datadel(){
 	var arrays = new Array();//定义一个数组 
 	var i=0; 
-	 $('input[name="userIds"]:checked').each(function(){ 
+	 $('input[name="activitiesIds"]:checked').each(function(){ 
 		 arrays[i]=$(this).val(); 
 		 i=i+1;
 	 });
-	 if(i==0){alert('未选择任何用户');return;}
-	 layer.confirm('确认要删除这些用户吗？',function(index){
+	 if(i==0){alert('未选择任何活动');return;}
+	 layer.confirm('确认要删除这些活动吗？（附：将同时删除活动空间）',function(index){
 			$.ajax({
 				type: 'POST',
-				url: ('userAction/deleteUsers.action?ids='+ JSON.stringify(arrays)),
+				url: ('activitiesAction/deleteActivities.action?ids='+ JSON.stringify(arrays)),
 				dataType: 'json',
 				success: function(data){
 					//alert('成功');

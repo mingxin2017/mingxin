@@ -59,10 +59,10 @@ public class UserAction extends ActionSupport {
 
 	}
 
-	public String goToeditUser(int userId){
-		
-		return "editUser";
-	}
+//	public String goToeditUser(int userId){
+//		
+//		return "editUser";
+//	}
 	
 	
 	

@@ -74,6 +74,7 @@
 
  	<!-- 让Spring通过自动扫描来查询和管理Bean -->
 	<!-- <context:component-scan base-package="com.mx.ssh" ></context:component-scan>   -->
+	
 	<context:component-scan base-package="com" use-default-filters="false">
         <context:include-filter type="regex" expression="com.mx.ssh.action.*"/>
         <context:include-filter type="regex" expression="com.mx.ssh.service.impl.*"/>
