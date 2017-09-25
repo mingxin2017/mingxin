@@ -84,6 +84,7 @@
 						<th>用户类型</th>
 						<th>用户名</th>
 						<th>微信昵称</th>
+						<th>姓名</th>
 						<th>性别</th>
 						<th>手机</th>
 						<th>邮箱</th>
@@ -102,14 +103,18 @@
 									test="${item.userTypeId eq -1}">微信用户</c:if></td>
 							<td>${item.userName}</td>
 							<td>${item.weixinNikeName}</td>
-							<c:if test="${item.userSex eq -1}">
+							<td>${item.userRealName}</td>
+							<c:if test="${item.userSex eq 2}">
 								<td>女</td>
 							</c:if>
 							<c:if test="${item.userSex eq 1}">
 								<td>男</td>
 							</c:if>
-							<c:if test="${item.userSex ne -1&&item.userSex ne 1}">
+							<c:if test="${item.userSex eq 0}">
 								<td>保密</td>
+							</c:if>
+							<c:if test="${item.userSex ne 1&&item.userSex ne 2&&item.userSex ne 0}">
+								<td>未知</td>
 							</c:if>
 
 							<td>${item.userPhoneNum}</td>
@@ -196,8 +201,9 @@
 	
 </script>
 
-	<script type="text/javascript">
+<script type="text/javascript">
 
+/*搜索*/
 function searchUsers(){
 	var txtSearch=document.getElementById("txtSearch").value;
 	var url='userAction/searchUsers.action?number='+Math.random();
@@ -216,6 +222,8 @@ function searchUsers(){
 			if(tb.length!=0){
 				$("#tableList tbody").html(tb);
 				//$('#tableList tbody').innerHTML+=tb;
+			}else{
+				$("#tableList tbody").html("");
 			}
 			
 			document.getElementById("Per_All").innerHTML = ('每页显示'+response.pageSize+'条，共'+response.allRow+'条');
@@ -245,6 +253,7 @@ function searchUsers(){
 	});
 }
 
+/*局部刷新列表*/
 var flushList=function(list){
 	var role;
 	var tb='';
@@ -259,12 +268,15 @@ var flushList=function(list){
         tb+=('<td>'+role+'</td>');
         tb+=('<td>'+item.userName+'</td>');
         tb+=('<td>'+item.weixinNikeName+'</td>');
+        tb+=('<td>'+item.userRealName+'</td>');
         if(item.userSex=='1'){
         	tb+=('<td>男</td>');
-        }else if(item.userSex=='-1'){
+        }else if(item.userSex=='2'){
         	tb+=('<td>女</td>');
-        }else{
+        }else if(item.userSex=='0'){
         	tb+=('<td>保密</td>');
+        }else{
+        	tb+=('<td>未知</td>');
         }
         tb+=('<td>'+item.userPhoneNum+'</td>');
         tb+=('<td>'+item.userEmail+'</td>');
@@ -288,6 +300,7 @@ var flushList=function(list){
 	return tb;
 }
 
+/*分页控件点击事件*/
 function getPage(curr,url){
 	$.ajax({
 		type: 'POST',
@@ -357,6 +370,10 @@ function user_stop_open(obj,op,id){
 	});
 }
 
+/*用户-添加*/
+function member_add(title,url,w,h){
+	layer_show(title,url,w,h);
+}
 
 /*用户-编辑*/
 function member_edit(title,url,w,h){

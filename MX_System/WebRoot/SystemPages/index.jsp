@@ -95,8 +95,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<i class="Hui-iconfont">&#xe702;</i> 活动管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="article-list.html" data-title="活动列表" href="javascript:void(0)">活动列表</a></li>
+					<li><a data-href="activitiesAction/gotoActivitiesList.action" data-title="活动列表" href="javascript:void(0)">活动列表</a></li>
+					<li><a data-href="article-list.html" data-title="流程控制" href="javascript:void(0)">流程控制</a></li>
 					<li><a data-href="article-list.html" data-title="活动空间" href="javascript:void(0)">活动空间</a></li>
+					<li><a data-href="article-list.html" data-title="类型管理" href="javascript:void(0)">类型管理</a></li>
 				</ul>
 		</dd>
 	</dl>

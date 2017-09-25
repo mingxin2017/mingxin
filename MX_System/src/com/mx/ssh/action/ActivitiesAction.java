@@ -19,7 +19,6 @@ import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -41,14 +40,22 @@ import com.opensymphony.xwork2.ActionSupport;
 //控制层的Spring注解
 @Scope("prototype")
 //支持多例
-@Namespace(value = "/userAction")
-public class UserAction extends ActionSupport {  
+@Namespace(value = "/activitiesAction")
+public class ActivitiesAction extends ActionSupport {
 	
 	private static final long serialVersionUID = 1L;
 
-	@Autowired
-	private IUserService userService;     //该对象采用 Spring 依赖注入,标签扫描注入
+	private IUserService userService;     //该对象采用 Spring 依赖注入
 		
+	//Spring依赖注入的对象必须有get、set方法。方法命名规则：get+变量名。为了便于记忆，变量名第一个字母可以大写。
+    public void setUserService(IUserService userLoginService)    
+    {
+        this.userService = userLoginService;
+    }
+    public IUserService getUserService()
+    {
+        return userService;
+    }
 	
 	public int pageCurrent=1; //当前显示的用户信息表页面标志
 	
