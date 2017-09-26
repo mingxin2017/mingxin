@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -81,6 +82,7 @@
 				<thead class="text-c">
 					<tr class="text-c">
 						<th width="39px"><input type="checkbox" name="" value="">全选</th>
+						<th>封面图片</th>
 						<th>创建者</th>
 						<th>活动名称</th>
 						<th>活动类型</th>
@@ -100,6 +102,7 @@
 						<tr class="text-c">
 							<td><input type="checkbox" value="${item.activitiesId}"
 								name="activitiesIds"></td>
+							<td><img width="100" class="picture-thumb" src="${fn:trim(item.coverImageUrl)}"></td>
 							<td>${item.mxUsersData.userRealName}</td>
 							<td>${item.activitiesName}</td>
 							
