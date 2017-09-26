@@ -1,8 +1,6 @@
 package com.mx.ssh.bean;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * MxActivitiesData entity. @author MyEclipse Persistence Tools
@@ -23,7 +21,7 @@ public class MxActivitiesData implements java.io.Serializable {
 	private String others;
 	private Integer upperLimit;
 	private Integer lowerLimit;
-	private Set mxActivitiesMySpaceInviteCodes = new HashSet(0);
+	private String coverImageUrl;
 
 	// Constructors
 
@@ -35,7 +33,7 @@ public class MxActivitiesData implements java.io.Serializable {
 	public MxActivitiesData(MxUsersData mxUsersData, String activitiesName,
 			Integer activitiesTypeId, String activitiesDescribe, Integer state,
 			Date createDate, Date updateDate, Integer upperLimit,
-			Integer lowerLimit) {
+			Integer lowerLimit, String coverImageUrl) {
 		this.mxUsersData = mxUsersData;
 		this.activitiesName = activitiesName;
 		this.activitiesTypeId = activitiesTypeId;
@@ -45,14 +43,14 @@ public class MxActivitiesData implements java.io.Serializable {
 		this.updateDate = updateDate;
 		this.upperLimit = upperLimit;
 		this.lowerLimit = lowerLimit;
+		this.coverImageUrl = coverImageUrl;
 	}
 
 	/** full constructor */
 	public MxActivitiesData(MxUsersData mxUsersData, String activitiesName,
 			Integer activitiesTypeId, String activitiesDescribe, Integer state,
 			Date createDate, Date updateDate, String others,
-			Integer upperLimit, Integer lowerLimit,
-			Set mxActivitiesMySpaceInviteCodes) {
+			Integer upperLimit, Integer lowerLimit, String coverImageUrl) {
 		this.mxUsersData = mxUsersData;
 		this.activitiesName = activitiesName;
 		this.activitiesTypeId = activitiesTypeId;
@@ -63,7 +61,7 @@ public class MxActivitiesData implements java.io.Serializable {
 		this.others = others;
 		this.upperLimit = upperLimit;
 		this.lowerLimit = lowerLimit;
-		this.mxActivitiesMySpaceInviteCodes = mxActivitiesMySpaceInviteCodes;
+		this.coverImageUrl = coverImageUrl;
 	}
 
 	// Property accessors
@@ -156,13 +154,12 @@ public class MxActivitiesData implements java.io.Serializable {
 		this.lowerLimit = lowerLimit;
 	}
 
-	public Set getMxActivitiesMySpaceInviteCodes() {
-		return this.mxActivitiesMySpaceInviteCodes;
+	public String getCoverImageUrl() {
+		return this.coverImageUrl;
 	}
 
-	public void setMxActivitiesMySpaceInviteCodes(
-			Set mxActivitiesMySpaceInviteCodes) {
-		this.mxActivitiesMySpaceInviteCodes = mxActivitiesMySpaceInviteCodes;
+	public void setCoverImageUrl(String coverImageUrl) {
+		this.coverImageUrl = coverImageUrl;
 	}
 
 }
