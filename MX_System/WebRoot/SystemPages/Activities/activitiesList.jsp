@@ -147,7 +147,7 @@
 								onclick="member_edit('编辑','userAction/gotoUserEdit.action?activitiesId=${item.activitiesId}','','510')"
 								class="ml-5" style="text-decoration:none"><i
 									class="Hui-iconfont">&#xe6df;</i> </a> 
-									<a style="text-decoration:none" class="ml-5" onclick="restore_password(${item.activitiesId})" href="javascript:;" title="重置密码"><i class="Hui-iconfont">&#xe63f;</i></a> 
+									 
 								<a title="删除" href="javascript:;"
 								onclick="user_del(this,'${item.activitiesId}')" class="ml-5"
 								style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i>
