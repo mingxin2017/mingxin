@@ -35,8 +35,6 @@ public class MxActivitiesData implements java.io.Serializable {
 	public MxActivitiesData(MxUsersData mxUsersData, String activitiesName,
 			Integer activitiesTypeId, String activitiesDescribe, Integer state,
 			Date createDate, Date updateDate, Integer upperLimit,
-
-
 			Integer lowerLimit, String coverImageUrl) {
 
 		this.mxUsersData = mxUsersData;

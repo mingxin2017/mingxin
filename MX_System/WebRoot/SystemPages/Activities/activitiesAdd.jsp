@@ -39,30 +39,72 @@
 <body>
 <article class="page-container">
 	<form action="" method="post" class="form form-horizontal" id="form-article-add">
+		<div class="row cl" style="background-color:#C6E2FF;text-align:center;">活动</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>产品标题：</label>
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>活动主题：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="" name="">
+				<input type="text" class="input-text" value="" placeholder="输入活动主题" id="activitiesName," name="activitiesName,">
 			</div>
 		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>活动类型：</label>
+			<div class="formControls col-xs-8 col-sm-9"> 
+				<span class="select-box">
+					<select name="" class="select">
+						<option value="0">旅游类</option>
+						<option value="1">户外拓展</option>
+						<option value="11">周年聚会</option>
+						<option value="12">商业活动</option>
+						<option value="13">其他</option>
+					</select>
+				</span> 
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">活动描述：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<textarea name="" cols="" rows="" class="textarea"  placeholder="输入活动描述...最少输入10个字符" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="$.Huitextarealength(this,200)"></textarea>
+				<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">活动人数：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				下限<input type="text" name="" id="" placeholder="下限" value="" class="input-text " style=" width:25%">
+				人——上限
+				<input type="text" name="" id="" placeholder="上限" value="" class="input-text " style=" width:25%">
+				人
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">活动封面图片上传：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<div class="uploader-list-container">
+					<div class="queueList">
+						<div id="dndArea" class="placeholder">
+							<div id="filePicker-2"></div>
+							<p>或将照片拖到这里，最多可选1张</p>
+						</div>
+					</div>
+					<div class="statusBar" style="display:none;">
+						<div class="progress"> <span class="text">0%</span> <span class="percentage"></span> </div>
+						<div class="info"></div>
+						<div class="btns">
+							<div id="filePicker2"></div>
+							<div class="uploadBtn">开始上传</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">简略标题：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="text" class="input-text" value="" placeholder="" id="" name="">
 			</div>
 		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分类栏目：</label>
-			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box">
-				<select name="" class="select">
-					<option value="0">一级分类</option>
-					<option value="1">一级分类</option>
-					<option value="11">├二级分类</option>
-					<option value="12">├二级分类</option>
-					<option value="13">├二级分类</option>
-				</select>
-				</span> </div>
-		</div>
+		
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">排序值：</label>
 			<div class="formControls col-xs-8 col-sm-9">
@@ -78,6 +120,7 @@
 				</div>
 			</div>
 		</div>
+		<div class="row cl" style="background-color:#C6E2FF;text-align:center;">空间</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">产品规格：</label>
 			<div class="formControls col-xs-8 col-sm-9">
@@ -251,7 +294,7 @@ $(function(){
 
 	var uploader = WebUploader.create({
 		auto: true,
-		swf: 'lib/webuploader/0.1.5/Uploader.swf',
+		swf: '<%=basePath%>SystemPages/common/lib/webuploader/0.1.5/Uploader.swf',
 	
 		// 文件接收服务端。
 		server: 'lib/webuploader/0.1.5/server/fileupload.php',
@@ -495,7 +538,7 @@ $(function(){
             },
             dnd: '#dndArea',
             paste: '#uploader',
-            swf: 'lib/webuploader/0.1.5/Uploader.swf',
+            swf: '<%=basePath%>SystemPages/common/lib/webuploader/0.1.5/Uploader.swf',
             chunked: false,
             chunkSize: 512 * 1024,
             server: 'lib/webuploader/0.1.5/server/fileupload.php',
