@@ -33,11 +33,33 @@
 <![endif]-->
 <!--/meta 作为公共模版分离出去-->
 <link href="<%=basePath%>SystemPages/common/lib/webuploader/0.1.5/webuploader.css" rel="stylesheet" type="text/css" />
-<title>添加系统管理员 </title>
+<title>添加活动 </title>
 </head>
 <body>
 <article class="page-container">
 	<form action="" method="post" class="form form-horizontal" id="form-article-add">
+		<div class="row cl" style="background-color:#D1EEEE;">活动信息</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">活动封面图片：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<div class="uploader-list-container">
+					<div class="queueList">
+						<div id="dndArea" class="placeholder">
+							<div id="filePicker-2"></div>
+							<p>或将封面图片拖到这里，单次最多可选300张</p>
+						</div>
+					</div>
+					<div class="statusBar" style="display:none;">
+						<div class="progress"> <span class="text">0%</span> <span class="percentage"></span> </div>
+						<div class="info"></div>
+						<div class="btns">
+							<div id="filePicker2"></div>
+							<div class="uploadBtn">开始上传</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>产品标题：</label>
 			<div class="formControls col-xs-8 col-sm-9">
@@ -118,6 +140,7 @@
 				</select>
 				</span> </div>
 		</div>
+		<div class="row cl" style="background-color:#D1EEEE;">空间信息</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">产品重量：</label>
 			<div class="formControls col-xs-8 col-sm-9">
