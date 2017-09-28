@@ -57,9 +57,11 @@
 	<div class="page-container">
 		<div>
 			<div class="f-l">
-				<a href="javascript:;" onclick="datadel()"
+				<%--<a href="javascript:;" onclick="datadel()"
 					class="btn btn-danger radius"> <i class="Hui-iconfont">&#xe6e2;</i>
-					批量删除</a> <a href="javascript:;"
+					批量删除</a> 
+					--%>
+					<a href="javascript:;"
 					onclick="act_add('添加活动','activitiesAction/gotoActivitiesAdd.action','','')"
 					class="btn btn-primary radius"> <i class="Hui-iconfont">&#xe600;</i>
 					添加活动</a>
@@ -84,7 +86,7 @@
 						<th width="39px"><input type="checkbox" name="" value="">全选</th>
 						<th>封面图片</th>
 						<th>创建者</th>
-						<th>活动名称</th>
+						<th>活动主题</th>
 						<th>活动类型</th>
 						<th>活动描述</th>
 						<th>状态</th>
@@ -141,7 +143,7 @@
 							<td class="td-manage"><c:if test="${item.state eq 0}">
 									<a style="text-decoration:none"
 										onClick="act_stop_open(this,0,'${item.activitiesId}')" href="javascript:;"
-										title="停用"><i class="Hui-iconfont">&#xe631;</i> </a>
+										title="取消"><i class="Hui-iconfont">&#xe631;</i> </a>
 								</c:if> <c:if test="${item.state eq -1}">
 									<a style="text-decoration:none"
 										onClick="act_stop_open(this,1,'${item.activitiesId}')" href="javascript:;"
@@ -150,11 +152,12 @@
 								onclick="member_edit('编辑','userAction/gotoUserEdit.action?activitiesId=${item.activitiesId}','','510')"
 								class="ml-5" style="text-decoration:none"><i
 									class="Hui-iconfont">&#xe6df;</i> </a> 
-									<a style="text-decoration:none" class="ml-5" onclick="restore_password(${item.activitiesId})" href="javascript:;" title="重置密码"><i class="Hui-iconfont">&#xe63f;</i></a> 
-								<a title="删除" href="javascript:;"
+									 
+								<%--<a title="删除" href="javascript:;"
 								onclick="user_del(this,'${item.activitiesId}')" class="ml-5"
 								style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i>
-							</a>
+								</a>
+								--%>
 							</td>
 						</tr>
 					</c:forEach>

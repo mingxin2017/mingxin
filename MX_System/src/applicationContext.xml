@@ -4,6 +4,7 @@
     xmlns:aop="http://www.springframework.org/schema/aop" 
     xmlns:context="http://www.springframework.org/schema/context" 
     xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:mvc="http://www.springframework.org/schema/mvc" 
     xmlns:task="http://www.springframework.org/schema/task"  
     xsi:schemaLocation="http://www.springframework.org/schema/beans    
       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd   
@@ -25,14 +26,14 @@
 			value="com.microsoft.sqlserver.jdbc.SQLServerDriver">
 		</property>
 		
-		<property name="url" value="jdbc:sqlserver://mingxin2017.iok.la:30487"></property>
-		<property name="username" value="sa"></property>
-		<property name="password" value="mingxin_@2017"></property>
-		
-		
-		<!-- <property name="url" value="jdbc:sqlserver://127.0.0.1:7788"></property>
+		<!-- <property name="url" value="jdbc:sqlserver://mingxin2017.iok.la:30487"></property>
 		<property name="username" value="sa"></property>
 		<property name="password" value="mingxin_@2017"></property> -->
+		
+		
+		<property name="url" value="jdbc:sqlserver://127.0.0.1:7788"></property>
+		<property name="username" value="sa"></property>
+		<property name="password" value="mingxin_@2017"></property>
 		
 	</bean>
 	
@@ -74,7 +75,6 @@
 
  	<!-- 让Spring通过自动扫描来查询和管理Bean -->
 	<!-- <context:component-scan base-package="com.mx.ssh" ></context:component-scan>   -->
-	
 	<context:component-scan base-package="com" use-default-filters="false">
         <context:include-filter type="regex" expression="com.mx.ssh.action.*"/>
         <context:include-filter type="regex" expression="com.mx.ssh.service.impl.*"/>

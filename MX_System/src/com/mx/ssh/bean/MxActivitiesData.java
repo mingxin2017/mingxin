@@ -21,7 +21,9 @@ public class MxActivitiesData implements java.io.Serializable {
 	private String others;
 	private Integer upperLimit;
 	private Integer lowerLimit;
+
 	private String coverImageUrl;
+
 
 	// Constructors
 
@@ -34,6 +36,7 @@ public class MxActivitiesData implements java.io.Serializable {
 			Integer activitiesTypeId, String activitiesDescribe, Integer state,
 			Date createDate, Date updateDate, Integer upperLimit,
 			Integer lowerLimit, String coverImageUrl) {
+
 		this.mxUsersData = mxUsersData;
 		this.activitiesName = activitiesName;
 		this.activitiesTypeId = activitiesTypeId;
@@ -43,14 +46,18 @@ public class MxActivitiesData implements java.io.Serializable {
 		this.updateDate = updateDate;
 		this.upperLimit = upperLimit;
 		this.lowerLimit = lowerLimit;
+
 		this.coverImageUrl = coverImageUrl;
+
 	}
 
 	/** full constructor */
 	public MxActivitiesData(MxUsersData mxUsersData, String activitiesName,
 			Integer activitiesTypeId, String activitiesDescribe, Integer state,
 			Date createDate, Date updateDate, String others,
+
 			Integer upperLimit, Integer lowerLimit, String coverImageUrl) {
+
 		this.mxUsersData = mxUsersData;
 		this.activitiesName = activitiesName;
 		this.activitiesTypeId = activitiesTypeId;
@@ -61,7 +68,9 @@ public class MxActivitiesData implements java.io.Serializable {
 		this.others = others;
 		this.upperLimit = upperLimit;
 		this.lowerLimit = lowerLimit;
+
 		this.coverImageUrl = coverImageUrl;
+
 	}
 
 	// Property accessors
