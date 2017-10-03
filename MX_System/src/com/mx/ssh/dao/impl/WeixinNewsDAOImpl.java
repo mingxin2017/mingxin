@@ -6,8 +6,12 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import com.mx.publicMethos.ISqlUtil;
+import com.mx.ssh.bean.MxNewsComment;
+import com.mx.ssh.bean.MxNewsCommentBack;
+import com.mx.ssh.bean.MxNewsCommentPraise;
 import com.mx.ssh.bean.MxNewsContent;
 import com.mx.ssh.bean.MxNewsData;
+import com.mx.ssh.bean.MxNewsPraise;
 import com.mx.ssh.bean.MxNewsType;
 import com.mx.ssh.bean.MxRegion;
 import com.mx.ssh.bean.MxSchools;
@@ -84,5 +88,79 @@ public class WeixinNewsDAOImpl extends HibernateDaoSupport implements IWeixinNew
 	@SuppressWarnings("unchecked")
 	public List<MxNewsData> getNewsByNewsTypeId(String newsTypeId){
 		return getHibernateTemplate().find("from com.mx.ssh.bean.MxNewsData d where d.newsTypeId ='"+newsTypeId+"'");
+	}
+	//根据新闻id查询评论返回
+	@SuppressWarnings("unchecked")
+	public List<MxNewsComment> getCommentByNewsId(String newsId){
+		return  getHibernateTemplate().find("from com.mx.ssh.bean.MxNewsComment d where d.newsId ='"+newsId+"' order by d.createDate desc");
+	}
+	//增加评论
+	public void addComment(MxNewsComment comment){
+		getHibernateTemplate().save(comment);
+	}
+	//删除评论
+	public void delComment(MxNewsComment comment){
+		getHibernateTemplate().delete(comment);
+	}
+	//根据id查询评论条数返回
+	public int getCountCommentByNewsId(String newsId){
+		return ((Long)getHibernateTemplate().find("select count(*) from com.mx.ssh.bean.MxNewsComment d where d.newsId ='"+newsId+"'").listIterator().next()).intValue();
+	}
+	//新增文章点赞
+	public void addPraise(MxNewsPraise praise){
+		int count = ((Long)getHibernateTemplate().find("select count(*) from com.mx.ssh.bean.MxNewsPraise d where d.newsId ='"+praise.getNewsId()+"' and d.operator ='"+praise.getOperator()+"'").listIterator().next()).intValue();
+		if(count==0){
+			getHibernateTemplate().save(praise);
+		}
+		
+	}
+	//删除文章点赞
+	public void delPraise(MxNewsPraise praise){
+		MxNewsPraise model= (MxNewsPraise) getHibernateTemplate().find("from com.mx.ssh.bean.MxNewsPraise d where d.newsId ='"+praise.getNewsId()+"' and d.operator ='"+praise.getOperator()+"'").get(0);
+		getHibernateTemplate().delete(model);
+	}
+	//根据文章id查询点赞数返回
+	public int getCountPraiseByNewsId(String newsId){
+			return ((Long)getHibernateTemplate().find("select count(*) from com.mx.ssh.bean.MxNewsPraise d where d.newsId ='"+newsId+"'").listIterator().next()).intValue();
+	}
+	//新增评论点赞
+	public void addCommentPraise(MxNewsCommentPraise commentPraise){
+		int count = ((Long)getHibernateTemplate().find("select count(*) from com.mx.ssh.bean.MxNewsCommentPraise d where d.commentId ='"+commentPraise.getCommentId()+"' and d.operator ='"+commentPraise.getOperator()+"'").listIterator().next()).intValue();
+		if(count==0){
+			getHibernateTemplate().save(commentPraise);
+		}
+		
+	}
+	
+	//删除评论点赞
+	public void delCommentPraise(MxNewsCommentPraise commentPraise){
+		MxNewsCommentPraise model= (MxNewsCommentPraise) getHibernateTemplate().find("from com.mx.ssh.bean.MxNewsCommentPraise d where d.commentId ='"+commentPraise.getCommentId()+"' and d.operator ='"+commentPraise.getOperator()+"'").get(0);
+		getHibernateTemplate().delete(model);
+	}
+	//根据评论id查询点赞数返回
+	public int getCountCommentPraiseByCommentId(String commentId){
+		return ((Long)getHibernateTemplate().find("select count(*) from com.mx.ssh.bean.MxNewsCommentPraise d where d.commentId ='"+commentId+"'").listIterator().next()).intValue();
+	}
+	//根据评论id和用户id查询点赞状态返回
+	public int getCommentPraiseById(String commentId,String userId){
+		return  ((Long)getHibernateTemplate().find("select count(1) from com.mx.ssh.bean.MxNewsCommentPraise d where d.commentId ='"+commentId+"' and d.operator ='"+userId+"'").listIterator().next()).intValue();
+	}
+	//根据评论id查询评论返回
+	public MxNewsComment getCommentById(String commentId){
+		return (MxNewsComment) getHibernateTemplate().find("from com.mx.ssh.bean.MxNewsComment d where d.commentId ='"+commentId+"'").get(0);
+	}
+	//插入评论的回复
+	public void addCommentBack(MxNewsCommentBack commentBack){
+		getHibernateTemplate().save(commentBack);
+	}
+	//根据评论id查询评论回复
+	@SuppressWarnings("unchecked")
+	public List<MxNewsCommentBack> getCommentBackByCommentId(String commentId){
+		return  getHibernateTemplate().find("from com.mx.ssh.bean.MxNewsCommentBack d where d.commentId ='"+commentId+"' order by d.createDate desc");
+	}
+	//根据用户id查询评论返回
+	@SuppressWarnings("unchecked")
+	public List<MxNewsComment> getCommentByUserId(String userId){
+		return  getHibernateTemplate().find("from com.mx.ssh.bean.MxNewsComment d where d.operator ='"+userId+"' order by d.createDate desc");
 	}
 }

@@ -25,8 +25,44 @@ public class MxNewsData implements java.io.Serializable {
 	private Integer regionId;
 	private Integer schoolId;
 	private Integer state;
+	private String createDateStr;
+	private String praiseNum;
+	private String praiseState;//当前用户的点赞状态
+	private String commentCount;
 
 	// Constructors
+    
+	public String getPraiseNum() {
+		return praiseNum;
+	}
+
+	public String getCommentCount() {
+		return commentCount;
+	}
+
+	public void setCommentCount(String commentCount) {
+		this.commentCount = commentCount;
+	}
+
+	public void setPraiseNum(String praiseNum) {
+		this.praiseNum = praiseNum;
+	}
+
+	public String getPraiseState() {
+		return praiseState;
+	}
+
+	public void setPraiseState(String praiseState) {
+		this.praiseState = praiseState;
+	}
+
+	public String getCreateDateStr() {
+		return createDateStr;
+	}
+
+	public void setCreateDateStr(String createDateStr) {
+		this.createDateStr = createDateStr;
+	}
 
 	/** default constructor */
 	public MxNewsData() {

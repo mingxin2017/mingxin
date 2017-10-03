@@ -1,4 +1,4 @@
-﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";%>
@@ -165,6 +165,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	display:block;
     	height:40px;
     }
+    .userInfo{
+        background:#fff;
+        border-bottom:1px solid #ddd;
+    }
+    .wxHeadUrl{
+    	height:70px;
+    	padding:20 0 20 0;
+    	line-height:70px;
+    	text-align:center;
+    }
+    .wxHeadUrl img{
+    	height:50px;
+    	width:50px;
+    }
+    .wxNikeName{
+    	height:50px;
+    	line-height:50px;
+    	text-align:center;
+    	font-size: 1.0rem;
+    }
+    .newsInfo{
+    	background:#ddd;
+    	margin:10 0 10 50;
+    	line-height:40px;
+    }
+    .newsHeadline{
+    	overflow:hidden;
+    	text-overflow:ellipsis;
+    	white-space:nowrap;
+    }
     </style>
 </style>
 </head>
@@ -172,83 +202,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</script>
 	<body id="body">
 	  <div class="head">
-		<div class="mui-card">
-			<div class="mui-card-header mui-card-media">
-					<img src="<%=basePath%>WeixinPages/common/image/logo_mx.png" />
-					<div class="mui-media-body">
-						${MxNewsData.writerName}
-						<p>发表于${MxNewsData.createDateStr}</p>
-					</div>
-			</div>
-			<div class="mui-card-header mui-card-media" style="height:40vw;background-image:url(WeixinPages/common/image/cbd.jpg)"></div>
-			<div class="mui-card-content">
-				<div class="mui-card-content-inner">
-					${MxNewsData.newsHeadline}<br>
-					${MxNewsData.newsLeadText}
-					<a><span id="praiseTest" title="222">111</span></a>
-				</div>
-			</div>
+		  <div class="userInfo">
+             <div class="wxHeadUrl">
+             	<img src="${MxUsersData.weixinHeadUrl}" alt="">
+             </div>
+             <div class="wxNikeName">${MxUsersData.weixinNikeName}</div>
 		  </div>
 		  <div class="content">
 			<div class="lists">
-				<li class="itemhead">
-					热门评论         
-				    
-				    <input id="praiseNum" value="${MxNewsData.praiseNum}" readonly style="border:0;width:20px;font-size:8px;text-align:right;padding:2px;"/>
-					<a id="praise" style="color:${(MxNewsData.praiseState=='0')?'#aaa':'#007aff'};">
-					<span id="newsPraiseSpan" class="mui-icon-extra mui-icon-extra-like" onclick="praise('${MxNewsData.newsId}');" title="${(MxNewsData.praiseState=='0')?'点赞':'取消点赞'}"></span></a>
-				           
-				           评论数${MxNewsData.commentCount}
-				</li>
-<%-- 				<div>
-				<ul class="mui-table-view">
-					<c:forEach items="${MxNewsCommentList}" var="item" varStatus="status">  
-						<li class="mui-table-view-cell mui-media">
-							<a href="weixin/newsPage.action?newsId=${item.newsId}">
-								<img class="mui-media-object mui-pull-left" src="<%=basePath%>WeixinPages/common/images/shuijiao.jpg">
-								<div class="mui-media-body">
-									昵称：${item.operator}   点赞数      回复
-									<p class='mui-ellipsis'>${item.commentTxt}</p>
-								</div>
-							</a>
-						</li>
-				    </c:forEach>
-	
-				</ul>
-				</div> --%>
 			</div>
 		  </div>
 		   
 		  <div style="height:100px;background:#fff;"></div>
 		</div>
-		<div id="controller" style="bottom: 0;position: fixed;z-index: 10;right: 0;left: 0;border:1px solid gray;height:50px;background:#fff;">
-		  <a href="javascript:void(0);" onclick="ShowDiv('MyDiv','fade');">
-		    <input type="text" style="border-radius:15px;width:100px;margin-top:4px;margin-left:5px;font-size:15px;background:url(<%=basePath%>WeixinPages/common/images/icons/pencil.png) no-repeat 0 center;background-attachment:fixed;background-position:10 center;padding-left:20px;" value="写评论..."/>
-		  </a>
-		</div>
-		<div id="fade" class="black_overlay" onclick="CloseDiv('MyDiv','fade');"></div>
-	    <div id="MyDiv" class="white_content">
-	        <textarea id="commentTxt" rows="5" placeholder="优秀的评论会获得更多的赞哦" style='border:1px solid gray;margin:6px 2%;width:96%;'></textarea>
-			<a href="javascript:void(0);" onclick="submitCommit();" style="width:70px;float:right;">发表</a>
-	    </div>
- <script type="text/javascript">
-        //弹出隐藏层
-        function ShowDiv(show_div, bg_div) {
-            document.getElementById(show_div).style.display = 'block';
-            document.getElementById(bg_div).style.display = 'block';
-            var bgdiv = document.getElementById(bg_div);
-            bgdiv.style.width = document.body.scrollWidth;
-            // bgdiv.style.height = $(document).height();
-            $("#" + bg_div).height($(document).height());
-            //添加焦点
-            document.getElementById("commentTxt").focus();
-        };
-        //关闭弹出层
-        function CloseDiv(show_div, bg_div) {
-            document.getElementById(show_div).style.display = 'none';
-            document.getElementById(bg_div).style.display = 'none';
-        };
-</script>
 <script src="<%=basePath%>WeixinPages/common/js/mui.min.js "></script>
 <script src="<%=basePath%>WeixinPages/common/js/mui.view.js "></script>
 <%-- <script src='<%=basePath%>WeixinPages/common/js/feedback.js'></script> --%>
@@ -258,36 +224,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 </script>
 <script type="text/javascript" src="<%=basePath%>WeixinPages/common/js/jquery-1.11.2.js"></script>
-<script type="text/javascript">
-	function submitCommit(){
-		var commentTxt = $("#commentTxt").val().trim();
-		if(commentTxt==null || commentTxt==""){
-			mui.toast("评论内容不能为空！");
-			return;
-		}
-		$.ajax({
-			type: "post",
-			url: "weixin/addNewsComment.action",
-			data: {newsId:"${MxNewsData.newsId}",
-				   commentTxt:commentTxt},
-		    dataType: 'json',//接收回调数据形式
-			success: function (data) {
-				    //var data = JSON.parse(jsonstr); 
-				    console.log(data);
-					if(data.data.success){
-						mui.toast(data.data.msg);
-						//刷新页面或者跳转到管理界面
-						//CloseDiv('MyDiv','fade');
-						//$("#commentTxt").val("");
-						window.location.reload();
-					}; 
-			},
-			error: function (msg) {
-				mui.toast("评论失败，请联系管理员！");
-			}
-		});
-	}
-</script>
 <script src="<%=basePath%>WeixinPages/common/dropload/dropload.min.js "></script>
 <script type="text/javascript">
 // 对Date的扩展，将 Date 转化为指定格式的String
@@ -365,7 +301,7 @@ return result;
 	        loadDownFn : function(me){
 	            $.ajax({
 	                type: 'GET',
-	                url: '<%=basePath%>mxNewsBusinessAction/getNewsCommentByNewsId.action?newsId=${MxNewsData.newsId}', 
+	                url: '<%=basePath%>mxNewsBusinessAction/getNewsCommentByUserId.action?userId=${MxUsersData.userId}', 
 	                dataType: 'json',
 	                success: function(data){
 	                	//无数据
@@ -389,7 +325,7 @@ return result;
 		                        				+'<img src="'+data.lists[i].weixinHeadUrl+'" alt="">'
 		                        				+'</div>'
 											    +'<div class="commentHead">'
-											        +'<a class="weixinNikeName" onclick="userComments('+data.lists[i].operator+');">'+data.lists[i].weixinNikeName+'</a>'
+											        +'<div class="weixinNikeName">'+data.lists[i].weixinNikeName+'</div>'
 												+'<span class="date">'+getDateDiff(getDateTimeStamp((data.lists[i].createDate).replace(/-/g,"/").replace("T"," ")))+'</span>'
 												+'<span class="commentController">   <input id="commentPraiseNum'+i+'" value="'+data.lists[i].praiseNum+'" readonly style="border:0;width:20px;font-size:8px;text-align:right;padding:2px;"/>' 
 												    +'<a id="commentPraise'+i+'" style="color:'+((data.lists[i].praiseState==0)?'#aaa':'#007aff')+';"><span id="praiseSpan" class="mui-icon-extra mui-icon-extra-like" onclick="commentPraise('+i+','+data.lists[i].commentId+');" title="'+((data.lists[i].praiseState==0)?'点赞':'取消点赞')+'"></span></a>' 
@@ -397,7 +333,15 @@ return result;
 												    +'<a id="commentBack'+i+'" style="color:#aaa;" onclick="commentBack('+i+','+data.lists[i].commentId+');"><span class="mui-icon mui-icon-chat" title="回复"></span></a>    </span>'
 											    +'</div>'
 										    +'</div>'
-										    +'<div class="commentTxt">'+data.lists[i].commentTxt+'</div>';
+										    +'<div class="commentTxt">'+data.lists[i].commentTxt+'</div>'
+										    +'<div class="newsInfo">'
+/* 												+'<div class="weixinHeadUrl">'
+		                        				+'<img src="'+data.lists[i].weixinHeadUrl+'" alt="">'
+		                        				+'</div>' */
+		                        				+'<a onclick="toNewsPage('+data.lists[i].newsId+');" title="文章">'
+		                        					+'<div class="newsHeadline" >'+data.lists[i].newsHeadline+'</div>'
+										    	+'</a>'
+										    +'</div>';
 										  +'</li>';
 	                        if((i + 1) >= data.lists.length){
 	                            // 锁定
@@ -524,9 +468,9 @@ function commentBack(index,commentId){
     var url = "mxNewsBusinessAction/commentBackPage.action?commentId="+commentId;
 	window.location.href = url;
 }
-//用户评论页面
-function userComments(userId){
-    var url = "mxNewsBusinessAction/userCommentsPage.action?userId="+userId;
+//文章
+function toNewsPage(newsId){
+	var url = "weixin/newsPage.action?newsId="+newsId;
 	window.location.href = url;
 }
 </script>

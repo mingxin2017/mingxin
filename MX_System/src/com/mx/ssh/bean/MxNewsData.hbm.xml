@@ -49,5 +49,13 @@
         <property name="state" type="integer">
             <column name="state" not-null="true" />
         </property>
+        <property name="createDateStr" formula="(select convert(varchar(19),create_date, 120))">
+        </property>
+        <property name="praiseNum" formula="(select count(1) from MXDB.dbo.MX_news_praise s where s.news_id = news_id)">
+        </property>
+        <property name="praiseState" formula="(select count(1) from MXDB.dbo.MX_news_praise s where s.news_id = news_id and s.operator = news_writerID)">
+        </property>
+        <property name="commentCount" formula="(select count(1) from MXDB.dbo.MX_news_comment s where s.news_id = news_id)">
+        </property>
     </class>
 </hibernate-mapping>

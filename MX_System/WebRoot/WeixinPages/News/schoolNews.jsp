@@ -102,20 +102,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="title">
 				缩略图居左
 			</div>
-			<ul class="mui-table-view">
-				<c:forEach items="${MxNewsDataList}" var="item" varStatus="status">  
-					<li class="mui-table-view-cell mui-media">
-						<a href="weixin/newsPage.action?newsId=${item.newsId}">
-							<img class="mui-media-object mui-pull-left" src="<%=basePath%>WeixinPages/common/images/shuijiao.jpg">
-							<div class="mui-media-body">
-								标题：${item.newsHeadline}
-								<p class='mui-ellipsis'>引言：${item.newsLeadText}</p>
-							</div>
-						</a>
-					</li>
-			    </c:forEach>
-
-			</ul>
+				<ul class="mui-table-view">
+					<c:forEach items="${MxNewsDataList}" var="item" varStatus="status">  
+						<li class="mui-table-view-cell mui-media">
+							<a href="weixin/newsPage.action?newsId=${item.newsId}">
+								<img class="mui-media-object mui-pull-left" src="<%=basePath%>WeixinPages/common/images/shuijiao.jpg">
+								<div class="mui-media-body">
+									标题：${item.newsHeadline}
+									<p class='mui-ellipsis'>引言：${item.newsLeadText}</p>
+								</div>
+							</a>
+						</li>
+				    </c:forEach>
+			   </ul>
 			<div class="title">
 				缩略图居右
 			</div>

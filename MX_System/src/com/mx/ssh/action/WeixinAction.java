@@ -34,6 +34,7 @@ import org.springframework.stereotype.Controller;
 
 import sun.misc.BASE64Decoder;
 
+import com.mx.ssh.bean.MxNewsComment;
 import com.mx.ssh.bean.MxNewsContent;
 import com.mx.ssh.bean.MxNewsData;
 import com.mx.ssh.bean.MxRegion;
@@ -430,6 +431,8 @@ public class WeixinAction {
 		request.setCharacterEncoding("UTF-8");
 		String newsId = request.getParameter("newsId");
 		request.setAttribute("MxNewsData", weixinNewsService.getNewsById(newsId));
+		request.setAttribute("MxNewsCommentList", weixinNewsService.getCommentByNewsId(newsId));
+/*		request.setAttribute("CountComment", weixinNewsService.getCountCommentByNewsId(newsId));*/
 		return "newsPage";
 	}
 	
@@ -561,7 +564,7 @@ public class WeixinAction {
 	//demo:返回服务器appid、签名、noncestr、timestamp
 	@Action( value = "getJDSDKTicket", results = @Result(name="result" ,type = "json", params = {  
             "noCache", "true",         // 是否启用缓存  
-            "enableGZIP", "true",      // 是否对响应JSON启用GZIP  
+            "enableGZIP", "false",      // 是否对响应JSON启用GZIP  
             "contentType", "text/html;charset=utf-8",// 设置响应的内容类型  
             "root", "dataMap",         // 设置根对象  
             "ignoreHierarchy", "true"  // 忽略基类  
@@ -586,5 +589,38 @@ public class WeixinAction {
 		logger.info(ticket.toString());
 		request.setAttribute("JDSDKTicket", ticket);
 		return "JDSDKIndex";
+	}
+	//demo:遮盖层
+	@Action(value = "fade", results = { @Result(name = "fade", location = "/WeixinPages/News/fade.jsp") })
+	public String fade(){
+		return "fade";
+	}
+	//添加评论
+	@Action( value = "addNewsComment", results = @Result(name="result" ,type = "json", params = {  
+            "noCache", "true",         // 是否启用缓存  
+            "enableGZIP", "false",      // 是否对响应JSON启用GZIP  
+            "contentType", "text/html;charset=utf-8",// 设置响应的内容类型  
+            "root", "dataMap",         // 设置根对象  
+            "ignoreHierarchy", "true"  // 忽略基类  
+    })) 
+	public String addNewsComment() throws UnsupportedEncodingException{
+		HttpServletRequest request = ServletActionContext.getRequest();
+		request.setCharacterEncoding("UTF-8");
+		String userId = (String) request.getSession().getAttribute("userId");
+		String newsId = request.getParameter("newsId");
+		String commentTxt = request.getParameter("commentTxt");
+		MxNewsComment comment = new MxNewsComment();
+		comment.setOperator(Integer.parseInt(userId));
+		comment.setCommentTxt(commentTxt);
+		comment.setNewsId(Integer.parseInt(newsId));
+		comment.setPraiseClickNum(0);
+		comment.setCreateDate(new Date());
+		weixinNewsService.addComment(comment);
+		
+		MsgResult msg = new MsgResult();
+	    msg.setMsg("评论成功！");
+	    dataMap = new HashMap<String, Object>();      
+        dataMap.put("data", msg);
+		return "result";
 	}
 }
