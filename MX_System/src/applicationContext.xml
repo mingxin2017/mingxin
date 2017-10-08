@@ -15,7 +15,7 @@
       http://www.springframework.org/schema/tx   
       http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
       http://www.springframework.org/schema/task
-	  http://www.springframework.org/schema/task/spring-task-3.2.xsd"
+	  http://www.springframework.org/schema/task/spring-task.xsd"
        default-autowire="byName" default-lazy-init="false"> 
 
 	<!-- <bean id="userLoginAction" class="com.action.UserLoginAction"></bean> -->
