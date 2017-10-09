@@ -3,6 +3,7 @@ package com.mx.ssh.action;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import com.mx.ssh.bean.MxActivitiesData;
+import com.mx.ssh.bean.MxUsersData;
 import com.mx.ssh.bean.PageBean;
 import com.mx.ssh.service.IActivitiesService;
 import com.mx.ssh.util.ImageMethod;
@@ -173,8 +175,31 @@ public class ActivitiesAction extends ActionSupport {
         response.getWriter().write(jsonObject.toString()); 
 
 	}
+	
+	
+	/*
+	 * 添加系统管理员
+	 */
+	@Action(value = "addActivity")
+	public void addActivity() throws IOException{
+		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
+		request.setCharacterEncoding("UTF-8");
+		HttpServletResponse response = ServletActionContext.getResponse();// response对象返回数据给前台
+		response.setContentType("application/json; charset=utf-8");
 		
-	
-	
+		boolean isDone=activitiesService.addActivity(request);
+		
+		Map<String, String> map = new HashMap<String, String>();
+		if (!isDone) {
+			map.put("done", "-1");
+			map.put("msg", "添加活动失败!");
+		} else {
+			map.put("done", "0");
+			map.put("msg", "成功添加活动!");
+		}
+		JSONObject jsonObject = JSONObject.fromObject(map);
+		response.getWriter().write(jsonObject.toString());
+	}
+		
 	
 }

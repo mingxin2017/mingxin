@@ -14,139 +14,170 @@
 <meta charset="utf-8">
 <meta name="renderer" content="webkit|ie-comp|ie-stand">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
 <!--[if lt IE 9]>
 <script type="text/javascript" src="lib/html5shiv.js"></script>
 <script type="text/javascript" src="lib/respond.min.js"></script>
 
 <![endif]-->
-<link rel="stylesheet" type="text/css" href="<%=basePath%>SystemPages/common/static/h-ui/css/H-ui.min.css" />
-<link rel="stylesheet" type="text/css" href="<%=basePath%>SystemPages/common/static/h-ui.admin/css/H-ui.admin.css" />
-<link rel="stylesheet" type="text/css" href="<%=basePath%>SystemPages/common/lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css"
+	href="<%=basePath%>SystemPages/common/static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css"
+	href="<%=basePath%>SystemPages/common/static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css"
+	href="<%=basePath%>SystemPages/common/lib/Hui-iconfont/1.0.8/iconfont.css" />
 
-<link rel="stylesheet" type="text/css" href="<%=basePath%>SystemPages/common/static/h-ui.admin/skin/default/skin.css" id="skin" />
-<link rel="stylesheet" type="text/css" href="<%=basePath%>SystemPages/common/static/h-ui.admin/css/style.css" />
+<link rel="stylesheet" type="text/css"
+	href="<%=basePath%>SystemPages/common/static/h-ui.admin/skin/default/skin.css"
+	id="skin" />
+<link rel="stylesheet" type="text/css"
+	href="<%=basePath%>SystemPages/common/static/h-ui.admin/css/style.css" />
 <!--[if IE 6]>
 <script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
 <!--/meta 作为公共模版分离出去-->
 
-<link href="<%=basePath%>SystemPages/common/lib/webuploader/0.1.5/webuploader.css" rel="stylesheet" type="text/css" />
+<link
+	href="<%=basePath%>SystemPages/common/lib/webuploader/0.1.5/webuploader.css"
+	rel="stylesheet" type="text/css" />
 
 </head>
 <body>
-<article class="page-container">
-	<form action="" method="post" class="form form-horizontal" id="form-article-add">
-		<div class="row cl" style="background-color:#C6E2FF;text-align:center;">活动信息</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>活动主题：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="输入活动主题" id="activitiesName," name="activitiesName,">
+	<article class="page-container">
+		<form class="form form-horizontal" id="form-activity-add">
+			<div class="row cl"
+				style="background-color:#C6E2FF;text-align:center;">活动信息</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-2"><span
+					class="c-red">*</span>活动主题：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" value=""
+						placeholder="输入活动主题(10个汉字以内)" id="activitiesName"
+						name="activitiesName">
+				</div>
 			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>活动类型：</label>
-			<div class="formControls col-xs-8 col-sm-9"> 
-				<span class="select-box">
-					<select name="" class="select">
-						<option value="0">旅游类</option>
-						<option value="1">户外拓展</option>
-						<option value="11">周年聚会</option>
-						<option value="12">商业活动</option>
-						<option value="13">其他</option>
-					</select>
-				</span> 
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-2"><span
+					class="c-red">*</span>活动类型：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<span class="select-box"> 
+					<select class="select" id="activityType" name="activityType">
+							<option value="" selected>请选择类型</option>
+							<option value="1">周年聚会</option>
+							<option value="2">素质拓展</option>
+							<option value="3">旅游类</option>
+							<option value="4">商业活动</option>
+							<option value="5">其他</option>
+					</select> </span>
+				</div>
 			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">活动描述：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<textarea name="" cols="" rows="" class="textarea"  placeholder="输入活动描述...最少输入10个字符" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="$.Huitextarealength(this,200)"></textarea>
-				<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-2">活动描述：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<textarea id="activityDescribe" name="activityDescribe"
+						class="textarea" placeholder="输入活动描述...最少输入5个字"
+						datatype="*10-100"></textarea>
+
+				</div>
 			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">活动人数：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				下限<input type="text" name="" id="" placeholder="下限" value="" class="input-text " style=" width:25%">
-				人——上限
-				<input type="text" name="" id="" placeholder="上限" value="" class="input-text " style=" width:25%">
-				人
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-2">活动人数：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					下限<input type="text" name="numLower" id="numLower"
+						placeholder="0-10之间" value="" class="input-text "
+						style=" width:25%"> 人——上限 <input type="text"
+						name="numUper" id="numUper" placeholder="10-500之间" value=""
+						class="input-text " style=" width:25%"> 人
+				</div>
 			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">活动封面上传：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<div class="uploader-list-container">
-					<div class="queueList">
-						<div id="dndArea" class="placeholder">
-							<div id="filePicker-2"></div>
-							
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-2">活动封面上传：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<div class="uploader-list-container">
+						<div class="queueList">
+							<div id="dndArea" class="placeholder">
+								<div id="filePicker-2"></div>
+
+							</div>
 						</div>
-					</div>
-					<div class="statusBar" style="display:none;">
-						<div class="progress"> <span class="text">0%</span> <span class="percentage"></span> </div>
-						<div class="info"></div>
-						<div class="btns">
-							<div id="filePicker2"></div>
-							
+						<div class="statusBar" style="display:none;">
+							<div class="progress">
+								<span class="text">0%</span> <span class="percentage"></span>
+							</div>
+							<div class="info"></div>
+							<div class="btns">
+								<div id="filePicker2"></div>
+
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="row cl" style="background-color:#C6E2FF;text-align:center;">空间信息</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">空间标题：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="输入活动空间标题" id="myspaceName" name="myspaceName">
+			<div class="row cl"
+				style="background-color:#C6E2FF;text-align:center;">空间信息</div>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-2">空间标题：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" value=""
+						placeholder="输入活动空间标题(10个汉字以内)" id="myspaceName"
+						name="myspaceName">
+				</div>
 			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2">空间简介：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<textarea name="" cols="" rows="" class="textarea"  placeholder="输入活动空间简介...最少输入10个字符" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="$.Huitextarealength(this,200)"></textarea>
-				<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-2">空间简介：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<textarea name="myspaceDescribe" id="myspaceDescribe"
+						class="textarea" placeholder="输入活动空间简介...最少输入5个字"
+						datatype="*10-100"></textarea>
+
+				</div>
 			</div>
-		</div>
-		
-		
-		<div class="row cl">
-			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-				<button onClick="article_save_submit();" class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存并提交审核</button>
-				<%--<button onClick="article_save();" class="btn btn-secondary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存草稿</button>
-				--%>
-				<button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+
+
+			<div class="row cl">
+				<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+					<input class="btn btn-primary radius" type="submit"
+						value="&nbsp;&nbsp;保存&nbsp;&nbsp;">
+					<%--<button onClick="article_save();" class="btn btn-secondary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存草稿</button>--%>
+					<button onClick="layer_close();" class="btn btn-default radius"
+						type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+				</div>
 			</div>
-		</div>
-		<input id="imgURL" type="text" style="display:none" />
-	</form>
-</article>
+			<input id="imgURL" type="text" style="display:none" />
+		</form>
+	</article>
 
-<!--_footer 作为公共模版分离出去--> 
-<script type="text/javascript" src="<%=basePath%>SystemPages/common/lib/jquery/1.9.1/jquery.min.js"></script> 
-<script type="text/javascript" src="<%=basePath%>SystemPages/common/lib/layer/2.4/layer.js"></script>
-<script type="text/javascript" src="<%=basePath%>SystemPages/common/static/h-ui/js/H-ui.min.js"></script> 
-<script type="text/javascript" src="<%=basePath%>SystemPages/common/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+	<!--_footer 作为公共模版分离出去-->
+	<script type="text/javascript"
+		src="<%=basePath%>SystemPages/common/lib/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript"
+		src="<%=basePath%>SystemPages/common/lib/layer/2.4/layer.js"></script>
+	<script type="text/javascript"
+		src="<%=basePath%>SystemPages/common/static/h-ui/js/H-ui.min.js"></script>
+	<script type="text/javascript"
+		src="<%=basePath%>SystemPages/common/static/h-ui.admin/js/H-ui.admin.js"></script>
+	<!--/_footer 作为公共模版分离出去-->
 
-<!--请在下方写此页面业务相关的脚本-->
-<script type="text/javascript" src="<%=basePath%>SystemPages/common/lib/My97DatePicker/4.8/WdatePicker.js"></script>
-<script type="text/javascript" src="<%=basePath%>SystemPages/common/lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
-<script type="text/javascript" src="<%=basePath%>SystemPages/common/lib/jquery.validation/1.14.0/validate-methods.js"></script> 
-<script type="text/javascript" src="<%=basePath%>SystemPages/common/lib/jquery.validation/1.14.0/messages_zh.js"></script>
-<script type="text/javascript" src="<%=basePath%>SystemPages/common/lib/webuploader/0.1.5/webuploader.min.js"></script> 
-<script type="text/javascript" src="<%=basePath%>SystemPages/common/lib/ueditor/1.4.3/ueditor.config.js"></script>
-<script type="text/javascript" src="<%=basePath%>SystemPages/common/lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
-<script type="text/javascript" src="<%=basePath%>SystemPages/common/lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+	<!--请在下方写此页面业务相关的脚本-->
+	<script type="text/javascript"
+		src="<%=basePath%>SystemPages/common/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+	<script type="text/javascript"
+		src="<%=basePath%>SystemPages/common/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+	<script type="text/javascript"
+		src="<%=basePath%>SystemPages/common/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+	<script type="text/javascript"
+		src="<%=basePath%>SystemPages/common/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+	<script type="text/javascript"
+		src="<%=basePath%>SystemPages/common/lib/webuploader/0.1.5/webuploader.min.js"></script>
 
-<script type="text/javascript">
-
-
-(function( $ ){
-    // 当domReady的时候开始初始化
-    $(function() {
+	<script type="text/javascript">
+$(function() {
+	
+	
+	
         var $wrap = $('.uploader-list-container'),
 
             // 图片容器
@@ -177,11 +208,9 @@
             ratio = window.devicePixelRatio || 1,
 
             // 缩略图大小
-            //thumbnailWidth = 400 * ratio,
-            //thumbnailHeight = 400 * ratio,
+            thumbnailWidth = 400 * ratio,
+            thumbnailHeight = 400 * ratio,
             
-            thumbnailWidth = 400,
-            thumbnailHeight = 400,
 
             // 可能有pedding, ready, uploading, confirm, done.
             state = 'pedding',
@@ -347,7 +376,8 @@
         	var imgU = response.imgSrc; //上传图片的路径
         	//alert(imgU);
         	//$(#imgURL).val(imgurl);
-        	document.getElementById("imgURL").value=imgU;
+        	$("#imgURL").val(imgU);
+        	//alert($("#imgURL").val());
         });
 
         uploader.on('ready', function() {
@@ -672,12 +702,82 @@
         updateTotalProgress();
     });
 
-})( jQuery );
-
+//提交表单方法，验证
+$("#form-activity-add").validate({
+	rules:{
+		activitiesName:{
+			required:true,
+			minlength:3,
+			maxlength:20
+		},
+		activityDescribe:{
+			required:true,
+			minlength:5,
+			maxlength:100
+		},
+		numLower:{
+			required:true,
+			digits:true,//输入整数
+			range:[0,10]//0-10之间的数字
+		},
+		numUper:{
+			required:true,
+			digits:true,//输入整数
+			range:[10,500]//10-500之间的数字
+		},
+		myspaceName:{
+			required:true,
+			minlength:3,
+			maxlength:20
+		},
+		myspaceDescribe:{
+			required:true,
+			minlength:5,
+			maxlength:100
+		},
+		activityType:{
+			required:true,
+		},
+	},
+	onkeyup:false,
+	focusCleanup:true,
+	success:"valid",
+	submitHandler:function(form){
+		alert(1111);
+		var imgURL=$("#imgURL").val();
+		if(imgURL==''){
+			alert("请先上传活动封面图片");
+			return;
+		}
+		
+		var url='addActivity.action?imgURL='+imgURL;
+		$(form).ajaxSubmit({
+			type: 'post',
+			url: url,
+			success: function(data){
+				alert(data.msg);
+				//if(data.done=='0'){
+				//	layer.msg('添加管理员成功',{icon:1,time:15000});
+				//}else{
+				//	layer.msg('添加管理员失败',{icon:1,time:15000});
+				//}
+				var index = parent.layer.getFrameIndex(window.name);
+				var refresh=parent.document.getElementById('btn-refresh');
+				refresh.click();
+				parent.layer.close(index);
+			},
+            error: function(XmlHttpRequest, textStatus, errorThrown){
+            	alert('错误');
+            	//layer.msg('error!',{icon:1,time:1000});
+			}
+		});
+		
+	}
+});
 
 </script>
 
 
-<!--/请在上方写此页面业务相关的脚本-->
+	<!--/请在上方写此页面业务相关的脚本-->
 </body>
 </html>

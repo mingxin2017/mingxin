@@ -83,7 +83,7 @@
 				id="tableList">
 				<thead class="text-c">
 					<tr class="text-c">
-						<th width="39px"><input type="checkbox" name="" value="">全选</th>
+						
 						<th>封面图片</th>
 						<th>创建者</th>
 						<th>活动主题</th>
@@ -102,17 +102,28 @@
 				<tbody>
 					<c:forEach items="${allActivities.list}" var="item">
 						<tr class="text-c">
-							<td><input type="checkbox" value="${item.activitiesId}"
-								name="activitiesIds"></td>
+							
 							<td><img width="100" class="picture-thumb" src="${fn:trim(item.coverImageUrl)}"></td>
 							<td>${item.mxUsersData.userRealName}</td>
 							<td>${item.activitiesName}</td>
 							
-							<td class="td-status"><c:if test="${item.activitiesTypeId eq 1}">
+							<td class="td-status">
+								<c:if test="${item.activitiesTypeId eq 1}">
 									<span class="label label-default radius">周年聚会</span>
-								</c:if> <c:if test="${item.activitiesTypeId eq 2}">
+								</c:if> 
+								<c:if test="${item.activitiesTypeId eq 2}">
 									<span class="label label-default radius">素质拓展</span>
-								</c:if></td>
+								</c:if>
+								<c:if test="${item.activitiesTypeId eq 3}">
+									<span class="label label-default radius">旅游类</span>
+								</c:if>
+								<c:if test="${item.activitiesTypeId eq 4}">
+									<span class="label label-default radius">商业活动</span>
+								</c:if>
+								<c:if test="${item.activitiesTypeId eq 5}">
+									<span class="label label-default radius">其他</span>
+								</c:if>
+								</td>
 							<td>${item.activitiesDescribe}</td>
 							<td class="td-status"><c:if test="${item.state eq 0}">
 									<span class="label label-success radius">正常</span>

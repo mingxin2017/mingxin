@@ -11,6 +11,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import com.mx.ssh.bean.MxActivitiesData;
+import com.mx.ssh.bean.MxActivitiesMySpaceData;
 import com.mx.ssh.bean.MxUsersData;
 import com.mx.ssh.dao.IActivitiesDAO;
 import com.mx.ssh.util.PageHibernateCallback;
@@ -64,6 +65,20 @@ public class ActivitiesDAOImpl extends HibernateDaoSupport implements IActivitie
 	        Query q= session.createQuery("delete from MxActivitiesData where "+hql);
 	        q.executeUpdate();
 	        return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public boolean addActivity(MxActivitiesData act,MxActivitiesMySpaceData space) {
+		// TODO Auto-generated method stub
+		try{
+			getHibernateTemplate().save(act);
+			int id=act.getActivitiesId();
+			space.setActivitiesId(id);
+			getHibernateTemplate().save(space);
+			return true;
 		}catch(Exception e){
 			e.printStackTrace();
 			return false;
