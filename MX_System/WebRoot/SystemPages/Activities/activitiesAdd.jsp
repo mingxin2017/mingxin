@@ -88,7 +88,7 @@
 				<div class="formControls col-xs-8 col-sm-9">
 					下限<input type="text" name="numLower" id="numLower"
 						placeholder="0-10之间" value="" class="input-text "
-						style=" width:25%"> 人——上限 <input type="text"
+						style="width:25%"> 人——上限 <input type="text"
 						name="numUper" id="numUper" placeholder="10-500之间" value=""
 						class="input-text " style=" width:25%"> 人
 				</div>

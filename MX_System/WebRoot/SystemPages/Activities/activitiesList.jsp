@@ -146,8 +146,8 @@
 							</td>
 							<td class="td-space">
 								<a title="空间管理" href="javascript:;"
-								onclick="act_flow(this,'${item.activitiesId}')" class="ml-5"
-								style="text-decoration:none">
+								onclick="space_manage('空间管理','activitiesAction/gotoSpaceManage.action?activitiesId=${item.activitiesId}','','')"
+								class="ml-5" style="text-decoration:none">
 								<i class="Hui-iconfont">&#xe693;空间管理</i>
 								</a>
 							</td>
@@ -398,6 +398,12 @@ function user_stop_open(obj,op,id){
 
 /*活动-新增*/
 function act_add(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+
+/*活动空间-管理*/
+function space_manage(title,url,w,h){
+	//alert(2222222);
 	layer_show(title,url,w,h);
 }
 

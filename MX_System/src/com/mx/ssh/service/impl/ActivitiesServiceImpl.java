@@ -74,6 +74,12 @@ public class ActivitiesServiceImpl implements IActivitiesService {
 		
 		return activitiesDAO.addActivity(act,space);
 	}
+
+	public MxActivitiesMySpaceData getSpaceByActivityId(int activitiesId) {
+		// TODO Auto-generated method stub
+		
+		return activitiesDAO.getSpaceByActivityId(activitiesId);
+	}
 	
 	
 }

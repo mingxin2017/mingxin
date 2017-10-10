@@ -15,6 +15,8 @@ public interface IActivitiesDAO {
 	boolean deleteActivities(List<Integer> idList);
 
 	boolean addActivity(MxActivitiesData act, MxActivitiesMySpaceData space);
+
+	MxActivitiesMySpaceData getSpaceByActivityId(int activitiesId);
 	
 	
 	

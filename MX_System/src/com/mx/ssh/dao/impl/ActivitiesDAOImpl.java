@@ -84,6 +84,15 @@ public class ActivitiesDAOImpl extends HibernateDaoSupport implements IActivitie
 			return false;
 		}
 	}
+
+	public MxActivitiesMySpaceData getSpaceByActivityId(int activitiesId) {
+		// TODO Auto-generated method stub
+		String hql="from MxActivitiesMySpaceData where activitiesId="+activitiesId;
+		
+		MxActivitiesMySpaceData s=(MxActivitiesMySpaceData) getHibernateTemplate().find(hql).get(0);
+		
+		return s;
+	}
 	
 
 

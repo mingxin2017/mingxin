@@ -2,6 +2,7 @@ package com.mx.ssh.action;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -19,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import com.mx.ssh.bean.MxActivitiesData;
+import com.mx.ssh.bean.MxActivitiesMySpaceData;
 import com.mx.ssh.bean.MxUsersData;
 import com.mx.ssh.bean.PageBean;
 import com.mx.ssh.service.IActivitiesService;
@@ -133,6 +135,26 @@ public class ActivitiesAction extends ActionSupport {
 			@Result(name = "addActivities", location = "/SystemPages/Activities/activitiesAdd.jsp")})
 	public String gotoActivitiesAdd(){
 		return "addActivities";
+	}
+	
+	
+	/*
+	 * 管理活动空间页面
+	 */
+	@Action(value = "gotoSpaceManage", results = { 
+			@Result(name = "gotoSpaceManage", location = "/SystemPages/ActivitiesMySpace/activitySpaceEdit.jsp")})
+	public String gotoSpaceManage() throws IOException{
+		
+		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
+		request.setCharacterEncoding("UTF-8");
+		
+		int activitiesId=Integer.parseInt(request.getParameter("activitiesId").trim()); 
+		
+		MxActivitiesMySpaceData activitySpace=activitiesService.getSpaceByActivityId(activitiesId);
+		
+		request.setAttribute("activitySpace", activitySpace);
+		
+		return "gotoSpaceManage";
 	}
 	
 	
