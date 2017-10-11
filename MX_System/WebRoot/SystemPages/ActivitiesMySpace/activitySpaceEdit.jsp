@@ -60,7 +60,7 @@
 				<label class="form-label col-xs-4 col-sm-3"><span
 					class="c-red">*</span>空间封面图片：</label>
 				<div class="formControls col-xs-8 col-sm-9">
-					<div><img id="imgPreview" name="imgPreview" src="${activitySpace.coverImageUrl}" height="150" width="150" /></div>
+					<div id="imgDiv"><img id="imgPreview" name="imgPreview" src="${activitySpace.coverImageUrl}" height="150" width="150" /></div>
 					<div id="picker" name="picker">选择封面图片</div>
 				</div>
 			</div>
@@ -68,18 +68,20 @@
 				<label class="form-label col-xs-4 col-sm-3"><span
 					class="c-red">*</span>空间描述：</label>
 				<div class="formControls col-xs-8 col-sm-9">
-					<textarea name="others" id="others" cols="" rows=""
-						class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true"
-						onKeyUp="$.Huitextarealength(this,100)"></textarea>
+					<textarea name="describe" id="describe" cols="" rows=""
+						class="textarea" placeholder="空间描述...100个字符以内" dragonfly="true"
+						onKeyUp="$.Huitextarealength(this,100)">${activitySpace.describe}</textarea>
 					
 				</div>
 			</div>
 			<div class="row cl">
 				<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
 					<input class="btn btn-primary radius" type="submit"
-						value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+						value="&nbsp;&nbsp;保存修改&nbsp;&nbsp;">
 				</div>
 			</div>
+			<input id="imgURL" type="text" style="display:none" value="${activitySpace.coverImageUrl}"/>
+			
 		</form>
 	</article>
 
@@ -151,78 +153,66 @@
 			            return;
 			        }
 					var img=$('#imgPreview');
+					
 			        img.attr( 'src', src );
+			        
 			    }, 100, 100 );
 			});
 			
-			$("#form-admin-add")
-					.validate(
-							{
-								rules : {
-									adminName : {
-										required : true,
-										minlength : 3,
-										maxlength : 16
-									},
-									password : {
-										required : true,
-									},
-									password2 : {
-										required : true,
-										equalTo : "#password"
-									},
-									sex : {
-										required : true,
-									},
-									phone : {
-										required : true,
-										isPhone : true,
-									},
-									email : {
-										required : true,
-										email : true,
-									},
-									adminRole : {
-										required : true,
-									},
-								},
-								onkeyup : false,
-								focusCleanup : true,
-								success : "valid",
-								submitHandler : function(form) {
-									var url = 'addAdmin.action?number='
-											+ Math.random();
-									$(form)
-											.ajaxSubmit(
-													{
-														type : 'post',
-														url : url,
-														success : function(data) {
-															alert(data.msg);
-															//if(data.done=='0'){
-															//	layer.msg('添加管理员成功',{icon:1,time:15000});
-															//}else{
-															//	layer.msg('添加管理员失败',{icon:1,time:15000});
-															//}
-															var index = parent.layer
-																	.getFrameIndex(window.name);
-															var refresh = parent.document
-																	.getElementById('btn-refresh');
-															refresh.click();
-															parent.layer
-																	.close(index);
-														},
-														error : function(
-																XmlHttpRequest,
-																textStatus,
-																errorThrown) {
-															alert('错误');
-															//layer.msg('error!',{icon:1,time:1000});
-														}
-													});
-
-								}
-							});
+			//上传成功后
+	        uploader.on('uploadSuccess',function(file,response){
+	        	var imgU = response.imgSrc; //上传图片的路径
+	        	alert("图片替换成功！");
+	        	$("#imgURL").val(imgU);
+	        });
+			
+			//上传错误
+	        uploader.on('uploadError',function(file,response){
+	        	
+	        	alert("图片上传错误：！"+response);
+	        	
+	        });
+	        
+			
+			$("#form-admin-add").validate({
+					rules : {
+						myspaceName : {
+							required : true,
+							minlength : 3,
+							maxlength : 16
+						},
+						describe : {
+							required:true,
+							minlength:5,
+							maxlength:100
+						},
+							
+					},
+					onkeyup : false,
+					focusCleanup : true,
+					success : "valid",
+					submitHandler : function(form) {
+						if(window.confirm('确定要修改活动空间信息吗？')){		
+						var url = 'editActivitySpace.action?myspaceId=${activitySpace.myspaceId}';
+						$(form).ajaxSubmit({
+							type : 'post',
+							url : url,
+							success : function(data) {
+								alert(data.msg);
+															
+								var index = parent.layer.getFrameIndex(window.name);
+								var refresh = parent.document.getElementById('btn-refresh');
+								refresh.click();
+								parent.layer.close(index);
+							},
+							error : function(XmlHttpRequest,textStatus,errorThrown) {
+								alert('错误');
+								//layer.msg('error!',{icon:1,time:1000});
+							}
+						});
+						}
+					}
+				});
 		});
 	</script>
 	<!--/请在上方写此页面业务相关的脚本-->

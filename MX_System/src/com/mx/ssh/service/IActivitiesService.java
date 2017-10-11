@@ -18,5 +18,7 @@ public interface IActivitiesService {
 
 	MxActivitiesMySpaceData getSpaceByActivityId(int activitiesId);
 
+	boolean editActivitySpace(HttpServletRequest request);
+
 	
 }

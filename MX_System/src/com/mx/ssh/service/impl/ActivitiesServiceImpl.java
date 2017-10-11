@@ -80,6 +80,30 @@ public class ActivitiesServiceImpl implements IActivitiesService {
 		
 		return activitiesDAO.getSpaceByActivityId(activitiesId);
 	}
+
+	public boolean editActivitySpace(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		/*String activitiesName=request.getParameter("activitiesName");
+		String activityDescribe=request.getParameter("activityDescribe");
+		int numLower=Integer.parseInt(request.getParameter("numLower").trim());
+		int numUper=Integer.parseInt(request.getParameter("numUper").trim());
+		String myspaceName=request.getParameter("myspaceName");
+		String myspaceDescribe=request.getParameter("myspaceDescribe");
+		
+		int activityType=Integer.parseInt(request.getParameter("activityType").trim());
+		
+		String imgURL=request.getParameter("imgURL");
+		
+		MxUsersData mxUsersData=(MxUsersData) request.getSession().getAttribute("userInfo");
+		
+		MxActivitiesMySpaceData space=new MxActivitiesMySpaceData(-1, myspaceDescribe,
+				new Date(), new Date(), numUper,
+				numLower,0,imgURL,
+				myspaceName);
+		
+		return activitiesDAO.editActivitySpace(act,space);*/
+		return false;
+	}
 	
 	
 }

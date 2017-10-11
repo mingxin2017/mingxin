@@ -743,7 +743,7 @@ $("#form-activity-add").validate({
 	focusCleanup:true,
 	success:"valid",
 	submitHandler:function(form){
-		alert(1111);
+		//alert(1111);
 		var imgURL=$("#imgURL").val();
 		if(imgURL==''){
 			alert("请先上传活动封面图片");
