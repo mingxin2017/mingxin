@@ -93,6 +93,24 @@ public class ActivitiesDAOImpl extends HibernateDaoSupport implements IActivitie
 		
 		return s;
 	}
+
+	public MxActivitiesMySpaceData getSpaceBySpaceId(int myspaceId) {
+		// TODO Auto-generated method stub
+		String hql="from MxActivitiesMySpaceData where myspaceId="+myspaceId;
+		MxActivitiesMySpaceData s=(MxActivitiesMySpaceData) getHibernateTemplate().find(hql).get(0);
+		return s;
+	}
+
+	public boolean editActivitySpace(MxActivitiesMySpaceData space) {
+		// TODO Auto-generated method stub
+		try{
+			getHibernateTemplate().update(space);
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
 	
 
 

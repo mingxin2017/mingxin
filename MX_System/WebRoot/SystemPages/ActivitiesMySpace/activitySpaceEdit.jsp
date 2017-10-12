@@ -57,6 +57,16 @@
 				</div>
 			</div>
 			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3">空间人数：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					下限<input type="text" name="numLower" id="numLower"
+						placeholder="0-10之间" value="${activitySpace.lowerLimit}" class="input-text "
+						style="width:25%"> 人——上限 <input type="text"
+						name="numUper" id="numUper" placeholder="10-500之间" value="${activitySpace.upperLimit}"
+						class="input-text " style=" width:25%"> 人
+				</div>
+			</div>
+			<div class="row cl">
 				<label class="form-label col-xs-4 col-sm-3"><span
 					class="c-red">*</span>空间封面图片：</label>
 				<div class="formControls col-xs-8 col-sm-9">
@@ -80,7 +90,7 @@
 						value="&nbsp;&nbsp;保存修改&nbsp;&nbsp;">
 				</div>
 			</div>
-			<input id="imgURL" type="text" style="display:none" value="${activitySpace.coverImageUrl}"/>
+			<input id="imgURL" name="imgURL" type="text" style="display:none" value="${activitySpace.coverImageUrl}"/>
 			
 		</form>
 	</article>
@@ -174,7 +184,7 @@
 	        });
 	        
 			
-			$("#form-admin-add").validate({
+			$("#form-activitySpace-edit").validate({
 					rules : {
 						myspaceName : {
 							required : true,
@@ -185,6 +195,19 @@
 							required:true,
 							minlength:5,
 							maxlength:100
+						},
+						numLower:{
+							required:true,
+							digits:true,//输入整数
+							range:[0,10]//0-10之间的数字
+						},
+						numUper:{
+							required:true,
+							digits:true,//输入整数
+							range:[10,500]//10-500之间的数字
+						},
+						imgURL:{
+							required:true,
 						},
 							
 					},
@@ -198,8 +221,7 @@
 							type : 'post',
 							url : url,
 							success : function(data) {
-								alert(data.msg);
-															
+								alert(data.msg);			
 								var index = parent.layer.getFrameIndex(window.name);
 								var refresh = parent.document.getElementById('btn-refresh');
 								refresh.click();

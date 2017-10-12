@@ -83,26 +83,30 @@ public class ActivitiesServiceImpl implements IActivitiesService {
 
 	public boolean editActivitySpace(HttpServletRequest request) {
 		// TODO Auto-generated method stub
-		/*String activitiesName=request.getParameter("activitiesName");
-		String activityDescribe=request.getParameter("activityDescribe");
+		
+		int myspaceId=Integer.parseInt(request.getParameter("myspaceId").trim());
 		int numLower=Integer.parseInt(request.getParameter("numLower").trim());
 		int numUper=Integer.parseInt(request.getParameter("numUper").trim());
-		String myspaceName=request.getParameter("myspaceName");
-		String myspaceDescribe=request.getParameter("myspaceDescribe");
-		
-		int activityType=Integer.parseInt(request.getParameter("activityType").trim());
-		
 		String imgURL=request.getParameter("imgURL");
+		String describe=request.getParameter("describe");
 		
+		MxActivitiesMySpaceData space=activitiesDAO.getSpaceBySpaceId(myspaceId);
+		
+		space.setLowerLimit(numLower);
+		space.setUpperLimit(numUper);
+		space.setCoverImageUrl(imgURL);
+		space.setDescribe(describe);
+		space.setUpdateDate(new Date());
+		
+		/*String activitiesName=request.getParameter("activitiesName");
+		String activityDescribe=request.getParameter("activityDescribe");
+		String myspaceName=request.getParameter("myspaceName");
+		int activityType=Integer.parseInt(request.getParameter("activityType").trim());
+		*/
+
 		MxUsersData mxUsersData=(MxUsersData) request.getSession().getAttribute("userInfo");
+		return activitiesDAO.editActivitySpace(space);
 		
-		MxActivitiesMySpaceData space=new MxActivitiesMySpaceData(-1, myspaceDescribe,
-				new Date(), new Date(), numUper,
-				numLower,0,imgURL,
-				myspaceName);
-		
-		return activitiesDAO.editActivitySpace(act,space);*/
-		return false;
 	}
 	
 	
