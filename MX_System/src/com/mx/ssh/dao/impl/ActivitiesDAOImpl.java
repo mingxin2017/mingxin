@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.mx.ssh.bean.MxActivitiesData;
 import com.mx.ssh.bean.MxActivitiesMySpaceData;
 import com.mx.ssh.bean.MxUsersData;
+import com.mx.ssh.bean.PageBean;
 import com.mx.ssh.dao.IActivitiesDAO;
 import com.mx.ssh.util.PageHibernateCallback;
 
@@ -110,6 +111,24 @@ public class ActivitiesDAOImpl extends HibernateDaoSupport implements IActivitie
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	public PageBean<MxActivitiesData> searchActivity(String txtSearch) {
+		// TODO Auto-generated method stub
+		String hql="from MxActivitiesData where activitiesName like '%"+txtSearch+
+				"%' or activitiesDescribe like '%"+txtSearch+
+				"%'";
+	    List<MxActivitiesData> activities=this.getHibernateTemplate().find(hql);
+		
+		PageBean<MxActivitiesData> pageBean =new PageBean<MxActivitiesData>();
+        pageBean.setCurrentPage(1);
+        int limit=activities.size();//Ã¿Ò³ÊýÁ¿
+        pageBean.setPageSize(limit);
+        pageBean.setAllRow(limit);
+        int totalpage=1;
+        pageBean.setTotalPage(totalpage);
+        pageBean.setList(activities);
+        return pageBean;
 	}
 	
 

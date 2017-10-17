@@ -20,5 +20,7 @@ public interface IActivitiesService {
 
 	boolean editActivitySpace(HttpServletRequest request);
 
+	PageBean<MxActivitiesData> searchActivity(String txtSearch);
+
 	
 }

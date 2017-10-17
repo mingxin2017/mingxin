@@ -108,6 +108,11 @@ public class ActivitiesServiceImpl implements IActivitiesService {
 		return activitiesDAO.editActivitySpace(space);
 		
 	}
+
+	public PageBean<MxActivitiesData> searchActivity(String txtSearch) {
+		// TODO Auto-generated method stub
+		return activitiesDAO.searchActivity(txtSearch);
+	}
 	
 	
 }

@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
+
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
@@ -19,12 +21,16 @@ import org.apache.struts2.convention.annotation.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.mx.ssh.bean.MxActivitiesData;
 import com.mx.ssh.bean.MxActivitiesMySpaceData;
 import com.mx.ssh.bean.MxUsersData;
 import com.mx.ssh.bean.PageBean;
 import com.mx.ssh.service.IActivitiesService;
 import com.mx.ssh.util.ImageMethod;
+import com.mx.ssh.util.JsonDateValueProcessorUtil;
 import com.opensymphony.xwork2.ActionSupport;
 
 
@@ -247,6 +253,40 @@ public class ActivitiesAction extends ActionSupport {
 		JSONObject jsonObject = JSONObject.fromObject(map);
 		response.getWriter().write(jsonObject.toString());
 	}
+	
+	
+	/*
+	 * 查询用户
+	 */
+
+	@Action(value = "searchActivity")
+	public void searchActivity() throws IOException{
+		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
+		request.setCharacterEncoding("UTF-8");
+		HttpServletResponse response = ServletActionContext.getResponse();// response对象返回数据给前台
+		
+		response.setContentType("application/json; charset=utf-8");
+		
+		String txtSearch=request.getParameter("txtSearch");
+		PageBean<MxActivitiesData> searchActivities = activitiesService.searchActivity(txtSearch);
+		
+//		JsonConfig jsonConfig = new JsonConfig();
+//		jsonConfig .setExcludes( new String[]{ "mxActivitiesMySpaceUserses" , "mxActivitiesMySpaceComments" } );//过滤掉外键才能正常转为json格式数据
+//		jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessorUtil());//将json中所有Date类型数据转为yyyy-MM-dd HH:mm:ss字符串
+//		
+//		JSONObject jsonModel = JSONObject.fromObject(allActivities,jsonConfig); 
+//		response.getWriter().write(jsonModel.toString());
+		
+		request.setAttribute("searchActivities", searchActivities);
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("done", "0");
+		map.put("msg", "活动空间信息修改活动!");
+		
+		JSONObject jsonObject = JSONObject.fromObject(map);
+		response.getWriter().write(jsonObject.toString());
+	}
+	
 	
 	
 }

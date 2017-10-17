@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mx.ssh.bean.MxActivitiesData;
 import com.mx.ssh.bean.MxActivitiesMySpaceData;
+import com.mx.ssh.bean.PageBean;
 
 
 public interface IActivitiesDAO {
@@ -21,6 +22,8 @@ public interface IActivitiesDAO {
 	MxActivitiesMySpaceData getSpaceBySpaceId(int myspaceId);
 
 	boolean editActivitySpace(MxActivitiesMySpaceData space);
+
+	PageBean<MxActivitiesData> searchActivity(String txtSearch);
 	
 	
 	
