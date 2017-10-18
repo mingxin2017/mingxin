@@ -269,22 +269,15 @@ public class ActivitiesAction extends ActionSupport {
 		
 		String txtSearch=request.getParameter("txtSearch");
 		PageBean<MxActivitiesData> searchActivities = activitiesService.searchActivity(txtSearch);
+	
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig .setExcludes( new String[]{ "mxActivitiesMySpaceUserses" , "mxActivitiesMySpaceComments" } );//过滤掉外键才能正常转为json格式数据
+		jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessorUtil());//将json中所有Date类型数据转为yyyy-MM-dd HH:mm:ss字符串
 		
-//		JsonConfig jsonConfig = new JsonConfig();
-//		jsonConfig .setExcludes( new String[]{ "mxActivitiesMySpaceUserses" , "mxActivitiesMySpaceComments" } );//过滤掉外键才能正常转为json格式数据
-//		jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessorUtil());//将json中所有Date类型数据转为yyyy-MM-dd HH:mm:ss字符串
-//		
-//		JSONObject jsonModel = JSONObject.fromObject(allActivities,jsonConfig); 
-//		response.getWriter().write(jsonModel.toString());
 		
-		request.setAttribute("searchActivities", searchActivities);
+		JSONObject jsonModel = JSONObject.fromObject(searchActivities,jsonConfig); 
+		response.getWriter().write(jsonModel.toString());
 		
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("done", "0");
-		map.put("msg", "活动空间信息修改活动!");
-		
-		JSONObject jsonObject = JSONObject.fromObject(map);
-		response.getWriter().write(jsonObject.toString());
 	}
 	
 	

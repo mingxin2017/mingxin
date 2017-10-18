@@ -217,7 +217,7 @@
 		    	//alert(123);
 		    	    //首次不执行
 		    	    if(!first){
-		    	    	var url='userAction/getUsersByPage.action?number='+Math.random();
+		    	    	var url='activitiesAction/getActivitiesByPage.action?number='+Math.random();
 		    	      	getPage(obj.curr,url);
 		    	    }
 		    	  }
@@ -244,7 +244,7 @@ function searchActivity(){
 		data:{'txtSearch':txtSearch},
 		dataType:'json',
 		success:function(response){
-			var tb=flushList();
+			var tb=flushList(response.list);
 			if(tb.length!=0){
 				$("#tableList tbody").html(tb);
 				//$('#tableList tbody').innerHTML+=tb;
@@ -280,61 +280,66 @@ function searchActivity(){
 }
 
 /*局部刷新列表*/
-var flushList=function(){
-	
+var flushList=function(list){
+	alert(list);
 	var tb='';
-	<c:forEach items="${searchActivities.list}" var="item">
-
+	$.each(list, function(index, item){
+		alert(33333);
+		
 		var type='';
-		if(${item.activitiesTypeId}=='1'){
+		if(item.activitiesTypeId=='1'){
 			type='周年聚会';
-   	 	}else if(${item.activitiesTypeId}=='2'){
+   	 	}else if(item.activitiesTypeId=='2'){
    	 		type='素质拓展';
-   	 	}else if(${item.activitiesTypeId}=='3'){
+   	 	}else if(item.activitiesTypeId=='3'){
    	 		type='旅游类';
-   	 	}else if(${item.activitiesTypeId}=='4'){
+   	 	}else if(item.activitiesTypeId=='4'){
    	 		type='商业活动';
-   	 	}else if(${item.activitiesTypeId}=='5'){
+   	 	}else if(item.activitiesTypeId=='5'){
    	 		type='其他';
    	 	}else{
    	 		type='未知类型';
    	 	}
 		tb+=('<tr class="text-c">');
-        tb+=('<td><img width="100" class="picture-thumb" src="${fn:trim(item.coverImageUrl)}"></td>');
-        tb+=('<td>${item.mxUsersData.userRealName}</td>');
-        tb+=('<td>${item.activitiesName}</td>');
+        tb+=('<td><img width="100" class="picture-thumb" src="'+item.coverImageUrl+'"></td>');
+        tb+=('<td>'+item.mxUsersData.userRealName+'</td>');
+        tb+=('<td>'+item.activitiesName+'</td>');
         tb+=('<td class="td-status"><span class="label label-default radius">'+type+'</span></td>');
-        tb+=('<td>${item.activitiesDescribe}</td>');
+        tb+=('<td>'+item.activitiesDescribe+'</td>');
         var state='';
-        if(${item.state}=='0'){
+        if(item.state=='0'){
         	state='<span class="label label-success radius">正常</span>';
-        }else if(${item.state}=='-1'){
+        }else if(item.state=='-1'){
         	state='<span class="label label-danger radius">已取消</span>';
         }else{
         	state='<span class="label label-danger radius">未知</span>';
         }
         tb+=('<td class="td-status">'+state+'</td>');
-        tb+=('<td><fmt:formatDate value="${item.createDate}" pattern="yyyy-MM-dd　HH:mm" /></td>');
-        tb+=('<td><fmt:formatDate value="${item.updateDate}" pattern="yyyy-MM-dd　HH:mm" /></td>');
-        tb+=('<td>${item.lowerLimit}</td>');
-        tb+=('<td>${item.upperLimit}</td>');
+        alert(tb);
+        
+        tb+=('<td>'+item.createDate+'</td>');
+        tb+=('<td>'+item.updateDate+'</td>');
+        tb+=('<td>'+item.lowerLimit+'</td>');
+        tb+=('<td>'+item.upperLimit+'</td>');
         
         
-        tb+=('<td class="td-step"><a title="活动流程" href="javascript:;" onclick="act_flow(this,'${item.activitiesId}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6dc;活动流程</i></a></td>');
-        tb+=('<td class="td-space"><a title="空间管理" href="javascript:;" onclick="space_manage(\'空间管理\',\'activitiesAction/gotoSpaceManage.action?activitiesId=${item.activitiesId}\',\'\',\'\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe693;空间管理</i></a></td>');
+        tb+=('<td class="td-step"><a title="活动流程" href="javascript:;" onclick="act_flow(this,\''+item.activitiesId+'\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6dc;活动流程</i></a></td>');
+        tb+=('<td class="td-space"><a title="空间管理" href="javascript:;" onclick="space_manage(\'空间管理\',\'activitiesAction/gotoSpaceManage.action?activitiesId='+item.activitiesId+'\',\'\',\'\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe693;空间管理</i></a></td>');
         
         var openClose='';
         tb+=('<td class="td-manage">');
-        if(${item.state}=='0'){
-        	openClose='<a style="text-decoration:none" onClick="act_stop_open(this,0,\'${item.activitiesId}\')" href="javascript:;" title="取消"><i class="Hui-iconfont">&#xe631;</i> </a>';
-        }else if(${item.state}=='-1'){
-        	openClose='<a style="text-decoration:none" onClick="act_stop_open(this,1,\'${item.activitiesId}\')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i> </a>';
+        if(item.state=='0'){
+        	openClose='<a style="text-decoration:none" onClick="act_stop_open(this,0,'+item.activitiesId+')" href="javascript:;" title="取消"><i class="Hui-iconfont">&#xe631;</i> </a>';
+        }else if(item.state=='-1'){
+        	openClose='<a style="text-decoration:none" onClick="act_stop_open(this,1,'+item.activitiesId+')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i> </a>';
         }
+        tb+=openClose;
+        tb+=('<a title="编辑" href="javascript:;" onclick="member_edit(\'编辑\',\'userAction/gotoUserEdit.action?activitiesId='+item.activitiesId+',\'\',\'510\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>');
         
-        tb+=('<a title="编辑" href="javascript:;" onclick="member_edit(\'编辑\',\'userAction/gotoUserEdit.action?activitiesId=${item.activitiesId}\',\'\',\'510\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>');
         tb+=('</td></tr>');
 		
-	</c:forEach>
+	});
+	alert(${searchActivities.list});
 	return tb;
 }
 

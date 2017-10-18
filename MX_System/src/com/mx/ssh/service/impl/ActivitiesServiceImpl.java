@@ -29,7 +29,7 @@ public class ActivitiesServiceImpl implements IActivitiesService {
 		// TODO Auto-generated method stub
 		PageBean<MxActivitiesData> pageBean =new PageBean<MxActivitiesData>();
         pageBean.setCurrentPage(page);
-        int limit=5;//每页数量
+        int limit=2;//每页数量
         pageBean.setPageSize(limit);
         int totalCount=activitiesDAO.findTotalCount();
         pageBean.setAllRow(totalCount);
