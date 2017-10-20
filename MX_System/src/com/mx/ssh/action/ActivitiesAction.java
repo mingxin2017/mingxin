@@ -280,6 +280,34 @@ public class ActivitiesAction extends ActionSupport {
 		
 	}
 	
-	
+	/*
+	 * 分页查询活动
+	 */
+	@Action(value = "getActivitiesByPage")
+	public void getActivitiesByPage() throws IOException{
+		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
+		request.setCharacterEncoding("UTF-8");
+		HttpServletResponse response = ServletActionContext.getResponse();// response对象返回数据给前台
+		response.setContentType("application/json; charset=utf-8");
+		
+		String page=request.getParameter("page");
+		
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig .setExcludes( new String[]{ "mxActivitiesMySpaceUserses" , "mxActivitiesMySpaceComments" } );//过滤掉外键才能正常转为json格式数据
+		jsonConfig.registerJsonValueProcessor(Date.class, new JsonDateValueProcessorUtil());//将json中所有Date类型数据转为yyyy-MM-dd HH:mm:ss字符串
+		//JSONObject jsonModel= JSONArray.fromObject(yourObject, jsonConfig );
+
+		if(!"".equals(page)){
+			PageBean<MxActivitiesData> pageBean= activitiesService.findByPage(Integer.parseInt(page));
+			JSONObject jsonModel = JSONObject.fromObject(pageBean,jsonConfig); 
+			response.getWriter().write(jsonModel.toString());
+			System.out.println(jsonModel.toString());
+		}else{
+			PageBean<MxActivitiesData> pageBean= activitiesService.findByPage(1);
+			JSONObject jsonModel = JSONObject.fromObject(pageBean,jsonConfig); 
+			response.getWriter().write(jsonModel.toString());
+		}
+		
+	}
 	
 }

@@ -160,7 +160,7 @@
 										onClick="act_stop_open(this,1,'${item.activitiesId}')" href="javascript:;"
 										title="启用"><i class="Hui-iconfont">&#xe6e1;</i> </a>
 								</c:if> <a title="编辑" href="javascript:;"
-								onclick="member_edit('编辑','userAction/gotoUserEdit.action?activitiesId=${item.activitiesId}','','510')"
+								onclick="activity_edit('编辑','userAction/gotoUserEdit.action?activitiesId=${item.activitiesId}','','510')"
 								class="ml-5" style="text-decoration:none"><i
 									class="Hui-iconfont">&#xe6df;</i> </a> 
 									 
@@ -334,7 +334,7 @@ var flushList=function(list){
         	openClose='<a style="text-decoration:none" onClick="act_stop_open(this,1,'+item.activitiesId+')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i> </a>';
         }
         tb+=openClose;
-        tb+=('<a title="编辑" href="javascript:;" onclick="member_edit(\'编辑\',\'userAction/gotoUserEdit.action?activitiesId='+item.activitiesId+',\'\',\'510\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>');
+        tb+=('<a title="编辑" href="javascript:;" onclick="activity_edit(\'编辑\',\'userAction/gotoUserEdit.action?activitiesId='+item.activitiesId+',\'\',\'510\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>');
         
         tb+=('</td></tr>');
 		
@@ -425,7 +425,13 @@ function space_manage(title,url,w,h){
 }
 
 /*用户-编辑*/
-function member_edit(title,url,w,h){
+function activity_edit(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+
+
+/*用户-编辑*/
+function act_flow(title,url,w,h){
 	layer_show(title,url,w,h);
 }
 
