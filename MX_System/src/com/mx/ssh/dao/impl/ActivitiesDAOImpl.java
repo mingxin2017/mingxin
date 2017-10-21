@@ -130,6 +130,37 @@ public class ActivitiesDAOImpl extends HibernateDaoSupport implements IActivitie
         pageBean.setList(activities);
         return pageBean;
 	}
+
+	public MxActivitiesData getActivityByID(int activitiesId) {
+		// TODO Auto-generated method stub
+		
+		return getHibernateTemplate().get(MxActivitiesData.class, activitiesId);
+	}
+
+	public boolean editActivity(MxActivitiesData act) {
+		// TODO Auto-generated method stub
+		try{
+			getHibernateTemplate().update(act);
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public boolean setState(int i, int activitiesId) {
+		// TODO Auto-generated method stub
+		
+			// TODO Auto-generated method stub
+			try{
+				getHibernateTemplate().getSessionFactory().openSession().createSQLQuery("update [MXDB].[dbo].[MX_activities_data] set state="+i+" where activities_id="+activitiesId).executeUpdate();
+				return true;
+			}catch(Exception e){
+				e.printStackTrace();
+				return false;
+			}
+		
+	}
 	
 
 

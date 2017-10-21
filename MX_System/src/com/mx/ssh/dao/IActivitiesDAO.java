@@ -24,6 +24,12 @@ public interface IActivitiesDAO {
 	boolean editActivitySpace(MxActivitiesMySpaceData space);
 
 	PageBean<MxActivitiesData> searchActivity(String txtSearch);
+
+	MxActivitiesData getActivityByID(int activitiesId);
+
+	boolean editActivity(MxActivitiesData act);
+
+	boolean setState(int i, int activitiesId);
 	
 	
 	

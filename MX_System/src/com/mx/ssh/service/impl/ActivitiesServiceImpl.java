@@ -113,6 +113,36 @@ public class ActivitiesServiceImpl implements IActivitiesService {
 		// TODO Auto-generated method stub
 		return activitiesDAO.searchActivity(txtSearch);
 	}
+
+	public MxActivitiesData getActivityByID(int activitiesId) {
+		// TODO Auto-generated method stub
+		return activitiesDAO.getActivityByID(activitiesId);
+	}
+
+	public boolean editActivity(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		String activitiesName=request.getParameter("activitiesName");
+		int activitiesId=Integer.parseInt(request.getParameter("activitiesId").trim());
+		int numLower=Integer.parseInt(request.getParameter("numLower").trim());
+		int numUper=Integer.parseInt(request.getParameter("numUper").trim());
+		String imgURL=request.getParameter("imgURL");
+		String describe=request.getParameter("describe");
+		
+		MxActivitiesData act=activitiesDAO.getActivityByID(activitiesId);
+		
+		act.setLowerLimit(numLower);
+		act.setUpperLimit(numUper);
+		act.setCoverImageUrl(imgURL);
+		act.setActivitiesDescribe(describe);
+		act.setUpdateDate(new Date());
+		
+		return activitiesDAO.editActivity(act);
+	}
+
+	public boolean setState(int i, int activitiesId) {
+		// TODO Auto-generated method stub
+		return activitiesDAO.setState(i,activitiesId);
+	}
 	
 	
 }

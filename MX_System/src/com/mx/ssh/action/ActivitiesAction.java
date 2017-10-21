@@ -310,4 +310,90 @@ public class ActivitiesAction extends ActionSupport {
 		
 	}
 	
+	
+	/*
+	 * 编辑活动信息页面
+	 */
+	@Action(value = "gotoActivityEdit", results = { 
+			@Result(name = "editActivity", location = "/SystemPages/Activities/activitiesEdit.jsp")})
+	public String gotoActivityEdit() throws IOException{
+		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
+		request.setCharacterEncoding("UTF-8");
+		HttpServletResponse response = ServletActionContext.getResponse();// response对象返回数据给前台
+		response.setContentType("application/json; charset=utf-8");
+
+		int activitiesId = Integer.parseInt(request.getParameter("activitiesId").trim());
+
+		MxActivitiesData activity=activitiesService.getActivityByID(activitiesId);
+		
+		request.setAttribute("editActivity", activity);
+		
+		return "editActivity";
+	}
+	
+	
+	/*
+	 * 编辑活动内容
+	 */
+	@Action(value = "editActivity")
+	public void editActivity() throws IOException{
+		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
+		request.setCharacterEncoding("UTF-8");
+		HttpServletResponse response = ServletActionContext.getResponse();// response对象返回数据给前台
+		response.setContentType("application/json; charset=utf-8");
+		
+		
+		boolean isDone=activitiesService.editActivity(request);
+		
+		Map<String, String> map = new HashMap<String, String>();
+		if (!isDone) {
+			map.put("done", "-1");
+			map.put("msg", "活动信息修改失败!");
+		} else {
+			map.put("done", "0");
+			map.put("msg", "活动信息修改活动!");
+		}
+		JSONObject jsonObject = JSONObject.fromObject(map);
+		response.getWriter().write(jsonObject.toString());
+		
+	}
+	
+	/*
+	 * 启用、取消活动
+	 */
+	@Action(value = "open_close_Activities")
+	public void open_close_Activities() throws IOException {
+		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
+		request.setCharacterEncoding("UTF-8");
+		HttpServletResponse response = ServletActionContext.getResponse();// response对象返回数据给前台
+		response.setContentType("application/json; charset=utf-8");
+
+		String operate = request.getParameter("operate");
+		int activitiesId = Integer.parseInt(request.getParameter("activitiesId"));
+
+		boolean done = false;
+		if ("1".equals(operate)) {
+			done = activitiesService.setState(0, activitiesId);
+		} else {
+			done = activitiesService.setState(-1, activitiesId);
+		}
+
+		Map<String, String> map = new HashMap<String, String>();
+		if (done == true) {
+			map.put("done", "0");
+			if ("0".equals(operate)) {// 启用
+				map.put("operate", "0");
+			} else if("-1".equals(operate)){// 禁用
+				map.put("operate", "-1");
+			}
+			JSONObject jsonObject = JSONObject.fromObject(map);
+			response.getWriter().write(jsonObject.toString());
+		} else {
+			map.put("done", "-1");
+			map.put("operate", "-1");
+			JSONObject jsonObject = JSONObject.fromObject(map);
+			response.getWriter().write(jsonObject.toString());
+		}
+	}
+	
 }

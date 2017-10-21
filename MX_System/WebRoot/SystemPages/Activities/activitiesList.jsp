@@ -107,7 +107,7 @@
 							<td>${item.mxUsersData.userRealName}</td>
 							<td>${item.activitiesName}</td>
 							
-							<td class="td-status">
+							<td class="td-type">
 								<c:if test="${item.activitiesTypeId eq 1}">
 									<span class="label label-default radius">周年聚会</span>
 								</c:if> 
@@ -153,14 +153,14 @@
 							</td>
 							<td class="td-manage"><c:if test="${item.state eq 0}">
 									<a style="text-decoration:none"
-										onClick="act_stop_open(this,0,'${item.activitiesId}')" href="javascript:;"
-										title="取消"><i class="Hui-iconfont">&#xe631;</i> </a>
+										onClick="act_stop_open(this,-1,'${item.activitiesId}')" href="javascript:;"
+										title="取消活动"><i class="Hui-iconfont">&#xe631;</i> </a>
 								</c:if> <c:if test="${item.state eq -1}">
 									<a style="text-decoration:none"
-										onClick="act_stop_open(this,1,'${item.activitiesId}')" href="javascript:;"
-										title="启用"><i class="Hui-iconfont">&#xe6e1;</i> </a>
+										onClick="act_stop_open(this,0,'${item.activitiesId}')" href="javascript:;"
+										title="启用活动"><i class="Hui-iconfont">&#xe6e1;</i> </a>
 								</c:if> <a title="编辑" href="javascript:;"
-								onclick="activity_edit('编辑','userAction/gotoUserEdit.action?activitiesId=${item.activitiesId}','','510')"
+								onclick="activity_edit('编辑','activitiesAction/gotoActivityEdit.action?activitiesId=${item.activitiesId}','','510')"
 								class="ml-5" style="text-decoration:none"><i
 									class="Hui-iconfont">&#xe6df;</i> </a> 
 									 
@@ -281,10 +281,10 @@ function searchActivity(){
 
 /*局部刷新列表*/
 var flushList=function(list){
-	alert(list);
+	//alert(list);
 	var tb='';
 	$.each(list, function(index, item){
-		alert(33333);
+		//alert(33333);
 		
 		var type='';
 		if(item.activitiesTypeId=='1'){
@@ -315,7 +315,7 @@ var flushList=function(list){
         	state='<span class="label label-danger radius">未知</span>';
         }
         tb+=('<td class="td-status">'+state+'</td>');
-        alert(tb);
+        //alert(tb);
         
         tb+=('<td>'+item.createDate+'</td>');
         tb+=('<td>'+item.updateDate+'</td>');
@@ -329,17 +329,17 @@ var flushList=function(list){
         var openClose='';
         tb+=('<td class="td-manage">');
         if(item.state=='0'){
-        	openClose='<a style="text-decoration:none" onClick="act_stop_open(this,0,'+item.activitiesId+')" href="javascript:;" title="取消"><i class="Hui-iconfont">&#xe631;</i> </a>';
+        	openClose='<a style="text-decoration:none" onClick="act_stop_open(this,-1,'+item.activitiesId+')" href="javascript:;" title="取消"><i class="Hui-iconfont">&#xe631;</i> </a>';
         }else if(item.state=='-1'){
-        	openClose='<a style="text-decoration:none" onClick="act_stop_open(this,1,'+item.activitiesId+')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i> </a>';
+        	openClose='<a style="text-decoration:none" onClick="act_stop_open(this,0,'+item.activitiesId+')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i> </a>';
         }
         tb+=openClose;
-        tb+=('<a title="编辑" href="javascript:;" onclick="activity_edit(\'编辑\',\'userAction/gotoUserEdit.action?activitiesId='+item.activitiesId+',\'\',\'510\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>');
+        tb+=('<a title="编辑" href="javascript:;" onclick="activity_edit(\'编辑\',\'activitiesAction/gotoActivityEdit.action?activitiesId='+item.activitiesId+'\',\'\',\'510\')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>');
         
         tb+=('</td></tr>');
 		
 	});
-	alert(${searchActivities.list});
+	//alert(${searchActivities.list});
 	return tb;
 }
 
@@ -375,14 +375,14 @@ function getPage(curr,url){
 
 
 /*用户-停用-启用*/
-function user_stop_open(obj,op,id){
+function act_stop_open(obj,op,id){
 	//alert('');
 	var opt='';
-	var url='userAction/open_close_User.action?number='+Math.random();
-	if(op==1){//启用
-		opt='确认启用该用户吗？';
-	}else{//禁用
-		opt='确认停用该用户吗？';
+	var url='activitiesAction/open_close_Activities.action?number='+Math.random();
+	if(op==0){//启用
+		opt='确认启用该活动吗？';
+	}else if(op==-1){//禁用
+		opt='确认取消该活动吗？';
 	}
 	layer.confirm(opt,function(index){
 		$.ajax({
@@ -391,16 +391,16 @@ function user_stop_open(obj,op,id){
 			data:{'operate':op,'activitiesId':id},
 			dataType: 'json',
 			success: function(data){
-				if(data.done=='0'&&data.operate=='1'){
-					$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="user_stop_open(this,0,'+id+')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
+				if(data.done=='0'&&data.operate=='0'){
+					$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="act_stop_open(this,-1,'+id+')" href="javascript:;" title="取消活动"><i class="Hui-iconfont">&#xe631;</i></a>');
 					$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">正常</span>');
 					$(obj).remove();
-					layer.msg('用户已启用!',{icon: 6,time:1000});
-				}else if(data.done=='0'&&data.operate=='0'){
-					$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="user_stop_open(this,1,'+id+')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
-					$(obj).parents("tr").find(".td-status").html('<span class="label label-danger radius">停用</span>');
+					layer.msg('活动已启用!',{icon: 6,time:1000});
+				}else if(data.done=='0'&&data.operate=='-1'){
+					$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="act_stop_open(this,0,'+id+')" href="javascript:;" title="启用活动"><i class="Hui-iconfont">&#xe6e1;</i></a>');
+					$(obj).parents("tr").find(".td-status").html('<span class="label label-danger radius">已取消</span>');
 					$(obj).remove();
-					layer.msg('用户已停用!',{icon: 6,time:1000});
+					layer.msg('活动已取消!',{icon: 6,time:1000});
 				}else{
 					layer.msg('未知错误!',{icon: 5,time:1000});
 				}

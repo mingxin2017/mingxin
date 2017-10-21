@@ -22,5 +22,11 @@ public interface IActivitiesService {
 
 	PageBean<MxActivitiesData> searchActivity(String txtSearch);
 
+	MxActivitiesData getActivityByID(int activitiesId);
+
+	boolean editActivity(HttpServletRequest request);
+
+	boolean setState(int i, int activitiesId);
+
 	
 }
