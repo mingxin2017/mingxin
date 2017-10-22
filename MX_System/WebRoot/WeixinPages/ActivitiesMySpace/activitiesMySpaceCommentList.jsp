@@ -82,7 +82,7 @@ function ClickPraise(commentId,userId){
 
 function ClickComment_comment(obj,myspaceId,commentId,userId){
 	var d = dialog({
-		content: '<textarea autofocus id="subTxt" rows="1" cols="25" placeholder="请输入评论内容">',
+		content: '<textarea autofocus id="subTxt" rows="1" placeholder="请输入评论内容">',
 		quickClose: true,// 点击空白处快速关闭
 		height: '2em',
 		button : [ {
