@@ -180,13 +180,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<c:forEach items="${userMySpaceMaterialList}" var="item1">
 		
 			<div class="mui-card">
-				<div class="mui-card-header mui-card-media">
-					<img data-lazyload="${item1.userData.weixinHeadUrl}" />
-					<div class="mui-media-body">
-						${item1.userData.userRealName}
-						<p>更新于<fmt:formatDate value="${item1.userMySpaceMaterialList[0].createDate}" pattern="yyyy-MM-dd　HH:mm"/></p>
-					</div>
-				</div>
+				
 				<div class="mui-card-content" >
 			<ul class="mui-table-view mui-grid-view" id="${item1.userData.userId}">
 		      <c:forEach items="${item1.userMySpaceMaterialList}" var="item2">
