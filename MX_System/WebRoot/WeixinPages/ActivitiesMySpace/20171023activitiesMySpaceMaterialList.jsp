@@ -17,7 +17,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<!--标准mui.css-->
-		<link rel="stylesheet" href="<%=basePath%>WeixinPages/common/css/mui.min.css">
+		<link rel="stylesheet" href="<%=basePath%>WeixinPages/common/css/mui.min.css"/>
 		<!--App自定义的css-->
 		<style type="text/css">
 			.mui-preview-image.mui-fullscreen {
