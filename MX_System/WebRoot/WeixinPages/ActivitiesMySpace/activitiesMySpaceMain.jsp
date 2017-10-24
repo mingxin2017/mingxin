@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<span class="mui-icon mui-icon-home"></span>
 				<span class="mui-tab-label">首页</span>
 			</a>
-			<a class="mui-tab-item" href="www.qq.com">
+			<a class="mui-tab-item" href="getActivitiesMySpaceCommentList.action">
 				<span class="mui-icon mui-icon-email"><span class="mui-badge">9</span></span>
 				<span class="mui-tab-label">消息</span>
 			</a>
@@ -41,11 +41,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<span class="mui-tab-label">设置</span>
 			</a>
 		</nav>
+		<div id="iframeContent" class="mui-content" >dddd
+			<input id="myspaceId" name="myspaceId" type="hidden" value="${sessionScope.myspaceId}"/>
+			<input id="userId" name="userId" type="hidden" value="${sessionScope.userInfo.userId}"/>
+			<div style="width:100%"  id="mainContent" name="mainContent" ></div>
+		</div>
 	<script src="<%=basePath%>WeixinPages/common/js/mui.min.js"></script>
+	<script type="text/javascript" src="<%=basePath%>WeixinPages/common/js/jquery-1.11.2.js"></script>
 	<script type="text/javascript" charset="utf-8">
 			 //mui初始化
 			mui.init();
-			var subpages = ['www.baidu.com', 'www.qq.com', 'www.hao123.com', 'www.sina.com'];
+			var subpages = ['www.baidu.com', 'activitiesMySpace/getActivitiesMySpaceCommentList.action', 'www.hao123.com', 'www.sina.com'];
 			var subpage_style = {
 				top: '45px',
 				bottom: '51px'
@@ -83,17 +89,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				//显示目标选项卡
 				//若为iOS平台或非首次显示，则直接显示
 				if(mui.os.ios||aniShow[targetTab]){
-					
-					plus.webview.show(targetTab);
+					alert(targetTab);
+					//plus.webview.show(targetTab);
+					$("#mainContent").load(targetTab);
+					//$("#mainContent").html('255565255');
 					alert('2');
 				}else{
-					
+					alert(targetTab);
 					//否则，使用fade-in动画，且保存变量
 					var temp = {};
 					temp[targetTab] = "true";
 					mui.extend(aniShow,temp);
-					alert('3');
-					plus.webview.show(targetTab,"fade-in",300);
+					
+					//plus.webview.show(targetTab,"fade-in",300);
+					$("#mainContent").load(targetTab);
 					alert('3');
 				}
 				//隐藏当前;
