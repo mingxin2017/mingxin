@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<span class="mui-icon mui-icon-home"></span>
 				<span class="mui-tab-label">首页</span>
 			</a>
-			<a class="mui-tab-item" href="getActivitiesMySpaceCommentList.action">
+			<a class="mui-tab-item" href="activitiesMySpace/getActivitiesMySpaceCommentList.action">
 				<span class="mui-icon mui-icon-email"><span class="mui-badge">9</span></span>
 				<span class="mui-tab-label">消息</span>
 			</a>
@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<span class="mui-tab-label">设置</span>
 			</a>
 		</nav>
-		<div id="iframeContent" class="mui-content" >dddd
+		<div id="iframeContent" class="mui-content" >
 			<input id="myspaceId" name="myspaceId" type="hidden" value="${sessionScope.myspaceId}"/>
 			<input id="userId" name="userId" type="hidden" value="${sessionScope.userInfo.userId}"/>
 			<div style="width:100%"  id="mainContent" name="mainContent" ></div>
@@ -61,10 +61,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 			var aniShow = {};
 			
-			$(function(){ 
+			$(function(){
 				alert(subpages[0]); 
 				$("#mainContent").load(subpages[0]);
-				});
+			});
 			
 			 //创建子页面，首个选项卡页面显示，其它均隐藏；
 			mui.plusReady(function() {
@@ -84,7 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					//self.append(sub);
 				//}
 			});
-			 //当前激活选项
+			//当前激活选项
 			var activeTab = subpages[0];
 			var title = document.getElementById("title");
 			 //选项卡点击事件
