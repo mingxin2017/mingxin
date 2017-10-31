@@ -88,7 +88,7 @@ public class MxActivitiesMySpaceAction extends ActionSupport {
 	 */
 	@Action(value = "gotoActivitiesMySpaceMain", 
 			results = { 
-			@Result(name = "activitiesMySpaceMain", location = "/WeixinPages/ActivitiesMySpace/activitiesMySpaceMain.jsp"),
+			@Result(name = "activitiesMySpaceMain", location = "/WeixinPages/ActivitiesMySpace/activitiesMySpaceCommentList.jsp"),
 			@Result(name = "illegal", location = "/WeixinPages/illegal.jsp")
 	})
 	public String gotoActivitiesMySpaceMain() throws Exception{
@@ -103,6 +103,7 @@ public class MxActivitiesMySpaceAction extends ActionSupport {
 		}
 		boolean b = activitiesMySpaceService.validateMySpaceUser(myspaceId,userId);
 		if (b == true) {
+			this.getActivitiesMySpaceCommentList();
 			return "activitiesMySpaceMain";
 		} else {
 			return "illegal";
@@ -114,26 +115,23 @@ public class MxActivitiesMySpaceAction extends ActionSupport {
 	 * 获取活动空间评论内容列表
 	 */
 	@Action(value = "getActivitiesMySpaceCommentList", results = { 
-			@Result(name = "activitiesMySpaceCommentList", location = "/WeixinPages/ActivitiesMySpace/activitiesMySpaceCommentList.jsp") 
-			
-	})
-	public String getActivitiesMySpaceCommentList() throws Exception{
-		
+			@Result(name = "activitiesMySpaceCommentList", 
+					location = "/WeixinPages/ActivitiesMySpace/activitiesMySpaceCommentList.jsp") 
+		})
+	public String getActivitiesMySpaceCommentList() throws Exception {
+		try {
 
-		try{
+			HttpServletRequest request = ServletActionContext.getRequest();
 
-		HttpServletRequest request = ServletActionContext.getRequest();
-		// if(userMySpaceCommentList==null||userMySpaceCommentList.size()==0){
-		List<MxActivitiesMySpaceComment> userMySpaceCommentList = activitiesMySpaceService
-				.getUserMySpaceCommontList((Integer) request.getSession()
-						.getAttribute("myspaceId"));
-		// }
-		request.setAttribute("userMySpaceCommentList",
-				userMySpaceCommentList);// 缓存用户查看的空间讨论
+			int myspaceId = Integer.parseInt(request.getParameter("myspaceId"));
 
-		
+			List<MxActivitiesMySpaceComment> userMySpaceCommentList = activitiesMySpaceService
+					.getUserMySpaceCommontList(myspaceId);
 
-		}catch(Exception e){
+			request.setAttribute("userMySpaceCommentList",
+					userMySpaceCommentList);// 缓存用户查看的空间讨论
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 

@@ -24,6 +24,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	href="<%=basePath%>WeixinPages/common/css/icomoon.css">
 <script type="text/javascript" src="<%=basePath%>WeixinPages/common/js/jquery-1.11.2.js"></script>
 <script type="text/javascript" src="<%=basePath%>WeixinPages/common/js/dialog.js"></script>
+
+
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+
+
 <script type="text/javascript">
 	// 对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
 	var useragent = navigator.userAgent;
@@ -35,9 +40,66 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		opened.opener = null;
 		opened.close();
 	}
-</script>
 
-<script type="text/javascript">
+
+//退出个人空间
+function quitPage() {
+	wx.closeWindow();
+}
+
+
+function operate(obj){
+	var operate=document.getElementById('operate').innerHTML;
+	var d = dialog({
+			fixed: false,
+			content: '<textarea autofocus id="subTxt" rows="4" cols="25" placeholder="发帖内容">',
+			button : [ {
+							value : '发送',
+							callback : function() {
+								var txt = $('#subTxt').val();//获取输入的值
+								//var myspaceId=$('#myspaceId').val();
+								//var userId=$('#userId').val();//用户id
+								doSaveMyspaceComment(${sessionScope.userInfo.userId},${sessionScope.myspaceId},txt);
+							},
+							autofocus : true
+						}, {
+							value : '取消'
+						} ]
+
+					}).showModal(obj);
+	}
+	
+//保存空间评论
+function doSaveMyspaceComment(userId,myspaceId,txt){
+	$.ajax({
+	    type: "POST",
+	    url: "activitiesMySpace/DoSaveActivitiesMySpaceComment.action", //orderModifyStatus
+	    data: {"userId":userId,"myspaceId":myspaceId,"txt":txt},
+	    dataType:"json",
+	    async:false,
+	    cache:false,
+	    success: function(data){
+	    	if(data.done=='0'){
+	    		//document.getElementById('mainContent').src='getActivitiesMySpaceCommentList.action';
+	    		var dd = dialog('发送成功').show();
+	    		setTimeout(function () {
+	    			dd.close().remove();
+	    		}, 2000);
+	    	}else{
+	    		var dd = dialog('发送失败');
+	    	}
+		},
+		error: function(json){
+			var ddd = dialog('提交数据异常，请刷新后重试...').show();
+			setTimeout(function () {
+				ddd.close().remove();
+    		}, 1500);
+		}
+    });
+	window.location.reload(true);
+}
+
+
 function ClickPraise(commentId,userId){
 	document.getElementById('praise_'+commentId).onclick='';
 	document.getElementById('praise_'+commentId).style.color='gray';
@@ -81,6 +143,7 @@ function ClickPraise(commentId,userId){
 
 
 function ClickComment_comment(obj,myspaceId,commentId,userId){
+	alert(222);
 	var d = dialog({
 		content: '<textarea autofocus id="subTxt" rows="1" placeholder="请输入评论内容">',
 		quickClose: true,// 点击空白处快速关闭
@@ -101,6 +164,7 @@ function ClickComment_comment(obj,myspaceId,commentId,userId){
 }
 
 function doSaveMyspaceComment_comment(userId,myspaceId,commentId,commentTxt){
+	alert(222);
 	$.ajax({
 		    type: "POST",
 		    url: "activitiesMySpace/DoSaveMyspaceComment_comment.action", //orderModifyStatus
@@ -108,14 +172,12 @@ function doSaveMyspaceComment_comment(userId,myspaceId,commentId,commentTxt){
 		    dataType:"json",
 		    success: function(data){
 		    	if(data.done=='0'){
-		    	//	if(userId==${sessionScope.userInfo.userId}){
-		    	//		document.getElementById('comment2_'+commentId).innerHTML+=('<div class="mui-col-xs-10"><h5><b>${sessionScope.userInfo.userRealName} 说：</b>“'+commentTxt+'”</h5></div><div class="mui-col-xs-2"><a style=" color:#EE7942;" href="javascript:void(0);" onclick="DeleteComment_comment(${item2.commentId});">删除</a></div>');
-		    	//	}else{
 		    			document.getElementById('comment2_'+commentId).innerHTML+=('<h5><b>${sessionScope.userInfo.userRealName} 说：</b>“'+commentTxt+'”</h5>');
-		    	//	}
 		    			var cc=document.getElementById('span'+commentId).innerHTML;
-			    		//alert(cc);
+			    		alert(cc);
 			    		cc=cc+1;
+			    		document.getElementById('span'+commentId).innerHTML=cc;
+			    		alert(cc);
 		    		alert('发送成功');
 		    	}else{
 		    		var dd = dialog('发送失败');
@@ -128,24 +190,11 @@ function doSaveMyspaceComment_comment(userId,myspaceId,commentId,commentTxt){
 	    		}, 1500);
 			}
 	    });
+	
+	
 }
 
 function DeleteComment_comment(commentId){
-
-		/* var d = dialog({
-			fixed: true,
-			content: '确定删除本条评论吗？',
-			button : [{
-						value : '取消'
-						},{
-							value : '确定',
-							callback : function() {
-								DoDeleteComment_comment(commentId);
-							},
-							autofocus : true
-						}]
-					}).showModal(); */
-	
 	var truthBeTold = window.confirm("确定删除本条评论吗？");
 	if (truthBeTold) {
 		DoDeleteComment_comment(commentId);
@@ -184,6 +233,34 @@ function DoDeleteComment_comment(commentId){
 </head>
 
 <body>
+	<header class="mui-bar mui-bar-nav" id="myspaceMainHeader"> 
+		<a class="mui-btn mui-btn-blue mui-btn-link mui-pull-left" onclick="quitPage();">退出</a>
+		<h1 id="title" class="mui-title">讨论区</h1>
+		<a id="operate" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" onclick="operate(this);">发帖</a>
+	</header>
+	<nav class="mui-bar mui-bar-tab" id="footerTab"> 
+		<a  id="1" class="mui-tab-item mui-active"  > 
+			<span class="mui-icon mui-icon-chat"><!-- <span class="mui-badge">8</span> --></span> 
+			<span class="mui-tab-label">讨论区</span>
+		</a> 
+		<a  id="2"class="mui-tab-item"  > 
+			<span class="mui-icon mui-icon-image">
+			<!-- <span class="mui-badge">3</span> -->
+			</span> 
+			<span class="mui-tab-label">照片墙</span> 
+		</a> 
+		<a  id="3"class="mui-tab-item" > 
+			<span class="mui-icon mui-icon-contact"></span>
+			<span class="mui-tab-label">通讯录</span>
+		</a> 
+		<a  id="4"class="mui-tab-item">
+			<span class="mui-icon mui-icon-gear"></span> 
+			<span class="mui-tab-label">个人空间</span> 
+		</a> 
+	</nav>
+	
+	<div id="iframeContent" class="mui-content" >
+	
 	
 	<c:forEach items="${userMySpaceCommentList}" var="item">
 	<c:if test="${item.parentCommentId eq -1}">
@@ -273,7 +350,7 @@ function DoDeleteComment_comment(commentId){
 	</div>
 	</c:if>
 	</c:forEach>
-	
+	</div>
 </body>
 	<script src="<%=basePath%>WeixinPages/common/js/mui.min.js"></script>
 	<script src="<%=basePath%>WeixinPages/common/js/mui.lazyload.js"></script>

@@ -11,11 +11,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
-	<link rel="stylesheet" href="<%=basePath%>WeixinPages/common/css/mui.min.css">
+	<%--<link rel="stylesheet" href="<%=basePath%>WeixinPages/common/css/mui.min.css">
 	
 	
 	
 	
+--%>
+
+<jsp:include page="pub_js.jsp"/>
+
 <style type="text/css">
 .rich{
 	width:80px;

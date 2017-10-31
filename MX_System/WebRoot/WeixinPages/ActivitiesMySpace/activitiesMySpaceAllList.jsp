@@ -122,9 +122,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			--%>
 			<c:forEach items="${userMySpaceDataList}" var="item">
 				<li  class="mui-table-view-cell mui-media">
-					<a href="activitiesMySpace/gotoActivitiesMySpaceMain.action?myspaceId=${item.myspaceId}">
+					<%--<a href="activitiesMySpace/gotoActivitiesMySpaceMain.action?myspaceId=${item.myspaceId}">--%>
 						
-						<%--<a href="activitiesMySpace/getActivitiesMySpaceMine.action?myspaceId=${item.myspaceId}">--%>
+						<a href="activitiesMySpace/gotoActivitiesMySpaceMain.action?myspaceId=${item.myspaceId}">
 						<img  class="mui-media-object mui-pull-left"  src="${item.coverImageUrl}">
 						<div class="mui-media-body" style="color:black" >
 							${item.myspaceName}
