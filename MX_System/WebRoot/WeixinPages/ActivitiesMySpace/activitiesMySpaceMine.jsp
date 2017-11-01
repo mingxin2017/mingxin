@@ -13,7 +13,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <head>
 <meta charset="utf-8">
-<title>Hello MUI</title>
+<title>鸣心-活动空间</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -27,6 +27,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body>
+	<header class="mui-bar mui-bar-nav" id="myspaceMainHeader"> 
+		<a class="mui-btn mui-btn-blue mui-btn-link mui-pull-left" onclick="quitPage();">退出</a>
+		<h1 id="title" class="mui-title">讨论区</h1>
+	</header>
+	<nav class="mui-bar mui-bar-tab" id="footerTab"> 
+		<a  id="tab1" class="mui-tab-item" href="<%=basePath%>activitiesMySpace/getActivitiesMySpaceCommentList.action"  > 
+			<span class="mui-icon mui-icon-chat"><!-- <span class="mui-badge">8</span> --></span> 
+			<span class="mui-tab-label">讨论区</span>
+		</a> 
+		<a  id="tab2" class="mui-tab-item" href="<%=basePath%>activitiesMySpace/getActivitiesMySpaceMaterialList.action"> 
+			<span class="mui-icon mui-icon-image">
+			<!-- <span class="mui-badge">3</span> -->
+			</span> 
+			<span class="mui-tab-label">照片墙</span> 
+		</a> 
+		<a  id="tab3" class="mui-tab-item" href="<%=basePath%>activitiesMySpace/getActivitiesMySpaceUsersList.action" > 
+			<span class="mui-icon mui-icon-contact"></span>
+			<span class="mui-tab-label">通讯录</span>
+		</a> 
+		<a  id="tab4" class="mui-tab-item mui-active" href="<%=basePath%>activitiesMySpace/getActivitiesMySpaceMine.action" >
+			<span class="mui-icon mui-icon-gear"></span> 
+			<span class="mui-tab-label">个人空间</span> 
+		</a> 
+	</nav>
+	
+	<div class="mui-content">
 	<div class="mui-card">
 		<ul class="mui-table-view">
 			<li class="mui-table-view-cell mui-collapse"><a
@@ -106,11 +132,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div></li>
 		</ul>
 	</div>
+	</div>
 	<script src="<%=basePath%>WeixinPages/common/js/mui.min.js"></script>
 	<script src="<%=basePath%>WeixinPages/common/js/mui.zoom.js"></script>
 	<script src="<%=basePath%>WeixinPages/common/js/mui.previewimage.js"></script>
 	<script>
 			mui.init();
+			
+			mui('#footerTab').on('tap','a',function(){
+			    window.top.location.href=this.href;
+			});
+
 			
 			//mui.previewImage();
 		</script>

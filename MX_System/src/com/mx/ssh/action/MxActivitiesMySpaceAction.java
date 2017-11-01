@@ -123,10 +123,11 @@ public class MxActivitiesMySpaceAction extends ActionSupport {
 
 			HttpServletRequest request = ServletActionContext.getRequest();
 
-			int myspaceId = Integer.parseInt(request.getParameter("myspaceId"));
+			//int myspaceId = Integer.parseInt(request.getParameter("myspaceId"));
 
 			List<MxActivitiesMySpaceComment> userMySpaceCommentList = activitiesMySpaceService
-					.getUserMySpaceCommontList(myspaceId);
+					.getUserMySpaceCommontList((Integer) request.getSession()
+							.getAttribute("myspaceId"));
 
 			request.setAttribute("userMySpaceCommentList",
 					userMySpaceCommentList);// 缓存用户查看的空间讨论
@@ -485,14 +486,17 @@ public class MxActivitiesMySpaceAction extends ActionSupport {
 
 		String commentTxt=request.getParameter("commentTxt").toString();//获取评论内容
 		
-		boolean isClicked = activitiesMySpaceService.saveMyspaceComment_comment(
+		int myspaceComment_comment=0;
+		
+		myspaceComment_comment = activitiesMySpaceService.saveMyspaceComment_comment(
 				myspaceId,commentId, userId,commentTxt);
 		Map<String, String> map = new HashMap<String, String>();
-		if (!isClicked) {
+		if (0==myspaceComment_comment) {
 			map.put("done", "-1");
 			map.put("msg", "保存失败!");
 		} else {
 			map.put("done", "0");
+			map.put("commentId",myspaceComment_comment+"");
 			map.put("msg", "保存成功!");
 		}
 		JSONObject jsonObject = JSONObject.fromObject(map);

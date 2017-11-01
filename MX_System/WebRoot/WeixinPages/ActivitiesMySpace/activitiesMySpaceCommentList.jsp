@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
 <head>
 <base href="<%=basePath%>">
-<title>讨论区</title>
+<title>鸣心-活动空间</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -169,13 +169,17 @@ function doSaveMyspaceComment_comment(userId,myspaceId,commentId,commentTxt){
 		    dataType:"json",
 		    success: function(data){
 		    	if(data.done=='0'){
-		    			document.getElementById('comment2_'+commentId).innerHTML+=('<h5><b>${sessionScope.userInfo.userRealName} 说：</b>“'+commentTxt+'”</h5>');
+		    		var tt=('<div class="mui-row" id="comment3_'+data.commentId
+		    				+'"><div class="mui-col-xs-10"><h5><b>${sessionScope.userInfo.userRealName} 说：</b>“'
+		    				+commentTxt
+		    				+'”</h5></div><div class="mui-col-xs-2"><a style="color:#EE7942;" href="javascript:void(0);" onclick="DeleteComment_comment('
+		    						+data.commentId+','
+		    						+commentId+');">删除</a></div></div>');
+		    			//document.getElementById('comment2_'+commentId).innerHTML+=('<div class="mui-col-xs-10"><h5><b>${sessionScope.userInfo.userRealName} 说：</b>“'+commentTxt+'”</h5></div><div class="mui-col-xs-2"><a style=" color:#EE7942;" href="javascript:void(0);" onclick="DeleteComment_comment('+data.commentId+','+commentId+');">删除</a></div>');
+		    			document.getElementById('comment2_'+commentId).innerHTML+=tt;
 		    			var c=document.getElementById('span2'+commentId);
 		    			var cc=parseInt(c.innerHTML)+1;
-			    		//alert(cc);
-			    		//cc=cc+1;
 			    		c.innerHTML=cc;
-			    		alert(cc);
 		    		alert('发送成功');
 		    	}else{
 		    		var dd = dialog('发送失败');
@@ -192,15 +196,15 @@ function doSaveMyspaceComment_comment(userId,myspaceId,commentId,commentTxt){
 	
 }
 
-function DeleteComment_comment(commentId){
+function DeleteComment_comment(commentId,parentId){
 	var truthBeTold = window.confirm("确定删除本条评论吗？");
 	if (truthBeTold) {
-		DoDeleteComment_comment(commentId);
+		DoDeleteComment_comment(commentId,parentId);
 	}
 }
 
 //删除帖子评论
-function DoDeleteComment_comment(commentId){
+function DoDeleteComment_comment(commentId,parentId){
 	$.ajax({
 		    type: "POST",
 		    url: "activitiesMySpace/DoDeleteMyspaceComment_comment.action", //orderModifyStatus
@@ -211,10 +215,12 @@ function DoDeleteComment_comment(commentId){
 		    		var c=document.getElementById('comment3_'+commentId);
 		    		//alert(c);
 		    		c.parentNode.removeChild(c);
-		    		//alert('成功删除');
-		    		//var cc=document.getElementById('span'+commentId).innerHTML;
-		    		//alert(cc);
-		    		//cc=cc-1;
+		    		alert('成功删除');
+		    		var span=document.getElementById('span2'+parentId);
+		    		
+		    		var num=parseInt(span.innerHTML)-1;
+		    		
+		    		span.innerHTML=num;
 		    	}else{
 		    		var dd = dialog('删除失败');
 		    	}
@@ -228,20 +234,6 @@ function DoDeleteComment_comment(commentId){
 	    });
 }
 
-
-
-function aaaaaa(tabID){
-	alert(222);
-	if(tabID=='1'){
-		 window.location.href="getActivitiesMySpaceCommentList.action";
-	}else if(tabID=='2'){
-		 window.location.href="getActivitiesMySpaceMaterialList.action";
-	}else if(tabID=='3'){
-		 window.location.href="getActivitiesMySpaceUsersList.action";
-	}else if(tabID=='4'){
-		 window.location.href="getActivitiesMySpaceMine.action";
-	}
-}
 </script>
 </head>
 
@@ -252,21 +244,21 @@ function aaaaaa(tabID){
 		<a id="operate" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" onclick="operate(this);">发帖</a>
 	</header>
 	<nav class="mui-bar mui-bar-tab" id="footerTab"> 
-		<a  id="tab1" class="mui-tab-item mui-active" href="getActivitiesMySpaceCommentList.action" > 
+		<a  id="tab1" class="mui-tab-item mui-active" href="<%=basePath%>activitiesMySpace/getActivitiesMySpaceCommentList.action"  > 
 			<span class="mui-icon mui-icon-chat"><!-- <span class="mui-badge">8</span> --></span> 
 			<span class="mui-tab-label">讨论区</span>
 		</a> 
-		<a  id="tab2" class="mui-tab-item" href="getActivitiesMySpaceMaterialList.action" > 
+		<a  id="tab2" class="mui-tab-item" href="<%=basePath%>activitiesMySpace/getActivitiesMySpaceMaterialList.action"> 
 			<span class="mui-icon mui-icon-image">
 			<!-- <span class="mui-badge">3</span> -->
 			</span> 
 			<span class="mui-tab-label">照片墙</span> 
 		</a> 
-		<a  id="tab3" class="mui-tab-item"  href="getActivitiesMySpaceUsersList.action"> 
+		<a  id="tab3" class="mui-tab-item" href="<%=basePath%>activitiesMySpace/getActivitiesMySpaceUsersList.action" > 
 			<span class="mui-icon mui-icon-contact"></span>
 			<span class="mui-tab-label">通讯录</span>
 		</a> 
-		<a  id="tab4" class="mui-tab-item" href="getActivitiesMySpaceMine.action">
+		<a  id="tab4" class="mui-tab-item" href="<%=basePath%>activitiesMySpace/getActivitiesMySpaceMine.action" >
 			<span class="mui-icon mui-icon-gear"></span> 
 			<span class="mui-tab-label">个人空间</span> 
 		</a> 
@@ -344,7 +336,7 @@ function aaaaaa(tabID){
      						<h5><b>${item2.mxUsersData.userRealName} 说：</b>“${item2.commentTxt}”</h5>
      					</div>
      					<div class="mui-col-xs-2">
-     						<a style=" color:#EE7942;" href="javascript:void(0);" onclick="DeleteComment_comment(${item2.commentId});">删除</a>
+     						<a style=" color:#EE7942;" href="javascript:void(0);" onclick="DeleteComment_comment(${item2.commentId},${item.commentId});">删除</a>
      					</div>
      				</div>
 					</c:if> 
@@ -373,22 +365,19 @@ function aaaaaa(tabID){
 mui.init();
 
 (function($){
-	
+	//alert(1111);
 	$(document).imageLazyload({
 		placeholder: '/MX_System/WeixinPages/common/images/60x60.gif'
 	});
-	lazyLoadApi.refresh(true);
+	//lazyLoadApi.refresh(true);
 	
 })(mui);
 
 
-var btn = document.getElementById("submit");
-//监听点击事件
-btn.addEventListener("tap",function () {
-console.log("tap event trigger");
+mui('#footerTab').on('tap','a',function(){
+    window.top.location.href=this.href;
 });
-//触发submit按钮的点击事件
-mui.trigger(btn,'tap');
+
 
 </script>
 </html>

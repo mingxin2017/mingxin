@@ -15,7 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 
-<title>活动用户列表</title>
+<title>鸣心-活动空间</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -77,6 +77,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body>
+	<header class="mui-bar mui-bar-nav" id="myspaceMainHeader"> 
+		<a class="mui-btn mui-btn-blue mui-btn-link mui-pull-left" onclick="quitPage();">退出</a>
+		<h1 id="title" class="mui-title">讨论区</h1>
+		<a id="operate" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" onclick="operate(this);">发出邀请</a>
+	</header>
+	<nav class="mui-bar mui-bar-tab" id="footerTab"> 
+		<a  id="tab1" class="mui-tab-item" href="<%=basePath%>activitiesMySpace/getActivitiesMySpaceCommentList.action"  > 
+			<span class="mui-icon mui-icon-chat"><!-- <span class="mui-badge">8</span> --></span> 
+			<span class="mui-tab-label">讨论区</span>
+		</a> 
+		<a  id="tab2" class="mui-tab-item" href="<%=basePath%>activitiesMySpace/getActivitiesMySpaceMaterialList.action"> 
+			<span class="mui-icon mui-icon-image">
+			<!-- <span class="mui-badge">3</span> -->
+			</span> 
+			<span class="mui-tab-label">照片墙</span> 
+		</a> 
+		<a  id="tab3" class="mui-tab-item mui-active" href="<%=basePath%>activitiesMySpace/getActivitiesMySpaceUsersList.action" > 
+			<span class="mui-icon mui-icon-contact"></span>
+			<span class="mui-tab-label">通讯录</span>
+		</a> 
+		<a  id="tab4" class="mui-tab-item" href="<%=basePath%>activitiesMySpace/getActivitiesMySpaceMine.action" >
+			<span class="mui-icon mui-icon-gear"></span> 
+			<span class="mui-tab-label">个人空间</span> 
+		</a> 
+	</nav>
+
 	<div class="mui-content">
 		<ul class="mui-table-view">
 			<c:forEach items="${mySpaceUsersList}" var="item">
@@ -115,5 +141,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			placeholder: '/MX_System/WeixinPages/common/images/60x60.gif'
 		});
 	})(mui);
+	mui('#footerTab').on('tap','a',function(){
+	    window.top.location.href=this.href;
+	});
+
 </script>
 </html>

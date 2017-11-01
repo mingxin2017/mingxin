@@ -269,7 +269,7 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 	 * (non-Javadoc)
 	 * @see com.mx.ssh.dao.IActivitiesMySpaceDAO#saveMyspaceComment_comment(int, int, java.lang.String)
 	 */
-	public boolean saveMyspaceComment_comment(int myspaceId,int commentId, int userId,
+	public int saveMyspaceComment_comment(int myspaceId,int commentId, int userId,
 			String commentTxt) {
 		
 		MxUsersData user=new MxUsersData();
@@ -279,10 +279,11 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 
 		try{
 			getHibernateTemplate().save(mc);
-			return true;
+			return mc.getCommentId();
+			//return true;
 		}catch(Exception e){
 			System.out.println(e);
-			return false;
+			return 0;
 		}
 	}
 
