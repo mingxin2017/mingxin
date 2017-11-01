@@ -25,11 +25,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="<%=basePath%>WeixinPages/common/js/jquery-1.11.2.js"></script>
 <script type="text/javascript" src="<%=basePath%>WeixinPages/common/js/dialog.js"></script>
 
-
 <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 
-
 <script type="text/javascript">
+
 	// 对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
 	var useragent = navigator.userAgent;
 	if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
@@ -230,7 +229,8 @@ function DoDeleteComment_comment(commentId){
 }
 
 
-function ClickTab(tabID){
+
+function aaaaaa(tabID){
 	alert(222);
 	if(tabID=='1'){
 		 window.location.href="getActivitiesMySpaceCommentList.action";
@@ -252,21 +252,21 @@ function ClickTab(tabID){
 		<a id="operate" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" onclick="operate(this);">发帖</a>
 	</header>
 	<nav class="mui-bar mui-bar-tab" id="footerTab"> 
-		<a  id="1" class="mui-tab-item mui-active" href="javascript:void(0);" onclick="ClickTab(1);" > 
+		<a  id="tab1" class="mui-tab-item mui-active" href="getActivitiesMySpaceCommentList.action" > 
 			<span class="mui-icon mui-icon-chat"><!-- <span class="mui-badge">8</span> --></span> 
 			<span class="mui-tab-label">讨论区</span>
 		</a> 
-		<a  id="2"class="mui-tab-item" href="javascript:void(0);" onclick="ClickTab(2);" > 
+		<a  id="tab2" class="mui-tab-item" href="getActivitiesMySpaceMaterialList.action" > 
 			<span class="mui-icon mui-icon-image">
 			<!-- <span class="mui-badge">3</span> -->
 			</span> 
 			<span class="mui-tab-label">照片墙</span> 
 		</a> 
-		<a  id="3"class="mui-tab-item" href="javascript:void(0);" onclick="ClickTab(3);"> 
+		<a  id="tab3" class="mui-tab-item"  href="getActivitiesMySpaceUsersList.action"> 
 			<span class="mui-icon mui-icon-contact"></span>
 			<span class="mui-tab-label">通讯录</span>
 		</a> 
-		<a  id="4"class="mui-tab-item" href="javascript:void(0);" onclick="ClickTab(4);">
+		<a  id="tab4" class="mui-tab-item" href="getActivitiesMySpaceMine.action">
 			<span class="mui-icon mui-icon-gear"></span> 
 			<span class="mui-tab-label">个人空间</span> 
 		</a> 
@@ -363,17 +363,32 @@ function ClickTab(tabID){
 	</c:forEach>
 	</div>
 </body>
-	<script src="<%=basePath%>WeixinPages/common/js/mui.min.js"></script>
-	<script src="<%=basePath%>WeixinPages/common/js/mui.lazyload.js"></script>
-	<script src="<%=basePath%>WeixinPages/common/js/mui.lazyload.img.js"></script>
-<script>
-	mui.init();
-	(function($) {
-		
-		$(document).imageLazyload({
-			placeholder: '/MX_System/WeixinPages/common/images/60x60.gif'
-		});
-		lazyLoadApi.refresh(true);
-	})(mui);
+
+<script src="<%=basePath%>WeixinPages/common/js/mui.min.js"></script>
+<script src="<%=basePath%>WeixinPages/common/js/mui.lazyload.js"></script>
+<script src="<%=basePath%>WeixinPages/common/js/mui.lazyload.img.js"></script>
+
+<script type="text/javascript">
+
+mui.init();
+
+(function($){
+	
+	$(document).imageLazyload({
+		placeholder: '/MX_System/WeixinPages/common/images/60x60.gif'
+	});
+	lazyLoadApi.refresh(true);
+	
+})(mui);
+
+
+var btn = document.getElementById("submit");
+//监听点击事件
+btn.addEventListener("tap",function () {
+console.log("tap event trigger");
+});
+//触发submit按钮的点击事件
+mui.trigger(btn,'tap');
+
 </script>
 </html>
