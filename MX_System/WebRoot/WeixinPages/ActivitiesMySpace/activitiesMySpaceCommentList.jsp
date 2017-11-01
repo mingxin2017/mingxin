@@ -49,24 +49,20 @@ function quitPage() {
 
 
 function operate(obj){
-	var operate=document.getElementById('operate').innerHTML;
 	var d = dialog({
-			fixed: false,
-			content: '<textarea autofocus id="subTxt" rows="4" cols="25" placeholder="发帖内容">',
-			button : [ {
+			content: '<textarea autofocus id="subTxt" rows="3" cols="25" placeholder="发帖内容">',
+			fixed:true,
+			button : [{
 							value : '发送',
 							callback : function() {
 								var txt = $('#subTxt').val();//获取输入的值
-								//var myspaceId=$('#myspaceId').val();
-								//var userId=$('#userId').val();//用户id
 								doSaveMyspaceComment(${sessionScope.userInfo.userId},${sessionScope.myspaceId},txt);
 							},
 							autofocus : true
 						}, {
 							value : '取消'
-						} ]
-
-					}).showModal(obj);
+						}]
+					}).showModal();
 	}
 	
 //保存空间评论
@@ -143,10 +139,10 @@ function ClickPraise(commentId,userId){
 
 
 function ClickComment_comment(obj,myspaceId,commentId,userId){
-	alert(222);
+	//alert(222);
 	var d = dialog({
 		content: '<textarea autofocus id="subTxt" rows="1" placeholder="请输入评论内容">',
-		quickClose: true,// 点击空白处快速关闭
+		//quickClose: true,// 点击空白处快速关闭
 		height: '2em',
 		button : [ {
 							value : '发送',
@@ -154,17 +150,19 @@ function ClickComment_comment(obj,myspaceId,commentId,userId){
 								var txt = $('#subTxt').val();//获取输入的值
 								if(txt!=''){
 									doSaveMyspaceComment_comment(userId,myspaceId,commentId,txt);
+								}else{
+									alert("请输入文字！");
 								}
 								
 							},
 							autofocus : true
 				}]
-		
-	}).show(obj);
+	
+	}).showModal();
 }
 
 function doSaveMyspaceComment_comment(userId,myspaceId,commentId,commentTxt){
-	alert(222);
+	//alert(222);
 	$.ajax({
 		    type: "POST",
 		    url: "activitiesMySpace/DoSaveMyspaceComment_comment.action", //orderModifyStatus
@@ -173,10 +171,11 @@ function doSaveMyspaceComment_comment(userId,myspaceId,commentId,commentTxt){
 		    success: function(data){
 		    	if(data.done=='0'){
 		    			document.getElementById('comment2_'+commentId).innerHTML+=('<h5><b>${sessionScope.userInfo.userRealName} 说：</b>“'+commentTxt+'”</h5>');
-		    			var cc=document.getElementById('span'+commentId).innerHTML;
-			    		alert(cc);
-			    		cc=cc+1;
-			    		document.getElementById('span'+commentId).innerHTML=cc;
+		    			var c=document.getElementById('span2'+commentId);
+		    			var cc=parseInt(c.innerHTML)+1;
+			    		//alert(cc);
+			    		//cc=cc+1;
+			    		c.innerHTML=cc;
 			    		alert(cc);
 		    		alert('发送成功');
 		    	}else{
@@ -229,6 +228,20 @@ function DoDeleteComment_comment(commentId){
 			}
 	    });
 }
+
+
+function ClickTab(tabID){
+	alert(222);
+	if(tabID=='1'){
+		 window.location.href="getActivitiesMySpaceCommentList.action";
+	}else if(tabID=='2'){
+		 window.location.href="getActivitiesMySpaceMaterialList.action";
+	}else if(tabID=='3'){
+		 window.location.href="getActivitiesMySpaceUsersList.action";
+	}else if(tabID=='4'){
+		 window.location.href="getActivitiesMySpaceMine.action";
+	}
+}
 </script>
 </head>
 
@@ -239,29 +252,27 @@ function DoDeleteComment_comment(commentId){
 		<a id="operate" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" onclick="operate(this);">发帖</a>
 	</header>
 	<nav class="mui-bar mui-bar-tab" id="footerTab"> 
-		<a  id="1" class="mui-tab-item mui-active"  > 
+		<a  id="1" class="mui-tab-item mui-active" href="javascript:void(0);" onclick="ClickTab(1);" > 
 			<span class="mui-icon mui-icon-chat"><!-- <span class="mui-badge">8</span> --></span> 
 			<span class="mui-tab-label">讨论区</span>
 		</a> 
-		<a  id="2"class="mui-tab-item"  > 
+		<a  id="2"class="mui-tab-item" href="javascript:void(0);" onclick="ClickTab(2);" > 
 			<span class="mui-icon mui-icon-image">
 			<!-- <span class="mui-badge">3</span> -->
 			</span> 
 			<span class="mui-tab-label">照片墙</span> 
 		</a> 
-		<a  id="3"class="mui-tab-item" > 
+		<a  id="3"class="mui-tab-item" href="javascript:void(0);" onclick="ClickTab(3);"> 
 			<span class="mui-icon mui-icon-contact"></span>
 			<span class="mui-tab-label">通讯录</span>
 		</a> 
-		<a  id="4"class="mui-tab-item">
+		<a  id="4"class="mui-tab-item" href="javascript:void(0);" onclick="ClickTab(4);">
 			<span class="mui-icon mui-icon-gear"></span> 
 			<span class="mui-tab-label">个人空间</span> 
 		</a> 
 	</nav>
 	
-	<div id="iframeContent" class="mui-content" >
-	
-	
+	<div id="iframeContent" class="mui-content" style="height:100%;overflow-y:scroll;">
 	<c:forEach items="${userMySpaceCommentList}" var="item">
 	<c:if test="${item.parentCommentId eq -1}">
 	<%int commentNum=0; %>
@@ -319,7 +330,7 @@ function DoDeleteComment_comment(commentId){
 			</c:if> --%>
 			<%-- <c:if test="${item.mxUsersData.userId ne sessionScope.userInfo.userId}"> --%>
 			<a id="comment_${item.commentId}" class="mui-card-link" href="javascript:void(0);" onclick="ClickComment_comment(this,${sessionScope.myspaceId},${item.commentId},${sessionScope.userInfo.userId});"> 
-				<span class="mui-icon mui-icon-chatboxes"></span><span id="span${item.commentId}"><%=commentNum %></span>评论
+				<span class="mui-icon mui-icon-chatboxes"></span><span id="span2${item.commentId}"><%=commentNum %></span>评论
 			</a> 
 			<%-- </c:if>--%>
 		</div>
