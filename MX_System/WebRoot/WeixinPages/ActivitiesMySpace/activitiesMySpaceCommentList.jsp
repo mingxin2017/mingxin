@@ -160,6 +160,7 @@ function ClickComment_comment(obj,myspaceId,commentId,userId){
 	}).showModal();
 }
 
+//保存帖子的评论内容
 function doSaveMyspaceComment_comment(userId,myspaceId,commentId,commentTxt){
 	//alert(222);
 	$.ajax({
@@ -176,7 +177,8 @@ function doSaveMyspaceComment_comment(userId,myspaceId,commentId,commentTxt){
 		    						+data.commentId+','
 		    						+commentId+');">删除</a></div></div>');
 		    			//document.getElementById('comment2_'+commentId).innerHTML+=('<div class="mui-col-xs-10"><h5><b>${sessionScope.userInfo.userRealName} 说：</b>“'+commentTxt+'”</h5></div><div class="mui-col-xs-2"><a style=" color:#EE7942;" href="javascript:void(0);" onclick="DeleteComment_comment('+data.commentId+','+commentId+');">删除</a></div>');
-		    			document.getElementById('comment2_'+commentId).innerHTML+=tt;
+		    			var intt=document.getElementById('comment2_'+commentId);
+		    			intt.innerHTML=tt+intt.innerHTML;
 		    			var c=document.getElementById('span2'+commentId);
 		    			var cc=parseInt(c.innerHTML)+1;
 			    		c.innerHTML=cc;
@@ -375,6 +377,8 @@ mui.init();
 
 
 mui('#footerTab').on('tap','a',function(){
+	//var w=window.top.document;
+	//var dl=dialog('加载中...').showModal();
     window.top.location.href=this.href;
 });
 
