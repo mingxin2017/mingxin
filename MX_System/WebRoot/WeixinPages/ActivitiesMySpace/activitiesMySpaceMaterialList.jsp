@@ -18,6 +18,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<!--标准mui.css-->
 		<link rel="stylesheet" href="<%=basePath%>WeixinPages/common/css/mui.min.css"/>
+		
+		<!--上传图片的css-->
 		<style type="text/css">
 .rich{
 	width:80px;
@@ -61,7 +63,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 }
 </style>
 		
-		<!--App自定义的css-->
+		<!--图片预览的css-->
 		<style type="text/css">
 			.mui-preview-image.mui-fullscreen {
 				position: fixed;
@@ -221,7 +223,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<body>
 	<header class="mui-bar mui-bar-nav" id="myspaceMainHeader"> 
 		<a class="mui-btn mui-btn-blue mui-btn-link mui-pull-left" onclick="quitPage();">退出</a>
-		<h1 id="title" class="mui-title">讨论区</h1>
+		<h1 id="title" class="mui-title">照片墙</h1>
 		<a id="operate" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" onclick="operate(this);">上传照片</a>
 	</header>
 	<nav class="mui-bar mui-bar-tab" id="footerTab"> 
@@ -310,9 +312,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											//alert("11111");
 											var imgFile = document.getElementById('imgFile').files[0];//获取选择的文件
 											//alert(imgFile);
-											var myspaceId=$('#myspaceId').val();
-											var userId=$('#userId').val();//用户id
-											doUploadImage(userId,myspaceId,imgFile);
+											//var myspaceId=$('#myspaceId').val();
+											//var userId=$('#userId').val();//用户id
+											doUploadImage(imgFile);
 										},
 										autofocus : true
 									} ]
@@ -338,16 +340,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
 		//上传图片事件
-		function doUploadImage(userId,myspaceId,imgFile){
+		function doUploadImage(imgFile){
 			var d=dialog({content:'上传中...'}).showModal();//加载中弹出框
 			//alert(1111);
 	         lrz(imgFile, {width: 1080})
 	            .then(function (rst) {
-	            	//alert(222);
+	            	alert(222);
 	                $.ajax({
 	                    url: 'UploadImage.action',
 	                    type: 'post',
-	                    data: {img: rst.base64,userId:userId,myspaceId:myspaceId},
+	                    data: {img: rst.base64},
 	                    dataType: 'json',
 	                    timeout: 200000,
 	                    success: function (response) {
@@ -357,8 +359,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        		    			d.close().remove();
 	        		    		}, 1500);
 	                        	//刷新页面
-	                        	document.getElementById('mainContent').src= "getActivitiesMySpaceMaterialList.action";
-	                        	
+	                        	window.location.reload(true);
 	                            return true;
 	                        } else {
 	                        	d.content(response.msg);

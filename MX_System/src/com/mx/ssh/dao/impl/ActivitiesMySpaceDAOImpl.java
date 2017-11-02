@@ -306,5 +306,17 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 		}
 	}
 
+	public boolean deleteMyspaceMaterial(int materialId) {
+		// TODO Auto-generated method stub
+		List ms=getHibernateTemplate().find("from MxActivitiesMySpaceMaterial au where au.materialId ="+ materialId);
+		if(ms.size()>0){
+			MxActivitiesMySpaceMaterial m= (MxActivitiesMySpaceMaterial) ms.get(0);
+			getHibernateTemplate().delete(m);
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 
 }

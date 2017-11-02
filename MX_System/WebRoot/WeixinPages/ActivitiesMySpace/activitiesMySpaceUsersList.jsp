@@ -79,7 +79,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 	<header class="mui-bar mui-bar-nav" id="myspaceMainHeader"> 
 		<a class="mui-btn mui-btn-blue mui-btn-link mui-pull-left" onclick="quitPage();">退出</a>
-		<h1 id="title" class="mui-title">讨论区</h1>
+		<h1 id="title" class="mui-title">通讯录</h1>
 		<a id="operate" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" onclick="operate(this);">发出邀请</a>
 	</header>
 	<nav class="mui-bar mui-bar-tab" id="footerTab"> 

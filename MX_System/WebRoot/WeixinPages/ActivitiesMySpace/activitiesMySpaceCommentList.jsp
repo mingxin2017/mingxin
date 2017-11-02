@@ -288,7 +288,7 @@ function DoDeleteComment_comment(commentId,parentId){
 					long  between = nowDate.getTime() - itemDate.getTime();
 					if(between <= (3*24*3600000)){
 					%>
-					<span class="mui-badge mui-badge-danger">新</span>
+					<span class="mui-badge mui-badge-green">今日</span>
 					<%} %>
 				</p>
 			</div>

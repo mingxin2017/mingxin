@@ -80,4 +80,22 @@ public class ImageMethod {
 		return imageName;
 	}
 
+	public static boolean deleteImage(String realSavePath) {
+		// TODO Auto-generated method stub
+		 File file = new File(realSavePath);
+	        // 如果文件路径所对应的文件存在，并且是一个文件，则直接删除
+	        if (file.exists() && file.isFile()) {
+	            if (file.delete()) {
+	                System.out.println("系统目录图片删除成功！");
+	                return true;
+	            } else {
+	                System.out.println("系统目录图片删除失败！");
+	                return false;
+	            }
+	        } else {
+	            System.out.println("系统目录下文件不存在！");
+	            return true;
+	        }
+	}
+
 }

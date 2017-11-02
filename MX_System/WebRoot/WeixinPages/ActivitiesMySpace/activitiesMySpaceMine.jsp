@@ -29,7 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 	<header class="mui-bar mui-bar-nav" id="myspaceMainHeader"> 
 		<a class="mui-btn mui-btn-blue mui-btn-link mui-pull-left" onclick="quitPage();">退出</a>
-		<h1 id="title" class="mui-title">讨论区</h1>
+		<h1 id="title" class="mui-title">个人空间</h1>
 	</header>
 	<nav class="mui-bar mui-bar-tab" id="footerTab"> 
 		<a  id="tab1" class="mui-tab-item" href="<%=basePath%>activitiesMySpace/getActivitiesMySpaceCommentList.action"  > 
@@ -98,7 +98,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									
 									<!-- 第一张 -->
 									<div class="mui-slider-item" >
+											<p class="mui-slider-title"><button type="button" class="mui-btn mui-btn-danger" onclick="deleteImage(${item.materialId},'${item.loadUrl}');">删除该图片</button></p>
 											<img src="${item.loadUrl}" style="width:100%;">
+											
 									</div>
 									
 									</c:forEach>
@@ -106,6 +108,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								
 							</div>
 						</div>
+						
 			</li>
 			<li class="mui-table-view-cell mui-collapse"><a
 				class="mui-navigate-right" href="#">我的讨论(${fn:length(sessionScope.myspaceUserMine.activitiesMySpaceCommentMineList)})</a>
@@ -133,9 +136,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</ul>
 	</div>
 	</div>
+	<script type="text/javascript" src="<%=basePath%>WeixinPages/common/js/jquery-1.11.2.js"></script>
 	<script src="<%=basePath%>WeixinPages/common/js/mui.min.js"></script>
-	<script src="<%=basePath%>WeixinPages/common/js/mui.zoom.js"></script>
-	<script src="<%=basePath%>WeixinPages/common/js/mui.previewimage.js"></script>
+	<script type="text/javascript" src="<%=basePath%>WeixinPages/common/js/dialog.js"></script>
 	<script>
 			mui.init();
 			
@@ -143,6 +146,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    window.top.location.href=this.href;
 			});
 
+			//删除图片
+			function deleteImage(materialId,loadUrl){
+				alert(3333);
+				mui.post('DeleteImage.action'
+						,{materialId:materialId,loadUrl:loadUrl}
+					,function(data){
+					//服务器返回响应，根据响应结果，分析是否登录成功；...
+					if(data.done=='0'){
+						var dddd = dialog('删除成功').show();
+						setTimeout(function () {
+							dddd.close().remove();
+			    		}, 1500);
+						window.location.reload(true);
+					}else{
+						var ddd = dialog('删除失败').show();
+						setTimeout(function () {
+							ddd.close().remove();
+			    		}, 1500);
+					}
+				},'json');
+			}
 			
 			//mui.previewImage();
 		</script>

@@ -54,4 +54,6 @@ public interface IActivitiesMySpaceDAO {
 
 	boolean deleteMyspaceComment_comment(int commentId);
 
+	boolean deleteMyspaceMaterial(int materialId);
+
 }

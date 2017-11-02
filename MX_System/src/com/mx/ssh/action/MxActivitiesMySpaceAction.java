@@ -359,18 +359,18 @@ public class MxActivitiesMySpaceAction extends ActionSupport {
 		request.setCharacterEncoding("UTF-8");
 		HttpServletResponse response = ServletActionContext.getResponse();// response对象返回数据给前台
 		response.setContentType("application/json; charset=utf-8");
-		String userId = request.getParameter("userId").toString();// 获取用户id
-		String myspaceId = request.getParameter("myspaceId").toString();// 获取活动空间id
+		int userId = ((MxUsersData)request.getSession().getAttribute("userInfo")).getUserId();// 获取用户id
+		String myspaceId =request.getSession().getAttribute("myspaceId").toString();// 获取活动空间id
 		String base64Img = request.getParameter("img").toString();
 		base64Img = base64Img.replace("data:image/jpeg;base64,", "");// 去除base64中无用的文件头
 		String savePath = "/WeixinPages/common/uploadImg/myspaceImg/"
-				+ myspaceId + "/" + userId + "/";// 保存图片的绝对路径
+				+ myspaceId + "/" + userId + "/";// 保存图片的服务器相对路径
 		String realSavePath = request.getSession().getServletContext()
-				.getRealPath(savePath);
+				.getRealPath(savePath);//系统文件夹目录路径
 		String imgName = ImageMethod.Base64SaveAsImage(base64Img, realSavePath);// 保存图片到系统应用文件夹中
 
 		Map<String, String> map = new HashMap<String, String>();
-		String showPath = request.getContextPath() + savePath;
+		String showPath = request.getContextPath() + savePath;//服务器url绝对巨鲸
 		String imgPath = showPath + imgName;
 
 		MxActivitiesMySpaceMaterial material = new MxActivitiesMySpaceMaterial();
@@ -380,7 +380,7 @@ public class MxActivitiesMySpaceAction extends ActionSupport {
 		material.setMaterialType(1);// 图片类型为1
 		material.setMyspaceId(Integer.parseInt(myspaceId));
 		material.setOthers("");
-		material.setSubmitUserId(Integer.parseInt(userId));
+		material.setSubmitUserId(userId);
 		boolean saveToSQL = activitiesMySpaceService
 				.saveActivitiesMySpaceMaterial(material);
 
@@ -399,6 +399,49 @@ public class MxActivitiesMySpaceAction extends ActionSupport {
 
 	}
 
+	/*
+	 * 删除图片方法
+	 */
+	@Action(value = "DeleteImage")
+	public void DeleteImage() throws IOException, ServletException {
+
+		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
+		request.setCharacterEncoding("UTF-8");
+		HttpServletResponse response = ServletActionContext.getResponse();// response对象返回数据给前台
+		response.setContentType("application/json; charset=utf-8");
+		
+		int userId = ((MxUsersData)request.getSession().getAttribute("userInfo")).getUserId();// 获取用户id
+		String myspaceId =request.getSession().getAttribute("myspaceId").toString();// 获取活动空间id
+		int materialId = Integer.parseInt(request.getParameter("materialId").trim());
+		String loadUrl=request.getParameter("loadUrl").trim();
+		
+		String imgName = loadUrl.substring(loadUrl.indexOf(userId+"/")+1, loadUrl.length());//截取文件名
+
+		String imgSavePath = "/WeixinPages/common/uploadImg/myspaceImg/"
+				+ myspaceId + "/" + userId + "/"+imgName;// 保存图片的服务器相对路径
+		
+		String realSavePath = request.getSession().getServletContext()
+				.getRealPath(imgSavePath);//系统文件夹目录路径
+		
+		boolean imgDone = ImageMethod.deleteImage(realSavePath);// 系统目录下删除文件
+		
+		boolean imgDone2 = (imgDone==true?activitiesMySpaceService.deleteMyspaceMaterial(materialId):false);//数据库内删除数据
+		
+		Map<String, String> map = new HashMap<String, String>();
+		
+		if (imgDone2 == false) {
+			map.put("done", "-1");
+			map.put("msg", "图片删除失败了!");
+		} else {
+			map.put("done", "0");
+			map.put("msg", "图删除成功!");
+		}
+		JSONObject jsonObject = JSONObject.fromObject(map);
+		response.getWriter().write(jsonObject.toString());
+
+	}
+	
+	
 	/*
 	 * 评论点赞
 	 */

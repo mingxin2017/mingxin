@@ -55,5 +55,7 @@ public interface IActivitiesMySpaceService {
 	 */
 	boolean deleteMyspaceComment_comment(int commentId);
 
+	boolean deleteMyspaceMaterial(int materialId);
+
 
 }
