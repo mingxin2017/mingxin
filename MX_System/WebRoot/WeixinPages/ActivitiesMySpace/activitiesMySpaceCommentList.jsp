@@ -286,7 +286,7 @@ function DoDeleteComment_comment(commentId,parentId){
 					Date itemDate=(Date)request.getAttribute("itemDate");
 					Date nowDate=new Date();
 					long  between = nowDate.getTime() - itemDate.getTime();
-					if(between <= (3*24*3600000)){
+					if(between <= (1*24*3600000)){
 					%>
 					<span class="mui-badge mui-badge-green">今日</span>
 					<%} %>
@@ -310,30 +310,25 @@ function DoDeleteComment_comment(commentId,parentId){
 			<%if(isClicked==false){ %>  
        			<a id="praise_${item.commentId}" class="mui-card-link" href="javascript:void(0);" onclick="ClickPraise(${item.commentId},${sessionScope.userInfo.userId});"> 
 					<span class="mui-icon icomoon icon-thumbs-up"></span><span id="span${item.commentId}">${item.praiseClickNum}</span>赞
-				</a>      
+				</a>
   				
    			 <%}else{ %>
      			<a id="a${item.commentId}" class="mui-card-link" href="javascript:void(0);" style="color:gray"> 
 					<span class="mui-icon icomoon icon-thumbs-up"></span><span id="span${item.commentId}">${item.praiseClickNum}</span>赞
 				</a>
    			<%} %>
-   			<%-- <c:if test="${item.mxUsersData.userId eq sessionScope.userInfo.userId}">
-			<a id="comment_${item.commentId}" class="mui-card-link" href="javascript:void(0);" style="color:gray"> 
-				<span class="mui-icon mui-icon-chatboxes"></span><span id="span${item.commentId}"><%=commentNum %></span>评论
-			</a> 
-			</c:if> --%>
-			<%-- <c:if test="${item.mxUsersData.userId ne sessionScope.userInfo.userId}"> --%>
+   			
 			<a id="comment_${item.commentId}" class="mui-card-link" href="javascript:void(0);" onclick="ClickComment_comment(this,${sessionScope.myspaceId},${item.commentId},${sessionScope.userInfo.userId});"> 
 				<span class="mui-icon mui-icon-chatboxes"></span><span id="span2${item.commentId}"><%=commentNum %></span>评论
 			</a> 
-			<%-- </c:if>--%>
+			
 		</div>
 		
 			<div style="padding:0px 20px 20px 40px;" id="comment2_${item.commentId}">
 				<c:forEach items="${userMySpaceCommentList}" var="item2">
 					<c:if test="${item2.parentCommentId eq item.commentId}">
-					<c:if test="${item.mxUsersData.userId eq sessionScope.userInfo.userId}">
-					<div class="mui-row" id="comment3_${item2.commentId}"> 
+					<c:if test="${item2.mxUsersData.userId eq sessionScope.userInfo.userId}">
+					<div class="mui-row" id="comment3_${item2.commentId}">
 						<div class="mui-col-xs-10">
      						<h5><b>${item2.mxUsersData.userRealName} 说：</b>“${item2.commentTxt}”</h5>
      					</div>
@@ -342,7 +337,7 @@ function DoDeleteComment_comment(commentId,parentId){
      					</div>
      				</div>
 					</c:if> 
-					<c:if test="${item.mxUsersData.userId ne sessionScope.userInfo.userId}">
+					<c:if test="${item2.mxUsersData.userId ne sessionScope.userInfo.userId}">
 					<div class="mui-row" id="comment3_${item2.commentId}"> 
 						<div class="mui-col-xs-12">
      						<h5><b>${item2.mxUsersData.userRealName} 说：</b>“${item2.commentTxt}”</h5>

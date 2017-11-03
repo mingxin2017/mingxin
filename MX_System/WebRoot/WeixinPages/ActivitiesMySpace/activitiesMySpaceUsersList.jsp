@@ -31,6 +31,65 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <c:if test="${sessionScope.userInfo.userTypeId== 1100}">
 	<script type="text/javascript">
+	
+	function operate(obj){
+		
+				var d = dialog({
+					fixed: true,
+					//title:'确定生成邀请链接？',
+					content:'<div id="showInviteCode">确定生成活动邀请码？</div>',
+					button : [ {
+						value : '取消'
+						},{
+							value : '生成',
+							autofocus : true,
+							callback : function() {
+								$.ajax({
+								    type: "POST",
+								    url: "<%=basePath%>activitiesMySpace/DoCreateInviteCodeUrl.action", //生成活动邀请链接
+								    data: {"initiator_userId":${userInfo.userId},"myspaceId":${sessionScope.myspaceId}},
+								    dataType:"json",
+								    async:false,
+								    cache:false,
+								    success: function(data){
+								    	if(data.done=='0'){
+								    		//document.getElementById('showInviteCode').innerHTML='<input type=\"text\" value=\"'+data.inviteCodeUrl+'\"/>';
+								    		var dd = dialog({
+								    				title:'复制以下内容，发送给参加人员',
+								    				//content:'<div>该邀请码有效期为24小时</div><input type=\"text\" value=\"'+data.inviteCode+'\"/>\r\n<',
+								    				content:'<textarea rows=\"5\" cols=\"25\" readonly=\"readonly\">邀请码('+data.inviteCode+')，复制整条信息至-鸣心公众号-个人中心-个人空间粘贴即可接受邀请。邀请码有效期至2017-11-03 15:25止。</textarea>',
+								                    okValue: '完成',
+								                    ok: function() {
+								                        dd.close().remove();
+								                    }
+								    		}).showModal();
+								    		
+								    		//setTimeout(function () {
+								    		//	dd.close().remove();
+								    		//}, 2000);
+								    	}else{
+								    		var dd = dialog('生成失败');
+								    		setTimeout(function () {
+								    			dd.close().remove();
+								    		}, 1000);
+								    	}
+									},
+									error: function(json){
+										var ddd = dialog('提交数据异常，请刷新后重试...').show();
+										setTimeout(function () {
+											ddd.close().remove();
+							    		}, 1500);
+									}
+							    });
+							
+						}
+						}]
+					
+				}).showModal();
+				
+		}
+	
+	
 	function DeleteMySpaceUser(myspaceId,userId){
 		var d = dialog({
 			fixed: true,
@@ -80,7 +139,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<header class="mui-bar mui-bar-nav" id="myspaceMainHeader"> 
 		<a class="mui-btn mui-btn-blue mui-btn-link mui-pull-left" onclick="quitPage();">退出</a>
 		<h1 id="title" class="mui-title">通讯录</h1>
-		<a id="operate" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" onclick="operate(this);">发出邀请</a>
+		<c:if test="${sessionScope.userInfo.userTypeId== 1100}">
+		<a id="operate" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" onclick="operate(this);">生成邀请码</a>
+		</c:if>
 	</header>
 	<nav class="mui-bar mui-bar-tab" id="footerTab"> 
 		<a  id="tab1" class="mui-tab-item" href="<%=basePath%>activitiesMySpace/getActivitiesMySpaceCommentList.action"  > 

@@ -248,6 +248,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</nav>
 	
 		<div class="mui-content">
+		<%int imgNum=-1; %>
 		<c:forEach items="${userMySpaceMaterialList}" var="item1">
 		
 			<div class="mui-card">
@@ -258,10 +259,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<p>更新于<fmt:formatDate value="${item1.userMySpaceMaterialList[0].createDate}" pattern="yyyy-MM-dd　HH:mm"/></p>
 					</div>
 				</div>
-				<div class="mui-card-content" >
+				<c:if test="${item1.userData.userId eq sessionScope.userInfo.userId}">
+					<%--<c:set var="id"  value="${param.id}"/>--%>
+					<c:set var="len" value="${fn:length(item1.userMySpaceMaterialList)}" scope="request"></c:set>
+					<%imgNum=(Integer)request.getAttribute("len");%>
+				</c:if>
+			<div class="mui-card-content" >
 			<ul class="mui-table-view mui-grid-view" id="${item1.userData.userId}">
+				
+		
 		      <c:forEach items="${item1.userMySpaceMaterialList}" var="item2">
-			 
+			 	
 			  <li class="mui-table-view-cell mui-media mui-col-xs-3">
 				<p>
 					<img data-lazyload="${item2.loadUrl}" data-preview-src="" data-preview-group="${item1.userData.userId}" />
@@ -269,11 +277,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</li>
 				
 			  </c:forEach>
+			  
+			  
 			  </ul>
 				</div>
 			</div>
 			
 			</c:forEach>
+			<input id="imgNum" type="hidden" value="<%=imgNum%>"/>
 		</div>
 	</body>
 	<script type="text/javascript" src="<%=basePath%>WeixinPages/common/js/jquery-1.11.2.js"></script>
@@ -300,20 +311,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		});
 
 		function operate(obj){
+			var imgNum=parseInt($('#imgNum').val());
+			if(imgNum!=-1&&imgNum>=8){
+				var ddd = dialog('您已上传8张照片，无法上传更多！').showModal();
+				setTimeout(function () {
+					ddd.close().remove();
+	    		}, 1500);
+				return;
+			}
 					var d = dialog({
 						fixed: true,
-						content: '<div id="showImage" class="rich">预览</div><div class="footer-btn " ><span ><i class="mui-icon mui-icon-image"></i>选图</span><input onchange="showImage(this);" class="input-file-css" type="file" capture="camera" accept="image/*" name="imgFile" id="imgFile"></div>',
+						content: '<div id="showImage" class="rich">预览</div><div class="footer-btn " ><span ><i class="mui-icon mui-icon-image"></i>选图</span><input onchange="showImage(this);" class="input-file-css" type="file" accept="image/*" name="imgFile" id="imgFile"></div>',
 						
 						button : [ {
 									value : '取消'
 									},{
 										value : '上传',
 										callback : function() {
-											//alert("11111");
 											var imgFile = document.getElementById('imgFile').files[0];//获取选择的文件
-											//alert(imgFile);
-											//var myspaceId=$('#myspaceId').val();
-											//var userId=$('#userId').val();//用户id
 											doUploadImage(imgFile);
 										},
 										autofocus : true
@@ -342,10 +357,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		//上传图片事件
 		function doUploadImage(imgFile){
 			var d=dialog({content:'上传中...'}).showModal();//加载中弹出框
-			//alert(1111);
-	         lrz(imgFile, {width: 1080})
+	         lrz(imgFile, {height:1080,width:1080})//压缩图片
 	            .then(function (rst) {
-	            	alert(222);
 	                $.ajax({
 	                    url: 'UploadImage.action',
 	                    type: 'post',
