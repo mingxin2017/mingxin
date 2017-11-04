@@ -1,4 +1,4 @@
-#Thu Sep 07 23:39:47 CST 2017
+#Sat Nov 04 10:39:39 CST 2017
 eclipse.preferences.version=1
 encoding//WebRoot/Pages/defaultMain.jsp=UTF-8
 encoding//WebRoot/Pages/index.jsp=UTF-8
@@ -6,3 +6,4 @@ encoding//WebRoot/Pages/test.jsp=UTF-8
 encoding//WebRoot/SystemPages/_blank.jsp=UTF-8
 encoding//WebRoot/SystemPages/index.jsp=UTF-8
 encoding//WebRoot/WeixinPages/WeixinAdmin/weixinLogin.jsp=UTF-8
+encoding//WebRoot/WeixinPages/common/js/--mui.zoom.js=UTF-8

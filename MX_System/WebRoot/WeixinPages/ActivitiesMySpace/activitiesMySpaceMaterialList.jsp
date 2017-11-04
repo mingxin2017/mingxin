@@ -295,7 +295,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script src="<%=basePath%>WeixinPages/common/js/mui.previewimage.js"></script>
 	<script src="<%=basePath%>WeixinPages/common/js/mui.lazyload.js"></script>
 	<script src="<%=basePath%>WeixinPages/common/js/mui.lazyload.img.js"></script>
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 	<script>
+	// 对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
+	var useragent = navigator.userAgent;
+	if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
+		// 这里警告框会阻塞当前页面继续加载
+		alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
+		// 以下代码是用javascript强行关闭当前页面
+		var opened = window.open('about:blank', '_self');
+		opened.opener = null;
+		opened.close();
+	}
+
+
+//退出个人空间
+function quitPage() {
+	wx.closeWindow();
+}
+	
+	
 		mui.previewImage();//设置图片预览
 		
 		mui.init();//mui初始化
@@ -312,8 +331,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		function operate(obj){
 			var imgNum=parseInt($('#imgNum').val());
-			if(imgNum!=-1&&imgNum>=8){
-				var ddd = dialog('您已上传8张照片，无法上传更多！').showModal();
+			if(imgNum!=-1&&imgNum>=12){
+				var ddd = dialog('您已上传12张照片，无法上传更多！').showModal();
 				setTimeout(function () {
 					ddd.close().remove();
 	    		}, 1500);

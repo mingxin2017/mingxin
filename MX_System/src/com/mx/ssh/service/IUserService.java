@@ -21,4 +21,5 @@ public interface IUserService {
 	public boolean setState(int i, int userId);
 	public boolean deleteUser(int userId);
 	public boolean restoreUserPassword(int userId);
+	public boolean updateUserData(MxUsersData user);
 }

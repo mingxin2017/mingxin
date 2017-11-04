@@ -575,5 +575,51 @@ public class MxActivitiesMySpaceAction extends ActionSupport {
 	
 	}
 	
+	/*
+	 * 删除帖子评论
+	 */
+	@Action(value = "SaveUserData")
+	public void SaveUserData() throws IOException{
+		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
+		request.setCharacterEncoding("UTF-8");
+		HttpServletResponse response = ServletActionContext.getResponse();// response对象返回数据给前台
+		response.setContentType("application/json; charset=utf-8");
+		
+		int userId=((MxUsersData)request.getSession().getAttribute("userInfo")).getUserId();
+		String userRealName=request.getParameter("userRealName");
+		String phoneNum=request.getParameter("phoneNum");
+		String userAddr=request.getParameter("userAddr");
+		String userEmail=request.getParameter("userEmail");
+		String userIdNum=request.getParameter("userIdNum");
+		String userGradeClass=request.getParameter("userGradeClass");
+		
+		
+		MxUsersData user=userService.getUserByID(userId);
+		
+		user.setUserRealName(userRealName);
+		user.setUserPhoneNum(phoneNum);
+		user.setUserAddr(userAddr);
+		user.setUserEmail(userEmail);
+		user.setUserIdcardNum(userIdNum);
+		user.setOthers(userGradeClass);
+		
+		boolean isDone=userService.updateUserData(user);//更新用户数据
+		
+		Map<String, String> map = new HashMap<String, String>();
+		if (!isDone) {
+			map.put("done", "-1");
+			map.put("msg", "提交失败!");
+		} else {
+			map.put("done", "0");
+			map.put("msg", "提交成功!");
+			request.getSession().setAttribute("userInfo", user);
+		}
+		JSONObject jsonObject = JSONObject.fromObject(map);
+		response.getWriter().write(jsonObject.toString());
+		
+	}
+	
+	
+	
 
 }

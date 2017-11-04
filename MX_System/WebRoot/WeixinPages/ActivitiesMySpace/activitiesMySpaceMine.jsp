@@ -19,13 +19,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-<link rel="stylesheet"
-	href="<%=basePath%>WeixinPages/common/css/mui.min.css">
-	<!-- 自定义图标字体 -->
-<link rel="stylesheet"
-	href="<%=basePath%>WeixinPages/common/css/icomoon.css">
-</head>
+<link rel="stylesheet" href="<%=basePath%>WeixinPages/common/css/mui.min.css">
 
+<script type="text/javascript" src="<%=basePath%>WeixinPages/common/js/jquery-1.11.2.js"></script>
+
+<!-- 自定义图标字体 -->
+<link rel="stylesheet" href="<%=basePath%>WeixinPages/common/css/icomoon.css">
+
+	
+	<script src="<%=basePath%>WeixinPages/common/js/mui.min.js"></script>
+	<script type="text/javascript" src="<%=basePath%>WeixinPages/common/js/dialog.js"></script>
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	
+</head>
 <body>
 	<header class="mui-bar mui-bar-nav" id="myspaceMainHeader"> 
 		<a class="mui-btn mui-btn-blue mui-btn-link mui-pull-left" onclick="quitPage();">退出</a>
@@ -58,34 +64,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<li class="mui-table-view-cell mui-collapse"><a
 				class="mui-navigate-right" href="#">个人信息</a>
 				<div class="mui-collapse-content">
-					<form class="mui-input-group">
+					<form class="mui-input-group" id="userForm">
 						<div class="mui-input-row">
-							<label>姓名</label> <input type="text" class="mui-input-clear"
-								placeholder="输入姓名" value="${sessionScope.userInfo.userRealName}">
+							<label>姓名</label> <input type="text" class="mui-input-clear" id="userRealName" name="userRealName"
+								placeholder="输入姓名" value="${sessionScope.userInfo.userRealName}" >
 						</div>
 						<div class="mui-input-row">
-							<label>手机号</label> <input type="text" class="mui-input-clear"
-								placeholder="输入手机号" value="${sessionScope.userInfo.userPhoneNum}">
+							<label>手机号</label> <input type="text" class="mui-input-clear" id="phoneNum" name="phoneNum"
+								placeholder="输入手机号" value="${sessionScope.userInfo.userPhoneNum}" >
 						</div>
 						<div class="mui-input-row">
-							<label>联系地址</label> <input type="text" class="mui-input-clear"
-								placeholder="输入地址" value="${sessionScope.userInfo.userAddr}">
+							<label>联系地址</label> <input type="text" class="mui-input-clear" id="userAddr" name="phoneNum"
+								placeholder="输入地址" value="${sessionScope.userInfo.userAddr}" >
 						</div>
 						<div class="mui-input-row">
-							<label>电子邮箱</label> <input type="text" class="mui-input-clear"
-								placeholder="输入电子邮箱" value="${sessionScope.userInfo.userEmail}">
+							<label>电子邮箱</label> <input type="text" class="mui-input-clear" id="userEmail" name="userEmail"
+								placeholder="输入电子邮箱" value="${sessionScope.userInfo.userEmail}" >
 						</div>
 						<div class="mui-input-row">
-							<label>身份证号码</label> <input type="text" class="mui-input-clear"
+							<label>身份证号码</label> <input type="text" class="mui-input-clear" id="userIdNum" name="userIdNum"
 								placeholder="输入身份证号码" value="${sessionScope.userInfo.userIdcardNum}">
 						</div>
 						<div class="mui-input-row">
-							<label>年级班级</label> <input type="text" class="mui-input-clear"
-								placeholder="例：古十中87届18班" value="${sessionScope.userInfo.others}">
+							<label>年级班级</label> <input type="text" class="mui-input-clear" id="userGradeClass" name="userGradeClass"
+								placeholder="例：古十中87届18班" value="${sessionScope.userInfo.others}" >
 						</div>
 						<div class="mui-button-row">
-							<button class="mui-btn mui-btn-primary" type="button"
-								onclick="return false;">提交修改</button>
+							<button class="mui-btn mui-btn-primary" type="button" onclick="submitUserForm();">安全提交个人信息</button>
 						</div>
 					</form>
 				</div></li>
@@ -98,8 +103,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									
 									<!-- 第一张 -->
 									<div class="mui-slider-item" >
-											<p class="mui-slider-title"><button type="button" class="mui-btn mui-btn-danger" onclick="deleteImage(${item.materialId},'${item.loadUrl}');">删除该图片</button></p>
+											<div>
 											<img src="${item.loadUrl}" style="width:100%;">
+											<div style="position:absolute;top:0;left:0;width:200px;height:10px;z-index:100;">
+												<button type="button" class="mui-btn mui-btn-danger" onclick="deleteImage(${item.materialId},'${item.loadUrl}');">删除该图片</button></p>
+											</div>
+											</div>
 											
 									</div>
 									
@@ -136,9 +145,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</ul>
 	</div>
 	</div>
-	<script type="text/javascript" src="<%=basePath%>WeixinPages/common/js/jquery-1.11.2.js"></script>
-	<script src="<%=basePath%>WeixinPages/common/js/mui.min.js"></script>
-	<script type="text/javascript" src="<%=basePath%>WeixinPages/common/js/dialog.js"></script>
+	
+	<script>
+	// 对浏览器的UserAgent进行正则匹配，不含有微信独有标识的则为其他浏览器
+	var useragent = navigator.userAgent;
+	if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
+		// 这里警告框会阻塞当前页面继续加载
+		alert('已禁止本次访问：您必须使用微信内置浏览器访问本页面！');
+		// 以下代码是用javascript强行关闭当前页面
+		var opened = window.open('about:blank', '_self');
+		opened.opener = null;
+		opened.close();
+	}
+
+
+//退出个人空间
+function quitPage() {
+	wx.closeWindow();
+}
+</script>
 	<script>
 			mui.init();
 			
@@ -148,7 +173,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 			//删除图片
 			function deleteImage(materialId,loadUrl){
-				alert(3333);
+				
+                mui.confirm('确认删除该图片？', '删除提示',new Array('是','否'), function(e) {
+                    if (e.index == 0) {
+                    
 				mui.post('DeleteImage.action'
 						,{materialId:materialId,loadUrl:loadUrl}
 					,function(data){
@@ -166,9 +194,48 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    		}, 1500);
 					}
 				},'json');
+				
+			    
+                    } else {
+                        return;
+                    }
+                });
+				
 			}
 			
-			//mui.previewImage();
+			//提交表单保存
+			function submitUserForm(){
+				mui.confirm('确认提交修改吗？', '提示',new Array('否','是'), function(e) {
+                    if (e.index == 1) {
+                    	var userRealName=$("#userRealName").val();
+                    	var phoneNum=$("#phoneNum").val();
+                    	var userAddr=$("#userAddr").val();
+                    	var userEmail=$("#userEmail").val();
+                    	var userIdNum=$("#userIdNum").val();
+                    	var userGradeClass=$("#userGradeClass").val();
+					if(userRealName==''||phoneNum==''||userAddr==''||userEmail==''||userIdNum==''||userGradeClass==''){alert("请将信息填写完整！");return;}
+					//alert(222);
+				    // You can do something, then submit form by native
+				    // this.submit();
+				    // or use ajax submit
+				   mui.post("SaveUserData.action"
+						   ,{userRealName:userRealName,phoneNum:phoneNum,userAddr:userAddr,userEmail:userEmail,userIdNum:userIdNum,userGradeClass:userGradeClass}
+						   ,function(data){
+				            // some code
+				        	if(data.done=='0'){
+				        		mui.toast('提交成功',{ duration:'2000', type:'div' });//停留2s
+								window.location.reload(true);
+							}else{
+								mui.toast('提交失败',{ duration:'long', type:'div' });//停留3s
+							}
+				        },'json');
+				
+			    
+                    } else {
+                        return;
+                    }
+                });
+			}
 		</script>
 </body>
 </html>

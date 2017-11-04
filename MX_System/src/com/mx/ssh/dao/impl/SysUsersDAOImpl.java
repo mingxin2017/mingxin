@@ -271,4 +271,16 @@ public class SysUsersDAOImpl extends HibernateDaoSupport implements ISysUsersDAO
 		}
 	}
 
+	//更新用户信息
+	public boolean updateUserData(MxUsersData user) {
+		// TODO Auto-generated method stub
+		try{
+			getHibernateTemplate().update(user);
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 }
