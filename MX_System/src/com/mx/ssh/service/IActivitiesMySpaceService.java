@@ -57,5 +57,7 @@ public interface IActivitiesMySpaceService {
 
 	boolean deleteMyspaceMaterial(int materialId);
 
+	boolean deleteMyspaceComment(int commentId);//删除帖子及以下的评论
+
 
 }

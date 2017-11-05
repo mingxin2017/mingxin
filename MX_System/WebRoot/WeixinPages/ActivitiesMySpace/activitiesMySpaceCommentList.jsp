@@ -199,10 +199,14 @@ function doSaveMyspaceComment_comment(userId,myspaceId,commentId,commentTxt){
 }
 
 function DeleteComment_comment(commentId,parentId){
-	var truthBeTold = window.confirm("确定删除本条评论吗？");
-	if (truthBeTold) {
-		DoDeleteComment_comment(commentId,parentId);
-	}
+	mui.confirm('确定删除这条评论吗？', '提示',new Array('否','是'), function(e) {
+        if (e.index == 1) {
+        	DoDeleteComment_comment(commentId,parentId);
+        }else{
+        	return;
+        }
+	});
+	
 }
 
 //删除帖子评论

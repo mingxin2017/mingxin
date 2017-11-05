@@ -78,7 +78,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	function validateInviteCode(inviteCode){
 		$.ajax({
 		    type: "POST",
-		    url: "activitiesMySpace!validateInviteCode.action", //验证邀请码
+		    url: "activitiesMySpace/validateInviteCode.action", //验证邀请码
 		    data: {"userId":${sessionScope.userInfo.userId},"inviteCode":inviteCode},
 		    dataType:"json",
 		    async:false,//关闭异步，设置同步

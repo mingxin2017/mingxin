@@ -236,6 +236,34 @@ function quitPage() {
                     }
                 });
 			}
-		</script>
+
+			//删除帖子
+			function DeleteComment(commentId){
+				mui.confirm('确定删除帖子吗？', '提示',new Array('否','是'), function(e) {
+			        if (e.index == 1) {
+			        	//DoDeleteComment(commentId);
+			        	mui.post("DeleteComment.action"
+							 ,{commentId:commentId}
+							 ,function(data){
+						            // some code
+						        if(data.done=='0'){
+						        	mui.toast('删除成功',{ duration:'2000', type:'div' });//停留2s
+									window.location.reload(true);
+								}else{
+									mui.toast('删除失败',{ duration:'long', type:'div' });//停留3s
+								}
+						 },'json');
+			        }else{
+			        	return;
+			        }
+				});
+				
+			}
+
+			
+
+
+
+</script>
 </body>
 </html>

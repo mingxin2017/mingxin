@@ -20,7 +20,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link rel="stylesheet" href="<%=basePath%>WeixinPages/common/css/mui.min.css"/>
 		
 		<!--上传图片的css-->
-		<style type="text/css">
+
+		
+<style type="text/css">
 .rich{
 	width:80px;
     border:1px solid #0997F7;
@@ -216,6 +218,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				max-width: 100%;
 				height: auto;
 			}
+			.mui-slider-img-content {
+				position: absolute;
+				bottom: 10px;
+				left: 10px;
+				right: 10px;
+				color: red;
+				text-align: center;
+				line-height: 21px
+			}
 		</style>
 
 	</head>
@@ -272,7 +283,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 	
 			  <li class="mui-table-view-cell mui-media mui-col-xs-3">
 				<p>
-					<img data-lazyload="${item2.loadUrl}" data-preview-src="" data-preview-group="${item1.userData.userId}" />
+					<img data-lazyload="${item2.loadUrl}" data-preview-src="" data-preview-group="${item1.userData.userId}" data-content="${item2.describe}"/>
 				</p>
 				</li>
 				

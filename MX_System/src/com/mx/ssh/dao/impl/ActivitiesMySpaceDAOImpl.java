@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -314,6 +316,19 @@ public class ActivitiesMySpaceDAOImpl extends HibernateDaoSupport implements IAc
 			getHibernateTemplate().delete(m);
 			return true;
 		}else{
+			return false;
+		}
+	}
+
+	public boolean deleteMyspaceComment(int commentId) {
+		// TODO Auto-generated method stub
+		try{
+		Session session= this.getSession();
+	    Query q= session.createQuery("delete from MxActivitiesMySpaceComment au where au.commentId="+commentId+" or au.parentCommentId="+commentId);
+	    q.executeUpdate();
+	    return true;
+		}catch(Exception e){
+			e.printStackTrace();
 			return false;
 		}
 	}

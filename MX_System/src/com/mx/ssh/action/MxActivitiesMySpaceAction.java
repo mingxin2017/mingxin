@@ -331,7 +331,7 @@ public class MxActivitiesMySpaceAction extends ActionSupport {
 			map.put("msg", "参加活动成功！");
 			map.put("liData",
 					"<li  class='mui-table-view-cell mui-media'>"
-							+ "<a href='activitiesMySpace!gotoActivitiesMySpaceMain.action?myspaceId="
+							+ "<a href='activitiesMySpace/gotoActivitiesMySpaceMain.action?myspaceId="
 							+ userMySpace.getMyspaceId()
 							+ "'>"
 							+ "<img  class='mui-media-object mui-pull-left'  src='"
@@ -571,12 +571,35 @@ public class MxActivitiesMySpaceAction extends ActionSupport {
 		}
 		JSONObject jsonObject = JSONObject.fromObject(map);
 		response.getWriter().write(jsonObject.toString());
-
-	
 	}
 	
 	/*
-	 * 删除帖子评论
+	 * 删除帖子(及其评论内容)
+	 */
+	@Action(value = "DeleteComment")
+	public void DeleteComment() throws IOException{
+		HttpServletRequest request = ServletActionContext.getRequest();// 请求request对象
+		request.setCharacterEncoding("UTF-8");
+		HttpServletResponse response = ServletActionContext.getResponse();// response对象返回数据给前台
+		response.setContentType("application/json; charset=utf-8");
+		int commentId = Integer.parseInt(request.getParameter("commentId")
+				.toString());// 获取评论id
+		boolean isDeleted = activitiesMySpaceService.deleteMyspaceComment(commentId);
+		Map<String, String> map = new HashMap<String, String>();
+		if (!isDeleted) {
+			map.put("done", "-1");
+			map.put("msg", "删除失败!");
+		} else {
+			map.put("done", "0");
+			map.put("msg", "删除成功!");
+		}
+		JSONObject jsonObject = JSONObject.fromObject(map);
+		response.getWriter().write(jsonObject.toString());
+	}
+	
+	
+	/*
+	 * 更改用户信息
 	 */
 	@Action(value = "SaveUserData")
 	public void SaveUserData() throws IOException{
