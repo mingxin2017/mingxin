@@ -182,16 +182,14 @@ function doSaveMyspaceComment_comment(userId,myspaceId,commentId,commentTxt){
 		    			var c=document.getElementById('span2'+commentId);
 		    			var cc=parseInt(c.innerHTML)+1;
 			    		c.innerHTML=cc;
-		    		alert('发送成功');
+			    		mui.toast('发送成功',{ duration:'2000', type:'div' });//停留2s
 		    	}else{
-		    		var dd = dialog('发送失败');
+		    		
+		    		mui.toast('发送失败！',{ duration:'2000', type:'div' });//停留2s
 		    	}
 			},
 			error: function(json){
-				var ddd = dialog('提交数据异常，请刷新后重试...').show();
-				setTimeout(function () {
-					ddd.close().remove();
-	    		}, 1500);
+				mui.toast('提交数据异常，请刷新后重试...',{ duration:'2000', type:'div' });//停留2s
 			}
 	    });
 	
@@ -221,21 +219,18 @@ function DoDeleteComment_comment(commentId,parentId){
 		    		var c=document.getElementById('comment3_'+commentId);
 		    		//alert(c);
 		    		c.parentNode.removeChild(c);
-		    		alert('成功删除');
+		    		mui.toast('成功删除！',{ duration:'2000', type:'div' });//停留2s
 		    		var span=document.getElementById('span2'+parentId);
 		    		
 		    		var num=parseInt(span.innerHTML)-1;
 		    		
 		    		span.innerHTML=num;
 		    	}else{
-		    		var dd = dialog('删除失败');
+		    		mui.toast('删除失败！',{ duration:'2000', type:'div' });//停留2s
 		    	}
 			},
 			error: function(json){
-				var ddd = dialog('提交数据异常，请刷新后重试...').show();
-				setTimeout(function () {
-					ddd.close().remove();
-	    		}, 1500);
+				mui.toast('提交数据异常，请刷新后重试...',{ duration:'2000', type:'div' });//停留2s
 			}
 	    });
 }
@@ -376,9 +371,13 @@ mui.init();
 
 
 mui('#footerTab').on('tap','a',function(){
-	//var w=window.top.document;
-	//var dl=dialog('加载中...').showModal();
-    window.top.location.href=this.href;
+	var current = document.querySelector(".mui-tab-item.mui-active");
+	if (this !== current) {
+		var dl=dialog('加载中...').showModal();
+		current.classList.remove('mui-active');
+		this.classList.add('mui-active');
+		window.top.location.href=this.href;
+	}
 });
 
 

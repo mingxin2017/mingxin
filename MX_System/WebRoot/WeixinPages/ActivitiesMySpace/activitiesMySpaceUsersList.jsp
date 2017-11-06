@@ -153,7 +153,7 @@ function quitPage() {
 </c:if>
 </head>
 
-<body>
+<body id="PageBody">
 	<header class="mui-bar mui-bar-nav" id="myspaceMainHeader"> 
 		<a class="mui-btn mui-btn-blue mui-btn-link mui-pull-left" onclick="quitPage();">退出</a>
 		<h1 id="title" class="mui-title">通讯录</h1>
@@ -220,8 +220,16 @@ function quitPage() {
 			placeholder: '/MX_System/WeixinPages/common/images/60x60.gif'
 		});
 	})(mui);
+	
 	mui('#footerTab').on('tap','a',function(){
-	    window.top.location.href=this.href;
+		var current = document.querySelector(".mui-tab-item.mui-active");
+		if (this !== current) {
+			var dl=dialog('加载中...').showModal();
+			current.classList.remove('mui-active');
+			this.classList.add('mui-active');
+			window.top.location.href=this.href;
+		
+		}
 	});
 
 </script>

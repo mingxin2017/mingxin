@@ -336,9 +336,17 @@ function quitPage() {
 			});
 		})(mui);
 		
+		
 		mui('#footerTab').on('tap','a',function(){
-		    window.top.location.href=this.href;
+			var current = document.querySelector(".mui-tab-item.mui-active");
+			if (this !== current) {
+				var dl=dialog('加载中...').showModal();
+				current.classList.remove('mui-active');
+				this.classList.add('mui-active');
+				window.top.location.href=this.href;
+			}
 		});
+		
 
 		function operate(obj){
 			var imgNum=parseInt($('#imgNum').val());
