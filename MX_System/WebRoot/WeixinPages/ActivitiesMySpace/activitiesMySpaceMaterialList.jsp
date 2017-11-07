@@ -283,7 +283,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 	
 			  <li class="mui-table-view-cell mui-media mui-col-xs-3">
 				<p>
-					<img data-lazyload="${item2.loadUrl}" data-preview-src="" data-preview-group="${item1.userData.userId}" data-content="${item2.describe}"/>
+					<img data-lazyload="/MX_System/WeixinPages/common/images/60x60.gif" data-preview-src="${item2.loadUrl}" data-preview-group="${item1.userData.userId}" data-content="${item2.describe}"/>
 				</p>
 				</li>
 				
