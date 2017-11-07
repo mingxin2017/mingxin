@@ -18,6 +18,7 @@ public class MxActivitiesMySpaceMaterial implements java.io.Serializable {
 	private String describe;
 	private Date createDate;
 	private String others;
+	private String previewImgUrl;
 
 	// Constructors
 
@@ -28,19 +29,20 @@ public class MxActivitiesMySpaceMaterial implements java.io.Serializable {
 	/** minimal constructor */
 	public MxActivitiesMySpaceMaterial(Integer submitUserId, Integer myspaceId,
 			Integer materialType, String loadUrl, String describe,
-			Date createDate) {
+			Date createDate, String previewImgUrl) {
 		this.submitUserId = submitUserId;
 		this.myspaceId = myspaceId;
 		this.materialType = materialType;
 		this.loadUrl = loadUrl;
 		this.describe = describe;
 		this.createDate = createDate;
+		this.previewImgUrl = previewImgUrl;
 	}
 
 	/** full constructor */
 	public MxActivitiesMySpaceMaterial(Integer submitUserId, Integer myspaceId,
 			Integer materialType, String loadUrl, String describe,
-			Date createDate, String others) {
+			Date createDate, String others, String previewImgUrl) {
 		this.submitUserId = submitUserId;
 		this.myspaceId = myspaceId;
 		this.materialType = materialType;
@@ -48,6 +50,7 @@ public class MxActivitiesMySpaceMaterial implements java.io.Serializable {
 		this.describe = describe;
 		this.createDate = createDate;
 		this.others = others;
+		this.previewImgUrl = previewImgUrl;
 	}
 
 	// Property accessors
@@ -114,6 +117,14 @@ public class MxActivitiesMySpaceMaterial implements java.io.Serializable {
 
 	public void setOthers(String others) {
 		this.others = others;
+	}
+
+	public String getPreviewImgUrl() {
+		return this.previewImgUrl;
+	}
+
+	public void setPreviewImgUrl(String previewImgUrl) {
+		this.previewImgUrl = previewImgUrl;
 	}
 
 }

@@ -31,5 +31,8 @@
         <property name="others" type="string">
             <column name="others" />
         </property>
+        <property name="previewImgUrl" type="string">
+            <column name="preview_img_url" not-null="true" />
+        </property>
     </class>
 </hibernate-mapping>

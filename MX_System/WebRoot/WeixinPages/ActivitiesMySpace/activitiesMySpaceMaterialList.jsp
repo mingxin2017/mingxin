@@ -277,13 +277,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</c:if>
 			<div class="mui-card-content" >
 			<ul class="mui-table-view mui-grid-view" id="${item1.userData.userId}">
-				
-		
+			
 		      <c:forEach items="${item1.userMySpaceMaterialList}" var="item2">
 			 	
 			  <li class="mui-table-view-cell mui-media mui-col-xs-3">
 				<p>
-					<img data-lazyload="/MX_System/WeixinPages/common/images/60x60.gif" data-preview-src="${item2.loadUrl}" data-preview-group="${item1.userData.userId}" data-content="${item2.describe}"/>
+					<img data-lazyload="${item2.previewImgUrl}" data-preview-src="${item2.loadUrl}" data-preview-group="${item1.userData.userId}" data-content="${item2.describe}"/>
 				</p>
 				</li>
 				
@@ -351,10 +350,7 @@ function quitPage() {
 		function operate(obj){
 			var imgNum=parseInt($('#imgNum').val());
 			if(imgNum!=-1&&imgNum>=12){
-				var ddd = dialog('您已上传12张照片，无法上传更多！').showModal();
-				setTimeout(function () {
-					ddd.close().remove();
-	    		}, 1500);
+				mui.toast('您已上传12张照片，无法上传更多！',{ duration:'2000', type:'div' });//停留2s
 				return;
 			}
 					var d = dialog({
@@ -395,50 +391,38 @@ function quitPage() {
 		//上传图片事件
 		function doUploadImage(imgFile){
 			var d=dialog({content:'上传中...'}).showModal();//加载中弹出框
-	         lrz(imgFile, {height:1080,width:1080})//压缩图片
+	         lrz(imgFile, {height:1080,width:1080})//压缩原图片（宽高相同以短边为准）
 	            .then(function (rst) {
-	                $.ajax({
-	                    url: 'UploadImage.action',
-	                    type: 'post',
-	                    data: {img: rst.base64},
-	                    dataType: 'json',
-	                    timeout: 200000,
-	                    success: function (response) {
-	                        if (response.done == '0') {
-	                        	d.content(response.msg);
-	                        	setTimeout(function () {
-	        		    			d.close().remove();
-	        		    		}, 1500);
-	                        	//刷新页面
-	                        	window.location.reload(true);
-	                            return true;
-	                        } else {
-	                        	d.content(response.msg);
-	                        	setTimeout(function () {
-	        		    			d.close().remove();
-	        		    		}, 1500);
-	                            return alert(response.msg);
-	                        }
-	                    },
-
-	                    error: function (jqXHR, textStatus, errorThrown) {
-
-	                        if (textStatus == 'timeout') {
-	                            a_info_alert('请求超时');
-
-	                            return false;
-	                        }
-
-	                        alert(jqXHR.responseText);
-	                    }
-	                });
-
-	            })
-	            .catch(function (err) {
-
-	            })
-	            .always(function () {
-
+	            	lrz(imgFile, {height:128,width:128})//生成照片缩略图
+	            		.then(function(rst2){
+	                	$.ajax({
+	                    	url: 'UploadImage.action',
+	                    	type: 'post',
+	                    	data: {img: rst.base64,imgPreview:rst2.base64},
+	                    	dataType: 'json',
+	                    	timeout: 200000,
+	                    	success: function (response) {
+	                        	if (response.done == '0') {
+	                        		mui.toast(response.msg,{duration:'2000', type:'div'});//停留2s
+	                        		//刷新页面
+	                        		d.close().remove();
+	                        		window.location.reload(true);
+	                            	return true;
+	                        	} else {
+	                        		mui.toast(response.msg,{duration:'2000', type:'div'});//停留2s
+	                        		d.close().remove();
+	                            	return false;
+	                        	}
+	                    	},
+	                    	error: function (jqXHR, textStatus, errorThrown) {
+	                        	if (textStatus == 'timeout') {
+	                            	mui.toast('请求超时',{duration:'2000', type:'div'});//停留2s
+	                            	return false;
+	                        	}
+	                        	mui.toast(jqXHR.responseText,{duration:'2000', type:'div'});//停留2s
+	                    	}
+	                	});
+	            	});
 	            });
 		}
 		

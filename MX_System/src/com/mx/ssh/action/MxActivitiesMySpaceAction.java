@@ -362,21 +362,25 @@ public class MxActivitiesMySpaceAction extends ActionSupport {
 		int userId = ((MxUsersData)request.getSession().getAttribute("userInfo")).getUserId();// 获取用户id
 		String myspaceId =request.getSession().getAttribute("myspaceId").toString();// 获取活动空间id
 		String base64Img = request.getParameter("img").toString();
+		String base64ImgPreview = request.getParameter("imgPreview").toString();
 		base64Img = base64Img.replace("data:image/jpeg;base64,", "");// 去除base64中无用的文件头
+		base64ImgPreview = base64ImgPreview.replace("data:image/jpeg;base64,","");// 去除base64中无用的文件头
 		String savePath = "/WeixinPages/common/uploadImg/myspaceImg/"
 				+ myspaceId + "/" + userId + "/";// 保存图片的服务器相对路径
 		String realSavePath = request.getSession().getServletContext()
 				.getRealPath(savePath);//系统文件夹目录路径
-		String imgName = ImageMethod.Base64SaveAsImage(base64Img, realSavePath);// 保存图片到系统应用文件夹中
+		String imgName = ImageMethod.Base64SaveAsImage(base64ImgPreview,base64Img,realSavePath);// 保存图片到系统应用文件夹中
 
 		Map<String, String> map = new HashMap<String, String>();
-		String showPath = request.getContextPath() + savePath;//服务器url绝对巨鲸
-		String imgPath = showPath + imgName;
+		String showPath = request.getContextPath() + savePath;//服务器url绝对路径
+		String imgPath = showPath +"/img/"+ imgName;
+		String imgPreviewPath = showPath +"/preview/"+ imgName;
 
 		MxActivitiesMySpaceMaterial material = new MxActivitiesMySpaceMaterial();
 		material.setCreateDate(new Timestamp(System.currentTimeMillis()));
 		material.setDescribe("图片描述");
 		material.setLoadUrl(imgPath);
+		material.setPreviewImgUrl(imgPreviewPath);
 		material.setMaterialType(1);// 图片类型为1
 		material.setMyspaceId(Integer.parseInt(myspaceId));
 		material.setOthers("");
@@ -386,11 +390,11 @@ public class MxActivitiesMySpaceAction extends ActionSupport {
 
 		if (imgName == null || saveToSQL == false) {
 			map.put("done", "-1");
-			map.put("imgSrc", "/");
+			//map.put("imgSrc", "/");
 			map.put("msg", "图片上传失败了!");
 		} else {
 			map.put("done", "0");
-			map.put("imgSrc", imgPath);// 显示图片的完整相对路径
+			//map.put("imgSrc", imgPath);// 显示图片的完整相对路径
 			map.put("msg", "图片上传成功!");
 			System.out.println("用户上传图片至：" + imgPath);
 		}
