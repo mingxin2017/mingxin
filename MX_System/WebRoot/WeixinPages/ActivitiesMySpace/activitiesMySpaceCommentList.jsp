@@ -136,7 +136,7 @@ function ClickPraise(commentId,userId){
      });
 }
 
-
+//帖子评论
 function ClickComment_comment(obj,myspaceId,commentId,userId){
 	//alert(222);
 	var d = dialog({
@@ -155,8 +155,9 @@ function ClickComment_comment(obj,myspaceId,commentId,userId){
 								
 							},
 							autofocus : true
-				}]
-	
+		}, {
+			value : '取消'
+		}]
 	}).showModal();
 }
 
@@ -266,6 +267,8 @@ function DoDeleteComment_comment(commentId,parentId){
 	</nav>
 	
 	<div id="iframeContent" class="mui-content" style="height:100%;overflow-y:scroll;">
+	<%for(int ii=0;ii<50;ii++){ %>
+	
 	<c:forEach items="${userMySpaceCommentList}" var="item">
 	<c:if test="${item.parentCommentId eq -1}">
 	<%int commentNum=0; %>
@@ -276,7 +279,7 @@ function DoDeleteComment_comment(commentId,parentId){
 		</c:forEach>
 	<div class="mui-card">
 		<div class="mui-card-header mui-card-media" >
-			<img data-lazyload="${item.mxUsersData.weixinHeadUrl}" />
+			<img data-lazyload="${item.mxUsersData.weixinHeadUrl}" src="${item.mxUsersData.weixinHeadUrl}"/>
 			<div class="mui-media-body">
 				${item.mxUsersData.userRealName}
 				<p>发表于<fmt:formatDate value="${item.createDate}" pattern="yyyy-MM-dd　HH:mm"/>
@@ -349,6 +352,7 @@ function DoDeleteComment_comment(commentId,parentId){
 	</div>
 	</c:if>
 	</c:forEach>
+	<%} %>
 	</div>
 </body>
 
@@ -358,16 +362,13 @@ function DoDeleteComment_comment(commentId,parentId){
 
 <script type="text/javascript">
 
-mui.init();
-
-(function($){
-	//alert(1111);
-	$(document).imageLazyload({
-		placeholder: '/MX_System/WeixinPages/common/images/60x60.gif'
+	var lazyLoadApi=mui(document).imageLazyload({
+		placeholder: '<%=basePath%>WeixinPages/common/images/60x60.gif'
 	});
 	//lazyLoadApi.refresh(true);
 	
-})(mui);
+	
+mui.init();
 
 
 mui('#footerTab').on('tap','a',function(){

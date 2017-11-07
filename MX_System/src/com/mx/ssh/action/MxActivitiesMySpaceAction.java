@@ -373,8 +373,8 @@ public class MxActivitiesMySpaceAction extends ActionSupport {
 
 		Map<String, String> map = new HashMap<String, String>();
 		String showPath = request.getContextPath() + savePath;//服务器url绝对路径
-		String imgPath = showPath +"/img/"+ imgName;
-		String imgPreviewPath = showPath +"/preview/"+ imgName;
+		String imgPath = showPath +"img/"+ imgName;
+		String imgPreviewPath = showPath +"preview/"+ imgName;
 
 		MxActivitiesMySpaceMaterial material = new MxActivitiesMySpaceMaterial();
 		material.setCreateDate(new Timestamp(System.currentTimeMillis()));

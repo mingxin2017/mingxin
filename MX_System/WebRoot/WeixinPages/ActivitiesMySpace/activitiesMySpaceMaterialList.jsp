@@ -231,7 +231,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	</head>
 
-	<body>
+	<body >
 	<header class="mui-bar mui-bar-nav" id="myspaceMainHeader"> 
 		<a class="mui-btn mui-btn-blue mui-btn-link mui-pull-left" onclick="quitPage();">退出</a>
 		<h1 id="title" class="mui-title">照片墙</h1>
@@ -257,14 +257,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<span class="mui-tab-label">个人空间</span> 
 		</a> 
 	</nav>
-	
-		<div class="mui-content">
+		
+		<div class="mui-content mui-scroll-wrapper" >
+		<div class="mui-scroll">
 		<%int imgNum=-1; %>
+		
+		
+		
 		<c:forEach items="${userMySpaceMaterialList}" var="item1">
 		
+			<%for(int ii=0;ii<20;ii++){ %>
 			<div class="mui-card">
 				<div class="mui-card-header mui-card-media">
-					<img data-lazyload="${item1.userData.weixinHeadUrl}" />
+					<img data-lazyload="${item1.userData.weixinHeadUrl}" src="${item1.userData.weixinHeadUrl}"/>
 					<div class="mui-media-body">
 						${item1.userData.userRealName}
 						<p>更新于<fmt:formatDate value="${item1.userMySpaceMaterialList[0].createDate}" pattern="yyyy-MM-dd　HH:mm"/></p>
@@ -282,19 +287,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 	
 			  <li class="mui-table-view-cell mui-media mui-col-xs-3">
 				<p>
-					<img data-lazyload="${item2.previewImgUrl}" data-preview-src="${item2.loadUrl}" data-preview-group="${item1.userData.userId}" data-content="${item2.describe}"/>
+					<img data-lazyload="${item2.loadUrl}" src="${item2.previewImgUrl}" data-preview-src="" data-preview-group="${item1.userData.userId}" data-content="${item2.describe}"/>
 				</p>
-				</li>
+				</li><%--${item2.previewImgUrl}
 				
-			  </c:forEach>
+			  --%></c:forEach>
 			  
 			  
 			  </ul>
 				</div>
 			</div>
-			
+			<%} %>
 			</c:forEach>
+			
+			
+			
 			<input id="imgNum" type="hidden" value="<%=imgNum%>"/>
+			
+			</div>
 		</div>
 	</body>
 	<script type="text/javascript" src="<%=basePath%>WeixinPages/common/js/jquery-1.11.2.js"></script>
@@ -327,14 +337,26 @@ function quitPage() {
 	
 		mui.previewImage();//设置图片预览
 		
-		mui.init();//mui初始化
 		
-		(function($) {//设置图片懒加载
-			$(document).imageLazyload({
-				placeholder: '/MX_System/WeixinPages/common/images/60x60.gif'
+		
+		//设置图片懒加载
+			
+			mui(document).imageLazyload({
+				placeholder: '<%=basePath%>WeixinPages/common/images/60x60.gif'
 			});
-		})(mui);
 		
+			mui.init();//mui初始化
+		
+			mui('.mui-scroll-wrapper').scroll({
+				scrollY: true, //是否竖向滚动
+				 scrollX: false, //是否横向滚动
+				 startX: 0, //初始化时滚动至x
+				 startY: 0, //初始化时滚动至y
+				 indicators: false, //是否显示滚动条
+				 deceleration:0.0006, //阻尼系数,系数越小滑动越灵敏
+				 bounce: false //是否启用回弹
+				//deceleration: 0.0009 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+			});
 		
 		mui('#footerTab').on('tap','a',function(){
 			var current = document.querySelector(".mui-tab-item.mui-active");
@@ -354,7 +376,7 @@ function quitPage() {
 				return;
 			}
 					var d = dialog({
-						fixed: true,
+						fixed:true,
 						content: '<div id="showImage" class="rich">预览</div><div class="footer-btn " ><span ><i class="mui-icon mui-icon-image"></i>选图</span><input onchange="showImage(this);" class="input-file-css" type="file" accept="image/*" name="imgFile" id="imgFile"></div>',
 						
 						button : [ {
