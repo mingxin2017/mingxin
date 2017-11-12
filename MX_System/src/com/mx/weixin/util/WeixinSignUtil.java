@@ -14,7 +14,10 @@ import java.util.Arrays;
 public class WeixinSignUtil {
     
     // 与接口配置信息中的Token要一致
-	public final static String serverUrl="http://mingxin.imwork.net/MX_System/";
+	//公司服务器花生壳url
+	public final static String serverUrl="http://mingxin2017.iask.in/MX_System/";
+	//本地花生壳url
+	//public final static String serverUrl="http://mingxin.imwork.net/MX_System/";
     private static String token = "weixin_mingxin";
 
 	//public final static String serverUrl="http://mingxin.imwork.net/MX_System/";

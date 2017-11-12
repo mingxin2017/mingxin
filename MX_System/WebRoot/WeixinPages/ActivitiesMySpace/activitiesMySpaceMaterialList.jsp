@@ -227,6 +227,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				text-align: center;
 				line-height: 21px
 			}
+			
+			
+			#imgPreview ul li img{
+				height:15%;
+			}
 		</style>
 
 	</head>
@@ -266,7 +271,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		<c:forEach items="${userMySpaceMaterialList}" var="item1">
 		
-			<%for(int ii=0;ii<20;ii++){ %>
+			
 			<div class="mui-card">
 				<div class="mui-card-header mui-card-media">
 					<img data-lazyload="${item1.userData.weixinHeadUrl}" src="${item1.userData.weixinHeadUrl}"/>
@@ -280,14 +285,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<c:set var="len" value="${fn:length(item1.userMySpaceMaterialList)}" scope="request"></c:set>
 					<%imgNum=(Integer)request.getAttribute("len");%>
 				</c:if>
-			<div class="mui-card-content" >
+			<div class="mui-card-content" id="imgPreview">
 			<ul class="mui-table-view mui-grid-view" id="${item1.userData.userId}">
 			
 		      <c:forEach items="${item1.userMySpaceMaterialList}" var="item2">
 			 	
 			  <li class="mui-table-view-cell mui-media mui-col-xs-3">
 				<p>
-					<img data-lazyload="${item2.loadUrl}" src="${item2.previewImgUrl}" data-preview-src="" data-preview-group="${item1.userData.userId}" data-content="${item2.describe}"/>
+					<img  data-lazyload="${item2.loadUrl}" src="${item2.previewImgUrl}" data-preview-src="" data-preview-group="${item1.userData.userId}" data-content="${item2.describe}"/>
 				</p>
 				</li><%--${item2.previewImgUrl}
 				
@@ -297,7 +302,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  </ul>
 				</div>
 			</div>
-			<%} %>
+		
 			</c:forEach>
 			
 			
@@ -328,11 +333,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		opened.close();
 	}
 
-
-//退出个人空间
-function quitPage() {
-	wx.closeWindow();
-}
+	
+	
+	//退出个人空间
+	function quitPage() {
+		wx.closeWindow();
+	}
 	
 	
 		mui.previewImage();//设置图片预览
@@ -342,7 +348,7 @@ function quitPage() {
 		//设置图片懒加载
 			
 			mui(document).imageLazyload({
-				placeholder: '<%=basePath%>WeixinPages/common/images/60x60.gif'
+				placeholder: '<%=basePath%>WeixinPages/common/images/80x80.jpg'
 			});
 		
 			mui.init();//mui初始化

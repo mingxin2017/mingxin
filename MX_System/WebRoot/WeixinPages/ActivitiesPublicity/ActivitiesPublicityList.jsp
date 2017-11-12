@@ -55,7 +55,7 @@
 			</c:if>
 			<c:forEach items="${sessionScope.activitiesPublicityList}" var="item">
 				<li class="mui-table-view-cell mui-media">
-					<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=${sessionScope.appID}&redirect_uri=${sessionScope.serverUrl}activitiesPublicity!gotoActivitiesDetail.action?publicityDataId=${item.publicityDataId}&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">
+					<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=${sessionScope.appID}&redirect_uri=${sessionScope.serverUrl}activitiesPublicity/gotoActivitiesDetail.action?publicityDataId=${item.publicityDataId}&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">
 						<img class="mui-media-object mui-pull-left"  src="${item.coverImageUrl}">
 						<div class="mui-media-body" style="color:black" >
 							${item.articleTitle}

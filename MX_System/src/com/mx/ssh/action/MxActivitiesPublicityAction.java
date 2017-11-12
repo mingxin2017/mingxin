@@ -4,6 +4,13 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.Namespace;
+import org.apache.struts2.convention.annotation.ParentPackage;
+import org.apache.struts2.convention.annotation.Result;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
 
 
 import com.mx.ssh.bean.MxActivitiesPublicityContent;
@@ -13,21 +20,25 @@ import com.mx.weixin.pojo.SNSUserInfo;
 import com.mx.weixin.util.WeixinSignUtil;
 import com.mx.weixin.util.WeixinUtil;
 
+
+@Controller
+//控制层的Spring注解
+@Scope("prototype")
+//支持多例
+@ParentPackage("sys-default")
+//表示struts继承的父包
+@Namespace(value = "/activitiesPublicity")
+//表示当前Action所在命名空间
 public class MxActivitiesPublicityAction {
 
+	@Autowired// spring扫描注入
 	private IActivitiesPublicityService activitiesPublicityService;
 
-	/**
-	 * 　　*活动宣传文章action中的默认处理方法 　　
-	 */
-	public String execute() throws Exception {
-
-		return null;
-	}
-
+	
 	/**
 	 * 获取校友会宣传文章列表
 	 */
+	@Action(value = "getActivitiesPublicityList", results = { @Result(name = "ActivitiesPublicityList", location = "/WeixinPages/ActivitiesPublicity/ActivitiesPublicityList.jsp") })
 	public String getActivitiesPublicityList() {
 
 		HttpServletRequest request = ServletActionContext.getRequest();
@@ -37,13 +48,8 @@ public class MxActivitiesPublicityAction {
 		 * 需在struts.xml中配置noFucus和error的响应页面
 		 */
 		
-		
 		SNSUserInfo userInfo=WeixinUtil.validateWeixinWebUser(request);
-//		
-//		if(userInfo==null){
-//			return "noFocus";
-//		}
-		
+
 		String activitiesType = request.getParameter("type");
 		List<MxActivitiesPublicityData> activitiesPublicityList = activitiesPublicityService
 				.getActivitiesPublicityByType(Integer.parseInt(activitiesType));
@@ -60,9 +66,11 @@ public class MxActivitiesPublicityAction {
 	}
 
 	/**
+	 *
 	 * 跳转到活动宣传文章详细内容页
 	 * @return
 	 */
+	@Action(value = "gotoActivitiesDetail", results = { @Result(name = "ActivitiesPublicityDetail", location = "/WeixinPages/ActivitiesPublicity/ActivitiesPublicityDetail.jsp") })
 	public String gotoActivitiesDetail(){
 		
 		HttpServletRequest request = ServletActionContext.getRequest();
@@ -74,18 +82,11 @@ public class MxActivitiesPublicityAction {
 		return "ActivitiesPublicityDetail";
 	}
 	
+	
+	@Action(value = "gotoArtEditor", results = { @Result(name = "ArtEditor", location = "/WeixinPages/ActivitiesPublicity/ActivitiesPublicityDetail.jsp") })
 	public String gotoArtEditor(){
 		return "ArtEditor";
 	}
 	
 	
-	public IActivitiesPublicityService getActivitiesPublicityService() {
-		return activitiesPublicityService;
-	}
-
-	public void setActivitiesPublicityService(
-			IActivitiesPublicityService activitiesPublicityService) {
-		this.activitiesPublicityService = activitiesPublicityService;
-	}
-
 }

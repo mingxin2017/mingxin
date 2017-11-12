@@ -2,12 +2,17 @@ package com.mx.ssh.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.mx.ssh.bean.MxActivitiesPublicityContent;
 import com.mx.ssh.bean.MxActivitiesPublicityData;
 import com.mx.ssh.dao.IActivitiesPublicityDAO;
 
+@Service("activitiesPublicityService")
 public class ActivitiesPublicityServiceImpl implements com.mx.ssh.service.IActivitiesPublicityService {
 	
+	@Autowired
 	private IActivitiesPublicityDAO activitiesPublicityDAO;
 	
 	/**作用：根据类型id获取活动宣传文章

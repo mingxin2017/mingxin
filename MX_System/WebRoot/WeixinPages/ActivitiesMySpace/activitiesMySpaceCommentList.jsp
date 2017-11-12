@@ -267,7 +267,7 @@ function DoDeleteComment_comment(commentId,parentId){
 	</nav>
 	
 	<div id="iframeContent" class="mui-content" style="height:100%;overflow-y:scroll;">
-	<%for(int ii=0;ii<50;ii++){ %>
+	
 	
 	<c:forEach items="${userMySpaceCommentList}" var="item">
 	<c:if test="${item.parentCommentId eq -1}">
@@ -352,7 +352,7 @@ function DoDeleteComment_comment(commentId,parentId){
 	</div>
 	</c:if>
 	</c:forEach>
-	<%} %>
+	
 	</div>
 </body>
 
@@ -363,7 +363,7 @@ function DoDeleteComment_comment(commentId,parentId){
 <script type="text/javascript">
 
 	var lazyLoadApi=mui(document).imageLazyload({
-		placeholder: '<%=basePath%>WeixinPages/common/images/60x60.gif'
+		placeholder: '<%=basePath%>WeixinPages/common/images/80x80.jpg'
 	});
 	//lazyLoadApi.refresh(true);
 	

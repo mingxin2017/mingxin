@@ -2,11 +2,13 @@ package com.mx.ssh.dao.impl;
 
 import java.util.List;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import org.springframework.stereotype.Repository;
 
 import com.mx.ssh.bean.MxActivitiesPublicityContent;
 import com.mx.ssh.bean.MxActivitiesPublicityData;
 import com.mx.ssh.dao.IActivitiesPublicityDAO;
 
+@Repository("activitiesPublicityDAO")
 public class ActivitiesPublicityDAOImpl extends HibernateDaoSupport implements IActivitiesPublicityDAO{
 
 	/**
