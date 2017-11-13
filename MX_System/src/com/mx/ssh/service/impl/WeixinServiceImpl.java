@@ -138,10 +138,18 @@ public class WeixinServiceImpl implements com.mx.ssh.service.IWeixinService{
                     
                     System.out.println("用户关注公众号，自动添加为系统普通用户");
                     
-                    MxUsersData user=new MxUsersData();
+                    MxUsersData user=new MxUsersData("wUser","123456", -1,
+                			"", "", "",
+                			new Date(), "",-1,
+                			"", "",0,
+                			0, "", "",
+                			-1, "", 0,
+                			0, "", new Date(),
+                			"", "", "");
                     user.setWeixinNikeName(wui.getNickname());
                     user.setWeixinOpenId(wui.getOpenId());
                     user.setWeixinHeadUrl(wui.getHeadImgUrl());
+                    user.setUserSex(wui.getSex());
                     MxUsersData ur=sysUsersDAO.getUserByOpenId(wui.getOpenId());
                     if(ur==null){
                     	sysUsersDAO.addUser(user);
