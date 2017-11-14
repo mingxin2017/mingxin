@@ -103,7 +103,7 @@ public class WeixinUtil {
                 if (0 == weixinUserInfo.getSubscribe()) {
                 	System.out.println("用户已取消关注");
                     log.error("用户{}已取消关注", weixinUserInfo.getOpenId());
-                } else {
+                }else {
                     int errorCode = jsonObject.getInt("errcode");
                     String errorMsg = jsonObject.getString("errmsg");
                     System.out.println("获取用户信息失败");

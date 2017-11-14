@@ -229,12 +229,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 			
 			
-			#imgPreview ul li img{
-				height:15%;
-			}
-		</style>
+			
+		</style><%--
 
-	</head>
+	#imgPreview ul li img{
+				height:auto;
+			}
+	
+	--%></head>
 
 	<body >
 	<header class="mui-bar mui-bar-nav" id="myspaceMainHeader"> 
@@ -270,7 +272,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		
 		<c:forEach items="${userMySpaceMaterialList}" var="item1">
-		
+			<c:if test="${item1.userMySpaceMaterialList!=null && fn:length(item1.userMySpaceMaterialList) != 0}">
 			
 			<div class="mui-card">
 				<div class="mui-card-header mui-card-media">
@@ -302,7 +304,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  </ul>
 				</div>
 			</div>
-		
+			</c:if>
 			</c:forEach>
 			
 			
